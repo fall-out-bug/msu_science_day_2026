@@ -1,7 +1,7 @@
 {
   "count": 74,
   "checks": [
-    "default entry is immediate playable sky",
+    "default entry is a real image workbench",
     "entry is an observatory scene",
     "episode directory remains optional",
     "entry offers both destinations",
@@ -69,7 +69,7 @@
     "navigation reaches brightness",
     "mobile supernova result states completion",
     "navigation reaches tracking",
-    "restart returns to playable sky",
+    "restart returns to cleared workbench",
     "restart clears progress in both episodes",
     "navigation reaches overview",
     "episode map counts 0 / 2",

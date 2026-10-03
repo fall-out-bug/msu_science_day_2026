@@ -1,10 +1,10 @@
 {
   "url": "http://192.168.50.12:8081/",
-  "image": "sha256:4d5543a5e769566a8f9df2a4c0cd8d9914db9aab09c0d5eefae35b10c60af772",
+  "image": "sha256:ef76d4f079ded6f49627bded8952a35493c244174a35f8fceba3c8a540223b0b",
   "assets": [
     {
       "file": "index.html",
-      "sha256": "7528bdaed9710c3608af57201ac552d6cc0b3edbc240843b8dda00124ce8d3e4",
+      "sha256": "1cc737b202b9087ef50345c22fc454dfddbe034c3ec095afdb0d5b199f75e602",
       "cacheControl": "no-store"
     },
     {
@@ -14,7 +14,7 @@
     },
     {
       "file": "game.js",
-      "sha256": "8a64c3311d0da9d71607bf51f3256a4043ef05974f64df3f0881cc0fd7daba91",
+      "sha256": "8e1aca4b67231946c6fdbe1ce0f48aad069244df5480dfefbeb5154eaa902ffa",
       "cacheControl": "no-store"
     },
     {
@@ -29,7 +29,7 @@
     },
     {
       "file": "journey.js",
-      "sha256": "870604f3be10d43cb14af80d74d5a69eaa4fdcc7460b44971351dccd2f7393c8",
+      "sha256": "d9fdb0ff869ede02b382fc37a064c21b1150703ea1eda02db67316ab96fe10cd",
       "cacheControl": "no-store"
     },
     {
@@ -63,6 +63,21 @@
       "cacheControl": "no-store"
     },
     {
+      "file": "opening.js",
+      "sha256": "387466ecb8545274781363d4f7e46d9065c03d10d16610a00a53aa126acadbdb",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "bench.js",
+      "sha256": "5ba813f41c28ba81e77f46201a60e90e4836d1510219e04a207662aa1be22ffd",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "bench.css",
+      "sha256": "bdfd24179509546d7176de203358f8c68540c13a220184402c6194474b844e19",
+      "cacheControl": "no-store"
+    },
+    {
       "file": "launch.js",
       "sha256": "157ea4fd2fe9b4793b5818863e2cbeba07536601849b8fb68761ab37b062efd4",
       "cacheControl": "no-store"
@@ -83,33 +98,8 @@
       "cacheControl": "no-store"
     },
     {
-      "file": "observatory-art.js",
-      "sha256": "dd132a37637317cf63ca73cf4332c55872367632c14985b148c1af6b00d68102",
-      "cacheControl": "no-store"
-    },
-    {
-      "file": "observatory.svg",
-      "sha256": "89ad9bfae009f3d6517d393a3ddab5e3e9922b0151826a033a5c6071271fbeff",
-      "cacheControl": "no-store"
-    },
-    {
-      "file": "observatory.css",
-      "sha256": "a7138cd3f68e63a98bfdcc4ac74ec4b7b4c4adf0931892e8b970816f0f6aed8c",
-      "cacheControl": "no-store"
-    },
-    {
       "file": "shift.css",
       "sha256": "72037ef892fa0cdeca7eeb04a05b7d5c69b638ea09e177af9caaf92d3ca4b8b8",
-      "cacheControl": "no-store"
-    },
-    {
-      "file": "vendor/phaser.min.js",
-      "sha256": "66348b1b5141e49b7d5ebbe688cddcb502eab1cb00f21c538686a5b2c5abe4de",
-      "cacheControl": "no-store"
-    },
-    {
-      "file": "vendor/PHASER-LICENSE.md",
-      "sha256": "d59c20a9deb5dc240614b428dce5246ae561d15efeeebea0e069d73f0a78fbff",
       "cacheControl": "no-store"
     },
     {
@@ -118,17 +108,26 @@
       "cacheControl": "no-store"
     },
     {
-      "file": "opening.js",
-      "sha256": "9dbf9bd7e2a0264e0cebc8574e97e6a0a2ec928724bc9a0eeed3c07eab62fa3f",
+      "file": "vendor/PHASER-LICENSE.md",
+      "sha256": "d59c20a9deb5dc240614b428dce5246ae561d15efeeebea0e069d73f0a78fbff",
       "cacheControl": "no-store"
     },
     {
-      "file": "opening.css",
-      "sha256": "101752da1ec93e1e38d507b772d2bb8bf4b6f1c244ff3d98b4a672c7dd22ddc3",
+      "file": "vendor/phaser.min.js",
+      "sha256": "66348b1b5141e49b7d5ebbe688cddcb502eab1cb00f21c538686a5b2c5abe4de",
       "cacheControl": "no-store"
     }
   ],
-  "main8080Unchanged": true,
+  "removedArt404": [
+    "observatory.svg",
+    "observatory-art.js",
+    "observatory.css",
+    "opening.css"
+  ],
+  "main8080Unchanged": {
+    "containerId": "9c629ca6100c2f17e8672ff297e73a06e6f3042867ffb4cbaa214e35274c7b81",
+    "startedAt": "2026-10-02T19:01:53.40672471Z"
+  },
   "browser": {
     "count": 57,
     "checks": [
@@ -197,7 +196,7 @@
   "navigation": {
     "count": 74,
     "checks": [
-      "default entry is immediate playable sky",
+      "default entry is a real image workbench",
       "entry is an observatory scene",
       "episode directory remains optional",
       "entry offers both destinations",
@@ -265,7 +264,7 @@
       "navigation reaches brightness",
       "mobile supernova result states completion",
       "navigation reaches tracking",
-      "restart returns to playable sky",
+      "restart returns to cleared workbench",
       "restart clears progress in both episodes",
       "navigation reaches overview",
       "episode map counts 0 / 2",
@@ -279,12 +278,12 @@
   "shift": {
     "count": 58,
     "checks": [
-      "default entry is playable before installing tools",
+      "default entry offers actual observations before installing tools",
       "entry presents partner and one next action",
       "tools initially uninstalled and no completed shift",
       "first mobile action fits initial viewport without scrolling",
       "launch visibly locked before earned installations",
-      "real tracking canvas selects measured target",
+      "real bench canvas selects measured target",
       "one personal track earns movement tool without using launch field",
       "test outcome returns to installation",
       "movement installation changes actual observatory state",
@@ -324,9 +323,9 @@
       "animated scan locks field and mode controls",
       "leaving cancels scan and retains existing records",
       "reset cancels pending scan and clears whole shift",
-      "reset returns to playable opening",
+      "reset returns to cleared workbench",
       "reset restores uninstalled stage and hides ending",
-      "real tracking canvas selects measured target",
+      "real bench canvas selects measured target",
       "one personal track earns movement tool without using launch field",
       "test outcome returns to installation",
       "movement installation changes actual observatory state",
@@ -343,9 +342,13 @@
     "errors": []
   },
   "opening": {
-    "count": 46,
+    "count": 64,
     "checks": [
-      "default starts in actual playable sky without hub step",
+      "default is a workbench containing two real preview canvases",
+      "preview pixels come from actual first and second observations",
+      "unearned result thumbnails are absent",
+      "illustration scene and its runtime are removed",
+      "keyboard enters instrument inside the same connected workbench",
       "reduced motion starts with static later exposure",
       "default sky renders second real frame with no third exposure",
       "no action or earned movement before selection",
@@ -364,10 +367,19 @@
       "failed attempt and post-reveal status are preserved",
       "opening outcome matches shared scientific tracking engine",
       "continue opens assembly without making another attempt",
-      "hub offers installation immediately rather than another motion test",
+      "bench offers installation immediately after measured result",
+      "return restores same bench with earned three-frame full-image strip",
+      "bench reports computed 1.09-pixel prediction residual",
       "installation uses earned opening result",
-      "opening-earned track retains actual asteroid history",
-      "new shift resets directly to opening with cleared scientific state",
+      "installation changes status without measurements or thumbnail changes",
+      "saved motion opens actual result without another attempt",
+      "computed opening outcome stationary",
+      "failed retry preserves earned full-frame strip and original residual",
+      "inspection restores saved successful result after latest failed attempt",
+      "brightness result also persists as actual two selected crops",
+      "light installation changes status without another measurement",
+      "bench light inspection restores actual saved measurement",
+      "reset restores empty desk and clears results and modules",
       "normal-motion fresh opening starts automatic comparison",
       "automatic comparison switches only first two frames",
       "pause control stops automatic comparison",
@@ -383,12 +395,17 @@
       "old instrument route preserves skipped opening target",
       "reset invalidates pending check and earned result",
       "hidden opening stops playing and cannot advance exposure",
-      "phone opening has no horizontal overflow",
+      "phone desk has no horizontal overflow",
+      "phone desk action fits initial 844-pixel viewport",
+      "phone focused instrument has no horizontal overflow",
       "real sky is visible within initial phone viewport",
       "phone direct science click selects target",
       "phone selected action fits 844-pixel viewport without scrolling",
       "computed opening outcome moving",
       "phone keyboard action earns same single track",
+      "phone result action fits viewport",
+      "phone return displays actual result without horizontal overflow",
+      "opening deep link keeps overview visible and focused instrument nested",
       "opening does not present fixed rules as trained ML",
       "no runtime errors"
     ],

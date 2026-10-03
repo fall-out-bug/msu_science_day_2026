@@ -20,9 +20,7 @@
 !launch-model.js
 !launch-data.js
 !launch-provenance.json
-!observatory-art.js
-!observatory.svg
-!observatory.css
 !shift.css
 !opening.js
-!opening.css
+!bench.js
+!bench.css

@@ -2,8 +2,8 @@ FROM nginx:stable-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed4307
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY index.html style.css game.js model.js tracking.js journey.js data.js provenance.json /usr/share/nginx/html/
 COPY brightness.js brightness-model.js brightness-data.js brightness-provenance.json /usr/share/nginx/html/
-COPY opening.js opening.css /usr/share/nginx/html/
-COPY launch.js launch-model.js launch-data.js launch-provenance.json observatory-art.js observatory.svg observatory.css shift.css /usr/share/nginx/html/
+COPY opening.js bench.js bench.css /usr/share/nginx/html/
+COPY launch.js launch-model.js launch-data.js launch-provenance.json shift.css /usr/share/nginx/html/
 COPY vendor/ /usr/share/nginx/html/vendor/
 ENTRYPOINT ["nginx"]
 CMD ["-g", "daemon off;"]

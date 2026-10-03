@@ -66,8 +66,7 @@ with sync_playwright() as playwright:
     def screenshot(name):
         page.screenshot(path=str(OUT / ('navigation-' + name + '.png')), full_page=True)
 
-    check('default entry is immediate playable sky',page.locator('#opening').is_visible())
-    page.locator('#opening-skip').click()
+    check('default entry is a real image workbench',page.locator('#bench-start').is_visible() and page.locator('#opening').is_hidden())
     check('entry is an observatory scene', visible('overview') and page.locator('#shift-action').is_visible())
     check('episode directory remains optional',not page.locator('#episode-directory').evaluate('(el)=>el.open'))
     page.locator('#episode-directory summary').click()
@@ -167,7 +166,7 @@ with sync_playwright() as playwright:
     page.locator('#track-story-open').click()
     check('asteroid history button reaches its section',
           page.locator('#tracking-story').evaluate('(element)=>element.contains(document.activeElement)'))
-    check('next action identifies installation destination','обсерваторию' in page.locator('#next-field').inner_text().lower())
+    check('next action identifies installation destination','добавить инструмент' in page.locator('#next-field').inner_text().lower())
     page.locator('#next-field').click()
     check('successful test returns to observatory',visible('overview'))
     check('earned tool still requires installation',page.evaluate('!journey.state.installed.movement'))
@@ -217,8 +216,7 @@ with sync_playwright() as playwright:
     nav('tracking')
     screenshot('mobile-navigation')
     page.locator('#restart').click()
-    check('restart returns to playable sky',page.locator('#opening').is_visible())
-    page.locator('#opening-skip').click()
+    check('restart returns to cleared workbench',page.locator('#bench-desk').is_visible() and page.locator('#opening').is_hidden())
     check('restart clears progress in both episodes',
           page.evaluate('comparisonProbe.state.journal.length === 0 && comparisonProbe.state.attempts.length === 0'
                         ' && comparisonProbe.state.selection === null && !brightnessEpisode.state.earned'

@@ -4,7 +4,7 @@
 (() => {
   'use strict';
   const $=id=>document.getElementById(id),data=COMPARISON_DATA.cases[0];
-  const state={active:false,epoch:1,playing:false,message:'Смотри: почти всё остаётся на месте. Нажми на точку, которая перескочила.',lastResult:null};
+  const state={active:false,epoch:1,playing:false,message:'Найди точку, которая изменила положение, и нажми на неё.',lastResult:null};
   const motion=matchMedia('(prefers-reduced-motion:reduce)');
   let interval=null;
   const canvases=[null,null,null];
@@ -62,14 +62,14 @@
     $('opening-action').hidden=!trial.selection&&!result;
     $('opening-action').disabled=checking;
     $('opening-points').parentElement.hidden=trial.phase!=='search';
-    $('opening-heading').textContent=result?.outcome==='moving'?'Есть! Он движется.':result?'Проверим ещё?':'Кто-то сдвинулся.';
+    $('opening-heading').textContent=result?.outcome==='moving'?'Движение подтвердилось':result?'Результат проверки':'Сравни два наблюдения';
     $('opening-prompt').textContent=result?.outcome==='moving'?'Ты нашёл след среди звёзд.':result?'Наблюдение помогло проверить твою догадку.':'Сравни снимки. Какая точка сменила место?';
     if(checking){
       $('opening-feedback').textContent='Выбор сохранён. Прибор рассчитал, где искать точку. Открываем следующее наблюдение…';
       $('opening-action').textContent='Открываем следующий снимок…';
     }else if(result){
-      $('opening-feedback').textContent=result.outcome==='moving'?'Нашлась рядом с прогнозом! Пунктирное кольцо — где искал прибор, белая отметка — где оказалась точка. Давай соберём прибор, который будет искать такие следы сам.':result.outcome==='stationary'?'Эта точка осталась на месте на всех трёх снимках. Попробуй ту, которая сместилась между первым и вторым.':'На следующем снимке след не подтвердился однозначно. Попробуем другую точку?';
-      $('opening-action').textContent=result.outcome==='moving'?'Собрать свой поисковый прибор →':'Выбрать другую точку →';
+      $('opening-feedback').textContent=result.outcome==='moving'?'Точка нашлась рядом с прогнозом. Пунктирное кольцо показывает прогноз, белая отметка — найденное положение. Эта проверка сохранена на рабочем месте.':result.outcome==='stationary'?'Эта точка осталась на месте на всех трёх снимках. Попробуй ту, которая сместилась между первым и вторым.':'На следующем снимке след не подтвердился однозначно. Попробуем другую точку?';
+      $('opening-action').textContent=result.outcome==='moving'?'Вернуться к прибору с результатом →':'Выбрать другую точку →';
     }else{
       $('opening-feedback').textContent=state.message;
       $('opening-action').textContent='Проверить на следующем снимке →';
@@ -99,7 +99,7 @@
     if(!motion.matches&&comparisonProbe.state.phase==='search'&&!comparisonProbe.state.selection)play();
   }
   function suspend(){stop();state.active=false;}
-  function reset(){suspend();Object.assign(state,{epoch:1,lastResult:null,message:'Смотри: почти всё остаётся на месте. Нажми на точку, которая перескочила.'});}
+  function reset(){suspend();Object.assign(state,{epoch:1,lastResult:null,message:'Найди точку, которая изменила положение, и нажми на неё.'});}
   for(const [id,epoch] of [['opening-earlier',0],['opening-later',1]])$(id).onclick=()=>{stop();state.epoch=epoch;draw();};
   $('opening-play').onclick=()=>{
     if(comparisonProbe.state.result){stop();state.epoch=2;draw();}

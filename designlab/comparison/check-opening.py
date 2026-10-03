@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test the playable first exposure, truthful transfer, input and timer lifecycle."""
+"""Test the persistent measurement workbench, real inputs and timer lifecycle."""
 from pathlib import Path
 import json
 import os
@@ -37,7 +37,7 @@ with sync_playwright() as playwright:
     page.wait_for_function('window.journey && window.opening && window.comparisonProbe')
 
     def snap(name):
-        page.screenshot(path=str(OUT / ('opening-' + name + '.png')), full_page=True)
+        page.screenshot(path=str(OUT / ('bench-' + name + '.png')), full_page=True)
 
     def click_point(x, y):
         canvas = page.locator('#opening-sky')
@@ -53,6 +53,8 @@ with sync_playwright() as playwright:
 
     def reset():
         page.evaluate('journey.reset()')
+        page.wait_for_function('journey.state.view === "overview" && !opening.state.active')
+        page.locator('#bench-start').click()
         page.wait_for_function('journey.state.view === "opening" && opening.state.active')
 
     def source_button(x):
@@ -69,15 +71,58 @@ with sync_playwright() as playwright:
             return expected.toDataURL()===document.getElementById('opening-sky').toDataURL();
         }''', epoch)
 
-    check('default starts in actual playable sky without hub step',
-          page.locator('#opening').is_visible() and page.locator('#overview').is_hidden()
-          and page.locator('#opening-sky').is_visible() and page.evaluate('journey.state.view === "opening"'))
+    def canvas_value(identifier):
+        return page.locator('#' + identifier).evaluate('(canvas)=>canvas.toDataURL()')
+
+    def fits(identifier):
+        return page.locator('#' + identifier).evaluate('(node)=>{const r=node.getBoundingClientRect();return r.top>=0 && r.bottom<=innerHeight && r.left>=0 && r.right<=innerWidth;}')
+
+    def result_pixels_match(kind):
+        return page.evaluate("""kind=>{
+            const motion=kind==='motion', record=motion?comparisonProbe.state.journal[0]:brightnessEpisode.state.attempts.find(a=>a.result.outcome==='faded');
+            const data=motion?COMPARISON_DATA.cases.find(c=>c.id===record.caseId):BRIGHTNESS_DATA;
+            const expected=document.createElement('canvas');expected.width=motion?384:256;expected.height=128;
+            const ctx=expected.getContext('2d');
+            for(let epoch=0;epoch<(motion?3:2);epoch++){
+                const raw=document.createElement('canvas');raw.width=raw.height=128;
+                let pixels;
+                if(motion){const source=epoch===0?{...data,arrays:[data.arrays[0],data.arrays[0]]}:data;pixels=new ImageData(ComparisonModel.render(source,0,epoch||1).pixels,128,128);}
+                else{pixels=new ImageData(128,128);data.arrays[epoch].forEach((v,i)=>{const t=v<0?0:Math.min(1,Math.asinh(v*.2)/Math.asinh(data.displayTop*.2));[8,14,29].forEach((b,c)=>pixels.data[4*i+c]=b+([204,242,255][c]-b)*t);pixels.data[4*i+3]=255;});}
+                raw.getContext('2d').putImageData(pixels,0,0);
+                const point=motion?record.result.positions[epoch]:record.selection.point, x=Math.max(0,Math.min(98,point.x-15)),y=Math.max(0,Math.min(98,point.y-15));
+                if(motion){
+                    ctx.drawImage(raw,128*epoch,0);
+                    ctx.strokeStyle='#d9f6ee';ctx.lineWidth=1;ctx.beginPath();ctx.arc(128*epoch+point.x+.5,point.y+.5,6,0,Math.PI*2);ctx.stroke();
+                }else{
+                    ctx.drawImage(raw,x,y,30,30,128*epoch,0,128,128);
+                    ctx.strokeStyle='#d9f6ee';ctx.lineWidth=2;ctx.beginPath();ctx.arc(128*epoch+(point.x+.5-x)/30*128,(point.y+.5-y)/30*128,10,0,Math.PI*2);ctx.stroke();
+                }
+            }
+            return expected.toDataURL()===document.getElementById('bench-'+kind+'-result').toDataURL();
+        }""",kind)
+
+    check('default is a workbench containing two real preview canvases',
+          page.locator('#bench-start').is_visible() and page.locator('#opening').is_hidden()
+          and page.evaluate('journey.state.view === "overview"'))
+    check('preview pixels come from actual first and second observations',page.evaluate("""()=>[0,1].every(epoch=>{
+        const d=COMPARISON_DATA.cases[0],source=epoch===0?{...d,arrays:[d.arrays[0],d.arrays[0]]}:d;
+        const expected=document.createElement('canvas');expected.width=expected.height=128;
+        expected.getContext('2d').putImageData(new ImageData(ComparisonModel.render(source,0,epoch||1).pixels,128,128),0,0);
+        return expected.toDataURL()===document.getElementById(epoch?'bench-preview-second':'bench-preview-first').toDataURL();
+    })"""))
+    check('unearned result thumbnails are absent',page.locator('#bench-motion-result').is_hidden() and page.locator('#bench-light-result').is_hidden())
+    check('illustration scene and its runtime are removed',page.locator('#observatory-stage').count()==0 and page.locator('script[src*="observatory-art"],link[href*="observatory.css"]').count()==0 and page.locator('#bench-shell svg').count()==0)
+    page.evaluate('window.__originalBench=document.getElementById("bench-shell")')
+    snap('entry')
+    page.locator('#bench-start').focus()
+    page.keyboard.press('Enter')
+    check('keyboard enters instrument inside the same connected workbench',page.evaluate('document.getElementById("bench-shell")===window.__originalBench && __originalBench.isConnected && document.getElementById("bench-focus").contains(document.getElementById("opening"))') and page.locator('#overview').is_visible() and page.locator('#bench-desk').is_hidden() and page.locator('#opening').is_visible())
+    snap('focus')
     check('reduced motion starts with static later exposure',
           page.evaluate('opening.state.epoch === 1 && !opening.state.playing'))
     check('default sky renders second real frame with no third exposure', raw_frame_matches(1))
     check('no action or earned movement before selection',
           page.locator('#opening-action').is_hidden() and page.evaluate('comparisonProbe.state.selection === null && comparisonProbe.state.journal.length === 0'))
-    snap('entry')
     click_point(100, 100)
     check('empty sky does not create target or action',
           page.evaluate('comparisonProbe.state.selection === null') and page.locator('#opening-action').is_hidden()
@@ -125,19 +170,47 @@ with sync_playwright() as playwright:
     page.locator('#opening-action').click()
     check('continue opens assembly without making another attempt',
           page.locator('#overview').is_visible() and page.evaluate('JSON.stringify(comparisonProbe.state)') == result_before)
-    check('hub offers installation immediately rather than another motion test',
-          'Установить поиск движения' in page.locator('#shift-action').inner_text())
+    check('bench offers installation immediately after measured result','Добавить поиск движения' in page.locator('#shift-action').inner_text())
+    check('return restores same bench with earned three-frame full-image strip',page.locator('#bench-desk').is_visible() and page.locator('#bench-motion-result').is_visible() and page.evaluate('document.getElementById("bench-shell")===__originalBench') and result_pixels_match('motion'))
+    check('bench reports computed 1.09-pixel prediction residual', '1.09' in page.locator('#bench-motion-evidence').inner_text() and page.evaluate('comparisonProbe.state.journal[0].result.distancePx.toFixed(2)')=='1.09')
+    motion_pixels=canvas_value('bench-motion-result')
+    snap('returned')
     page.locator('#shift-action').click()
     check('installation uses earned opening result',
           page.evaluate('journey.state.installed.movement && comparisonProbe.state.journal.length === 1 && comparisonProbe.state.attempts.length === 2'))
-    page.locator('#episode-directory summary').click()
-    page.locator('#overview-tracking-story').click()
-    check('opening-earned track retains actual asteroid history',
-          page.locator('#tracking-story').is_visible() and 'Amosov' in page.locator('#tracking-story-title').inner_text())
+    check('installation changes status without measurements or thumbnail changes',page.locator('#bench-motion').get_attribute('data-status')=='installed' and canvas_value('bench-motion-result')==motion_pixels and page.evaluate('JSON.stringify(comparisonProbe.state)')==result_before)
+    attempts=page.evaluate('JSON.stringify(comparisonProbe.state.attempts)')
+    page.locator('#bench-motion-open').click()
+    check('saved motion opens actual result without another attempt',page.evaluate('comparisonProbe.state.result.outcome === "moving"') and page.evaluate('JSON.stringify(comparisonProbe.state.attempts)')==attempts)
+    page.locator('#opening-skip').click()
+    page.locator('#nav-tracking').click()
+    page.locator('#retry').click()
+    page.evaluate('comparisonProbe.choose(71,10)')
+    page.locator('#follow').click()
+    wait_result('stationary')
     page.locator('#nav-overview').click()
+    check('failed retry preserves earned full-frame strip and original residual',canvas_value('bench-motion-result')==motion_pixels and '1.09' in page.locator('#bench-motion-evidence').inner_text() and page.locator('#bench-motion-result').is_visible())
+    page.locator('#bench-motion-open').click()
+    check('inspection restores saved successful result after latest failed attempt',page.evaluate('comparisonProbe.state.result.outcome === "moving" && comparisonProbe.state.attempts.length===3'))
+    page.locator('#opening-skip').click()
+    page.locator('#shift-action').click()
+    canvas=page.locator('#brightness-first');canvas.scroll_into_view_if_needed();box=canvas.bounding_box()
+    page.mouse.click(box['x']+65.5/128*box['width'],box['y']+64.5/128*box['height'])
+    page.locator('#brightness-measure').click()
+    page.wait_for_function('brightnessEpisode.state.phase === "result"')
+    page.locator('#brightness-to-overview').click()
+    check('brightness result also persists as actual two selected crops',page.locator('#bench-light-result').is_visible() and result_pixels_match('light') and '100 → 34' in page.locator('#bench-light-evidence').inner_text())
+    light_pixels=canvas_value('bench-light-result');light_state=page.evaluate('JSON.stringify(brightnessEpisode.state)')
+    page.locator('#shift-action').click()
+    check('light installation changes status without another measurement',page.locator('#bench-light').get_attribute('data-status')=='installed' and canvas_value('bench-light-result')==light_pixels and page.evaluate('JSON.stringify(brightnessEpisode.state)')==light_state)
+    page.locator('#bench-light-open').click()
+    check('bench light inspection restores actual saved measurement',page.evaluate('brightnessEpisode.state.result.outcome === "faded" && brightnessEpisode.state.attempts.length===1'))
+    page.locator('#brightness-to-overview').click()
+    snap('result')
+    page.emulate_media(reduced_motion='no-preference')
     page.locator('#journey-reset').click()
-    check('new shift resets directly to opening with cleared scientific state',
-          page.locator('#opening').is_visible() and page.evaluate('comparisonProbe.state.attempts.length === 0 && comparisonProbe.state.journal.length === 0 && !journey.state.installed.movement'))
+    check('reset restores empty desk and clears results and modules',page.locator('#bench-desk').is_visible() and page.locator('#opening').is_hidden() and page.locator('#bench-motion-result').is_hidden() and page.locator('#bench-light-result').is_hidden() and page.locator('#bench-motion').get_attribute('data-status')=='pending' and page.locator('#bench-light').get_attribute('data-status')=='pending' and page.evaluate('comparisonProbe.state.attempts.length===0 && comparisonProbe.state.journal.length===0 && !journey.ready() && !brightnessEpisode.state.earned'))
+    page.locator('#bench-start').click()
 
     # Automatic display rotates first/second only and stops on exit or a preference change.
     check('normal-motion fresh opening starts automatic comparison', page.evaluate('opening.state.playing'))
@@ -201,9 +274,14 @@ with sync_playwright() as playwright:
           page.evaluate('!opening.state.active && !opening.state.playing') and page.evaluate('opening.state.epoch') == hidden_epoch)
 
     page.emulate_media(reduced_motion='reduce')
-    reset()
+    page.evaluate('journey.reset()')
     page.set_viewport_size({'width': 390, 'height': 844})
-    check('phone opening has no horizontal overflow', page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
+    check('phone desk has no horizontal overflow', page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
+    check('phone desk action fits initial 844-pixel viewport',fits('bench-start'))
+    snap('mobile-entry')
+    page.locator('#bench-start').focus()
+    page.keyboard.press('Enter')
+    check('phone focused instrument has no horizontal overflow',page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
     check('real sky is visible within initial phone viewport',
           page.locator('#opening-sky').evaluate('(canvas)=>{const r=canvas.getBoundingClientRect();return r.top>=0 && r.bottom<=innerHeight;}'))
     page.locator('#opening-later').click()
@@ -217,6 +295,16 @@ with sync_playwright() as playwright:
     page.keyboard.press('Enter')
     wait_result('moving')
     check('phone keyboard action earns same single track', page.evaluate('comparisonProbe.state.journal.length === 1'))
+    check('phone result action fits viewport',fits('opening-action'))
+    page.locator('#opening-action').click()
+    check('phone return displays actual result without horizontal overflow',page.locator('#bench-motion-result').is_visible() and result_pixels_match('motion') and page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
+    snap('mobile-returned')
+    deep=browser.new_page(reduced_motion='reduce')
+    deep.on('pageerror',lambda error:errors.append(str(error)))
+    deep.goto(ENTRY.split('#')[0]+'#opening')
+    deep.wait_for_function('window.journey && opening.state.active')
+    check('opening deep link keeps overview visible and focused instrument nested',deep.locator('#overview').is_visible() and deep.locator('#opening').is_visible() and deep.locator('#bench-desk').is_hidden() and deep.evaluate('document.getElementById("bench-focus").contains(document.getElementById("opening"))'))
+    deep.close()
     check('opening does not present fixed rules as trained ML', 'ИИ' not in page.locator('#opening-feedback').inner_text())
     check('no runtime errors', not errors)
     browser.close()

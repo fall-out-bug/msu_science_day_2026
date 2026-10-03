@@ -60,25 +60,21 @@ with sync_playwright() as playwright:
 
     def prepare_tools():
         page.locator('#shift-action').click()
-        page.locator('#game').scroll_into_view_if_needed()
-        box = page.locator('#game canvas').bounding_box()
-        narrow = page.evaluate('matchMedia("(max-width:760px)").matches')
-        width, left, size = (480, 48, 384) if narrow else (960, 536, 376)
-        page.mouse.click(box['x'] + (left + 58.5 / 128 * size) / width * box['width'],
-                         box['y'] + (84 + 68.5 / 128 * size) / 520 * box['height'])
-        check('real tracking canvas selects measured target',
+        page.locator('#opening-later').click()
+        canvas_point(page.locator('#opening-sky'), 58, 68)
+        check('real bench canvas selects measured target',
               page.evaluate('comparisonProbe.state.selection.point.x === 58'))
-        page.locator('#follow').click()
+        page.locator('#opening-action').click()
         page.wait_for_function('comparisonProbe.state.phase === "result"')
         check('one personal track earns movement tool without using launch field',
               page.evaluate('comparisonProbe.state.result.outcome === "moving" && comparisonProbe.state.journal.length === 1 && comparisonProbe.state.journal[0].caseId === "s02"'))
-        page.locator('#next-field').click()
+        page.locator('#opening-action').click()
         check('test outcome returns to installation',
               page.locator('#overview').is_visible() and not page.evaluate('journey.state.installed.movement'))
         page.locator('#shift-action').click()
         check('movement installation changes actual observatory state',
               page.evaluate('journey.state.installed.movement && !journey.state.installed.fading')
-              and page.locator('#observatory-stage').get_attribute('data-motion') == 'ready')
+              and page.locator('#bench-motion').get_attribute('data-status') == 'installed')
         page.locator('#shift-action').click()
         canvas_point(page.locator('#brightness-first'), 65, 64)
         page.locator('#brightness-measure').click()
@@ -92,10 +88,9 @@ with sync_playwright() as playwright:
         page.locator('#shift-action').click()
         check('both installations unlock independent launch',
               page.evaluate('journey.ready()')
-              and page.locator('#observatory-stage').get_attribute('data-light') == 'ready')
+              and page.locator('#bench-light').get_attribute('data-status') == 'installed')
 
-    check('default entry is playable before installing tools',page.locator('#opening').is_visible())
-    page.locator('#opening-skip').click()
+    check('default entry offers actual observations before installing tools',page.locator('#bench-start').is_visible() and page.locator('#opening').is_hidden())
     check('entry presents partner and one next action',
           page.locator('#overview').is_visible() and page.locator('#nika-line').is_visible()
           and not page.locator('#episode-directory').evaluate('(node)=>node.open'))
@@ -105,7 +100,7 @@ with sync_playwright() as playwright:
     page.set_viewport_size({'width': 390, 'height': 844})
     page.evaluate('window.scrollTo(0, 0)')
     check('first mobile action fits initial viewport without scrolling',
-          page.locator('#shift-action').evaluate('(button)=>{const rect=button.getBoundingClientRect();return rect.top>=0 && rect.bottom<=innerHeight && rect.left>=0 && rect.right<=innerWidth;}'))
+          page.locator('#bench-start').evaluate('(button)=>{const rect=button.getBoundingClientRect();return rect.top>=0 && rect.bottom<=innerHeight && rect.left>=0 && rect.right<=innerWidth;}'))
     snap('entry-mobile')
     page.set_viewport_size({'width': 1440, 'height': 1050})
     nav('launch')
@@ -222,10 +217,9 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(1050)
     check('reset cancels pending scan and clears whole shift',
           page.evaluate('launchEpisode.state.records.length === 0 && launchEpisode.state.scan === null && launchEpisode.state.selected === null && !journey.ready() && !journey.state.finished && comparisonProbe.state.journal.length === 0 && !brightnessEpisode.state.earned'))
-    check('reset returns to playable opening',page.locator('#opening').is_visible())
-    page.locator('#opening-skip').click()
+    check('reset returns to cleared workbench',page.locator('#bench-desk').is_visible() and page.locator('#opening').is_hidden())
     check('reset restores uninstalled stage and hides ending',
-          page.locator('#observatory-stage').get_attribute('data-motion') == 'locked'
+          page.locator('#bench-motion').get_attribute('data-status') == 'pending'
           and page.locator('#journey-finished').is_hidden())
 
     # A complete research shift with no confirmed change must remain possible.
