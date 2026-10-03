@@ -1,0 +1,75 @@
+{
+  "cases": {
+    "s02": {
+      "case_key": "mover1",
+      "previews_equal_science": true,
+      "png_sha256": [
+        "c2192ebf0b08107e22f6aa83bdeb7859682ffdb29270bf1c7432609b86a12c49",
+        "fc32a8728c7dde9a089847ee647673e93a7c76feb1dad7ee604133daf3a86969",
+        "f5dca2fb91e103647fb0084116c2e86fa481bf269f23d650512ec6e8c2e57328"
+      ],
+      "noise": 2.32156777381997,
+      "display_top": 3008.800048828125
+    },
+    "s07": {
+      "case_key": "mover2",
+      "previews_equal_science": true,
+      "png_sha256": [
+        "92f68719daa8be57088b79aec9b1403e00443e8d9e985e29d65f657299285ae5",
+        "aad5d4b4134de11165f92c039eb1c86b7ab9b4672512955c4c873af2b242d91d",
+        "886f80b207cf8d3977c6c175b5c7deebf86bffc505b43a75ece9968ad375a163"
+      ],
+      "noise": 1.7577455043802725,
+      "display_top": 3008.800048828125
+    },
+    "s04": {
+      "case_key": "artifact_spike",
+      "previews_equal_science": true,
+      "png_sha256": [
+        "b4ccd40026593395b9b6937cb584a08ecf9527b78cc3cce2fd740801bc7aceb4",
+        "8a92dae28c451cbf734166ea3344572920e9976181f53df07b21f0e2beee007b",
+        "53add949b405c45d0c92ebbde371451273c043843bcad27bd33ea68aa404776b"
+      ],
+      "noise": 3.691631078721093,
+      "display_top": 3008.800048828125
+    }
+  },
+  "input_sha256": {
+    "assets/observations/curated-fields.npz": "c96642cbd0cfac964f2408f4a444be0566106f823bea5d8724f017499cb97de2",
+    "assets/observations/curated-provenance.json": "3d27206a39edb322bed1e90805cc1d4880a4cd145a95cf8c84c85801e3d01033",
+    "assets/observations/demo-fields.npz": "fb8e68228e519d5b1877cba4a3223fe6e4212592f245d262afb1d032900185c3",
+    "assets/observations/demo-provenance.json": "7afba2c17961a4295d1aa7b3b4ff759bcf550028e0db901baad33a4a919bdd5a",
+    "assets/observations/demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+    "assets/observations/demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+    "assets/observations/demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+    "assets/observations/manifest.json": "4fb474cb8cb9b75387245c6cb859c9a1d537bed40f331f26fb2679f42838cfa7",
+    "assets/observations/motion-fields/ztf_20200102273947_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz": "ec223e1cc1d71194149dd662da448cb2dc8f59429280bc6d689ab5627be66d1c",
+    "assets/observations/motion-fields/ztf_20200102300035_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz": "8760cd4533d7147cdd27ba9345b87073836b0f68d68a2a5bec072ef0c442c8ed",
+    "assets/observations/motion-fields/ztf_20200102342477_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz": "688ddf0368fd3e5d884e5dc81e9e1d95ecff8adcc6ececd4afd0bf1cfa3de1cd",
+    "assets/observations/motion-fields/ztf_20250325344780_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz": "c09a92678427c79149c4aedc7aec3d7bc7bc2eb04f8907bfd33614682273feb2",
+    "assets/observations/motion-fields/ztf_20250325387130_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz": "d19a7d9cdb37aaaf4624c0791a608972d78a36260c396c3a0430572897b24c13",
+    "assets/observations/motion-fields/ztf_20250325471562_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz": "815243b969391d813636edb0879f98006d6292ba86fc6950b6b31b3be5d0d1f6"
+  },
+  "coordinate_contract": "128x128, zero-based centers, x right, y down; render center at x+.5,y+.5",
+  "operation": "frame[epoch] - amount * frame[0]; signed display, fixed intensity scale per field",
+  "display_gain": 8,
+  "tracking_sources": "Blind local maxima from realdata.detect_sources(k=5) on each raw calibrated frame. No truth seeds.",
+  "limits": [
+    "No PSF matching; stationary sources can leave residuals.",
+    "Detection peaks are not objects or classes.",
+    "All images archived; epoch toggle does not request a new observation.",
+    "No ML in this comparison-only experiment."
+  ],
+  "acknowledgments": {
+    "ack_phase1_valid": "наблюдения до 2020-12-01",
+    "ack_phase2_valid": "наблюдения с 2020-12-01",
+    "citation_alerce": "Förster et al. 2021, AJ 161, 242; Sánchez-Sáez et al. 2021, AJ 161, 141 — брокер ALeRCE (только метаданные)",
+    "citation_masci": "Masci et al. 2018, PASP 131, 995 (cтандартная ссылка ZTF)",
+    "citation_skybot": "Berthier et al. 2006, ASPC 351, 367 — SkyBoT/IMCCE (VO-SSP)",
+    "doi_image_service": "10.26131/IRSA539",
+    "name": "ZTF Public Survey, IRSA Image Backend (ztf/products/sci, ztf/products/ref)",
+    "phase1": "Based on observations obtained with the Samuel Oschin 48-inch Telescope at the Palomar Observatory as part of the Zwicky Transient Facility project. ZTF is supported by the National Science Foundation under Grant No. AST-1440341 and a collaboration including Caltech, IPAC, the Weizmann Institute for Science, the Oskar Klein Center at Stockholm University, the University of Maryland, the University of Washington, Deutsches Elektronen-Synchrotron and Humboldt University, Los Alamos National Laboratories, the TANGO Consortium of Taiwan, the University of Wisconsin at Milwaukee, and Lawrence Berkeley National Laboratories. Operations are conducted by COO, IPAC, and UW.",
+    "phase2": "Based on observations obtained with the Samuel Oschin Telescope 48-inch and the 60-inch Telescope at the Palomar Observatory as part of the Zwicky Transient Facility project. ZTF is supported by the National Science Foundation under Grant No. AST-2034437 and a collaboration including Caltech, IPAC, the Weizmann Institute for Science, the Oskar Klein Center at Stockholm University, the University of Maryland, Deutsches Elektronen-Synchrotron and Humboldt University, the TANGO Consortium of Taiwan, the University of Wisconsin at Milwaukee, Trinity College Dublin, Lawrence Livermore National Laboratories, and INAF. Operations are conducted by COO, IPAC, and UW.",
+    "release_page": "https://ztf.ipac.caltech.edu/page/dr8"
+  }
+}
