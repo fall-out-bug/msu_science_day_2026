@@ -1,0 +1,176 @@
+{
+  "pass": true,
+  "checks": [
+    "archive hashes",
+    "blind all-source scan",
+    "withheld third epoch",
+    "no identity labels",
+    "linear prediction verification",
+    "independent Python aperture values",
+    "rebrightening limit",
+    "zero-candidate modes"
+  ],
+  "results": [
+    {
+      "id": "launch-motion",
+      "mode": "movement",
+      "inspectedCount": 10,
+      "reason": "motion_proposals_from_two_epochs",
+      "points": [
+        {
+          "x": 59,
+          "y": 65
+        }
+      ],
+      "controls": null,
+      "verified": [
+        {
+          "outcome": "moving",
+          "reason": "third_peak_supports_linear_prediction",
+          "positions": [
+            {
+              "x": 36,
+              "y": 72
+            },
+            {
+              "x": 59,
+              "y": 65
+            },
+            {
+              "x": 95,
+              "y": 53
+            }
+          ],
+          "prediction": {
+            "x": 96.445184198846,
+            "y": 53.60363959165557
+          },
+          "distancePx": 1.5661858527033887
+        }
+      ]
+    },
+    {
+      "id": "launch-motion",
+      "mode": "fading",
+      "inspectedCount": 10,
+      "reason": "insufficient_stable_field_controls",
+      "points": [],
+      "controls": {
+        "count": 4,
+        "ratio": 1.051069309161688,
+        "scatter": 0.1552211505990688,
+        "valid": false
+      },
+      "verified": []
+    },
+    {
+      "id": "launch-variable",
+      "mode": "movement",
+      "inspectedCount": 31,
+      "reason": "no_unique_motion_candidate",
+      "points": [],
+      "controls": null,
+      "verified": []
+    },
+    {
+      "id": "launch-variable",
+      "mode": "fading",
+      "inspectedCount": 40,
+      "reason": "science_fade_proposals_from_two_epochs",
+      "points": [
+        {
+          "x": 63,
+          "y": 63
+        }
+      ],
+      "controls": {
+        "count": 20,
+        "ratio": 0.9851349047624618,
+        "scatter": 0.03131292248022456,
+        "valid": true
+      },
+      "verified": [
+        {
+          "outcome": "faded",
+          "reason": "science_aperture_decreased",
+          "point": {
+            "x": 63,
+            "y": 63
+          },
+          "firstFlux": 6215.3183879852295,
+          "secondFlux": 3451.8923873901367,
+          "ratio": 0.5553846435386087,
+          "relativeRatio": 0.563765064920245,
+          "changeFraction": -0.4446153564613913,
+          "absoluteChange": -2711.3390134827437,
+          "combinedNoiseScale": 317.8285365315091,
+          "significance": 8.530823075460203,
+          "measurements": [
+            {
+              "flux": 6215.3183879852295,
+              "scienceFlux": 6215.3183879852295,
+              "background": 0.1394939422607422,
+              "localSigma": 1.2529147510528564,
+              "noiseScale": 26.311209772109986,
+              "aperturePixels": 49,
+              "annulusPixels": 248
+            },
+            {
+              "flux": 3451.8923873901367,
+              "scienceFlux": 3451.8923873901367,
+              "background": -0.27680206298828125,
+              "localSigma": 2.8716552154541013,
+              "noiseScale": 60.304759524536124,
+              "aperturePixels": 49,
+              "annulusPixels": 248
+            }
+          ],
+          "controls": {
+            "count": 20,
+            "ratio": 0.9851349047624618,
+            "scatter": 0.03131292248022456,
+            "valid": true
+          },
+          "fluxUnits": "relative science aperture flux at photometric zero point 25",
+          "product": "science",
+          "independentConfirmation": false,
+          "thirdFlux": 5977.676200866699,
+          "thirdMeasurement": {
+            "flux": 5977.676200866699,
+            "scienceFlux": 5977.676200866699,
+            "background": 0.11288833618164062,
+            "localSigma": 1.4951584156036377,
+            "noiseScale": 31.398326727676395,
+            "aperturePixels": 49,
+            "annulusPixels": 248
+          },
+          "thirdControls": {
+            "count": 20,
+            "ratio": 0.9705996318155006,
+            "scatter": 0.014439535152189875,
+            "valid": true
+          },
+          "thirdRelativeRatio": 0.9908978437267886,
+          "thirdOutcome": "rebrightened",
+          "sustainedFade": false,
+          "thirdChangeNoiseScale": 318.38527492265564,
+          "thirdChangeSignificance": 8.338219205873928,
+          "positions": [
+            {
+              "x": 63,
+              "y": 63
+            },
+            {
+              "x": 63,
+              "y": 63
+            },
+            {
+              "x": 63,
+              "y": 63
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

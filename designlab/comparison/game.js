@@ -1,7 +1,7 @@
 /* The player's submitted point is the only target; a later exposure checks it. */
 (() => {
   'use strict';
-  const $ = id => document.getElementById(id), fields = COMPARISON_DATA.cases.slice(0, 2);
+  const $ = id => document.getElementById(id), fields = COMPARISON_DATA.cases.slice(0, 1);
   const state = { phase:'search', field:0, amount:0, mobileView:1, selection:null, result:null, attempts:[], journal:[], revealed:{} };
   let scene, timer, generation = 0;
   const current = () => fields[state.field];
@@ -61,12 +61,7 @@
     feedback('Попробуй другую точку. Настройка сохранена. Ищи ту, которая сместилась между первым и вторым снимками.');update();
   }
   function nextField() {
-    if(state.result?.outcome!=='moving')return;
-    if(state.field===1){window.brightnessEpisode.start();return;}
-    if(state.journal.some(entry=>entry.caseId===fields[1].id)){openSaved(fields[1].id);$('outcome-panel').scrollIntoView({behavior:'instant',block:'center'});return;}
-    state.field=1;state.phase='search';state.selection=null;state.result=null;state.mobileView=1;
-    feedback('На новом участке звёзды расположены иначе. Найди движущуюся точку: настройка прибора осталась прежней.');update();
-    $('sky-instruction').scrollIntoView({behavior:'instant',block:'center'});
+    if(state.result?.outcome==='moving')window.journey.show('overview');
   }
   function suspend() {
     clearTimeout(timer);generation++;
@@ -94,7 +89,7 @@
   function setView(view){state.mobileView=view===0?0:1;update();}
   function update() {
     const item=current(),search=state.phase==='search',checking=state.phase==='checking',result=state.result;
-    $('field-label').textContent=`ЭПИЗОД 1 · ДВИЖЕНИЕ АСТЕРОИДОВ · УЧАСТОК ${state.field+1} ИЗ 2`;
+    $('field-label').textContent=`ЭПИЗОД 1 · ДВИЖЕНИЕ АСТЕРОИДОВ · ИСПЫТАНИЕ ПРИБОРА`;
     $('sky-instruction').textContent=search?(mobile()?'Выбери точку на втором снимке':'Выбери точку на правом снимке'):checking?'Проверяем твою цель':'Вот что стало с выбранной точкой';
     $('sky-status').textContent=search?'Два наблюдения':checking?'Следующее наблюдение…':'Третий снимок открыт';
     $('choice-panel').hidden=!!result;$('outcome-panel').hidden=!result;
@@ -114,13 +109,13 @@
     item.sources[1].forEach((s,i)=>{const b=document.createElement('button');b.textContent=String(i+1);b.setAttribute('aria-label',`Выбрать точку ${i+1}`);b.setAttribute('aria-pressed',String(state.selection?.point.x===s.x&&state.selection?.point.y===s.y));b.onclick=()=>choose(s.x,s.y);$('point-list').append(b);});
     if(result){
       const outcomes={moving:['ДВИЖЕНИЕ ПОДТВЕРДИЛОСЬ','Точка продолжила движение','Ты выбрал движущийся объект. По двум положениям прибор рассчитал, где искать его дальше, и нашёл рядом с прогнозом на третьем снимке.'],stationary:['ЦЕЛЬ НАЙДЕНА, ДВИЖЕНИЯ НЕТ','Эта точка осталась на месте','На всех трёх снимках она находится в одном месте. Для слежения за движением выбери другую точку — ту, которая сместилась.'],lost:['СЛЕЖЕНИЕ НЕ ПОДТВЕРДИЛОСЬ','Точка не нашлась там, где ожидал прибор','Возможно, прибор связал разные точки или следующий след слишком слабый. Сравни снимки и попробуй другую цель.'],unresolved:['НУЖНА ДРУГАЯ ПРОВЕРКА','Не удалось подтвердить слежение','Прибор не смог однозначно связать эту точку между снимками. По этим данным нельзя уверенно сказать, куда она переместилась. Попробуй другую точку.']};
-      const copy=outcomes[result.outcome];$('outcome-tag').textContent=result.outcome==='moving'&&state.journal.length===2?'ЭПИЗОД 1 ЗАВЕРШЁН':copy[0];$('outcome-title').textContent=copy[1];$('outcome-copy').textContent=copy[2];
-      $('reward').textContent=result.outcome==='moving'?(state.journal.length===2?'Два следа в журнале. Ты проверил слежение на двух разных участках неба.':'Три положения объекта записаны в журнал. Проверь прибор на другом участке!'):'';
-      $('next-field').hidden=result.outcome!=='moving';$('next-field').textContent=state.field===0?'Открыть участок 2 · ещё один астероид':'К эпизоду 2 «Свет сверхновой» →';
+      const copy=outcomes[result.outcome];$('outcome-tag').textContent=result.outcome==='moving'&&state.journal.length===1?'ЭПИЗОД 1 ЗАВЕРШЁН':copy[0];$('outcome-title').textContent=copy[1];$('outcome-copy').textContent=copy[2];
+      $('reward').textContent=result.outcome==='moving'?(state.journal.length===1?'След проверен и записан. Теперь можно установить поиск движения в свой прибор.':'Три положения объекта записаны в журнал. Проверь прибор на другом участке!'):'';
+      $('next-field').hidden=result.outcome!=='moving';$('next-field').textContent='В обсерваторию · установить инструмент →';
       $('trail-strip').replaceChildren();result.positions.forEach((point,i)=>{const f=document.createElement('figure'),c=document.createElement('canvas'),caption=document.createElement('figcaption');c.width=c.height=96;crop(c,item,i,point,true);caption.textContent=point?`Снимок ${i+1}`:`${i+1}: след не определён`;f.append(c,caption);$('trail-strip').append(f);});
     }
-    $('brightness-invitation').hidden=state.journal.length<2;
-    $('journal-count').textContent=`${state.journal.length} / 2`;$('journal-empty').hidden=!!state.journal.length;$('journal-list').replaceChildren();
+    $('brightness-invitation').hidden=state.journal.length<1;
+    $('journal-count').textContent=`${state.journal.length} / 1`;$('journal-empty').hidden=!!state.journal.length;$('journal-list').replaceChildren();
     state.journal.forEach(entry=>{const row=document.createElement('div');row.className='journal-entry';const positions=entry.result.positions;row.innerHTML=`<strong>${fields.find(c=>c.id===entry.caseId).name} · движение подтверждено</strong><svg viewBox="0 0 128 128" preserveAspectRatio="xMidYMid meet" aria-label="Три положения объекта"><polyline points="${positions.map(p=>`${p.x},${p.y}`).join(' ')}" fill="none" stroke="#8de1ce" stroke-width="2" vector-effect="non-scaling-stroke"/>${positions.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="3" fill="#e7fff7"/>`).join('')}</svg><small>Выбрана цель → проверен прогноз → записан след</small>`;const button=document.createElement('button');button.className='secondary';button.dataset.savedCase=entry.caseId;button.textContent='Открыть след и историю · '+fields.find(c=>c.id===entry.caseId).name;button.onclick=()=>{openSaved(entry.caseId);$('tracking-story').focus({preventScroll:true});$('tracking-story').scrollIntoView({behavior:reduced()?'instant':'smooth',block:'start'});};row.append(button);$('journal-list').append(row);});
     $('source-note').textContent=`${item.name}. Наблюдения: ${item.dates.map(d=>d.replace('T',' ').replace('Z',' UTC')).join('; ')}.`;
     if(scene)scene.draw();

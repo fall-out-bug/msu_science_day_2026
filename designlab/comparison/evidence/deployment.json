@@ -1,10 +1,10 @@
 {
   "url": "http://192.168.50.12:8081/",
-  "image": "sha256:615ab8e3d079da966bfda7f305c8e885e69d2b74c08208772aa079d3071eb701",
+  "image": "sha256:980de2ddf1753689073c4654d99aaf6b624de8300dc6d33090c90ce10e3eca92",
   "assets": [
     {
       "file": "index.html",
-      "sha256": "4b5210d8f0701ba04718ceaa93c558b61e1144c23ce98a071b307d7181c5f419",
+      "sha256": "82fbe56ed728fe082eb098bcc9b705c01681dcd1b862de2b354e45e606a716fa",
       "cacheControl": "no-store"
     },
     {
@@ -14,7 +14,7 @@
     },
     {
       "file": "game.js",
-      "sha256": "cfdcea7918298f888cd2a4a152966a489e15887b7bd0f6a9b89c894a95af8384",
+      "sha256": "8a64c3311d0da9d71607bf51f3256a4043ef05974f64df3f0881cc0fd7daba91",
       "cacheControl": "no-store"
     },
     {
@@ -29,7 +29,7 @@
     },
     {
       "file": "journey.js",
-      "sha256": "231f15be7a45629834d51b8c59cd520b56066904cef7c7965cc1c63abf5d83bb",
+      "sha256": "73f5296f4b304c9090996a1d63ec7c7705469056f018207ef82f0262a7edd6b6",
       "cacheControl": "no-store"
     },
     {
@@ -60,6 +60,46 @@
     {
       "file": "brightness-provenance.json",
       "sha256": "f65ff0f9d6fff09603d94468d5d0360f9c3f786750b0c9cc89a1d55e7a633f01",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "launch.js",
+      "sha256": "157ea4fd2fe9b4793b5818863e2cbeba07536601849b8fb68761ab37b062efd4",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "launch-model.js",
+      "sha256": "60044a6cd3a8713ab0617fea0ec32cbe1ebddd0841092724526cfc827f65de6b",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "launch-data.js",
+      "sha256": "e32ba2d06e4e1577f14c3edaf680e7d17851408c15e45ba75852d80802ef9b04",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "launch-provenance.json",
+      "sha256": "3e5eb5ad278110d5dd493a29290ef097a595cddb2ca9122cc7066d54d59105ff",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "observatory-art.js",
+      "sha256": "dd132a37637317cf63ca73cf4332c55872367632c14985b148c1af6b00d68102",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "observatory.svg",
+      "sha256": "89ad9bfae009f3d6517d393a3ddab5e3e9922b0151826a033a5c6071271fbeff",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "observatory.css",
+      "sha256": "a7138cd3f68e63a98bfdcc4ac74ec4b7b4c4adf0931892e8b970816f0f6aed8c",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "shift.css",
+      "sha256": "72037ef892fa0cdeca7eeb04a05b7d5c69b638ea09e177af9caaf92d3ca4b8b8",
       "cacheControl": "no-store"
     },
     {
@@ -95,13 +135,13 @@
       "retry recorded as already seen frame",
       "submitted result deeply frozen",
       "observed position differs from prediction",
-      "next field retains earned journal",
       "helper changes setting without choosing target",
       "keyboard alternative selects same real point",
       "check locks editing",
       "changing motion preference does not freeze check",
-      "two field completion saved",
-      "next science chapter offered after two tracks",
+      "one training field completes movement test",
+      "held-out mover is reserved for autonomous launch",
+      "completed test returns to installation scene",
       "brightness chapter has a concrete goal",
       "brightness empty click leaves action unavailable",
       "brightness measured outcome stable",
@@ -145,9 +185,10 @@
     "errors": []
   },
   "navigation": {
-    "count": 78,
+    "count": 72,
     "checks": [
-      "entry is an episode overview",
+      "entry is an observatory scene",
+      "episode directory remains optional",
       "entry offers both destinations",
       "unearned overview stories are not offered",
       "episode map counts 0 / 2",
@@ -181,23 +222,16 @@
       "navigation preserves complete tracking state",
       "tracking result moving",
       "first actual mover reveals its specific asteroid history",
-      "first successful track does not finish two-field episode",
+      "first successful track completes one-field instrument test",
       "asteroid history button reaches its section",
-      "next-field action identifies the second field",
-      "second field opens inside same episode",
-      "tracking result moving",
-      "second mover has a different earned asteroid history",
-      "two successful tracks earn explicit episode ending",
-      "tracking ending names the next episode destination",
-      "tracking completion survives retry",
-      "navigation reaches overview",
+      "next action identifies installation destination",
+      "successful test returns to observatory",
+      "earned tool still requires installation",
       "episode map counts 2 / 2",
-      "overall completion states that both episodes are finished",
+      "passing tests alone does not finish shift",
       "overview history action reopens an earned asteroid story",
       "first asteroid story is reachable from overview",
-      "completed second field reopens saved result",
-      "journal opens asteroid story 2948",
-      "journal opens asteroid story 8936",
+      "journal reopens the only test asteroid",
       "navigation reaches overview",
       "overview history action reopens the earned supernova story",
       "reopening stories adds no scientific attempt",
@@ -224,6 +258,70 @@
       "navigation reaches overview",
       "episode map counts 0 / 2",
       "reset does not lock either episode",
+      "no runtime errors"
+    ],
+    "engine": "chromium",
+    "entry": "http://192.168.50.12:8081/",
+    "errors": []
+  },
+  "shift": {
+    "count": 56,
+    "checks": [
+      "entry presents partner and one next action",
+      "tools initially uninstalled and no completed shift",
+      "first mobile action fits initial viewport without scrolling",
+      "launch visibly locked before earned installations",
+      "real tracking canvas selects measured target",
+      "one personal track earns movement tool without using launch field",
+      "test outcome returns to installation",
+      "movement installation changes actual observatory state",
+      "personal light test measures real fading",
+      "passing light test does not silently install tool",
+      "both installations unlock independent launch",
+      "assembled observatory opens independent scan",
+      "independent fields exclude personal training images",
+      "motion scan in light field has no manufactured candidate",
+      "empty result cannot show completed verification",
+      "empty scan is recorded honestly without confirmation",
+      "one investigated field cannot finish shift",
+      "empty result switches method and returns keyboard focus to launch",
+      "method change clears stale scan and selected result",
+      "complementary method finds actual light proposal on same field",
+      "keyboard proposal opens computed fading verification",
+      "third light date correctly names rebrightening",
+      "repeated two-frame measurement is not sold as independent confirmation",
+      "saved verification disables duplicate action",
+      "duplicate save guard retains exactly two records",
+      "two methods on one field do not inflate field completion",
+      "next field preserves selected method and exact saved records",
+      "next field returns keyboard focus to launch action",
+      "field change clears stale light selection",
+      "other field yields independent moving-source proposal",
+      "third actual image verifies independently selected mover",
+      "known asteroid appears only after verified observation",
+      "two researched fields offer ending driven by records",
+      "saved reopening restores specific measurement without new record",
+      "ending returns to observatory with honest record counters",
+      "overview has no horizontal overflow at 390 pixels",
+      "tracking has no horizontal overflow at 390 pixels",
+      "brightness has no horizontal overflow at 390 pixels",
+      "launch has no horizontal overflow at 390 pixels",
+      "keyboard radio chooses actual search method",
+      "keyboard selects independent field",
+      "animated scan locks field and mode controls",
+      "leaving cancels scan and retains existing records",
+      "reset cancels pending scan and clears whole shift",
+      "reset restores uninstalled stage and hides ending",
+      "real tracking canvas selects measured target",
+      "one personal track earns movement tool without using launch field",
+      "test outcome returns to installation",
+      "movement installation changes actual observatory state",
+      "personal light test measures real fading",
+      "passing light test does not silently install tool",
+      "both installations unlock independent launch",
+      "unstable photometric controls are distinguished from no change",
+      "zero-confirmation ending is honest and complete",
+      "fixed-rule search is not presented as trained ML",
       "no runtime errors"
     ],
     "engine": "chromium",

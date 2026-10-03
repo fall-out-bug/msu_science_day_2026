@@ -1,0 +1,3692 @@
+{
+ "cases": {
+  "artifact_spike": {
+   "backgrounds": [
+    104.86209106445312,
+    433.45733642578125,
+    114.93142700195312
+   ],
+   "dec": 84.85635965750912,
+   "epochs": [
+    {
+     "bytes": 37872000,
+     "date": "2023-10-07T12:10:31.999Z",
+     "file": "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.9,
+      "magzp": 26.235391,
+      "seeing": 2.056
+     },
+     "mjd": 60224.50731479982,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-10-29T11:54:57.004Z",
+     "file": "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 19.67,
+      "magzp": 26.232791,
+      "seeing": 2.726
+     },
+     "mjd": 60246.49649310019,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-11-10T10:20:34.002Z",
+     "file": "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.63,
+      "magzp": 26.217144,
+      "seeing": 2.367
+     },
+     "mjd": 60258.43094909983,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits"
+    }
+   ],
+   "evidence": "В центре снимка 29 октября появился узкий всплеск, отсутствующий на двух других кадрах. Исходная маска ZTF помечает пиксел битом 7: PIXEL SPIKE (POSSIBLE RAD HIT) — возможное попадание частицы.",
+   "label": "artifact",
+   "limitations": "Метка конвейера и форма поддерживают версию помехи, но сами по себе не устанавливают физическую причину всплеска.",
+   "mask_evidence": {
+    "bit": 7,
+    "counts": [
+     {
+      "0": 0,
+      "1": 63,
+      "10": 0,
+      "11": 11,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+     },
+     {
+      "0": 0,
+      "1": 37,
+      "10": 0,
+      "11": 3,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 2,
+      "8": 0,
+      "9": 0
+     },
+     {
+      "0": 0,
+      "1": 62,
+      "10": 0,
+      "11": 10,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+     }
+    ],
+    "epoch": 1,
+    "sources": [
+     {
+      "bits": {
+       "0": "AIRCRAFT/SATELLITE TRACK",
+       "1": "CONTAINS SEXTRACTOR DETECTION",
+       "10": "NAN (not a number)",
+       "11": "CONTAINS PSF-EXTRACTED SOURCE POSITION",
+       "12": "HALO FROM BRIGHT SOURCE",
+       "13": "RESERVED FOR FUTURE USE",
+       "14": "RESERVED FOR FUTURE USE",
+       "15": "RESERVED FOR FUTURE USE",
+       "2": "LOW RESPONSIVITY",
+       "3": "HIGH RESPONSIVITY",
+       "4": "NOISY",
+       "5": "GHOST FROM BRIGHT SOURCE",
+       "6": "POSSIBLE GHOST FROM CHARGE SPILLAGE",
+       "7": "PIXEL SPIKE (POSSIBLE RAD HIT)",
+       "8": "SATURATED",
+       "9": "DEAD (UNRESPONSIVE)"
+      },
+      "file": "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_mskimg.fits",
+      "sha256": "dd917a7b25ac061b632c96360647fab7b6956785619145a88dc7430287cff392",
+      "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_mskimg.fits"
+     },
+     {
+      "bits": {
+       "0": "AIRCRAFT/SATELLITE TRACK",
+       "1": "CONTAINS SEXTRACTOR DETECTION",
+       "10": "NAN (not a number)",
+       "11": "CONTAINS PSF-EXTRACTED SOURCE POSITION",
+       "12": "HALO FROM BRIGHT SOURCE",
+       "13": "RESERVED FOR FUTURE USE",
+       "14": "RESERVED FOR FUTURE USE",
+       "15": "RESERVED FOR FUTURE USE",
+       "2": "LOW RESPONSIVITY",
+       "3": "HIGH RESPONSIVITY",
+       "4": "NOISY",
+       "5": "GHOST FROM BRIGHT SOURCE",
+       "6": "POSSIBLE GHOST FROM CHARGE SPILLAGE",
+       "7": "PIXEL SPIKE (POSSIBLE RAD HIT)",
+       "8": "SATURATED",
+       "9": "DEAD (UNRESPONSIVE)"
+      },
+      "file": "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_mskimg.fits",
+      "sha256": "8b7f1abe6990f00910b4c195bac894b4669d9534d0df12ec94d589d94347f75c",
+      "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_mskimg.fits"
+     },
+     {
+      "bits": {
+       "0": "AIRCRAFT/SATELLITE TRACK",
+       "1": "CONTAINS SEXTRACTOR DETECTION",
+       "10": "NAN (not a number)",
+       "11": "CONTAINS PSF-EXTRACTED SOURCE POSITION",
+       "12": "HALO FROM BRIGHT SOURCE",
+       "13": "RESERVED FOR FUTURE USE",
+       "14": "RESERVED FOR FUTURE USE",
+       "15": "RESERVED FOR FUTURE USE",
+       "2": "LOW RESPONSIVITY",
+       "3": "HIGH RESPONSIVITY",
+       "4": "NOISY",
+       "5": "GHOST FROM BRIGHT SOURCE",
+       "6": "POSSIBLE GHOST FROM CHARGE SPILLAGE",
+       "7": "PIXEL SPIKE (POSSIBLE RAD HIT)",
+       "8": "SATURATED",
+       "9": "DEAD (UNRESPONSIVE)"
+      },
+      "file": "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_mskimg.fits",
+      "sha256": "1c1c2315766ab14ade23f4c28ca37e6a4f25bd8b83b61bdf80b0da59c181987b",
+      "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_mskimg.fits"
+     }
+    ]
+   },
+   "name": "ZTF 872–06",
+   "native_footprints": [
+    [
+     1141.2539108011,
+     2387.3820558107304,
+     1281.591588949784,
+     2527.6738392900475
+    ],
+    [
+     1098.9096064410348,
+     2437.9430699053983,
+     1239.092443581496,
+     2578.058450870132
+    ],
+    [
+     1088.5949313218002,
+     2420.2819692176727,
+     1228.8217259265516,
+     2560.465096899674
+    ]
+   ],
+   "patch_center": [
+    146.83351456241513,
+    84.85635965750912
+   ],
+   "ra": 146.83351456241513,
+   "scale_arcsec": 1.01286,
+   "source_slice": "observations"
+  },
+  "artifact_track": {
+   "backgrounds": [
+    106.17037200927734,
+    436.370361328125,
+    115.93582916259766
+   ],
+   "dec": 84.98907638130306,
+   "epochs": [
+    {
+     "bytes": 37872000,
+     "date": "2023-10-07T12:10:31.999Z",
+     "file": "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.9,
+      "magzp": 26.235391,
+      "seeing": 2.056
+     },
+     "mjd": 60224.50731479982,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-10-29T11:54:57.004Z",
+     "file": "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 19.67,
+      "magzp": 26.232791,
+      "seeing": 2.726
+     },
+     "mjd": 60246.49649310019,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-11-10T10:20:34.002Z",
+     "file": "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.63,
+      "magzp": 26.217144,
+      "seeing": 2.367
+     },
+     "mjd": 60258.43094909983,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits"
+    }
+   ],
+   "evidence": "На снимке 7 октября виден длинный след; на снимках 29 октября и 10 ноября его нет. Исходная маска ZTF помечает этот след битом 0: AIRCRAFT/SATELLITE TRACK — след самолёта или спутника.",
+   "label": "artifact",
+   "limitations": "Эта маска не позволяет отличить самолёт от спутника или назвать аппарат.",
+   "mask_evidence": {
+    "bit": 0,
+    "counts": [
+     {
+      "0": 1376,
+      "1": 1365,
+      "10": 0,
+      "11": 19,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+     },
+     {
+      "0": 0,
+      "1": 120,
+      "10": 0,
+      "11": 6,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 1,
+      "8": 0,
+      "9": 0
+     },
+     {
+      "0": 0,
+      "1": 169,
+      "10": 0,
+      "11": 8,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+     }
+    ],
+    "epoch": 0,
+    "sources": [
+     {
+      "bits": {
+       "0": "AIRCRAFT/SATELLITE TRACK",
+       "1": "CONTAINS SEXTRACTOR DETECTION",
+       "10": "NAN (not a number)",
+       "11": "CONTAINS PSF-EXTRACTED SOURCE POSITION",
+       "12": "HALO FROM BRIGHT SOURCE",
+       "13": "RESERVED FOR FUTURE USE",
+       "14": "RESERVED FOR FUTURE USE",
+       "15": "RESERVED FOR FUTURE USE",
+       "2": "LOW RESPONSIVITY",
+       "3": "HIGH RESPONSIVITY",
+       "4": "NOISY",
+       "5": "GHOST FROM BRIGHT SOURCE",
+       "6": "POSSIBLE GHOST FROM CHARGE SPILLAGE",
+       "7": "PIXEL SPIKE (POSSIBLE RAD HIT)",
+       "8": "SATURATED",
+       "9": "DEAD (UNRESPONSIVE)"
+      },
+      "file": "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_mskimg.fits",
+      "sha256": "dd917a7b25ac061b632c96360647fab7b6956785619145a88dc7430287cff392",
+      "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_mskimg.fits"
+     },
+     {
+      "bits": {
+       "0": "AIRCRAFT/SATELLITE TRACK",
+       "1": "CONTAINS SEXTRACTOR DETECTION",
+       "10": "NAN (not a number)",
+       "11": "CONTAINS PSF-EXTRACTED SOURCE POSITION",
+       "12": "HALO FROM BRIGHT SOURCE",
+       "13": "RESERVED FOR FUTURE USE",
+       "14": "RESERVED FOR FUTURE USE",
+       "15": "RESERVED FOR FUTURE USE",
+       "2": "LOW RESPONSIVITY",
+       "3": "HIGH RESPONSIVITY",
+       "4": "NOISY",
+       "5": "GHOST FROM BRIGHT SOURCE",
+       "6": "POSSIBLE GHOST FROM CHARGE SPILLAGE",
+       "7": "PIXEL SPIKE (POSSIBLE RAD HIT)",
+       "8": "SATURATED",
+       "9": "DEAD (UNRESPONSIVE)"
+      },
+      "file": "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_mskimg.fits",
+      "sha256": "8b7f1abe6990f00910b4c195bac894b4669d9534d0df12ec94d589d94347f75c",
+      "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_mskimg.fits"
+     },
+     {
+      "bits": {
+       "0": "AIRCRAFT/SATELLITE TRACK",
+       "1": "CONTAINS SEXTRACTOR DETECTION",
+       "10": "NAN (not a number)",
+       "11": "CONTAINS PSF-EXTRACTED SOURCE POSITION",
+       "12": "HALO FROM BRIGHT SOURCE",
+       "13": "RESERVED FOR FUTURE USE",
+       "14": "RESERVED FOR FUTURE USE",
+       "15": "RESERVED FOR FUTURE USE",
+       "2": "LOW RESPONSIVITY",
+       "3": "HIGH RESPONSIVITY",
+       "4": "NOISY",
+       "5": "GHOST FROM BRIGHT SOURCE",
+       "6": "POSSIBLE GHOST FROM CHARGE SPILLAGE",
+       "7": "PIXEL SPIKE (POSSIBLE RAD HIT)",
+       "8": "SATURATED",
+       "9": "DEAD (UNRESPONSIVE)"
+      },
+      "file": "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_mskimg.fits",
+      "sha256": "1c1c2315766ab14ade23f4c28ca37e6a4f25bd8b83b61bdf80b0da59c181987b",
+      "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_mskimg.fits"
+     }
+    ]
+   },
+   "name": "ZTF 872–05",
+   "native_footprints": [
+    [
+     280.4371352722344,
+     1790.2953763871362,
+     426.3352357482927,
+     1936.1725425549052
+    ],
+    [
+     237.10511728907863,
+     1842.1402223579094,
+     382.8932851449664,
+     1987.8574833088599
+    ],
+    [
+     227.1575257100071,
+     1824.0459603656436,
+     372.9666130668946,
+     1969.8138124674074
+    ]
+   ],
+   "patch_center": [
+    149.79644206730438,
+    84.98907638130306
+   ],
+   "ra": 149.79644206730438,
+   "scale_arcsec": 1.01286,
+   "source_slice": "observations"
+  },
+  "mover1": {
+   "catalog_id": "Amosov (2948)",
+   "dec": -14.832080925925927,
+   "epoch_mags": [
+    {
+     "err": 0.04069631405612862,
+     "mag": 17.769831972448166,
+     "mjd": 60759.34479170013
+    },
+    {
+     "err": 0.03515342495192124,
+     "mag": 17.53013022908572,
+     "mjd": 60759.38714119978
+    },
+    {
+     "err": 0.03161886858348369,
+     "mag": 17.145495921121846,
+     "mjd": 60759.4715741002
+    }
+   ],
+   "epochs": [
+    {
+     "bytes": 555178,
+     "eph_dec": -14.837416666666668,
+     "eph_ra": 217.995,
+     "file": "motion-fields/ztf_20250325344780_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz",
+     "header": {
+      "airmass": 1.886,
+      "ccdid": 16,
+      "exptime": 30.0,
+      "fieldid": 325,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.88,
+      "magzp": 26.11828,
+      "moonillf": -0.217912,
+      "obsmjd": 60759.3447917,
+      "pixscale_as": 1.012698,
+      "progremid": 2,
+      "qid": 4,
+      "seeing": 2.275
+     },
+     "mjd": 60759.34479170013,
+     "row": {
+      "ccdid": "16",
+      "exptime": "30.000",
+      "field": "325",
+      "filefracday": "20250325344780",
+      "filtercode": "zr",
+      "infobits": "0",
+      "maglimit": "20.540300",
+      "moonillf": "-0.217912",
+      "obsdate": "2025-03-25 08:16:30.577+00",
+      "obsjd": "2460759.844791700",
+      "qid": "4",
+      "seeing": "2.368150"
+     },
+     "sha256": "c09a92678427c79149c4aedc7aec3d7bc7bc2eb04f8907bfd33614682273feb2",
+     "skybot_match": {
+      "cls": "MB>Outer",
+      "ddec": 14.066,
+      "dec": -14.837402500000001,
+      "dra": -16.2264,
+      "name": "Amosov",
+      "num": 2948,
+      "pos_err": 0.015,
+      "ra": 217.99497125000002,
+      "vmag": 17.6
+     },
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0325/344780/ztf_20250325344780_000325_zr_c16_o_q4_sciimg.fits?center=217.98861916666667,-14.832080925925927&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 568158,
+     "eph_dec": -14.833361111111111,
+     "eph_ra": 217.99016666666665,
+     "file": "motion-fields/ztf_20250325387130_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz",
+     "header": {
+      "airmass": 1.634,
+      "ccdid": 16,
+      "exptime": 30.0,
+      "fieldid": 325,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.76,
+      "magzp": 26.149476,
+      "moonillf": -0.213994,
+      "obsmjd": 60759.3871412,
+      "pixscale_as": 1.012643,
+      "progremid": 2,
+      "qid": 4,
+      "seeing": 2.545
+     },
+     "mjd": 60759.38714119978,
+     "row": {
+      "ccdid": "16",
+      "exptime": "30.000",
+      "field": "325",
+      "filefracday": "20250325387130",
+      "filtercode": "zr",
+      "infobits": "0",
+      "maglimit": "20.442600",
+      "moonillf": "-0.213994",
+      "obsdate": "2025-03-25 09:17:29.439+00",
+      "obsjd": "2460759.887141200",
+      "qid": "4",
+      "seeing": "2.589450"
+     },
+     "sha256": "d19a7d9cdb37aaaf4624c0791a608972d78a36260c396c3a0430572897b24c13",
+     "skybot_match": {
+      "cls": "MB>Outer",
+      "ddec": 14.139,
+      "dec": -14.833421111111111,
+      "dra": -16.3442,
+      "name": "Amosov",
+      "num": 2948,
+      "pos_err": 0.015,
+      "ra": 217.99021375,
+      "vmag": 17.6
+     },
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0325/387130/ztf_20250325387130_000325_zr_c16_o_q4_sciimg.fits?center=217.98861916666667,-14.832080925925927&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 555319,
+     "eph_dec": -14.825333333333333,
+     "eph_ra": 217.98058333333336,
+     "file": "motion-fields/ztf_20250325471562_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz",
+     "header": {
+      "airmass": 1.638,
+      "ccdid": 16,
+      "exptime": 30.0,
+      "fieldid": 325,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.78,
+      "magzp": 26.14883,
+      "moonillf": -0.206335,
+      "obsmjd": 60759.4715741,
+      "pixscale_as": 1.012689,
+      "progremid": 2,
+      "qid": 4,
+      "seeing": 2.531
+     },
+     "mjd": 60759.4715741002,
+     "row": {
+      "ccdid": "16",
+      "exptime": "30.000",
+      "field": "325",
+      "filefracday": "20250325471562",
+      "filtercode": "zr",
+      "infobits": "0",
+      "maglimit": "20.444000",
+      "moonillf": "-0.206335",
+      "obsdate": "2025-03-25 11:19:04.347+00",
+      "obsjd": "2460759.971574100",
+      "qid": "4",
+      "seeing": "2.598980"
+     },
+     "sha256": "815243b969391d813636edb0879f98006d6292ba86fc6950b6b31b3be5d0d1f6",
+     "skybot_match": {
+      "cls": "MB>Outer",
+      "ddec": 14.292,
+      "dec": -14.825419166666666,
+      "dra": -16.3876,
+      "name": "Amosov",
+      "num": 2948,
+      "pos_err": 0.015,
+      "ra": 217.9806725,
+      "vmag": 17.6
+     },
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0325/471562/ztf_20250325471562_000325_zr_c16_o_q4_sciimg.fits?center=217.98861916666667,-14.832080925925927&size=420.0arcsec&gzip=false"
+    }
+   ],
+   "evidence": "Центроид источника смещается относительно первой эпохи на 22,00″ во второй и 65,97″ в третьей; топоцентрическая эфемерида Horizons для Паломарской обсерватории (I41) на те же эпохи предсказывает 22,27″ и 66,40″. Максимальный измеренный сдвиг контрольных звёзд — 0,59 пикселя: перемещается источник, а не всё поле. Отклонения измеренных положений от предсказанных по трём эпохам: 0,12″, 0,27″ и 0,39″; разности измеренных и предсказанных смещений (0,27″ и 0,44″) не превышают сумм остатков соответствующих эпох (0,40″ и 0,52″) — измерения и эфемерида согласованы. Независимый поиск SkyBoT (IMCCE) опознаёт здесь астероид (2948) Amosov во всех трёх экспозициях. Разность третьего и первого кадров показывает отрицательный след в прежней позиции и положительный — в новой.",
+   "group": {
+    "ccdid": 16,
+    "field": 325,
+    "filter": "zr",
+    "qid": 4
+   },
+   "label": "mover",
+   "limitations": "Наблюдения выполнены только в фильтре ZTF r: цвет объекта не измерен. Положения имеют ошибки WCS и измерения центроида; приведённые остатки не являются оценкой точности орбиты. Апертурные величины чувствительны к фону, соседним звёздам и seeing; их различие само по себе не доказывает переменность астероида.",
+   "mag_note": "Апертурная фотометрия: радиус 5 пикселей, фон из кольца 9–13 пикселей, калибровка по MAGZP кадра. Предсказанная Horizons величина V=17,43 относится к другому фильтру и не служит прямой проверкой измеренного блеска в r.",
+   "mpc_number": 2948,
+   "patch_center": [
+    217.98861916666667,
+    -14.832080925925927
+   ],
+   "ra": 217.98861916666667,
+   "sheet": "motion-fields/mover1_contact.png",
+   "skybot": {
+    "class": "MB>Outer",
+    "horizons": {
+     "center": "I41 (Palomar Mountain, ZTF)",
+     "epochs": [
+      {
+       "ddec_as_h": 14.03957,
+       "dec": -14.837416666666668,
+       "dra_as_h": -16.2445,
+       "mjd": 60759.34479170013,
+       "ra": 217.995,
+       "vmag": 17.435
+      },
+      {
+       "ddec_as_h": 14.11383,
+       "dec": -14.833361111111111,
+       "dra_as_h": -16.3645,
+       "mjd": 60759.38714119978,
+       "ra": 217.99016666666665,
+       "vmag": 17.434
+      },
+      {
+       "ddec_as_h": 14.26652,
+       "dec": -14.825333333333333,
+       "dra_as_h": -16.4067,
+       "mjd": 60759.4715741002,
+       "ra": 217.98058333333336,
+       "vmag": 17.433
+      }
+     ],
+     "service": "JPL Horizons API ssd.jpl.nasa.gov/api/horizons.api (EPHEM_TYPE=OBSERVER, CENTER=I41 Palomar/ZTF, QUANTITIES 1,3,9,19,20,33, STEP_SIZE=2m)"
+    },
+    "matches": [
+     {
+      "cls": "MB>Outer",
+      "mjd": 60759.34479170013,
+      "offset_vs_meas_as": 0.08691805305255897,
+      "pos_err_as": 0.015,
+      "query": "https://ssp.imcce.fr/webservices/skybot/api/conesearch.php?-ep=2025-03-25 08:16:30&-ra=217.988619&-dec=-14.832081&-rs=260&-observer=675&-objFilter=100",
+      "skybot_dec": -14.837402500000001,
+      "skybot_ra": 217.99497125000002,
+      "vmag": 17.6
+     },
+     {
+      "cls": "MB>Outer",
+      "mjd": 60759.38714119978,
+      "offset_vs_meas_as": 0.13656626329247631,
+      "pos_err_as": 0.015,
+      "query": "https://ssp.imcce.fr/webservices/skybot/api/conesearch.php?-ep=2025-03-25 09:17:29&-ra=217.988619&-dec=-14.832081&-rs=260&-observer=675&-objFilter=100",
+      "skybot_dec": -14.833421111111111,
+      "skybot_ra": 217.99021375,
+      "vmag": 17.6
+     },
+     {
+      "cls": "MB>Outer",
+      "mjd": 60759.4715741002,
+      "offset_vs_meas_as": 0.1300084324162339,
+      "pos_err_as": 0.015,
+      "query": "https://ssp.imcce.fr/webservices/skybot/api/conesearch.php?-ep=2025-03-25 11:19:04&-ra=217.988619&-dec=-14.832081&-rs=260&-observer=675&-objFilter=100",
+      "skybot_dec": -14.825419166666666,
+      "skybot_ra": 217.9806725,
+      "vmag": 17.6
+     }
+    ],
+    "observer": "675 (Palomar, ZTF)",
+    "service": "SkyBoT conesearch (IMCCE VO-SSP), https://ssp.imcce.fr/webservices/skybot/api/conesearch.php"
+   },
+   "source_slice": "motion-fields"
+  },
+  "mover2": {
+   "catalog_id": "Gianni (8936)",
+   "dec": 20.361094814814816,
+   "epoch_mags": [
+    {
+     "err": 0.03146352788414957,
+     "mag": 17.38069570466284,
+     "mjd": 58850.273958299775
+    },
+    {
+     "err": 0.030670544689364032,
+     "mag": 17.38626219432833,
+     "mjd": 58850.30003469996
+    },
+    {
+     "err": 0.0316453130340419,
+     "mag": 17.505487188194504,
+     "mjd": 58850.3424769002
+    }
+   ],
+   "epochs": [
+    {
+     "bytes": 570603,
+     "eph_dec": 20.35852777777778,
+     "eph_ra": 122.28883333333334,
+     "file": "motion-fields/ztf_20200102273947_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz",
+     "header": {
+      "airmass": 1.29,
+      "ccdid": 11,
+      "exptime": 30.0,
+      "fieldid": 567,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.59,
+      "magzp": 26.370229,
+      "moonillf": 0.413954,
+      "obsmjd": 58850.2739583,
+      "pixscale_as": 1.01269,
+      "progremid": 2,
+      "qid": 2,
+      "seeing": 2.909
+     },
+     "mjd": 58850.273958299775,
+     "row": {
+      "ccdid": "11",
+      "exptime": "30.000",
+      "field": "567",
+      "filefracday": "20200102273947",
+      "filtercode": "zr",
+      "infobits": "0",
+      "maglimit": "20.363300",
+      "moonillf": "0.413954",
+      "obsdate": "2020-01-02 06:34:30.582+00",
+      "obsjd": "2458850.773958300",
+      "qid": "2",
+      "seeing": "2.944540"
+     },
+     "sha256": "ec223e1cc1d71194149dd662da448cb2dc8f59429280bc6d689ab5627be66d1c",
+     "skybot_match": {
+      "cls": "MB>Inner",
+      "ddec": 11.968,
+      "dec": 20.35859277777778,
+      "dra": -36.1773,
+      "name": "Gianni",
+      "num": 8936,
+      "pos_err": 0.327,
+      "ra": 122.28871666666666,
+      "vmag": 17.6
+     },
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2020/0102/273947/ztf_20200102273947_000567_zr_c11_o_q2_sciimg.fits?center=122.28057430555555,20.361094814814816&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 567363,
+     "eph_dec": 20.36063888888889,
+     "eph_ra": 122.28204166666669,
+     "file": "motion-fields/ztf_20200102300035_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz",
+     "header": {
+      "airmass": 1.174,
+      "ccdid": 11,
+      "exptime": 30.0,
+      "fieldid": 567,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.86,
+      "magzp": 26.362235,
+      "moonillf": 0.41642,
+      "obsmjd": 58850.3000347,
+      "pixscale_as": 1.012685,
+      "progremid": 2,
+      "qid": 2,
+      "seeing": 2.659
+     },
+     "mjd": 58850.30003469996,
+     "row": {
+      "ccdid": "11",
+      "exptime": "30.000",
+      "field": "567",
+      "filefracday": "20200102300035",
+      "filtercode": "zr",
+      "infobits": "0",
+      "maglimit": "20.480499",
+      "moonillf": "0.416420",
+      "obsdate": "2020-01-02 07:12:03.819+00",
+      "obsjd": "2458850.800034700",
+      "qid": "2",
+      "seeing": "2.684010"
+     },
+     "sha256": "8760cd4533d7147cdd27ba9345b87073836b0f68d68a2a5bec072ef0c442c8ed",
+     "skybot_match": {
+      "cls": "MB>Inner",
+      "ddec": 11.909,
+      "dec": 20.360668333333336,
+      "dra": -36.3209,
+      "name": "Gianni",
+      "num": 8936,
+      "pos_err": 0.327,
+      "ra": 122.28199500000001,
+      "vmag": 17.6
+     },
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2020/0102/300035/ztf_20200102300035_000567_zr_c11_o_q2_sciimg.fits?center=122.28057430555555,20.361094814814816&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 567343,
+     "eph_dec": 20.364055555555556,
+     "eph_ra": 122.270875,
+     "file": "motion-fields/ztf_20200102342477_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz",
+     "header": {
+      "airmass": 1.067,
+      "ccdid": 11,
+      "exptime": 30.0,
+      "fieldid": 567,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.81,
+      "magzp": 26.38763,
+      "moonillf": 0.420394,
+      "obsmjd": 58850.3424769,
+      "pixscale_as": 1.012656,
+      "progremid": 2,
+      "qid": 2,
+      "seeing": 2.847
+     },
+     "mjd": 58850.3424769002,
+     "row": {
+      "ccdid": "11",
+      "exptime": "30.000",
+      "field": "567",
+      "filefracday": "20200102342477",
+      "filtercode": "zr",
+      "infobits": "0",
+      "maglimit": "20.535000",
+      "moonillf": "0.420394",
+      "obsdate": "2020-01-02 08:13:10.46+00",
+      "obsjd": "2458850.842476900",
+      "qid": "2",
+      "seeing": "2.885410"
+     },
+     "sha256": "688ddf0368fd3e5d884e5dc81e9e1d95ecff8adcc6ececd4afd0bf1cfa3de1cd",
+     "skybot_match": {
+      "cls": "MB>Inner",
+      "ddec": 11.799,
+      "dec": 20.36402277777778,
+      "dra": -36.4867,
+      "name": "Gianni",
+      "num": 8936,
+      "pos_err": 0.327,
+      "ra": 122.27100625,
+      "vmag": 17.6
+     },
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2020/0102/342477/ztf_20200102342477_000567_zr_c11_o_q2_sciimg.fits?center=122.28057430555555,20.361094814814816&size=420.0arcsec&gzip=false"
+    }
+   ],
+   "evidence": "Центроид источника смещается относительно первой эпохи на 23,99″ во второй и 62,95″ в третьей; топоцентрическая эфемерида Horizons для Паломарской обсерватории (I41) на те же эпохи предсказывает 24,15″ и 63,79″. Максимальный измеренный сдвиг контрольных звёзд — 0,80 пикселя: перемещается источник, а не всё поле. Отклонения измеренных положений от предсказанных по трём эпохам: 0,63″, 0,58″ и 0,39″; разности измеренных и предсказанных смещений (0,16″ и 0,85″) не превышают сумм остатков соответствующих эпох (1,21″ и 1,03″) — измерения и эфемерида согласованы. Независимый поиск SkyBoT (IMCCE) опознаёт здесь астероид (8936) Gianni во всех трёх экспозициях. Разность третьего и первого кадров показывает отрицательный след в прежней позиции и положительный — в новой.",
+   "group": {
+    "ccdid": 11,
+    "field": 567,
+    "filter": "zr",
+    "qid": 2
+   },
+   "label": "mover",
+   "limitations": "Наблюдения выполнены только в фильтре ZTF r: цвет объекта не измерен. Положения имеют ошибки WCS и измерения центроида; приведённые остатки не являются оценкой точности орбиты. Апертурные величины чувствительны к фону, соседним звёздам и seeing; их различие само по себе не доказывает переменность астероида.",
+   "mag_note": "Апертурная фотометрия: радиус 5 пикселей, фон из кольца 9–13 пикселей, калибровка по MAGZP кадра. Предсказанная Horizons величина V=17,61 относится к другому фильтру и не служит прямой проверкой измеренного блеска в r.",
+   "mpc_number": 8936,
+   "patch_center": [
+    122.28057430555555,
+    20.361094814814816
+   ],
+   "ra": 122.28057430555555,
+   "sheet": "motion-fields/mover2_contact.png",
+   "skybot": {
+    "class": "MB>Inner",
+    "horizons": {
+     "center": "I41 (Palomar Mountain, ZTF)",
+     "epochs": [
+      {
+       "ddec_as_h": 12.03208,
+       "dec": 20.35852777777778,
+       "dra_as_h": -36.1522,
+       "mjd": 58850.273958299775,
+       "ra": 122.28883333333334,
+       "vmag": 17.611
+      },
+      {
+       "ddec_as_h": 11.97192,
+       "dec": 20.36063888888889,
+       "dra_as_h": -36.2979,
+       "mjd": 58850.30003469996,
+       "ra": 122.28204166666669,
+       "vmag": 17.61
+      },
+      {
+       "ddec_as_h": 11.86078,
+       "dec": 20.364055555555556,
+       "dra_as_h": -36.4657,
+       "mjd": 58850.3424769002,
+       "ra": 122.270875,
+       "vmag": 17.609
+      }
+     ],
+     "service": "JPL Horizons API ssd.jpl.nasa.gov/api/horizons.api (EPHEM_TYPE=OBSERVER, CENTER=I41 Palomar/ZTF, QUANTITIES 1,3,9,19,20,33, STEP_SIZE=2m)"
+    },
+    "matches": [
+     {
+      "cls": "MB>Inner",
+      "mjd": 58850.273958299775,
+      "offset_vs_meas_as": 0.5365307929310454,
+      "pos_err_as": 0.327,
+      "query": "https://ssp.imcce.fr/webservices/skybot/api/conesearch.php?-ep=2020-01-02 06:34:30&-ra=122.280574&-dec=20.361095&-rs=260&-observer=675&-objFilter=100",
+      "skybot_dec": 20.35859277777778,
+      "skybot_ra": 122.28871666666666,
+      "vmag": 17.6
+     },
+     {
+      "cls": "MB>Inner",
+      "mjd": 58850.30003469996,
+      "offset_vs_meas_as": 0.5650801202740321,
+      "pos_err_as": 0.327,
+      "query": "https://ssp.imcce.fr/webservices/skybot/api/conesearch.php?-ep=2020-01-02 07:12:03&-ra=122.280574&-dec=20.361095&-rs=260&-observer=675&-objFilter=100",
+      "skybot_dec": 20.360668333333336,
+      "skybot_ra": 122.28199500000001,
+      "vmag": 17.6
+     },
+     {
+      "cls": "MB>Inner",
+      "mjd": 58850.3424769002,
+      "offset_vs_meas_as": 0.0946911852918067,
+      "pos_err_as": 0.327,
+      "query": "https://ssp.imcce.fr/webservices/skybot/api/conesearch.php?-ep=2020-01-02 08:13:10&-ra=122.280574&-dec=20.361095&-rs=260&-observer=675&-objFilter=100",
+      "skybot_dec": 20.36402277777778,
+      "skybot_ra": 122.27100625,
+      "vmag": 17.6
+     }
+    ],
+    "observer": "675 (Palomar, ZTF)",
+    "service": "SkyBoT conesearch (IMCCE VO-SSP), https://ssp.imcce.fr/webservices/skybot/api/conesearch.php"
+   },
+   "source_slice": "motion-fields"
+  },
+  "normal_1": {
+   "backgrounds": [
+    105.30099487304688,
+    434.669921875,
+    115.45452117919922
+   ],
+   "dec": 84.9345676651602,
+   "epochs": [
+    {
+     "bytes": 37872000,
+     "date": "2023-10-07T12:10:31.999Z",
+     "file": "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.9,
+      "magzp": 26.235391,
+      "seeing": 2.056
+     },
+     "mjd": 60224.50731479982,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-10-29T11:54:57.004Z",
+     "file": "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 19.67,
+      "magzp": 26.232791,
+      "seeing": 2.726
+     },
+     "mjd": 60246.49649310019,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-11-10T10:20:34.002Z",
+     "file": "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.63,
+      "magzp": 26.217144,
+      "seeing": 2.367
+     },
+     "mjd": 60258.43094909983,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits"
+    }
+   ],
+   "evidence": "На трёх снимках звёзды остаются на тех же местах. У 2 ярких источников размах апертурного потока не превышает 1.4% от медианы. В исходной маске участка нет флагов дефектов или следов.",
+   "label": "normal",
+   "limitations": "Это не доказательство постоянства всех звёзд: слабая переменность может скрываться в шуме. Разница seeing меняет форму звёзд даже при близком полном потоке.",
+   "measured_sources": [
+    {
+     "flux": [
+      51813.89453125,
+      51158.81640625,
+      51859.578125
+     ],
+     "span": 0.013524590750987778,
+     "x": 60.0,
+     "y": 29.0
+    },
+    {
+     "flux": [
+      40365.4453125,
+      39873.01171875,
+      40243.46875
+     ],
+     "span": 0.012236360558506775,
+     "x": 98.0,
+     "y": 95.0
+    }
+   ],
+   "name": "ZTF 872–01",
+   "native_footprints": [
+    [
+     989.2674219900048,
+     2089.2889186148363,
+     1130.7346352174732,
+     2230.711225739751
+    ],
+    [
+     946.490599466902,
+     2140.0983765224123,
+     1087.8106030451238,
+     2281.3453784096514
+    ],
+    [
+     936.3205873095977,
+     2122.3308892311966,
+     1077.6822682732568,
+     2263.6453203243796
+    ]
+   ],
+   "patch_center": [
+    147.41905894056924,
+    84.9345676651602
+   ],
+   "ra": 147.41905894056924,
+   "scale_arcsec": 1.01286,
+   "source_slice": "observations"
+  },
+  "normal_2": {
+   "backgrounds": [
+    105.10525512695312,
+    436.8692626953125,
+    115.2952880859375
+   ],
+   "dec": 85.26198443998899,
+   "epochs": [
+    {
+     "bytes": 37872000,
+     "date": "2023-10-07T12:10:31.999Z",
+     "file": "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.9,
+      "magzp": 26.235391,
+      "seeing": 2.056
+     },
+     "mjd": 60224.50731479982,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-10-29T11:54:57.004Z",
+     "file": "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 19.67,
+      "magzp": 26.232791,
+      "seeing": 2.726
+     },
+     "mjd": 60246.49649310019,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-11-10T10:20:34.002Z",
+     "file": "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.63,
+      "magzp": 26.217144,
+      "seeing": 2.367
+     },
+     "mjd": 60258.43094909983,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits"
+    }
+   ],
+   "evidence": "На трёх снимках звёзды остаются на тех же местах. У 2 ярких источников размах апертурного потока не превышает 2.4% от медианы. В исходной маске участка нет флагов дефектов или следов.",
+   "label": "normal",
+   "limitations": "Это не доказательство постоянства всех звёзд: слабая переменность может скрываться в шуме. Разница seeing меняет форму звёзд даже при близком полном потоке.",
+   "measured_sources": [
+    {
+     "flux": [
+      7304.625,
+      7372.76416015625,
+      7325.60791015625
+     ],
+     "span": 0.009301502481695971,
+     "x": 87.0,
+     "y": 83.0
+    },
+    {
+     "flux": [
+      2881.257568359375,
+      2814.674072265625,
+      2826.60302734375
+     ],
+     "span": 0.02355601244661535,
+     "x": 107.0,
+     "y": 111.0
+    }
+   ],
+   "name": "ZTF 872–02",
+   "native_footprints": [
+    [
+     1650.9799669885015,
+     991.0122413564187,
+     1789.02324374901,
+     1128.987022006987
+    ],
+    [
+     1606.6499039256762,
+     1041.0012445982993,
+     1744.5133200523362,
+     1178.811787023018
+    ],
+    [
+     1596.9430113933163,
+     1023.4531086405334,
+     1734.8505563319077,
+     1161.304826704281
+    ]
+   ],
+   "patch_center": [
+    145.64309097190232,
+    85.26198443998899
+   ],
+   "ra": 145.64309097190232,
+   "scale_arcsec": 1.01286,
+   "source_slice": "observations"
+  },
+  "normal_3": {
+   "backgrounds": [
+    104.29176330566406,
+    432.28253173828125,
+    114.33244323730469
+   ],
+   "dec": 84.83512055932871,
+   "epochs": [
+    {
+     "bytes": 37872000,
+     "date": "2023-10-07T12:10:31.999Z",
+     "file": "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.9,
+      "magzp": 26.235391,
+      "seeing": 2.056
+     },
+     "mjd": 60224.50731479982,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-10-29T11:54:57.004Z",
+     "file": "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 19.67,
+      "magzp": 26.232791,
+      "seeing": 2.726
+     },
+     "mjd": 60246.49649310019,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-11-10T10:20:34.002Z",
+     "file": "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.63,
+      "magzp": 26.217144,
+      "seeing": 2.367
+     },
+     "mjd": 60258.43094909983,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits"
+    }
+   ],
+   "evidence": "На трёх снимках звёзды остаются на тех же местах. У 3 ярких источников размах апертурного потока не превышает 2.6% от медианы. В исходной маске участка нет флагов дефектов или следов.",
+   "label": "normal",
+   "limitations": "Это не доказательство постоянства всех звёзд: слабая переменность может скрываться в шуме. Разница seeing меняет форму звёзд даже при близком полном потоке.",
+   "measured_sources": [
+    {
+     "flux": [
+      5639.18603515625,
+      5592.01220703125,
+      5605.859375
+     ],
+     "span": 0.008415093024876315,
+     "x": 22.0,
+     "y": 33.0
+    },
+    {
+     "flux": [
+      6490.00390625,
+      6490.19580078125,
+      6495.07666015625
+     ],
+     "span": 0.000781602599052462,
+     "x": 75.0,
+     "y": 64.0
+    },
+    {
+     "flux": [
+      9470.4453125,
+      9222.0986328125,
+      9403.3896484375
+     ],
+     "span": 0.026410335950373613,
+     "x": 99.0,
+     "y": 66.0
+    }
+   ],
+   "name": "ZTF 872–03",
+   "native_footprints": [
+    [
+     1872.1247388553004,
+     2532.1481211819982,
+     2007.8781217035712,
+     2667.8544061251578
+    ],
+    [
+     1829.9734940628375,
+     2581.636899906319,
+     1965.5580650787658,
+     2717.159547738788
+    ],
+    [
+     1819.5518176657154,
+     2564.2993364555464,
+     1955.178996798052,
+     2699.874388414228
+    ]
+   ],
+   "patch_center": [
+    144.51993481690437,
+    84.83512055932871
+   ],
+   "ra": 144.51993481690437,
+   "scale_arcsec": 1.01286,
+   "source_slice": "observations"
+  },
+  "normal_4": {
+   "backgrounds": [
+    105.59565734863281,
+    434.4903869628906,
+    115.77262878417969
+   ],
+   "dec": 84.77656993602352,
+   "epochs": [
+    {
+     "bytes": 37872000,
+     "date": "2023-10-07T12:10:31.999Z",
+     "file": "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.9,
+      "magzp": 26.235391,
+      "seeing": 2.056
+     },
+     "mjd": 60224.50731479982,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-10-29T11:54:57.004Z",
+     "file": "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 19.67,
+      "magzp": 26.232791,
+      "seeing": 2.726
+     },
+     "mjd": 60246.49649310019,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits"
+    },
+    {
+     "bytes": 37872000,
+     "date": "2023-11-10T10:20:34.002Z",
+     "file": "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+     "header": {
+      "exptime": 30.0,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.63,
+      "magzp": 26.217144,
+      "seeing": 2.367
+     },
+     "mjd": 60258.43094909983,
+     "row": {
+      "ccdid": 10,
+      "field": 872,
+      "qid": 2
+     },
+     "sha256": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits"
+    }
+   ],
+   "evidence": "На трёх снимках звёзды остаются на тех же местах. У 2 ярких источников размах апертурного потока не превышает 2.6% от медианы. В исходной маске участка нет флагов дефектов или следов.",
+   "label": "normal",
+   "limitations": "Это не доказательство постоянства всех звёзд: слабая переменность может скрываться в шуме. Разница seeing меняет форму звёзд даже при близком полном потоке.",
+   "measured_sources": [
+    {
+     "flux": [
+      10207.79296875,
+      9938.1171875,
+      10188.0322265625
+     ],
+     "span": 0.026469859463822108,
+     "x": 100.0,
+     "y": 72.0
+    },
+    {
+     "flux": [
+      14259.5751953125,
+      14331.05859375,
+      14333.056640625
+     ],
+     "span": 0.005127426200360831,
+     "x": 91.0,
+     "y": 108.0
+    }
+   ],
+   "name": "ZTF 872–04",
+   "native_footprints": [
+    [
+     106.89719093810851,
+     2526.936413325738,
+     253.09979855508473,
+     2673.0627061498453
+    ],
+    [
+     64.64940780770694,
+     2578.9876881701816,
+     210.7099896488593,
+     2724.9828861108863
+    ],
+    [
+     54.39189933750493,
+     2560.8881644028634,
+     200.4701378207144,
+     2706.9424021931213
+    ]
+   ],
+   "patch_center": [
+    149.9549500916487,
+    84.77656993602352
+   ],
+   "ra": 149.9549500916487,
+   "scale_arcsec": 1.01286,
+   "source_slice": "observations"
+  },
+  "sn2023tyk": {
+   "catalog_id": "ZTF23abhvlji",
+   "dec": 83.9734582153846,
+   "epochs": [
+    {
+     "bytes": 564487,
+     "file": "cache/sci/ztf_20230513305694_000872_zr_c10_o_q3_sciimg_8acf329530.fits.gz",
+     "header": {
+      "airmass": 1.789,
+      "ccdid": 10,
+      "exptime": 30.0,
+      "fieldid": 872,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.71,
+      "magzp": 26.191353,
+      "moonillf": -0.422119,
+      "obsmjd": 60077.3057639,
+      "pixscale_as": 1.012853,
+      "progremid": 1,
+      "qid": 3,
+      "seeing": 2.324
+     },
+     "mjd": 60077.305763899814,
+     "row": {
+      "ccdid": "10",
+      "expid": "232330576",
+      "exptime": "30.000",
+      "fid": "2",
+      "field": "872",
+      "filefracday": "20230513305694",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "2023-09-07 00:00:00+00",
+      "maglimit": "20.238899",
+      "moonillf": "-0.422119",
+      "obsdate": "2023-05-13 07:20:18.152+00",
+      "obsjd": "2460077.805763900",
+      "qid": "3",
+      "seeing": "2.332090"
+     },
+     "sha256": "b1ce27a8d1e2fe52064fb6575b831ab19b48bb1e1e22a1c1d3ae7f9d71347e80",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/0513/305694/ztf_20230513305694_000872_zr_c10_o_q3_sciimg.fits?center=143.79799404615386,83.9734582153846&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 561574,
+     "file": "cache/sci/ztf_20231007507292_000872_zr_c10_o_q3_sciimg_8acf329530.fits.gz",
+     "header": {
+      "airmass": 1.684,
+      "ccdid": 10,
+      "exptime": 30.0,
+      "fieldid": 872,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.86,
+      "magzp": 26.280288,
+      "moonillf": -0.409801,
+      "obsmjd": 60224.5073148,
+      "pixscale_as": 1.012856,
+      "progremid": 1,
+      "qid": 3,
+      "seeing": 1.984
+     },
+     "mjd": 60224.50731479982,
+     "row": {
+      "ccdid": "10",
+      "expid": "247050731",
+      "exptime": "30.000",
+      "fid": "2",
+      "field": "872",
+      "filefracday": "20231007507292",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "2024-01-08 00:00:00+00",
+      "maglimit": "20.366400",
+      "moonillf": "-0.409801",
+      "obsdate": "2023-10-07 12:10:32.318+00",
+      "obsjd": "2460225.007314800",
+      "qid": "3",
+      "seeing": "1.992010"
+     },
+     "sha256": "e0e953b2c640b47ce80aebeb4d7914521d2e8a5b0b00a45da083c3ab5b04b4e4",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q3_sciimg.fits?center=143.79799404615386,83.9734582153846&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 562425,
+     "file": "cache/sci/ztf_20231110430868_000872_zr_c10_o_q3_sciimg_8acf329530.fits.gz",
+     "header": {
+      "airmass": 1.662,
+      "ccdid": 10,
+      "exptime": 30.0,
+      "fieldid": 872,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.64,
+      "magzp": 26.278709,
+      "moonillf": -0.0883227,
+      "obsmjd": 60258.4309491,
+      "pixscale_as": 1.012813,
+      "progremid": 1,
+      "qid": 3,
+      "seeing": 2.359
+     },
+     "mjd": 60258.43094909983,
+     "row": {
+      "ccdid": "10",
+      "expid": "250443094",
+      "exptime": "30.000",
+      "fid": "2",
+      "field": "872",
+      "filefracday": "20231110430868",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "2024-03-07 00:00:00+00",
+      "maglimit": "20.167999",
+      "moonillf": "-0.088323",
+      "obsdate": "2023-11-10 10:20:34.891+00",
+      "obsjd": "2460258.930949100",
+      "qid": "3",
+      "seeing": "2.364360"
+     },
+     "sha256": "147547c1428b5c53cbf055f7d99e97950b855c924ddb164299416697edaf832c",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q3_sciimg.fits?center=143.79799404615386,83.9734582153846&size=420.0arcsec&gzip=false"
+    }
+   ],
+   "evidence": "Три реальные 30-с экспозиции ZTF в фильтре r, поле 872/CCD10/Q3: 13 мая, 7 октября и 10 ноября 2023 года. Майский кадр снят до обнаружения SN 2023tyk. На обычных снимках свет цели смешивается со светом соседнего источника. Независимая разностная PSF-фотометрия ALeRCE даёт 18,03±0,06 mag 7 октября (candid 2470507313815015005) и 19,38±0,19 mag 10 ноября (candid 2504430943815015004): поток переменной составляющей уменьшился примерно в 3,4 раза за 34 суток. Идентификация: ZTF23abhvlji = SN 2023tyk, TNS AstroNote 2023-265.",
+   "group": {
+    "ccdid": 10,
+    "field": 872,
+    "filter": "zr",
+    "qid": 3
+   },
+   "label": "variable",
+   "limitations": "Указаны звёздные величины из разностной фотометрии, а не полный поток смешанного изображения. В 2,4 угловой секунды от цели есть постоянный источник; несовершенное вычитание может влиять на результат. Общая предельная величина майского кадра — 20,24 mag; это не индивидуальный предел для позиции сверхновой рядом с соседом. Тип сверхновой устанавливают по спектру, а не по этим трём снимкам.",
+   "magpsf_note": "Для майского кадра указан только общий предел чувствительности из метаданных IRSA, не измеренный поток цели. Октябрьская и ноябрьская точки — PSF-фотометрия разностных изображений из ALeRCE: поток изменяющейся составляющей после вычитания опорного изображения, не полный свет всех источников в апертуре.",
+   "patch_center": [
+    143.79799404615386,
+    83.9734582153846
+   ],
+   "photometry_alerce": [
+    {
+     "detection": false,
+     "frame_limit_mag": 20.238899,
+     "mjd_frame": 60077.3058,
+     "note": "Кадр до обнаружения SN. Здесь не приведён измеренный поток цели; frame_limit_mag — общая оценка чувствительности кадра IRSA, не индивидуальный верхний предел для этой позиции."
+    },
+    {
+     "candid": "2470507313815015005",
+     "distnr": 2.4475534,
+     "err": 0.064200014,
+     "fid": 2,
+     "isdiffpos": 1,
+     "mag_diff": 18.027288,
+     "magnr": null,
+     "mjd_detection": 60224.50731479982,
+     "mjd_frame": 60224.5073,
+     "rb": 0.89285713
+    },
+    {
+     "candid": "2504430943815015004",
+     "distnr": 2.5319865,
+     "err": 0.19425032,
+     "fid": 2,
+     "isdiffpos": 1,
+     "mag_diff": 19.377708,
+     "magnr": null,
+     "mjd_detection": 60258.43094909983,
+     "mjd_frame": 60258.4309,
+     "rb": 0.79142857
+    }
+   ],
+   "photometry_contract": "Одна запись на кадр в порядке epochs по MJD. frame_limit_mag — общая предельная звёздная величина кадра IRSA, не предел для отдельного источника. mag_diff и err — разностная PSF-фотометрия ALeRCE. Измеренная величина SN для первой эпохи не приводится.",
+   "qc": {
+    "nan": 0.0,
+    "ok": true,
+    "saturated": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "ra": 143.79799404615386,
+   "ref": {
+    "endobsdate": "2019-11-09 10:23:37.559+00",
+    "file": "cache/ref/ztf_000872_zr_c10_q3_refimg_8acf329530.fits.gz",
+    "header": {
+     "dbrfid": 872120238,
+     "filter": null,
+     "maglim": 22.17,
+     "magzp": 26.275,
+     "nframes": 15,
+     "totexpt": 450.0
+    },
+    "maglimit": 21.3659,
+    "nframes": "15",
+    "rfid": "872120238",
+    "startobsdate": "2019-06-04 05:50:11.489+00"
+   },
+   "ref_isolation": "ближайший источник опорного стека дальше 2.4\" от позиции",
+   "story": "sn2023tyk",
+   "tns": "SN 2023tyk (AstroNote 2023-265)"
+  },
+  "variable1": {
+   "catalog_id": "ZTF18abmpdqv",
+   "contact_sheet": "contact_variable1.png",
+   "dec": 0.11909064319929588,
+   "epoch_mags": [
+    {
+     "aperture_err": 0.0268,
+     "aperture_mag": 16.8839,
+     "err": 0.0167705268,
+     "filefracday": "20190608273160",
+     "mag": 16.9000378,
+     "mjd": 58642.27317
+    },
+    {
+     "aperture_err": 0.0174,
+     "aperture_mag": 15.9282,
+     "err": 0.0124804359,
+     "filefracday": "20190704177141",
+     "mag": 15.9159966,
+     "mjd": 58668.17714
+    },
+    {
+     "aperture_err": 0.0285,
+     "aperture_mag": 16.8906,
+     "err": 0.0166054349,
+     "filefracday": "20250605339282",
+     "mag": 16.8752747,
+     "mjd": 60831.33933
+    }
+   ],
+   "epochs": [
+    {
+     "bytes": 582120,
+     "file": "variable-fields/raw/ztf_20190608273160_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz",
+     "header": {
+      "airmass": 1.261,
+      "ccdid": 16,
+      "exptime": 30.0,
+      "fieldid": 431,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 21.49,
+      "magzp": 26.103984,
+      "moonillf": 0.280625,
+      "obsmjd": 58642.2731713,
+      "pixscale_as": 1.012557,
+      "qid": 4,
+      "seeing": 1.697
+     },
+     "mjd": 58642.27317,
+     "phase_P": 1.0,
+     "qc": {
+      "aperture": {
+       "bg": 42.3443,
+       "err": 0.0268,
+       "flux": 1763.802978515625,
+       "mag": 16.8839
+      },
+      "finite_128": true,
+      "max_dn": 60048.36328125,
+      "sat_clusters_in_patch128": [],
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 29,
+        "x": 269,
+        "x0": 268,
+        "x1": 271,
+        "y": 330,
+        "y0": 324,
+        "y1": 336
+       }
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "src_xy_raw": [
+       207.8,
+       207.9
+      ]
+     },
+     "row": {
+      "catflags": 0,
+      "ccdid": 16,
+      "expid": 88827317,
+      "exptime": 30.0,
+      "field": 431,
+      "filefracday": "20190608273160",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "2020-12-09 00:00:00+00",
+      "irsa_mag": 16.9000378,
+      "irsa_magerr": 0.0167705268,
+      "limitmag": 21.4899998,
+      "maglimit_ibe": "21.071400",
+      "moonillf": "0.280625",
+      "obsdate": "2019-06-08 06:33:22.078+00",
+      "obsjd": "2458642.773171300",
+      "programid": 1,
+      "progremid": null,
+      "qid": 4,
+      "seeing_ibe": "1.710320"
+     },
+     "sha256": "4b3f6f931c03e5ae69d6c3229f4bc6a221783fde913d9cd6b229de2f8b01dae8",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2019/0608/273160/ztf_20190608273160_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 569353,
+     "file": "variable-fields/raw/ztf_20190704177141_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz",
+     "header": {
+      "airmass": 1.32,
+      "ccdid": 16,
+      "exptime": 30.0,
+      "fieldid": 431,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 21.18,
+      "magzp": 26.081292,
+      "moonillf": 0.0264844,
+      "obsmjd": 58668.1771412,
+      "pixscale_as": 1.012537,
+      "qid": 4,
+      "seeing": 1.59
+     },
+     "mjd": 58668.17714,
+     "phase_P": 0.179,
+     "qc": {
+      "aperture": {
+       "bg": 84.0007,
+       "err": 0.0174,
+       "flux": 4253.0791015625,
+       "mag": 15.9282
+      },
+      "finite_128": true,
+      "max_dn": 59447.27734375,
+      "sat_clusters_in_patch128": [],
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 27,
+        "x": 268,
+        "x0": 268,
+        "x1": 270,
+        "y": 330,
+        "y0": 325,
+        "y1": 337
+       }
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "src_xy_raw": [
+       207.4,
+       207.6
+      ]
+     },
+     "row": {
+      "catflags": 0,
+      "ccdid": 16,
+      "expid": 91417714,
+      "exptime": 30.0,
+      "field": 431,
+      "filefracday": "20190704177141",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "2020-06-24 00:00:00+00",
+      "irsa_mag": 15.9159966,
+      "irsa_magerr": 0.0124804359,
+      "limitmag": 21.1800003,
+      "maglimit_ibe": "20.866699",
+      "moonillf": "0.026484",
+      "obsdate": "2019-07-04 04:15:06.063+00",
+      "obsjd": "2458668.677141200",
+      "programid": 1,
+      "progremid": null,
+      "qid": 4,
+      "seeing_ibe": "1.642630"
+     },
+     "sha256": "6b51f837e680425cb11367eb8b4747adb6b75b61946ac1bc4ed47ac73b7f693f",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2019/0704/177141/ztf_20190704177141_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 559151,
+     "file": "variable-fields/raw/ztf_20250605339282_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz",
+     "header": {
+      "airmass": 1.253,
+      "ccdid": 16,
+      "exptime": 30.0,
+      "fieldid": 431,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 21.01,
+      "magzp": 26.126405,
+      "moonillf": 0.706791,
+      "obsmjd": 60831.3393287,
+      "pixscale_as": 1.012569,
+      "qid": 4,
+      "seeing": 1.672
+     },
+     "mjd": 60831.33933,
+     "phase_P": 0.008,
+     "qc": {
+      "aperture": {
+       "bg": 131.5798,
+       "err": 0.0285,
+       "flux": 1752.91943359375,
+       "mag": 16.8906
+      },
+      "finite_128": true,
+      "max_dn": 63745.73046875,
+      "sat_clusters_in_patch128": [],
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 28,
+        "x": 268,
+        "x0": 267,
+        "x1": 270,
+        "y": 329,
+        "y0": 324,
+        "y1": 335
+       }
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "src_xy_raw": [
+       207.3,
+       207.1
+      ]
+     },
+     "row": {
+      "catflags": 0,
+      "ccdid": 16,
+      "expid": 307733932,
+      "exptime": 30.0,
+      "field": 431,
+      "filefracday": "20250605339282",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "2025-08-04 08:08:38+00",
+      "irsa_mag": 16.8752747,
+      "irsa_magerr": 0.0166054349,
+      "limitmag": 21.0100002,
+      "maglimit_ibe": "20.569000",
+      "moonillf": "0.706791",
+      "obsdate": "2025-06-05 08:08:38.802+00",
+      "obsjd": "2460831.839328700",
+      "programid": 1,
+      "progremid": null,
+      "qid": 4,
+      "seeing_ibe": "1.702390"
+     },
+     "sha256": "d0fe7f37a956956e4aab6983f90aad477040f4046edb683c605b3ded59c8e30a",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0605/339282/ztf_20250605339282_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false"
+    }
+   ],
+   "evidence": "Источник ZTF18abmpdqv меняет блеск: полная PSF-фотометрия IRSA/ZTF даёт 16,900±0,017 → 15,916±0,012 → 16,875±0,017 звёздной величины. Между первым и вторым снимками поток вырос примерно в 2,4 раза, затем вернулся к прежнему уровню. Независимая апертурная фотометрия этих кадров согласуется с каталогом: 16,884 → 15,928 → 16,891. Классификатор ALeRCE предлагает тип RR Лиры; это дополнительное сведение, а не основание для вывода об изменении на снимках.",
+   "label": "variable",
+   "limitations": "Три наблюдения разнесены во времени и не показывают непрерывный цикл переменности. Размытие атмосферой близкое, но не одинаковое: seeing 1,64–1,71″. Форма отдельных пикселей может меняться и у постоянных звёзд; здесь вывод поддерживает измерение полного потока источника. Подтип звезды в этой работе независимо не подтверждался.",
+   "mag_note": "блеск IRSA LC — PSF-фотометрия полного (не разностного) потока на научных кадрах, catflags=0; апертурные величины настоящего отчёта (общий WCS, MAGZP→25, локальный фон) согласуются с каталогом в пределах 0.01–0.05 зв. вел.",
+   "patch_center": [
+    246.86628730714565,
+    0.11909064319929588
+   ],
+   "ra": 246.86628730714565,
+   "raw_dir": "variable-fields/raw",
+   "science": {
+    "alerce": {
+     "class": "RRL",
+     "classifier": "lc_classifier_periodic",
+     "probability": 0.994,
+     "url": "https://alerce.science/object/ZTF18abmpdqv"
+    },
+    "features_e0e1_bgsubtracted": {
+     "area": 41,
+     "argmax_is_target_px": true,
+     "argmax_px": [
+      63,
+      64
+     ],
+     "max_diff": 486.33,
+     "peak_sigma": 223.6,
+     "target_px": [
+      63.5,
+      63.5
+     ]
+    },
+    "flux_pair_e0e1": {
+     "aperture_flux": [
+      1763.8,
+      4252.9
+     ],
+     "irsa_mag_change": -0.984,
+     "ratio": 2.411
+    },
+    "lightcurve": {
+     "epoch_phases": [
+      {
+       "mjd": 58642.27317,
+       "phase_P": 1.0,
+       "same_night_lc": [
+        [
+         58642.2732,
+         16.9,
+         0.0168
+        ]
+       ]
+      },
+      {
+       "mjd": 58668.17714,
+       "phase_P": 0.179,
+       "same_night_lc": [
+        [
+         58668.1771,
+         15.916,
+         0.0125
+        ]
+       ]
+      },
+      {
+       "mjd": 60831.33933,
+       "phase_P": 0.008,
+       "same_night_lc": [
+        [
+         60831.3393,
+         16.875,
+         0.0166
+        ]
+       ]
+      }
+     ],
+     "fap_note": null,
+     "folded_amplitude_mag": 0.95,
+     "lc_amplitude_mag": 1.057,
+     "lc_points_sample": [
+      {
+       "err": 0.016,
+       "mag": 16.777,
+       "mjd": 58198.4797
+      },
+      {
+       "err": 0.016,
+       "mag": 16.786,
+       "mjd": 58279.2741
+      },
+      {
+       "err": 0.0132,
+       "mag": 16.15,
+       "mjd": 58362.1323
+      },
+      {
+       "err": 0.0166,
+       "mag": 16.873,
+       "mjd": 58491.5752
+      },
+      {
+       "err": 0.014,
+       "mag": 16.374,
+       "mjd": 58494.5719
+      },
+      {
+       "err": 0.0139,
+       "mag": 16.358,
+       "mjd": 58628.3586
+      },
+      {
+       "err": 0.0161,
+       "mag": 16.799,
+       "mjd": 58672.2075
+      },
+      {
+       "err": 0.0168,
+       "mag": 16.901,
+       "mjd": 58728.2115
+      },
+      {
+       "err": 0.0164,
+       "mag": 16.85,
+       "mjd": 58776.1036
+      },
+      {
+       "err": 0.0163,
+       "mag": 16.825,
+       "mjd": 58853.5735
+      },
+      {
+       "err": 0.0138,
+       "mag": 16.331,
+       "mjd": 58861.5719
+      },
+      {
+       "err": 0.0165,
+       "mag": 16.864,
+       "mjd": 58954.4594
+      },
+      {
+       "err": 0.0131,
+       "mag": 16.136,
+       "mjd": 59027.2896
+      },
+      {
+       "err": 0.0161,
+       "mag": 16.796,
+       "mjd": 59136.1131
+      },
+      {
+       "err": 0.0158,
+       "mag": 16.738,
+       "mjd": 59142.0904
+      },
+      {
+       "err": 0.0146,
+       "mag": 16.522,
+       "mjd": 59217.5687
+      },
+      {
+       "err": 0.0165,
+       "mag": 16.863,
+       "mjd": 59221.5782
+      },
+      {
+       "err": 0.0161,
+       "mag": 16.792,
+       "mjd": 59227.5729
+      },
+      {
+       "err": 0.0144,
+       "mag": 16.468,
+       "mjd": 59248.5418
+      },
+      {
+       "err": 0.0134,
+       "mag": 16.207,
+       "mjd": 59310.4447
+      },
+      {
+       "err": 0.0162,
+       "mag": 16.806,
+       "mjd": 59354.399
+      },
+      {
+       "err": 0.0137,
+       "mag": 16.637,
+       "mjd": 59375.3558
+      },
+      {
+       "err": 0.016,
+       "mag": 16.78,
+       "mjd": 59402.2548
+      },
+      {
+       "err": 0.0139,
+       "mag": 16.355,
+       "mjd": 59438.1714
+      },
+      {
+       "err": 0.0136,
+       "mag": 16.274,
+       "mjd": 59476.1757
+      },
+      {
+       "err": 0.0152,
+       "mag": 16.637,
+       "mjd": 59502.1127
+      },
+      {
+       "err": 0.0168,
+       "mag": 16.907,
+       "mjd": 59630.5075
+      },
+      {
+       "err": 0.0149,
+       "mag": 16.568,
+       "mjd": 59696.4422
+      },
+      {
+       "err": 0.0147,
+       "mag": 16.543,
+       "mjd": 59737.2747
+      },
+      {
+       "err": 0.0131,
+       "mag": 16.143,
+       "mjd": 59773.3135
+      },
+      {
+       "err": 0.0137,
+       "mag": 16.293,
+       "mjd": 59806.2083
+      },
+      {
+       "err": 0.016,
+       "mag": 16.773,
+       "mjd": 59865.1202
+      },
+      {
+       "err": 0.0135,
+       "mag": 16.237,
+       "mjd": 59877.0909
+      },
+      {
+       "err": 0.0148,
+       "mag": 16.566,
+       "mjd": 59979.5337
+      },
+      {
+       "err": 0.016,
+       "mag": 16.775,
+       "mjd": 60059.4401
+      },
+      {
+       "err": 0.0162,
+       "mag": 16.804,
+       "mjd": 60091.3588
+      },
+      {
+       "err": 0.013,
+       "mag": 16.086,
+       "mjd": 60120.2323
+      },
+      {
+       "err": 0.0162,
+       "mag": 16.808,
+       "mjd": 60163.2759
+      },
+      {
+       "err": 0.0133,
+       "mag": 16.189,
+       "mjd": 60230.1064
+      },
+      {
+       "err": 0.0149,
+       "mag": 16.585,
+       "mjd": 60240.0861
+      },
+      {
+       "err": 0.0125,
+       "mag": 15.937,
+       "mjd": 60245.0827
+      },
+      {
+       "err": 0.0137,
+       "mag": 16.315,
+       "mjd": 60323.5615
+      },
+      {
+       "err": 0.0154,
+       "mag": 16.674,
+       "mjd": 60325.5645
+      },
+      {
+       "err": 0.016,
+       "mag": 16.778,
+       "mjd": 60421.4137
+      },
+      {
+       "err": 0.0148,
+       "mag": 16.549,
+       "mjd": 60450.3799
+      },
+      {
+       "err": 0.0156,
+       "mag": 16.702,
+       "mjd": 60483.2887
+      },
+      {
+       "err": 0.0161,
+       "mag": 16.796,
+       "mjd": 60524.2109
+      },
+      {
+       "err": 0.0162,
+       "mag": 16.804,
+       "mjd": 60556.1479
+      },
+      {
+       "err": 0.0133,
+       "mag": 16.204,
+       "mjd": 60676.5622
+      },
+      {
+       "err": 0.0144,
+       "mag": 16.474,
+       "mjd": 60755.4991
+      },
+      {
+       "err": 0.0132,
+       "mag": 16.16,
+       "mjd": 60810.3395
+      },
+      {
+       "err": 0.0168,
+       "mag": 16.898,
+       "mjd": 60840.2946
+      },
+      {
+       "err": 0.0162,
+       "mag": 16.81,
+       "mjd": 60902.171
+      }
+     ],
+     "log10_FAP": -133.3,
+     "median_err": 0.0151,
+     "method": "Lomb-Scargle по полной IRSA/ZTF кривой блеска (zr, catflags=0, 30с)",
+     "n_points": 581,
+     "period_d": 0.469454
+    },
+    "notes": "разности кадров получены после вычитания медианного фона каждого кадра (как в игре);Features по паре кадров 1–2",
+    "other_diff_peaks_gt4sigma_max_abs_sigma": 0.0,
+    "qc_summary": {
+     "argmax_is_target_px": true,
+     "finite_all": true,
+     "worst_other_peak_sigma": 0.0
+    }
+   },
+   "source_slice": "variable-fields"
+  },
+  "weak1": {
+   "amplitude": 0.323,
+   "amplitude_snr": 29.6,
+   "aperture_check": {
+    "comparison_stars": [
+     {
+      "flux": [
+       17953.1,
+       18025.3,
+       18266.1
+      ],
+      "position": [
+       18.0,
+       52.0
+      ]
+     },
+     {
+      "flux": [
+       6138.6,
+       6122.2,
+       6193.4
+      ],
+      "position": [
+       107.0,
+       87.0
+      ]
+     }
+    ],
+    "method": "MAGZP25, общая WCS-сетка 128×128, апертура r=6 px, локальный фон из кольца 10–15 px; координаты пикселей отсчитываются от нуля",
+    "target": {
+     "flux": [
+      27886.0,
+      23658.7,
+      27973.3
+     ],
+     "position": [
+      63.5,
+      63.5
+     ]
+    }
+   },
+   "catalog_id": "ZTF17aabvwdc",
+   "dec": -6.144846967152622,
+   "epoch_mags": [
+    {
+     "err": 0.011,
+     "filefracday": "20201027379861",
+     "mag": 13.884,
+     "mjd": 59149.3799
+    },
+    {
+     "err": 0.0109,
+     "filefracday": "20241214298009",
+     "mag": 14.034,
+     "mjd": 60658.298
+    },
+    {
+     "err": 0.0109,
+     "filefracday": "20241231265058",
+     "mag": 13.89,
+     "mjd": 60675.2651
+    }
+   ],
+   "epochs": [
+    {
+     "bytes": 503431,
+     "file": "cache/sci/ztf_20201027379861_000354_zr_c15_o_q2_sciimg_a7d895d2f7.fits.gz",
+     "header": {
+      "airmass": 1.405,
+      "ccdid": 15,
+      "exptime": 30.0,
+      "fieldid": 354,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.33,
+      "magzp": 26.154713,
+      "moonillf": 0.846829,
+      "obsmjd": 59149.3798727,
+      "pixscale_as": 1.012725,
+      "progremid": 1,
+      "qid": 2,
+      "seeing": 2.635
+     },
+     "mjd": 59149.379873000085,
+     "row": {
+      "ccdid": "15",
+      "exptime": "30.0",
+      "field": "354",
+      "filefracday": "20201027379861",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "",
+      "maglimit": "20.3299999",
+      "moonillf": "0",
+      "obsdate": "2020-10-27 09:07:01+00",
+      "obsjd": "2459149.879873",
+      "qid": "2",
+      "seeing": "0"
+     },
+     "sha256": "efb179b04f14ed7ec1f4c6026a3af34af5a713d2523d49a2b22f09b801a67879",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2020/1027/379861/ztf_20201027379861_000354_zr_c15_o_q2_sciimg.fits?center=67.51850000831395,-6.144846967152622&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 511548,
+     "file": "cache/sci/ztf_20241214298009_000354_zr_c15_o_q2_sciimg_a7d895d2f7.fits.gz",
+     "header": {
+      "airmass": 1.371,
+      "ccdid": 15,
+      "exptime": 30.0,
+      "fieldid": 354,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 19.22,
+      "magzp": 25.976737,
+      "moonillf": 0.984638,
+      "obsmjd": 60658.2980093,
+      "pixscale_as": 1.012607,
+      "progremid": 1,
+      "qid": 2,
+      "seeing": 2.427
+     },
+     "mjd": 60658.29800899979,
+     "row": {
+      "ccdid": "15",
+      "exptime": "30.0",
+      "field": "354",
+      "filefracday": "20241214298009",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "",
+      "maglimit": "19.2199993",
+      "moonillf": "0",
+      "obsdate": "2024-12-14 07:09:08+00",
+      "obsjd": "2460658.798009",
+      "qid": "2",
+      "seeing": "0"
+     },
+     "sha256": "61929c40d3e1a96dc1939d9268ede71b94c3bb87a504257f0efb4f5bbf7b9b7b",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/1214/298009/ztf_20241214298009_000354_zr_c15_o_q2_sciimg.fits?center=67.51850000831395,-6.144846967152622&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 553365,
+     "file": "cache/sci/ztf_20241231265058_000354_zr_c15_o_q2_sciimg_a7d895d2f7.fits.gz",
+     "header": {
+      "airmass": 1.388,
+      "ccdid": 15,
+      "exptime": 30.0,
+      "fieldid": 354,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 21.17,
+      "magzp": 26.170528,
+      "moonillf": 0.00120213,
+      "obsmjd": 60675.2650694,
+      "pixscale_as": 1.012622,
+      "progremid": 1,
+      "qid": 2,
+      "seeing": 2.054
+     },
+     "mjd": 60675.26506899996,
+     "row": {
+      "ccdid": "15",
+      "exptime": "30.0",
+      "field": "354",
+      "filefracday": "20241231265058",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "",
+      "maglimit": "21.1700001",
+      "moonillf": "0",
+      "obsdate": "2024-12-31 06:21:41+00",
+      "obsjd": "2460675.765069",
+      "qid": "2",
+      "seeing": "0"
+     },
+     "sha256": "f3f46ce36fa2836ea7cf8b3a67efb87d8784c3831eb18aa8110fc0eb6f3e992f",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/1231/265058/ztf_20241231265058_000354_zr_c15_o_q2_sciimg.fits?center=67.51850000831395,-6.144846967152622&size=420.0arcsec&gzip=false"
+    }
+   ],
+   "evidence": "Источник ZTF17aabvwdc меняет блеск. Полная PSF-фотометрия научных кадров IRSA (catflags=0): 13,884±0,011 (27.10.2020) → 14,034±0,011 (14.12.2024) → 13,890±0,011 (31.12.2024). Между первыми двумя кадрами поток уменьшился примерно на 13%; разность 0,150 звёздной величины составляет 9,7 совместной формальной погрешности. Независимое измерение апертурного потока тех же исходных кадров даёт ослабление на 15%, а в третьем кадре поток близок к первому. У двух ярких звёзд сравнения размах потока меньше 2%.",
+   "group": {
+    "ccdid": 15,
+    "field": 354,
+    "filter": "zr",
+    "qid": 2
+   },
+   "label": "weak",
+   "lc_points": [
+    {
+     "err": 0.0109,
+     "limitmag": 20.6299992,
+     "mag": 13.914,
+     "mjd": 58338.481
+    },
+    {
+     "err": 0.011,
+     "limitmag": 20.6299992,
+     "mag": 13.852,
+     "mjd": 58364.5112
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 21.25,
+     "mag": 13.992,
+     "mjd": 58374.5027
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.6499996,
+     "mag": 13.928,
+     "mjd": 58456.2499
+    },
+    {
+     "err": 0.0108,
+     "limitmag": 19.6299992,
+     "mag": 14.045,
+     "mjd": 58558.1509
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 21.1100006,
+     "mag": 14.032,
+     "mjd": 58763.4996
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 19.9300003,
+     "mag": 13.915,
+     "mjd": 58830.2511
+    },
+    {
+     "err": 0.011,
+     "limitmag": 20.7099991,
+     "mag": 13.835,
+     "mjd": 58877.1464
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 21.0300007,
+     "mag": 14.023,
+     "mjd": 58895.1083
+    },
+    {
+     "err": 0.011,
+     "limitmag": 20.0200005,
+     "mag": 13.849,
+     "mjd": 59124.3666
+    },
+    {
+     "err": 0.011,
+     "limitmag": 21.0799999,
+     "mag": 13.88,
+     "mjd": 59139.3627
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.2399998,
+     "mag": 14.029,
+     "mjd": 59151.3727
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.9300003,
+     "mag": 14.033,
+     "mjd": 59167.3489
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.0400009,
+     "mag": 14.022,
+     "mjd": 59184.3429
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.6900005,
+     "mag": 14.005,
+     "mjd": 59188.3049
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 21.0499992,
+     "mag": 14.037,
+     "mjd": 59193.3766
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.6599998,
+     "mag": 14.035,
+     "mjd": 59198.2582
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.8299999,
+     "mag": 13.949,
+     "mjd": 59203.1958
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 19.4799995,
+     "mag": 13.939,
+     "mjd": 59215.17
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.7900009,
+     "mag": 13.991,
+     "mjd": 59225.271
+    },
+    {
+     "err": 0.0108,
+     "limitmag": 20.4899998,
+     "mag": 14.045,
+     "mjd": 59255.2589
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.3999996,
+     "mag": 13.896,
+     "mjd": 59269.1533
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 21.3999996,
+     "mag": 13.976,
+     "mjd": 59470.4605
+    },
+    {
+     "err": 0.011,
+     "limitmag": 20.2099991,
+     "mag": 13.863,
+     "mjd": 59536.3774
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 21.2399998,
+     "mag": 13.986,
+     "mjd": 59846.4449
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.8899994,
+     "mag": 14.001,
+     "mjd": 59882.3708
+    },
+    {
+     "err": 0.011,
+     "limitmag": 19.9899998,
+     "mag": 13.848,
+     "mjd": 59968.1921
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 21.5,
+     "mag": 13.911,
+     "mjd": 60206.4616
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 19.2900009,
+     "mag": 13.986,
+     "mjd": 60249.4197
+    },
+    {
+     "err": 0.011,
+     "limitmag": 19.9300003,
+     "mag": 13.844,
+     "mjd": 60318.1143
+    },
+    {
+     "err": 0.011,
+     "limitmag": 20.0100002,
+     "mag": 13.847,
+     "mjd": 60318.1209
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.0400009,
+     "mag": 13.934,
+     "mjd": 60318.1275
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.2099991,
+     "mag": 13.976,
+     "mjd": 60318.1341
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.2700005,
+     "mag": 13.994,
+     "mjd": 60318.1407
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.1700001,
+     "mag": 14.024,
+     "mjd": 60318.1472
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.1800003,
+     "mag": 14.009,
+     "mjd": 60318.1538
+    },
+    {
+     "err": 0.0108,
+     "limitmag": 19.0799999,
+     "mag": 14.049,
+     "mjd": 60363.2344
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 20.5100002,
+     "mag": 13.927,
+     "mjd": 60593.4374
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 21.2700005,
+     "mag": 13.917,
+     "mjd": 60640.3399
+    },
+    {
+     "err": 0.0109,
+     "limitmag": 18.8799992,
+     "mag": 13.989,
+     "mjd": 60685.1831
+    },
+    {
+     "err": 0.011,
+     "limitmag": 20.4300003,
+     "mag": 13.873,
+     "mjd": 60930.4488
+    }
+   ],
+   "limitations": "Разница seeing 2,05–2,64″ меняет форму звёзд; поэтому сравнивают полный поток, а не отдельный пиксель. Формальные ошибки каталога не включают все систематические погрешности, но изменение подтверждается независимой апертурной фотометрией и звёздами сравнения. Три разнесённых во времени кадра не определяют период и подтип переменной.",
+   "mag_note": "блеск измерен PSF-фотометрией по НАУЧНЫМ кадрам (IRSA LC, catflags=0) — это полный блеск источника",
+   "patch_center": [
+    67.51850000831395,
+    -6.144846967152622
+   ],
+   "qc": {
+    "nan": 0.0,
+    "ok": true,
+    "saturated": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "ra": 67.51850000831395,
+   "ref": {
+    "endobsdate": "2018-09-14 12:01:51.046+00",
+    "file": "cache/ref/ztf_000354_zr_c15_q2_refimg_a7d895d2f7.fits.gz",
+    "header": {
+     "dbrfid": 354120257,
+     "filter": null,
+     "maglim": 22.79,
+     "magzp": 26.275,
+     "nframes": 15,
+     "totexpt": 450.0
+    },
+    "maglimit": 21.962,
+    "nframes": "15",
+    "rfid": "354120257",
+    "startobsdate": "2018-08-08 11:32:42.54+00"
+   }
+  },
+  "weakmid1": {
+   "catalog_id": "ZTF18aavpvuj",
+   "contact_sheet": "contact_weakmid1.png",
+   "dec": 30.117871500699305,
+   "epoch_mags": [
+    {
+     "aperture_err": 0.0143,
+     "aperture_mag": 15.4679,
+     "err": 0.0115672415,
+     "filefracday": "20180816213264",
+     "mag": 15.4769135,
+     "mjd": 58346.21328
+    },
+    {
+     "aperture_err": 0.0206,
+     "aperture_mag": 16.0754,
+     "err": 0.0126774833,
+     "filefracday": "20210424407488",
+     "mag": 16.0778618,
+     "mjd": 59328.40749
+    },
+    {
+     "aperture_err": 0.0142,
+     "aperture_mag": 15.4764,
+     "err": 0.0115722241,
+     "filefracday": "20240507404792",
+     "mag": 15.4804668,
+     "mjd": 60437.4048
+    }
+   ],
+   "epochs": [
+    {
+     "bytes": 578071,
+     "file": "variable-fields/raw/ztf_20180816213264_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz",
+     "header": {
+      "airmass": 1.001,
+      "ccdid": 2,
+      "exptime": 30.0,
+      "fieldid": 684,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 21.29,
+      "magzp": 26.183724,
+      "moonillf": 0.287591,
+      "obsmjd": 58346.2132755,
+      "pixscale_as": 1.012566,
+      "qid": 3,
+      "seeing": 2.009
+     },
+     "mjd": 58346.21328,
+     "phase_P": 0.316,
+     "qc": {
+      "aperture": {
+       "bg": 45.2692,
+       "err": 0.0143,
+       "flux": 6498.75537109375,
+       "mag": 15.4679
+      },
+      "finite_128": true,
+      "max_dn": 59100.22265625,
+      "sat_clusters_in_patch128": [],
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 33,
+        "x": 20,
+        "x0": 19,
+        "x1": 22,
+        "y": 144,
+        "y0": 138,
+        "y1": 152
+       }
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "src_xy_raw": [
+       207.1,
+       207.5
+      ]
+     },
+     "row": {
+      "catflags": 0,
+      "ccdid": 2,
+      "expid": 59221327,
+      "exptime": 30.0,
+      "field": 684,
+      "filefracday": "20180816213264",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "2020-06-24 00:00:00+00",
+      "irsa_mag": 15.4769135,
+      "irsa_magerr": 0.0115672415,
+      "limitmag": 21.2900009,
+      "maglimit_ibe": "20.931299",
+      "moonillf": "0.287591",
+      "obsdate": "2018-08-16 05:07:07.448+00",
+      "obsjd": "2458346.713275500",
+      "programid": 1,
+      "progremid": null,
+      "qid": 3,
+      "seeing_ibe": "2.030640"
+     },
+     "sha256": "18430cd323fba5de42c1315024cb4fed3ae7c95ee42dfcd8fd7671b12bacae19",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2018/0816/213264/ztf_20180816213264_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 581013,
+     "file": "variable-fields/raw/ztf_20210424407488_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz",
+     "header": {
+      "airmass": 1.196,
+      "ccdid": 2,
+      "exptime": 30.0,
+      "fieldid": 684,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.36,
+      "magzp": 26.250892,
+      "moonillf": 0.893052,
+      "obsmjd": 59328.4074884,
+      "pixscale_as": 1.012676,
+      "qid": 3,
+      "seeing": 2.034
+     },
+     "mjd": 59328.40749,
+     "phase_P": 0.835,
+     "qc": {
+      "aperture": {
+       "bg": 157.8158,
+       "err": 0.0206,
+       "flux": 3713.83349609375,
+       "mag": 16.0754
+      },
+      "finite_128": true,
+      "max_dn": 62335.26171875,
+      "sat_clusters_in_patch128": [],
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 30,
+        "x": 21,
+        "x0": 20,
+        "x1": 23,
+        "y": 144,
+        "y0": 139,
+        "y1": 150
+       }
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "src_xy_raw": [
+       207.6,
+       207.4
+      ]
+     },
+     "row": {
+      "catflags": 0,
+      "ccdid": 2,
+      "expid": 157440748,
+      "exptime": 30.0,
+      "field": 684,
+      "filefracday": "20210424407488",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "2021-06-30 00:00:00+00",
+      "irsa_mag": 16.0778618,
+      "irsa_magerr": 0.0126774833,
+      "limitmag": 20.3600006,
+      "maglimit_ibe": "20.162600",
+      "moonillf": "0.893052",
+      "obsdate": "2021-04-24 09:46:47.652+00",
+      "obsjd": "2459328.907488400",
+      "programid": 1,
+      "progremid": null,
+      "qid": 3,
+      "seeing_ibe": "2.043860"
+     },
+     "sha256": "96d4fa186a161f5d7107e5cf0c98c61665ca7f24e34c2cc29b48e16f44bd41a3",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2021/0424/407488/ztf_20210424407488_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false"
+    },
+    {
+     "bytes": 572971,
+     "file": "variable-fields/raw/ztf_20240507404792_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz",
+     "header": {
+      "airmass": 1.089,
+      "ccdid": 2,
+      "exptime": 30.0,
+      "fieldid": 684,
+      "filter": "ZTF_r",
+      "infobits": 0,
+      "maglim": 20.95,
+      "magzp": 26.276099,
+      "moonillf": -0.00734615,
+      "obsmjd": 60437.4048032,
+      "pixscale_as": 1.012666,
+      "qid": 3,
+      "seeing": 2.018
+     },
+     "mjd": 60437.4048,
+     "phase_P": 0.501,
+     "qc": {
+      "aperture": {
+       "bg": 52.8462,
+       "err": 0.0142,
+       "flux": 6448.35693359375,
+       "mag": 15.4764
+      },
+      "finite_128": true,
+      "max_dn": 62243.24609375,
+      "sat_clusters_in_patch128": [],
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 31,
+        "x": 21,
+        "x0": 20,
+        "x1": 23,
+        "y": 145,
+        "y0": 140,
+        "y1": 151
+       }
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "src_xy_raw": [
+       207.3,
+       207.8
+      ]
+     },
+     "row": {
+      "catflags": 0,
+      "ccdid": 2,
+      "expid": 268340480,
+      "exptime": 30.0,
+      "field": 684,
+      "filefracday": "20240507404792",
+      "filtercode": "zr",
+      "infobits": "0",
+      "ipac_pub_date": "2024-05-07 09:42:54+00",
+      "irsa_mag": 15.4804668,
+      "irsa_magerr": 0.0115722241,
+      "limitmag": 20.9500008,
+      "maglimit_ibe": "20.699499",
+      "moonillf": "-0.007346",
+      "obsdate": "2024-05-07 09:42:55.39+00",
+      "obsjd": "2460437.904803200",
+      "programid": 1,
+      "progremid": null,
+      "qid": 3,
+      "seeing_ibe": "2.027170"
+     },
+     "sha256": "3ba51f2c973ae43b65dc2a1996fbb55217565f033d806de6c9c44402a1d2d6a2",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/0507/404792/ztf_20240507404792_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false"
+    }
+   ],
+   "evidence": "Источник ZTF18aavpvuj во втором снимке стал слабее. Полная PSF-фотометрия IRSA/ZTF: 15,477±0,012 → 16,078±0,013 → 15,480±0,012 звёздной величины. Поток уменьшился примерно на 43%, затем вернулся к прежнему уровню. Апертурная фотометрия самих кадров подтверждает изменение: 15,468 → 16,075 → 15,476; потоки ярких соседних звёзд отличаются менее чем на 0,5%. Классификатор ALeRCE предлагает класс затменных двойных, но три кадра сами по себе не устанавливают природу переменности.",
+   "label": "weak_mid",
+   "limitations": "Наблюдения сделаны в разные годы, а не в течение одного затмения. Значения seeing близки (2,03–2,04″), но остаточные различия формы соседних звёзд всё равно есть. Сравнивать надо поток источника, а не только самый яркий пиксель. Вывод об изменении подтверждён независимой фотометрией; низкая оценка игрового детектора его не отменяет.",
+   "mag_note": "блеск IRSA LC — PSF-фотометрия полного (не разностного) потока на научных кадрах, catflags=0; апертурные величины настоящего отчёта (общий WCS, MAGZP→25, локальный фон) согласуются с каталогом в пределах 0.01–0.05 зв. вел.",
+   "patch_center": [
+    283.35319246783206,
+    30.117871500699305
+   ],
+   "ra": 283.35319246783206,
+   "raw_dir": "variable-fields/raw",
+   "science": {
+    "alerce": {
+     "class": "E",
+     "classifier": "lc_classifier_periodic",
+     "probability": 0.942,
+     "url": "https://alerce.science/object/ZTF18aavpvuj"
+    },
+    "features_e0e1_bgsubtracted": {
+     "area": 336,
+     "argmax_is_target_px": true,
+     "argmax_px": [
+      63,
+      63
+     ],
+     "max_diff": 512.79,
+     "peak_sigma": 51.7,
+     "target_px": [
+      63.5,
+      63.5
+     ]
+    },
+    "flux_pair_e0e1": {
+     "aperture_flux": [
+      6498.76,
+      3714.53
+     ],
+     "irsa_mag_change": 0.601,
+     "ratio": 0.572
+    },
+    "lightcurve": {
+     "epoch_phases": [
+      {
+       "mjd": 58346.21328,
+       "phase_P": 0.316,
+       "same_night_lc": [
+        [
+         58346.21,
+         15.486,
+         0.0116
+        ],
+        [
+         58346.2117,
+         15.463,
+         0.0115
+        ],
+        [
+         58346.2133,
+         15.477,
+         0.0116
+        ]
+       ]
+      },
+      {
+       "mjd": 59328.40749,
+       "phase_P": 0.835,
+       "same_night_lc": [
+        [
+         59328.4075,
+         16.078,
+         0.0127
+        ]
+       ]
+      },
+      {
+       "mjd": 60437.4048,
+       "phase_P": 0.501,
+       "same_night_lc": [
+        [
+         60437.4048,
+         15.48,
+         0.0116
+        ]
+       ]
+      }
+     ],
+     "fap_note": "Расчёт FAP вернул ноль из-за численной точности. Числовая оценка здесь не приводится; это не означает нулевую вероятность ложной тревоги.",
+     "folded_amplitude_mag": 0.576,
+     "lc_amplitude_mag": 0.961,
+     "lc_points_sample": [
+      {
+       "err": 0.0128,
+       "mag": 16.11,
+       "mjd": 58216.3882
+      },
+      {
+       "err": 0.0115,
+       "mag": 15.455,
+       "mjd": 58255.3294
+      },
+      {
+       "err": 0.0117,
+       "mag": 15.586,
+       "mjd": 58269.3991
+      },
+      {
+       "err": 0.0109,
+       "mag": 15.527,
+       "mjd": 58283.3546
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.49,
+       "mjd": 58292.3286
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.529,
+       "mjd": 58299.2396
+      },
+      {
+       "err": 0.0117,
+       "mag": 15.566,
+       "mjd": 58299.2523
+      },
+      {
+       "err": 0.0119,
+       "mag": 15.698,
+       "mjd": 58299.2652
+      },
+      {
+       "err": 0.0123,
+       "mag": 15.925,
+       "mjd": 58299.2779
+      },
+      {
+       "err": 0.0125,
+       "mag": 15.98,
+       "mjd": 58299.2907
+      },
+      {
+       "err": 0.0124,
+       "mag": 15.971,
+       "mjd": 58300.2406
+      },
+      {
+       "err": 0.012,
+       "mag": 15.762,
+       "mjd": 58300.2534
+      },
+      {
+       "err": 0.0118,
+       "mag": 15.621,
+       "mjd": 58300.2662
+      },
+      {
+       "err": 0.0117,
+       "mag": 15.539,
+       "mjd": 58300.279
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.481,
+       "mjd": 58300.2918
+      },
+      {
+       "err": 0.012,
+       "mag": 15.772,
+       "mjd": 58312.4349
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.498,
+       "mjd": 58325.2529
+      },
+      {
+       "err": 0.012,
+       "mag": 15.731,
+       "mjd": 58351.1888
+      },
+      {
+       "err": 0.0119,
+       "mag": 15.702,
+       "mjd": 58358.2393
+      },
+      {
+       "err": 0.0123,
+       "mag": 15.889,
+       "mjd": 58369.1713
+      },
+      {
+       "err": 0.0118,
+       "mag": 15.629,
+       "mjd": 58379.2474
+      },
+      {
+       "err": 0.0121,
+       "mag": 15.799,
+       "mjd": 58389.1129
+      },
+      {
+       "err": 0.0115,
+       "mag": 15.462,
+       "mjd": 58432.0916
+      },
+      {
+       "err": 0.0124,
+       "mag": 15.937,
+       "mjd": 58593.4243
+      },
+      {
+       "err": 0.0125,
+       "mag": 16.011,
+       "mjd": 58618.3604
+      },
+      {
+       "err": 0.0127,
+       "mag": 16.084,
+       "mjd": 58643.2814
+      },
+      {
+       "err": 0.0118,
+       "mag": 15.604,
+       "mjd": 58653.4229
+      },
+      {
+       "err": 0.0115,
+       "mag": 15.464,
+       "mjd": 58681.2947
+      },
+      {
+       "err": 0.0119,
+       "mag": 15.712,
+       "mjd": 58698.4066
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.488,
+       "mjd": 58706.3685
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.506,
+       "mjd": 58732.2358
+      },
+      {
+       "err": 0.0128,
+       "mag": 16.119,
+       "mjd": 58765.1894
+      },
+      {
+       "err": 0.0111,
+       "mag": 15.658,
+       "mjd": 58956.5113
+      },
+      {
+       "err": 0.0119,
+       "mag": 15.709,
+       "mjd": 59020.2908
+      },
+      {
+       "err": 0.012,
+       "mag": 15.738,
+       "mjd": 59065.3193
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.479,
+       "mjd": 59152.1779
+      },
+      {
+       "err": 0.0115,
+       "mag": 15.459,
+       "mjd": 59313.455
+      },
+      {
+       "err": 0.0108,
+       "mag": 15.495,
+       "mjd": 59377.4108
+      },
+      {
+       "err": 0.0124,
+       "mag": 15.978,
+       "mjd": 59466.172
+      },
+      {
+       "err": 0.0117,
+       "mag": 15.589,
+       "mjd": 59685.3644
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.471,
+       "mjd": 59743.2969
+      },
+      {
+       "err": 0.0123,
+       "mag": 15.91,
+       "mjd": 59815.1821
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.488,
+       "mjd": 59903.1414
+      },
+      {
+       "err": 0.0117,
+       "mag": 15.536,
+       "mjd": 60091.3952
+      },
+      {
+       "err": 0.0119,
+       "mag": 15.695,
+       "mjd": 60164.2861
+      },
+      {
+       "err": 0.0116,
+       "mag": 15.465,
+       "mjd": 60247.1563
+      },
+      {
+       "err": 0.0117,
+       "mag": 15.543,
+       "mjd": 60446.4532
+      },
+      {
+       "err": 0.0117,
+       "mag": 15.579,
+       "mjd": 60529.2586
+      },
+      {
+       "err": 0.0122,
+       "mag": 15.836,
+       "mjd": 60608.1541
+      },
+      {
+       "err": 0.0123,
+       "mag": 15.911,
+       "mjd": 60797.4143
+      },
+      {
+       "err": 0.0117,
+       "mag": 15.558,
+       "mjd": 60871.2873
+      },
+      {
+       "err": 0.0118,
+       "mag": 15.628,
+       "mjd": 60943.2153
+      }
+     ],
+     "log10_FAP": null,
+     "median_err": 0.0117,
+     "method": "Lomb-Scargle по полной IRSA/ZTF кривой блеска (zr, catflags=0, 30с)",
+     "n_points": 1437,
+     "period_d": 0.156712
+    },
+    "notes": "разности кадров получены после вычитания медианного фона каждого кадра (как в игре);Features по паре кадров 1–2",
+    "other_diff_peaks_gt4sigma_max_abs_sigma": 50.2,
+    "qc_summary": {
+     "argmax_is_target_px": true,
+     "finite_all": true,
+     "worst_other_peak_sigma": 50.2
+    }
+   },
+   "source_slice": "variable-fields"
+  }
+ },
+ "contact_pointings": {
+  "count": 12,
+  "field_ccd_quadrant": [
+   [
+    325,
+    16,
+    4
+   ],
+   [
+    354,
+    15,
+    2
+   ],
+   [
+    431,
+    16,
+    4
+   ],
+   [
+    567,
+    11,
+    2
+   ],
+   [
+    684,
+    2,
+    3
+   ],
+   [
+    872,
+    10,
+    2
+   ],
+   [
+    872,
+    10,
+    3
+   ]
+  ],
+  "note": "Координаты центров и три эпохи указаны отдельно для каждого участка."
+ },
+ "curation_log": [
+  "geometry v2: GRID 395, cutout 400\", патч центрирован; SN перезакреплена",
+  "variable1 отклонён (блики-колонны), weakmid1 отклонён (NaN у края квадранта) — перезакрепление с QC",
+  "artifact_spike: импортирован из observations; 3 эпохи, SHA-256 проверены",
+  "artifact_track: импортирован из observations; 3 эпохи, SHA-256 проверены",
+  "normal_1: импортирован из observations; 3 эпохи, SHA-256 проверены",
+  "normal_2: импортирован из observations; 3 эпохи, SHA-256 проверены",
+  "normal_3: импортирован из observations; 3 эпохи, SHA-256 проверены",
+  "normal_4: импортирован из observations; 3 эпохи, SHA-256 проверены",
+  "variable1: импортирован из variable-fields; 3 эпохи, SHA-256 проверены",
+  "weakmid1: импортирован из variable-fields; 3 эпохи, SHA-256 проверены",
+  "mover1: импортирован из motion-fields; 3 эпохи, SHA-256 проверены",
+  "mover2: импортирован из motion-fields; 3 эпохи, SHA-256 проверены"
+ ],
+ "demo": {
+  "array": "demo",
+  "count": 200,
+  "npz": "demo-fields.npz",
+  "provenance": "demo-provenance.json"
+ },
+ "files": {
+  "cache/sci/ztf_20201027379861_000354_zr_c15_o_q2_sciimg_a7d895d2f7.fits.gz": {
+   "bytes": 503431,
+   "sha256": "efb179b04f14ed7ec1f4c6026a3af34af5a713d2523d49a2b22f09b801a67879",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2020/1027/379861/ztf_20201027379861_000354_zr_c15_o_q2_sciimg.fits?center=67.51850000831395,-6.144846967152622&size=420.0arcsec&gzip=false"
+  },
+  "cache/sci/ztf_20230513305694_000872_zr_c10_o_q3_sciimg_8acf329530.fits.gz": {
+   "bytes": 564487,
+   "sha256": "b1ce27a8d1e2fe52064fb6575b831ab19b48bb1e1e22a1c1d3ae7f9d71347e80",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/0513/305694/ztf_20230513305694_000872_zr_c10_o_q3_sciimg.fits?center=143.79799404615386,83.9734582153846&size=420.0arcsec&gzip=false"
+  },
+  "cache/sci/ztf_20231007507292_000872_zr_c10_o_q3_sciimg_8acf329530.fits.gz": {
+   "bytes": 561574,
+   "sha256": "e0e953b2c640b47ce80aebeb4d7914521d2e8a5b0b00a45da083c3ab5b04b4e4",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q3_sciimg.fits?center=143.79799404615386,83.9734582153846&size=420.0arcsec&gzip=false"
+  },
+  "cache/sci/ztf_20231110430868_000872_zr_c10_o_q3_sciimg_8acf329530.fits.gz": {
+   "bytes": 562425,
+   "sha256": "147547c1428b5c53cbf055f7d99e97950b855c924ddb164299416697edaf832c",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q3_sciimg.fits?center=143.79799404615386,83.9734582153846&size=420.0arcsec&gzip=false"
+  },
+  "cache/sci/ztf_20241214298009_000354_zr_c15_o_q2_sciimg_a7d895d2f7.fits.gz": {
+   "bytes": 511548,
+   "sha256": "61929c40d3e1a96dc1939d9268ede71b94c3bb87a504257f0efb4f5bbf7b9b7b",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/1214/298009/ztf_20241214298009_000354_zr_c15_o_q2_sciimg.fits?center=67.51850000831395,-6.144846967152622&size=420.0arcsec&gzip=false"
+  },
+  "cache/sci/ztf_20241231265058_000354_zr_c15_o_q2_sciimg_a7d895d2f7.fits.gz": {
+   "bytes": 553365,
+   "sha256": "f3f46ce36fa2836ea7cf8b3a67efb87d8784c3831eb18aa8110fc0eb6f3e992f",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/1231/265058/ztf_20241231265058_000354_zr_c15_o_q2_sciimg.fits?center=67.51850000831395,-6.144846967152622&size=420.0arcsec&gzip=false"
+  },
+  "curated-fields.npz": {
+   "bytes": 956489,
+   "sha256": "c96642cbd0cfac964f2408f4a444be0566106f823bea5d8724f017499cb97de2",
+   "url": "local: tools/prepare_curated.py"
+  },
+  "curated-provenance.json": {
+   "bytes": 33016,
+   "sha256": "3d27206a39edb322bed1e90805cc1d4880a4cd145a95cf8c84c85801e3d01033",
+   "url": "local: tools/prepare_curated.py"
+  },
+  "demo-fields.npz": {
+   "bytes": 79513874,
+   "sha256": "fb8e68228e519d5b1877cba4a3223fe6e4212592f245d262afb1d032900185c3",
+   "url": "local: tools/prepare_demo.py"
+  },
+  "demo-provenance.json": {
+   "bytes": 1480980,
+   "sha256": "7afba2c17961a4295d1aa7b3b4ff759bcf550028e0db901baad33a4a919bdd5a",
+   "url": "local: tools/prepare_demo.py"
+  },
+  "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_mskimg.fits": {
+   "bytes": 18941760,
+   "sha256": "dd917a7b25ac061b632c96360647fab7b6956785619145a88dc7430287cff392",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_mskimg.fits"
+  },
+  "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits": {
+   "bytes": 37872000,
+   "sha256": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits"
+  },
+  "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q3_sciimg.fits": {
+   "bytes": 37872000,
+   "sha256": "51839d180335cb29690454b07852a70350f95a7b062229a58ce8c417ac8cbd5d",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q3_sciimg.fits"
+  },
+  "demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q4_sciimg.fits": {
+   "bytes": 37872000,
+   "sha256": "2260fd6b2cf82bad7fa8af5b6b78238a8d3a3ba758e2013361f01c28ae655c0a",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q4_sciimg.fits"
+  },
+  "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_mskimg.fits": {
+   "bytes": 18941760,
+   "sha256": "8b7f1abe6990f00910b4c195bac894b4669d9534d0df12ec94d589d94347f75c",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_mskimg.fits"
+  },
+  "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits": {
+   "bytes": 37872000,
+   "sha256": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits"
+  },
+  "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q3_sciimg.fits": {
+   "bytes": 37872000,
+   "sha256": "db8c280d7cfb33a7a4e4fc9bf892a5c5f53660b9f9db1a7dcac44d293f6faa5a",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q3_sciimg.fits"
+  },
+  "demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q4_sciimg.fits": {
+   "bytes": 37872000,
+   "sha256": "1e5929bc208c2bb61725648c7df113cdd69a222a4e83ef0eff349f9274714d59",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q4_sciimg.fits"
+  },
+  "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_mskimg.fits": {
+   "bytes": 18941760,
+   "sha256": "1c1c2315766ab14ade23f4c28ca37e6a4f25bd8b83b61bdf80b0da59c181987b",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_mskimg.fits"
+  },
+  "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits": {
+   "bytes": 37872000,
+   "sha256": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits"
+  },
+  "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q3_sciimg.fits": {
+   "bytes": 37872000,
+   "sha256": "f912e4b179d4b4fddd5c20a8a420bc03b07951eb0e947279c5c087d05d8397dd",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q3_sciimg.fits"
+  },
+  "demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q4_sciimg.fits": {
+   "bytes": 37872000,
+   "sha256": "9111d4b30f01dbbc5de14b61047acbc863521bef39c1ddfe6b2d987699e4b28b",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q4_sciimg.fits"
+  },
+  "motion-fields/ztf_20200102273947_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz": {
+   "bytes": 570603,
+   "sha256": "ec223e1cc1d71194149dd662da448cb2dc8f59429280bc6d689ab5627be66d1c",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2020/0102/273947/ztf_20200102273947_000567_zr_c11_o_q2_sciimg.fits?center=122.28057430555555,20.361094814814816&size=420.0arcsec&gzip=false"
+  },
+  "motion-fields/ztf_20200102300035_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz": {
+   "bytes": 567363,
+   "sha256": "8760cd4533d7147cdd27ba9345b87073836b0f68d68a2a5bec072ef0c442c8ed",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2020/0102/300035/ztf_20200102300035_000567_zr_c11_o_q2_sciimg.fits?center=122.28057430555555,20.361094814814816&size=420.0arcsec&gzip=false"
+  },
+  "motion-fields/ztf_20200102342477_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz": {
+   "bytes": 567343,
+   "sha256": "688ddf0368fd3e5d884e5dc81e9e1d95ecff8adcc6ececd4afd0bf1cfa3de1cd",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2020/0102/342477/ztf_20200102342477_000567_zr_c11_o_q2_sciimg.fits?center=122.28057430555555,20.361094814814816&size=420.0arcsec&gzip=false"
+  },
+  "motion-fields/ztf_20250325344780_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz": {
+   "bytes": 555178,
+   "sha256": "c09a92678427c79149c4aedc7aec3d7bc7bc2eb04f8907bfd33614682273feb2",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0325/344780/ztf_20250325344780_000325_zr_c16_o_q4_sciimg.fits?center=217.98861916666667,-14.832080925925927&size=420.0arcsec&gzip=false"
+  },
+  "motion-fields/ztf_20250325387130_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz": {
+   "bytes": 568158,
+   "sha256": "d19a7d9cdb37aaaf4624c0791a608972d78a36260c396c3a0430572897b24c13",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0325/387130/ztf_20250325387130_000325_zr_c16_o_q4_sciimg.fits?center=217.98861916666667,-14.832080925925927&size=420.0arcsec&gzip=false"
+  },
+  "motion-fields/ztf_20250325471562_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz": {
+   "bytes": 555319,
+   "sha256": "815243b969391d813636edb0879f98006d6292ba86fc6950b6b31b3be5d0d1f6",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0325/471562/ztf_20250325471562_000325_zr_c16_o_q4_sciimg.fits?center=217.98861916666667,-14.832080925925927&size=420.0arcsec&gzip=false"
+  },
+  "variable-fields/raw/ztf_20180816213264_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz": {
+   "bytes": 578071,
+   "sha256": "18430cd323fba5de42c1315024cb4fed3ae7c95ee42dfcd8fd7671b12bacae19",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2018/0816/213264/ztf_20180816213264_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false"
+  },
+  "variable-fields/raw/ztf_20190608273160_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz": {
+   "bytes": 582120,
+   "sha256": "4b3f6f931c03e5ae69d6c3229f4bc6a221783fde913d9cd6b229de2f8b01dae8",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2019/0608/273160/ztf_20190608273160_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false"
+  },
+  "variable-fields/raw/ztf_20190704177141_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz": {
+   "bytes": 569353,
+   "sha256": "6b51f837e680425cb11367eb8b4747adb6b75b61946ac1bc4ed47ac73b7f693f",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2019/0704/177141/ztf_20190704177141_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false"
+  },
+  "variable-fields/raw/ztf_20210424407488_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz": {
+   "bytes": 581013,
+   "sha256": "96d4fa186a161f5d7107e5cf0c98c61665ca7f24e34c2cc29b48e16f44bd41a3",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2021/0424/407488/ztf_20210424407488_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false"
+  },
+  "variable-fields/raw/ztf_20240507404792_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz": {
+   "bytes": 572971,
+   "sha256": "3ba51f2c973ae43b65dc2a1996fbb55217565f033d806de6c9c44402a1d2d6a2",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/0507/404792/ztf_20240507404792_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false"
+  },
+  "variable-fields/raw/ztf_20250605339282_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz": {
+   "bytes": 559151,
+   "sha256": "d0fe7f37a956956e4aab6983f90aad477040f4046edb683c605b3ded59c8e30a",
+   "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0605/339282/ztf_20250605339282_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false"
+  }
+ },
+ "leakage_policy": [
+  "Контактные участки имеют разные центры; шесть участков q2 попарно не пересекаются в исходных пикселях.",
+  "Обучение: 300 непересекающихся участков q4. Демонстрация: 200 непересекающихся участков q3; круг r=360 px вокруг SN исключён.",
+  "Контактные участки не используют пиксели обучающих и демонстрационных участков. Координаты, исходные кадры и контрольные суммы сохранены в файлах происхождения."
+ ],
+ "manifest_version": 1,
+ "params": {
+  "cal_zp": 25.0,
+  "cutout_arcsec": 420.0,
+  "epoch_rule": "Три экспозиции одного фильтра; времена, фильтр и поле записаны в каждом случае. Порядок — хронологический.",
+  "patch": 128
+ },
+ "parent_cases": {
+  "keys": [
+   "artifact_track",
+   "artifact_spike",
+   "normal_1",
+   "normal_2",
+   "normal_3",
+   "normal_4"
+  ],
+  "mode": "npz",
+  "note": "Шесть отобранных случаев: два артефакта с масками IRSA и четыре участка без заметного изменения.",
+  "npz": "curated-fields.npz",
+  "provenance": "curated-provenance.json"
+ },
+ "survey": {
+  "ack_phase1_valid": "наблюдения до 2020-12-01",
+  "ack_phase2_valid": "наблюдения с 2020-12-01",
+  "citation_alerce": "Förster et al. 2021, AJ 161, 242; Sánchez-Sáez et al. 2021, AJ 161, 141 — брокер ALeRCE (только метаданные)",
+  "citation_masci": "Masci et al. 2018, PASP 131, 995 (cтандартная ссылка ZTF)",
+  "citation_skybot": "Berthier et al. 2006, ASPC 351, 367 — SkyBoT/IMCCE (VO-SSP)",
+  "doi_image_service": "10.26131/IRSA539",
+  "name": "ZTF Public Survey, IRSA Image Backend (ztf/products/sci, ztf/products/ref)",
+  "phase1": "Based on observations obtained with the Samuel Oschin 48-inch Telescope at the Palomar Observatory as part of the Zwicky Transient Facility project. ZTF is supported by the National Science Foundation under Grant No. AST-1440341 and a collaboration including Caltech, IPAC, the Weizmann Institute for Science, the Oskar Klein Center at Stockholm University, the University of Maryland, the University of Washington, Deutsches Elektronen-Synchrotron and Humboldt University, Los Alamos National Laboratories, the TANGO Consortium of Taiwan, the University of Wisconsin at Milwaukee, and Lawrence Berkeley National Laboratories. Operations are conducted by COO, IPAC, and UW.",
+  "phase2": "Based on observations obtained with the Samuel Oschin Telescope 48-inch and the 60-inch Telescope at the Palomar Observatory as part of the Zwicky Transient Facility project. ZTF is supported by the National Science Foundation under Grant No. AST-2034437 and a collaboration including Caltech, IPAC, the Weizmann Institute for Science, the Oskar Klein Center at Stockholm University, the University of Maryland, Deutsches Elektronen-Synchrotron and Humboldt University, the TANGO Consortium of Taiwan, the University of Wisconsin at Milwaukee, Trinity College Dublin, Lawrence Livermore National Laboratories, and INAF. Operations are conducted by COO, IPAC, and UW.",
+  "release_page": "https://ztf.ipac.caltech.edu/page/dr8"
+ },
+ "training": {
+  "array": "train",
+  "count": 300,
+  "npz": "demo-fields.npz",
+  "provenance": "demo-provenance.json"
+ }
+}

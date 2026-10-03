@@ -66,7 +66,9 @@ with sync_playwright() as playwright:
     def screenshot(name):
         page.screenshot(path=str(OUT / ('navigation-' + name + '.png')), full_page=True)
 
-    check('entry is an episode overview', visible('overview'))
+    check('entry is an observatory scene', visible('overview') and page.locator('#shift-action').is_visible())
+    check('episode directory remains optional',not page.locator('#episode-directory').evaluate('(el)=>el.open'))
+    page.locator('#episode-directory summary').click()
     check('entry offers both destinations', all(page.locator('#' + identifier).is_visible()
           and page.locator('#' + identifier).is_enabled() for identifier in
           ['nav-overview', 'nav-tracking', 'nav-brightness', 'card-tracking', 'card-brightness']))
@@ -75,7 +77,7 @@ with sync_playwright() as playwright:
           and page.locator('#overview-brightness-story').is_hidden())
     count('0 / 2')
     check('navigation labels name destinations',
-          'Эпизоды' in page.locator('#nav-overview').inner_text()
+          'Обсерватория' in page.locator('#nav-overview').inner_text()
           and 'астероид' in page.locator('#nav-tracking').inner_text().lower()
           and 'сверхнов' in page.locator('#nav-brightness').inner_text().lower())
     screenshot('overview-entry')
@@ -157,49 +159,26 @@ with sync_playwright() as playwright:
           page.locator('#tracking-story').is_visible()
           and '2948' in page.locator('#tracking-story').inner_text()
           and 'астероид' in page.locator('#tracking-story').inner_text().lower())
-    check('first successful track does not finish two-field episode',
+    check('first successful track completes one-field instrument test',
           page.evaluate('comparisonProbe.state.journal.length === 1')
-          and page.locator('#tracking-completion').is_hidden())
+          and page.locator('#tracking-completion').is_visible())
     page.locator('#track-story-open').click()
     check('asteroid history button reaches its section',
           page.locator('#tracking-story').evaluate('(element)=>element.contains(document.activeElement)'))
-    check('next-field action identifies the second field',
-          'участ' in page.locator('#next-field').inner_text().lower())
+    check('next action identifies installation destination','обсерваторию' in page.locator('#next-field').inner_text().lower())
     page.locator('#next-field').click()
-    check('second field opens inside same episode', visible('tracking')
-          and page.evaluate('comparisonProbe.state.field === 1'))
-    page.evaluate('comparisonProbe.choose(59,65)')
-    tracking_result('moving')
-    check('second mover has a different earned asteroid history',
-          page.locator('#tracking-story').is_visible()
-          and '8936' in page.locator('#tracking-story').inner_text())
-    check('two successful tracks earn explicit episode ending',
-          page.evaluate('comparisonProbe.state.journal.length === 2')
-          and page.locator('#tracking-completion').is_visible()
-          and 'заверш' in page.locator('#tracking-completion').inner_text().lower())
-    check('tracking ending names the next episode destination',
-          'сверхнов' in page.locator('#next-field').inner_text().lower())
-    screenshot('tracking-complete')
-    page.locator('#retry').click()
-    check('tracking completion survives retry',
-          page.evaluate('comparisonProbe.state.journal.length === 2')
-          and page.locator('#tracking-completion').is_visible())
-    nav('overview')
+    check('successful test returns to observatory',visible('overview'))
+    check('earned tool still requires installation',page.evaluate('!journey.state.installed.movement'))
     count('2 / 2')
-    check('overall completion states that both episodes are finished',
-          page.locator('#journey-finished').is_visible()
-          and 'заверш' in page.locator('#journey-finished').inner_text().lower())
+    check('passing tests alone does not finish shift',page.locator('#journey-finished').is_hidden() and not page.evaluate('journey.state.finished'))
     screenshot('overview-complete')
     saved_counts = page.evaluate('[comparisonProbe.state.attempts.length,brightnessEpisode.state.attempts.length]')
     page.locator('#overview-tracking-story').click()
     check('overview history action reopens an earned asteroid story',
           visible('tracking') and page.locator('#tracking-story').is_visible())
     check('first asteroid story is reachable from overview', '2948' in page.locator('#tracking-story-title').inner_text())
-    page.locator('#next-field').click()
-    check('completed second field reopens saved result', page.evaluate('comparisonProbe.state.field===1 && comparisonProbe.state.phase==="result"'))
-    for case_id, number in [('s02','2948'),('s07','8936')]:
-        page.locator('[data-saved-case="'+case_id+'"]').click()
-        check('journal opens asteroid story '+number, number in page.locator('#tracking-story-title').inner_text())
+    page.locator('[data-saved-case="s02"]').click()
+    check('journal reopens the only test asteroid', '2948' in page.locator('#tracking-story-title').inner_text())
     nav('overview')
     page.locator('#overview-brightness-story').click()
     check('overview history action reopens the earned supernova story',
@@ -221,7 +200,7 @@ with sync_playwright() as playwright:
     page.go_back()
     check('browser Back restores previous episode without clearing progress',
           visible('brightness') and page.evaluate('brightnessEpisode.state.earned'
-              ' && comparisonProbe.state.journal.length === 2'))
+              ' && comparisonProbe.state.journal.length === 1'))
 
     page.set_viewport_size({'width': 390, 'height': 844})
     for destination in ['overview', 'brightness', 'tracking']:
@@ -242,6 +221,7 @@ with sync_playwright() as playwright:
                         ' && brightnessEpisode.state.attempts.length === 0 && brightnessEpisode.state.selection === null'))
     nav('overview')
     count('0 / 2')
+    page.locator('#episode-directory summary').click()
     check('reset does not lock either episode', all(page.locator('#card-' + target).is_enabled()
           for target in ['tracking', 'brightness']))
     check('no runtime errors', not errors)
