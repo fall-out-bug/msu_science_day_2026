@@ -2,8 +2,8 @@
 (() => {
   'use strict';
   const $=id=>document.getElementById(id);
-  const state={view:'overview',visited:{tracking:false,brightness:false},installed:{movement:false,fading:false},finished:false};
-  const sections={overview:'overview',tracking:'tracking-episode',brightness:'brightness-episode',launch:'launch-episode'};
+  const state={view:'opening',visited:{tracking:false,brightness:false},installed:{movement:false,fading:false},finished:false};
+  const sections={opening:'opening',overview:'overview',tracking:'tracking-episode',brightness:'brightness-episode',launch:'launch-episode'};
   const scrollTo=id=>{const node=$(id);node.focus({preventScroll:true});node.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'start'});};
   const earned=()=>({movement:comparisonProbe.state.journal.length>0,fading:brightnessEpisode.state.earned});
   const ready=()=>state.installed.movement&&state.installed.fading;
@@ -20,7 +20,7 @@
     const tracking=comparisonProbe.state,brightness=brightnessEpisode.state,done=earned(),total=Number(done.movement)+Number(done.fading),installed=Number(state.installed.movement)+Number(state.installed.fading);
     $('nav-total').textContent=state.finished?'Смена завершена':installed+' / 2 инструмента';
     $('overview-count').textContent=total+' / 2';
-    for(const view of Object.keys(sections)){const button=$('nav-'+view);if(state.view===view)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');}
+    for(const view of Object.keys(sections)){const button=$('nav-'+view);if(!button)continue;if(state.view===view)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');}
     for(const [view,mode] of [['tracking','movement'],['brightness','fading']]){
       const status=done[mode]?'Завершён':state.visited[view]?'В процессе':'Не начат';
       $('nav-'+view+'-status').textContent=status;
@@ -48,30 +48,32 @@
       $('tracking-story-trail').innerHTML='<polyline points="'+points.map(p=>p.x+','+p.y).join(' ')+'" fill="none" stroke="#8de1ce" stroke-width="1.5"/>'+points.map((p,i)=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="3" fill="#effbf5"/><text x="'+(p.x+5)+'" y="'+(p.y-4)+'" fill="#d4eaf3" font-size="8">'+(i+1)+'</text>').join('');
       $('tracking-story-next').textContent='В обсерваторию · установить инструмент →';
     }
+    window.opening?.refresh();
     if(state.finished&&window.launchEpisode){
       const records=launchEpisode.state.records,fields=new Set(records.map(r=>r.caseId)).size,confirmed=records.filter(r=>['moving','faded'].includes(r.result?.outcome)).length;
       $('shift-summary').textContent='Исследовано участков: '+fields+'. Сохранено проверок: '+records.length+'. Подтверждённых изменений: '+confirmed+'. '+(confirmed?'Открой журнал, чтобы снова увидеть следы и измерения.':'В этих запусках подтверждённых изменений нет. Другой способ поиска может дать другие предложения.');
     }
   }
   function show(view,push=true){
-    if(!Object.hasOwn(sections,view))view='overview';
-    if(view!==state.view){comparisonProbe.suspend();brightnessEpisode.suspend();window.launchEpisode?.suspend();}
-    state.view=view;if(view==='tracking'||view==='brightness')state.visited[view]=true;
+    if(!Object.hasOwn(sections,view))view='opening';
+    if(view!==state.view){comparisonProbe.suspend();brightnessEpisode.suspend();window.launchEpisode?.suspend();window.opening?.suspend();}
+    state.view=view;document.body.dataset.opening=String(view==='opening');if(view==='tracking'||view==='brightness')state.visited[view]=true;
     for(const [key,id] of Object.entries(sections))$(id).hidden=key!==view;
     if(view==='brightness'){comparisonProbe.game.scene.pause();brightnessEpisode.activate();}
     else if(view==='tracking'){comparisonProbe.game.scene.resume();comparisonProbe.refresh();}
     else comparisonProbe.game.scene.pause();
     if(view==='overview'||view==='launch')$(view==='overview'?'overview-art-slot':'launch-art-slot').append($('observatory-stage'));
     if(view==='launch')window.launchEpisode?.activate();
+    if(view==='opening')window.opening?.activate();
     refresh();
     if(push&&location.hash!==('#'+view))history.pushState({view},'','#'+view);
-    $(view==='overview'?'overview-heading':view==='tracking'?'tracking-heading':view==='brightness'?'brightness-heading':'launch-heading').focus({preventScroll:true});
+    $(view==='opening'?'opening-heading':view==='overview'?'overview-heading':view==='tracking'?'tracking-heading':view==='brightness'?'brightness-heading':'launch-heading').focus({preventScroll:true});
     window.scrollTo({top:0,behavior:'instant'});
   }
   function reset(){
-    comparisonProbe.reset();brightnessEpisode.reset();window.launchEpisode?.reset();
+    comparisonProbe.reset();brightnessEpisode.reset();window.launchEpisode?.reset();window.opening?.reset();
     state.visited={tracking:false,brightness:false};state.installed={movement:false,fading:false};state.finished=false;
-    $('shift-feedback').textContent='';$('episode-directory').open=false;show('overview');
+    $('shift-feedback').textContent='';$('episode-directory').open=false;show('opening');
   }
   function finish(){if(window.launchEpisode?.canFinish()){state.finished=true;show('overview');}}
   for(const button of document.querySelectorAll('[data-route]'))button.addEventListener('click',()=>show(button.dataset.route));
@@ -91,5 +93,5 @@
   $('journey-reset').onclick=reset;$('restart').onclick=reset;$('brightness-restart').onclick=reset;
   window.addEventListener('popstate',()=>show(location.hash.slice(1),false));
   window.journey={state,show,refresh,reset,ready,finish};
-  show(location.hash.slice(1)||'overview',false);
+  show(location.hash.slice(1)||'opening',false);
 })();

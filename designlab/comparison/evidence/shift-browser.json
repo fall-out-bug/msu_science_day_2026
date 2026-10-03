@@ -1,6 +1,7 @@
 {
-  "count": 56,
+  "count": 58,
   "checks": [
+    "default entry is playable before installing tools",
     "entry presents partner and one next action",
     "tools initially uninstalled and no completed shift",
     "first mobile action fits initial viewport without scrolling",
@@ -45,6 +46,7 @@
     "animated scan locks field and mode controls",
     "leaving cancels scan and retains existing records",
     "reset cancels pending scan and clears whole shift",
+    "reset returns to playable opening",
     "reset restores uninstalled stage and hides ending",
     "real tracking canvas selects measured target",
     "one personal track earns movement tool without using launch field",

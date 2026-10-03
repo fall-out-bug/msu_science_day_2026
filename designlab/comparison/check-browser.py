@@ -29,6 +29,7 @@ with sync_playwright() as p:
     page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
     page.goto(ENTRY)
     page.wait_for_function('window.journey && window.comparisonProbe && document.querySelector("#game canvas")')
+    page.locator('#opening-skip').click()
     page.locator('#shift-action').click()
     def snap(name):page.screenshot(path=str(OUT/(name+'.png')),full_page=True)
     def point(x,y,side=1):
@@ -148,6 +149,7 @@ with sync_playwright() as p:
     page.locator('#restart').click()
     check('restart clears brightness progress',page.evaluate('!brightnessEpisode.state.earned && brightnessEpisode.state.attempts.length===0'))
     check('restart clears progress and choice',page.evaluate('comparisonProbe.state.journal.length===0 && comparisonProbe.state.attempts.length===0 && comparisonProbe.state.selection===null'))
+    page.locator('#opening-skip').click()
     page.locator('#shift-action').click()
     page.set_viewport_size({'width':390,'height':844})
     page.wait_for_function('comparisonProbe.game.scale.width===480')

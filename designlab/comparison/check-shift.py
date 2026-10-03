@@ -94,6 +94,8 @@ with sync_playwright() as playwright:
               page.evaluate('journey.ready()')
               and page.locator('#observatory-stage').get_attribute('data-light') == 'ready')
 
+    check('default entry is playable before installing tools',page.locator('#opening').is_visible())
+    page.locator('#opening-skip').click()
     check('entry presents partner and one next action',
           page.locator('#overview').is_visible() and page.locator('#nika-line').is_visible()
           and not page.locator('#episode-directory').evaluate('(node)=>node.open'))
@@ -220,6 +222,8 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(1050)
     check('reset cancels pending scan and clears whole shift',
           page.evaluate('launchEpisode.state.records.length === 0 && launchEpisode.state.scan === null && launchEpisode.state.selected === null && !journey.ready() && !journey.state.finished && comparisonProbe.state.journal.length === 0 && !brightnessEpisode.state.earned'))
+    check('reset returns to playable opening',page.locator('#opening').is_visible())
+    page.locator('#opening-skip').click()
     check('reset restores uninstalled stage and hides ending',
           page.locator('#observatory-stage').get_attribute('data-motion') == 'locked'
           and page.locator('#journey-finished').is_hidden())

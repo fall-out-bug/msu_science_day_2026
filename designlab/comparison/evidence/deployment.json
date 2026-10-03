@@ -1,10 +1,10 @@
 {
   "url": "http://192.168.50.12:8081/",
-  "image": "sha256:980de2ddf1753689073c4654d99aaf6b624de8300dc6d33090c90ce10e3eca92",
+  "image": "sha256:4d5543a5e769566a8f9df2a4c0cd8d9914db9aab09c0d5eefae35b10c60af772",
   "assets": [
     {
       "file": "index.html",
-      "sha256": "82fbe56ed728fe082eb098bcc9b705c01681dcd1b862de2b354e45e606a716fa",
+      "sha256": "7528bdaed9710c3608af57201ac552d6cc0b3edbc240843b8dda00124ce8d3e4",
       "cacheControl": "no-store"
     },
     {
@@ -29,7 +29,7 @@
     },
     {
       "file": "journey.js",
-      "sha256": "73f5296f4b304c9090996a1d63ec7c7705469056f018207ef82f0262a7edd6b6",
+      "sha256": "870604f3be10d43cb14af80d74d5a69eaa4fdcc7460b44971351dccd2f7393c8",
       "cacheControl": "no-store"
     },
     {
@@ -116,6 +116,16 @@
       "file": "vendor/EVENTEMITTER3-LICENSE.txt",
       "sha256": "3aecc12b1cb28832b5f65ab64291de96568c3f236a74d646281b4491f7bcadbf",
       "cacheControl": "no-store"
+    },
+    {
+      "file": "opening.js",
+      "sha256": "9dbf9bd7e2a0264e0cebc8574e97e6a0a2ec928724bc9a0eeed3c07eab62fa3f",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "opening.css",
+      "sha256": "101752da1ec93e1e38d507b772d2bb8bf4b6f1c244ff3d98b4a672c7dd22ddc3",
+      "cacheControl": "no-store"
     }
   ],
   "main8080Unchanged": true,
@@ -185,8 +195,9 @@
     "errors": []
   },
   "navigation": {
-    "count": 72,
+    "count": 74,
     "checks": [
+      "default entry is immediate playable sky",
       "entry is an observatory scene",
       "episode directory remains optional",
       "entry offers both destinations",
@@ -254,6 +265,7 @@
       "navigation reaches brightness",
       "mobile supernova result states completion",
       "navigation reaches tracking",
+      "restart returns to playable sky",
       "restart clears progress in both episodes",
       "navigation reaches overview",
       "episode map counts 0 / 2",
@@ -265,8 +277,9 @@
     "errors": []
   },
   "shift": {
-    "count": 56,
+    "count": 58,
     "checks": [
+      "default entry is playable before installing tools",
       "entry presents partner and one next action",
       "tools initially uninstalled and no completed shift",
       "first mobile action fits initial viewport without scrolling",
@@ -311,6 +324,7 @@
       "animated scan locks field and mode controls",
       "leaving cancels scan and retains existing records",
       "reset cancels pending scan and clears whole shift",
+      "reset returns to playable opening",
       "reset restores uninstalled stage and hides ending",
       "real tracking canvas selects measured target",
       "one personal track earns movement tool without using launch field",
@@ -322,6 +336,60 @@
       "unstable photometric controls are distinguished from no change",
       "zero-confirmation ending is honest and complete",
       "fixed-rule search is not presented as trained ML",
+      "no runtime errors"
+    ],
+    "engine": "chromium",
+    "entry": "http://192.168.50.12:8081/",
+    "errors": []
+  },
+  "opening": {
+    "count": 46,
+    "checks": [
+      "default starts in actual playable sky without hub step",
+      "reduced motion starts with static later exposure",
+      "default sky renders second real frame with no third exposure",
+      "no action or earned movement before selection",
+      "empty sky does not create target or action",
+      "manual earlier control shows first real frame",
+      "manual later control restores second real frame",
+      "wrong stationary point remains a selectable scientific test",
+      "computed opening outcome stationary",
+      "wrong result reveals real third frame without awarding movement",
+      "retry returns to two-exposure choice and keeps first attempt",
+      "earlier-frame click transfers unambiguous first-to-second match",
+      "selection does not reveal third exposure",
+      "checking keeps third hidden and locks comparison controls",
+      "computed opening outcome moving",
+      "moving result saves exactly one personal track",
+      "failed attempt and post-reveal status are preserved",
+      "opening outcome matches shared scientific tracking engine",
+      "continue opens assembly without making another attempt",
+      "hub offers installation immediately rather than another motion test",
+      "installation uses earned opening result",
+      "opening-earned track retains actual asteroid history",
+      "new shift resets directly to opening with cleared scientific state",
+      "normal-motion fresh opening starts automatic comparison",
+      "automatic comparison switches only first two frames",
+      "pause control stops automatic comparison",
+      "paused exposure remains unchanged",
+      "play control restarts comparison",
+      "reduced motion change stops active comparison",
+      "number overlay alters displayed preview without changing science data",
+      "numeric helper exposes real source buttons",
+      "keyboard numeric helper selects measured target",
+      "unsupported earlier-frame click clears previous actionable selection",
+      "skip cancels pending third-frame check and display timer",
+      "skip preserves legitimate target without inventing result",
+      "old instrument route preserves skipped opening target",
+      "reset invalidates pending check and earned result",
+      "hidden opening stops playing and cannot advance exposure",
+      "phone opening has no horizontal overflow",
+      "real sky is visible within initial phone viewport",
+      "phone direct science click selects target",
+      "phone selected action fits 844-pixel viewport without scrolling",
+      "computed opening outcome moving",
+      "phone keyboard action earns same single track",
+      "opening does not present fixed rules as trained ML",
       "no runtime errors"
     ],
     "engine": "chromium",
