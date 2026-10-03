@@ -1,0 +1,105 @@
+{
+  "count": 12,
+  "checks": [
+    "four local FITS hashes and exported data match provenance",
+    "exactly two calibrated science and two pipeline difference images",
+    "first-frame peak selection never snaps to a historical position",
+    "select and measure cannot read identity, historical position, or later detections",
+    "JavaScript aperture sums reproduce independent Python realdata measurements",
+    "real central blend has a measured decline in pipeline difference flux",
+    "a different real selection produces stable under fixed tolerance gates",
+    "edge detections and empty selections remain unresolved",
+    "real image counterfactual changes outcome without changing choice",
+    "synthetic pixel changes cause faded, stable, or unresolved outcomes",
+    "crowded clicks are ambiguous and invalid local pixels fail explicitly",
+    "measurement reports and selected positions are immutable"
+  ],
+  "target": {
+    "outcome": "faded",
+    "reason": "difference_aperture_decreased",
+    "point": {
+      "x": 65,
+      "y": 64
+    },
+    "firstFlux": 552.4213965386152,
+    "secondFlux": 185.88041865825653,
+    "ratio": 0.336483017897123,
+    "changeFraction": -0.663516982102877,
+    "absoluteChange": -366.5409778803587,
+    "scienceChangeFraction": -0.17102070234937256,
+    "combinedNoiseScale": 50.218886419145015,
+    "measurements": [
+      {
+        "flux": 552.4213965386152,
+        "background": 0.02451007068157196,
+        "localSigma": 1.6852398342132568,
+        "noiseScale": 35.3900365184784,
+        "aperturePixels": 49,
+        "annulusPixels": 248,
+        "scienceFlux": 2495.7466926574707,
+        "scienceBackground": 1.1203880310058594,
+        "scienceNoiseScale": 40.26544760055542
+      },
+      {
+        "flux": 185.88041865825653,
+        "background": -0.143941268324852,
+        "localSigma": 1.6966566218644379,
+        "noiseScale": 35.6297890591532,
+        "aperturePixels": 49,
+        "annulusPixels": 248,
+        "scienceFlux": 2068.9223403930664,
+        "scienceBackground": 0.7702102661132812,
+        "scienceNoiseScale": 33.23752521514893
+      }
+    ],
+    "fluxUnits": "relative aperture flux at zero point 25"
+  },
+  "control": {
+    "outcome": "stable",
+    "reason": "no_large_change_within_fixed_gates",
+    "point": {
+      "x": 23,
+      "y": 64
+    },
+    "firstFlux": -172.77527461014688,
+    "secondFlux": 12.932926155626774,
+    "ratio": null,
+    "changeFraction": null,
+    "absoluteChange": 185.70820076577365,
+    "scienceChangeFraction": -0.02194147156773359,
+    "combinedNoiseScale": 54.974148445501946,
+    "measurements": [
+      {
+        "flux": -172.77527461014688,
+        "background": -0.05031066574156284,
+        "localSigma": 2.0253977303624153,
+        "noiseScale": 42.53335233761072,
+        "aperturePixels": 49,
+        "annulusPixels": 248,
+        "scienceFlux": 14328.921558380127,
+        "scienceBackground": 0.4674491882324219,
+        "scienceNoiseScale": 35.17464880371094
+      },
+      {
+        "flux": 12.932926155626774,
+        "background": -0.12991125136613846,
+        "localSigma": 1.6585318045064805,
+        "noiseScale": 34.829167894636086,
+        "aperturePixels": 49,
+        "annulusPixels": 248,
+        "scienceFlux": 14014.523933410645,
+        "scienceBackground": 0.32701873779296875,
+        "scienceNoiseScale": 35.5449707748413
+      }
+    ],
+    "fluxUnits": "relative aperture flux at zero point 25"
+  },
+  "scientificLimits": [
+    "Two archived epochs only, no third observation.",
+    "Pipeline difference is science minus a ZTF reference, not second epoch minus first.",
+    "Aperture integrates nearby unresolved light; SN has a neighbour approximately 2.4 arcsec away.",
+    "Noise scale is a conservative heuristic, not calibrated statistical confidence; PSF and subtraction systematics remain.",
+    "Stable means no large change under these fixed gates, not proof of exact constancy.",
+    "No transient type, physical luminosity, orbital property or independent discovery is inferred."
+  ]
+}

@@ -62,7 +62,7 @@
   }
   function nextField() {
     if(state.result?.outcome!=='moving')return;
-    if(state.field===1){$('journal').focus();$('journal').scrollIntoView({behavior:reduced()?'instant':'smooth',block:'center'});return;}
+    if(state.field===1){window.brightnessEpisode.start();return;}
     state.field=1;state.phase='search';state.selection=null;state.result=null;state.mobileView=1;
     feedback('На новом участке звёзды расположены иначе. Найди движущуюся точку: настройка прибора осталась прежней.');update();
     $('sky-instruction').scrollIntoView({behavior:'instant',block:'center'});
@@ -103,9 +103,10 @@
       const outcomes={moving:['ДВИЖЕНИЕ ПОДТВЕРДИЛОСЬ','Точка продолжила движение','Ты выбрал движущийся объект. По двум положениям прибор рассчитал, где искать его дальше, и нашёл рядом с прогнозом на третьем снимке.'],stationary:['ЦЕЛЬ НАЙДЕНА, ДВИЖЕНИЯ НЕТ','Эта точка осталась на месте','На всех трёх снимках она находится в одном месте. Для слежения за движением выбери другую точку — ту, которая сместилась.'],lost:['СЛЕЖЕНИЕ НЕ ПОДТВЕРДИЛОСЬ','Точка не нашлась там, где ожидал прибор','Возможно, прибор связал разные точки или следующий след слишком слабый. Сравни снимки и попробуй другую цель.'],unresolved:['НУЖНА ДРУГАЯ ПРОВЕРКА','Не удалось подтвердить слежение','Прибор не смог однозначно связать эту точку между снимками. По этим данным нельзя уверенно сказать, куда она переместилась. Попробуй другую точку.']};
       const copy=outcomes[result.outcome];$('outcome-tag').textContent=copy[0];$('outcome-title').textContent=copy[1];$('outcome-copy').textContent=copy[2];
       $('reward').textContent=result.outcome==='moving'?(state.journal.length===2?'Два следа в журнале. Ты проверил слежение на двух разных участках неба.':'Три положения объекта записаны в журнал. Проверь прибор на другом участке!'):'';
-      $('next-field').hidden=result.outcome!=='moving';$('next-field').textContent=state.field===0?'Попробовать на другом участке':'Посмотреть журнал';
+      $('next-field').hidden=result.outcome!=='moving';$('next-field').textContent=state.field===0?'Попробовать на другом участке':'Продолжить: изменение света';
       $('trail-strip').replaceChildren();result.positions.forEach((point,i)=>{const f=document.createElement('figure'),c=document.createElement('canvas'),caption=document.createElement('figcaption');c.width=c.height=96;crop(c,item,i,point,true);caption.textContent=point?`Снимок ${i+1}`:`${i+1}: след не определён`;f.append(c,caption);$('trail-strip').append(f);});
     }
+    $('brightness-invitation').hidden=state.journal.length<2;
     $('journal-count').textContent=`${state.journal.length} / 2`;$('journal-empty').hidden=!!state.journal.length;$('journal-list').replaceChildren();
     state.journal.forEach(entry=>{const row=document.createElement('div');row.className='journal-entry';const positions=entry.result.positions;row.innerHTML=`<strong>${fields.find(c=>c.id===entry.caseId).name} · движение подтверждено</strong><svg viewBox="0 0 128 128" preserveAspectRatio="xMidYMid meet" aria-label="Три положения объекта"><polyline points="${positions.map(p=>`${p.x},${p.y}`).join(' ')}" fill="none" stroke="#8de1ce" stroke-width="2" vector-effect="non-scaling-stroke"/>${positions.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="3" fill="#e7fff7"/>`).join('')}</svg><small>Выбрана цель → проверен прогноз → записан след</small>`;$('journal-list').append(row);});
     $('source-note').textContent=`${item.name}. Наблюдения: ${item.dates.map(d=>d.replace('T',' ').replace('Z',' UTC')).join('; ')}.`;

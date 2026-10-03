@@ -1,0 +1,153 @@
+{
+  "url": "https://archive.stsci.edu/missions/kepler/lightcurves/0114/011442793/kplr011442793_lc_Q011111110111011101.tar",
+  "archiveSha256": "42326ad9ff78eb197753bef3a279e7ede3473d01118579d13ede5080caa23020",
+  "paper": "https://arxiv.org/abs/1712.05044",
+  "files": [
+    {
+      "file": "kplr011442793-2009166043257_llc.fits",
+      "sha256": "1c14b8c7193e6b906041db8f7bd8872ec65abee00ff03d5847fe47e084fd8e75",
+      "quarter": 1,
+      "validMeasurements": 1430,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2009259160929_llc.fits",
+      "sha256": "ebe756845202d6407da63222129ec047d9c40c28688679c91940081af178fc8d",
+      "quarter": 2,
+      "validMeasurements": 3729,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2009350155506_llc.fits",
+      "sha256": "e323c22b263ba59e900d9b15d773e81e05f30a7a3036e53145f6374af48d16e3",
+      "quarter": 3,
+      "validMeasurements": 3835,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2010009091648_llc.fits",
+      "sha256": "d3c06911b54172fcf6e5117a7a854cb5917827b27cafb41b0d06ae68eca73e98",
+      "quarter": 4,
+      "validMeasurements": 955,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2010174085026_llc.fits",
+      "sha256": "4a93dc2c3633501b05ca199d6d8c8c9de7368770848f2cbe60bb471c95e2fd68",
+      "quarter": 5,
+      "validMeasurements": 4221,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2010265121752_llc.fits",
+      "sha256": "162f3365d3b1501d9460b470358cb77285bf9414a9a4bbb6ba835f8ea05423f1",
+      "quarter": 6,
+      "validMeasurements": 3178,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2010355172524_llc.fits",
+      "sha256": "32e5002db82b8bf25252c381e6f4b83d5a2b0dcebca9de1bcc7fbdbbf22cb36b",
+      "quarter": 7,
+      "validMeasurements": 3856,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2011177032512_llc.fits",
+      "sha256": "6c29e99b32b96fd8c8a9c10ebe1414f33dd84374214c4d87dcfcabc57944d150",
+      "quarter": 9,
+      "validMeasurements": 4375,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2011271113734_llc.fits",
+      "sha256": "0d795879c3204798825086ff40e4a80f2daefa1c9551c05f3e5faeb0f8e1e704",
+      "quarter": 10,
+      "validMeasurements": 2447,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2012004120508_llc.fits",
+      "sha256": "2f514dcd79b3b6c01778f756bd4c458b89139c0239a0efcd2f0ab14733f88363",
+      "quarter": 11,
+      "validMeasurements": 3841,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2012179063303_llc.fits",
+      "sha256": "10adad9f17c16e30fc720cbdca882a9559ed5d2184f7b9362e454b7bb357ebf0",
+      "quarter": 13,
+      "validMeasurements": 3888,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2012277125453_llc.fits",
+      "sha256": "5d052eec488a34a86309d19c99e3e46749ec58206a277ca0f1a06dcfd8e8bfbe",
+      "quarter": 14,
+      "validMeasurements": 3603,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2013011073258_llc.fits",
+      "sha256": "74e6800d9215e5db30d6c86e76b9495a6c57a9cfc474d540e8c80902f9c5399d",
+      "quarter": 15,
+      "validMeasurements": 4173,
+      "start": null,
+      "end": null
+    },
+    {
+      "file": "kplr011442793-2013131215648_llc.fits",
+      "sha256": "616755a1b1a8f4849af6553d1458a7a8050d2b523e393182313ba2d25dd13dc6",
+      "quarter": 17,
+      "validMeasurements": 1213,
+      "start": null,
+      "end": null
+    }
+  ],
+  "processing": "Измерения PDCSAP_FLUX с SAP_QUALITY = 0. Для каждого прохождения линейный уровень яркости звезды оценён по измерениям за 4,32–12 часов до и после середины транзита; поток разделён на этот уровень. Это нормировка яркости звезды, а не вычитание фона неба. Время сложено с периодом 14,44912 суток и эпохой BJD_TDB 2455644,3488 из таблицы 5 статьи. Средние рассчитаны в интервалах по 30 минут с отсечением выбросов дальше четырёх робастных оценок σ (σ = 1,4826 MAD); отрезки показывают стандартную ошибку среднего. Это наша обработка архивных измерений, не график авторов статьи и не повторное открытие планеты.",
+  "sn2023tyk": {
+    "sources": [
+      {
+        "file": "ztf_20231007507292_000872_zr_c10_o_q3_science.fits",
+        "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q3_sciimg.fits?center=143.79799404615386,83.9734582153846&size=160arcsec&gzip=false",
+        "date": "2023-10-07T12:10:31Z",
+        "sha256": "79a798368ce5e727b08129699a99c5e4e29fc5c340961cf3d9172adb9fa08850",
+        "product": "science"
+      },
+      {
+        "file": "ztf_20231007507292_000872_zr_c10_o_q3_difference.fits",
+        "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q3_scimrefdiffimg.fits.fz?center=143.79799404615386,83.9734582153846&size=160arcsec&gzip=false",
+        "date": "2023-10-07T12:10:31Z",
+        "sha256": "ae8e00eddfbcea18485e5c406a5fe4e1baf0463d26ecc0078a1bf269890ce604",
+        "product": "difference"
+      },
+      {
+        "file": "ztf_20231110430868_000872_zr_c10_o_q3_science.fits",
+        "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q3_sciimg.fits?center=143.79799404615386,83.9734582153846&size=160arcsec&gzip=false",
+        "date": "2023-11-10T10:20:34Z",
+        "sha256": "a18f75ad9caea07282d5698a90d89cab2ec217c2b9b4aa9f1a331cd355de56b4",
+        "product": "science"
+      },
+      {
+        "file": "ztf_20231110430868_000872_zr_c10_o_q3_difference.fits",
+        "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q3_scimrefdiffimg.fits.fz?center=143.79799404615386,83.9734582153846&size=160arcsec&gzip=false",
+        "date": "2023-11-10T10:20:34Z",
+        "sha256": "eaf9fceec5c88ee73fcfa32966a40e92faddd64e4b78c198643d6dd7b47bc378",
+        "product": "difference"
+      }
+    ],
+    "processing": "Настоящие продукты ZTF из IRSA: sciimg и scimrefdiffimg. Разность с опорным изображением уже рассчитана конвейером ZTF с согласованием изображений; это не наши нарисованные точки. Мы выровняли вырезки по WCS вокруг координат SN 2023tyk, привели поток к нуль-пункту 25 и применили одинаковую шкалу к обеим датам. На обычных кадрах медиана фона вычтена, шкала asinh: α = 0,2, верхний уровень 300. На разностях: знаковый asinh, α = 0,2, диапазон −120…+120; серый означает нулевую разность. Север сверху, восток слева; ширина участка около 2,2 угловой минуты."
+  }
+}

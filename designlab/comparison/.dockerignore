@@ -10,3 +10,7 @@
 !provenance.json
 !vendor/
 !vendor/**
+!brightness.js
+!brightness-model.js
+!brightness-data.js
+!brightness-provenance.json
