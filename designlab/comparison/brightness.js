@@ -10,19 +10,16 @@
   const say=text=>{$('brightness-feedback').textContent=text;};
   const historyMatches=result=>result?.outcome==='faded' &&
     Math.hypot(result.point.x-data.historical.point.x,result.point.y-data.historical.point.y)<=data.historical.associationRadiusPx;
-  function start(){
-    if(comparisonProbe.state.journal.length<2)return;
-    state.active=true;$('tracking-episode').hidden=true;$('brightness-episode').hidden=false;
-    comparisonProbe.game.scene.pause();
-    update();$('brightness-heading').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
+  function activate(){
+    state.active=true;update();
   }
-  function back(){
+  function suspend(){
     clearTimeout(timer);generation++;
     if(state.phase==='measuring'){state.phase='search';say('Измерение прервано. Твой выбор сохранён — можно проверить его снова.');}
-    state.active=false;$('brightness-episode').hidden=true;$('tracking-episode').hidden=false;
-    comparisonProbe.game.scene.resume();
-    $('brightness-invitation').scrollIntoView({behavior:'instant',block:'center'});$('start-brightness').focus({preventScroll:true});
+    state.active=false;
   }
+  function start(){window.journey.show('brightness');}
+  function back(){window.journey.show('tracking');}
   function reset(){
     clearTimeout(timer);generation++;
     Object.assign(state,{phase:'search',view:0,difference:false,selection:null,result:null,attempts:[],earned:false,storyOpen:false});
@@ -132,12 +129,13 @@
     $('brightness-journal-copy').textContent=state.earned?'Изменение света подтверждено по двум датам. Твоя находка и история объекта доступны в этом эпизоде.':'Сюда добавится проверенное изменение света.';
     if(result){
       const copy={faded:['ИЗМЕНЕНИЕ ПОДТВЕРДИЛОСЬ','Свет заметно ослаб','Ты заметил ослабление света. Чтобы измерить его, прибор сравнил одну и ту же область после вычитания постоянного света.'],stable:['БОЛЬШОГО ИЗМЕНЕНИЯ НЕТ','Эта область почти такая же яркая','Её общая яркость изменилась мало. Здесь заметного ослабления не подтвердилось. Попробуй другую точку.'],unresolved:['НУЖНА ДРУГАЯ ПРОВЕРКА','Не хватает надёжного сигнала','Здесь измерению мешает слабый сигнал, шум или край снимка. Это не доказывает, что источник не менялся. Проверь другую область.']}[result.outcome];
-      $('brightness-outcome-tag').textContent=copy[0];$('brightness-outcome-title').textContent=copy[1];$('brightness-outcome-copy').textContent=copy[2];
+      $('brightness-outcome-tag').textContent=historyMatches(result)?'ЭПИЗОД 2 ЗАВЕРШЁН':copy[0];$('brightness-outcome-title').textContent=copy[1];$('brightness-outcome-copy').textContent=copy[2];
       if(result.reason==='incomplete_background_annulus'){$('brightness-outcome-title').textContent='Эта точка слишком близко к краю';$('brightness-outcome-copy').textContent='Для измерения нужен и свет точки, и фон вокруг неё. Часть этой области за краем снимка. Выбери точку подальше от края.';}
       chart(result);$('brightness-measurement-note').textContent=result.outcome==='faded'?'Измерена небольшая область снимка. Она может включать свет соседних источников.':'Мы ищем заметное изменение; небольшая разница может быть связана с условиями съёмки.';
       $('brightness-reveal').hidden=!historyMatches(result);
     }
     if(state.active){draw($('brightness-first'),0);draw($('brightness-second'),1);}
+    window.journey?.refresh();
   }
   for(const [epoch,id] of ['brightness-first','brightness-second'].entries())$(id).addEventListener('pointerdown',event=>{
     if(state.phase!=='search')return;
@@ -151,8 +149,8 @@
   $('brightness-tab-first').onclick=()=>{state.view=0;update();};$('brightness-tab-second').onclick=()=>{state.view=1;update();};
   $('brightness-point-tools').ontoggle=()=>{if(state.active)update();};
   $('brightness-return-observation').onclick=()=>{$('brightness-outcome').focus({preventScroll:true});$('brightness-outcome').scrollIntoView({behavior:reduced()?'instant':'smooth',block:'center'});};
-  $('brightness-restart').onclick=()=>{reset();back();comparisonProbe.reset();window.scrollTo({top:0,behavior:'instant'});};
+  $('brightness-restart').onclick=()=>window.journey.reset();
   $('restart').addEventListener('click',reset);
   matchMedia('(max-width:760px)').addEventListener('change',()=>{if(state.active)update();});
-  window.brightnessEpisode={state,start,back,reset,choose,measure,retry,reveal,setDifference};
+  window.brightnessEpisode={state,start,back,reset,choose,measure,retry,reveal,setDifference,activate,suspend};
 })();

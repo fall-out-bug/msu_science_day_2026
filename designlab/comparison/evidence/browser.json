@@ -20,7 +20,7 @@
     "check locks editing",
     "changing motion preference does not freeze check",
     "two field completion saved",
-    "next science chapter unlocked by two tracks",
+    "next science chapter offered after two tracks",
     "brightness chapter has a concrete goal",
     "brightness empty click leaves action unavailable",
     "brightness measured outcome stable",
@@ -60,6 +60,6 @@
     "no runtime errors"
   ],
   "engine": "chromium",
-  "entry": "file:///tmp/science-day-tracking-pr-20261003/designlab/comparison/index.html",
+  "entry": "http://192.168.50.12:8081/",
   "errors": []
 }

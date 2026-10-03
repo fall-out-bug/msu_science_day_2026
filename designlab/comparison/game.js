@@ -63,9 +63,22 @@
   function nextField() {
     if(state.result?.outcome!=='moving')return;
     if(state.field===1){window.brightnessEpisode.start();return;}
+    if(state.journal.some(entry=>entry.caseId===fields[1].id)){openSaved(fields[1].id);$('outcome-panel').scrollIntoView({behavior:'instant',block:'center'});return;}
     state.field=1;state.phase='search';state.selection=null;state.result=null;state.mobileView=1;
     feedback('На новом участке звёзды расположены иначе. Найди движущуюся точку: настройка прибора осталась прежней.');update();
     $('sky-instruction').scrollIntoView({behavior:'instant',block:'center'});
+  }
+  function suspend() {
+    clearTimeout(timer);generation++;
+    if(state.phase==='checking'){
+      state.phase='search';feedback('Проверка прервана при переходе. Точка сохранена: нажми «Следить за этой точкой», чтобы повторить проверку.');update();
+    }
+  }
+  function openSaved(caseId) {
+    const entry=caseId?state.journal.find(e=>e.caseId===caseId):state.journal.at(-1);
+    if(!entry)return;
+    suspend();Object.assign(state,{field:fields.findIndex(f=>f.id===entry.caseId),selection:entry.selection,result:entry.result,phase:'result',amount:entry.amount,mobileView:1});
+    feedback('Открыта сохранённая проверка движения. Её результат остался прежним.');update();
   }
   function reset() {
     clearTimeout(timer);generation++;
@@ -81,7 +94,7 @@
   function setView(view){state.mobileView=view===0?0:1;update();}
   function update() {
     const item=current(),search=state.phase==='search',checking=state.phase==='checking',result=state.result;
-    $('field-label').textContent=`УЧАСТОК ${state.field+1} ИЗ 2`;
+    $('field-label').textContent=`ЭПИЗОД 1 · ДВИЖЕНИЕ АСТЕРОИДОВ · УЧАСТОК ${state.field+1} ИЗ 2`;
     $('sky-instruction').textContent=search?(mobile()?'Выбери точку на втором снимке':'Выбери точку на правом снимке'):checking?'Проверяем твою цель':'Вот что стало с выбранной точкой';
     $('sky-status').textContent=search?'Два наблюдения':checking?'Следующее наблюдение…':'Третий снимок открыт';
     $('choice-panel').hidden=!!result;$('outcome-panel').hidden=!result;
@@ -101,16 +114,17 @@
     item.sources[1].forEach((s,i)=>{const b=document.createElement('button');b.textContent=String(i+1);b.setAttribute('aria-label',`Выбрать точку ${i+1}`);b.setAttribute('aria-pressed',String(state.selection?.point.x===s.x&&state.selection?.point.y===s.y));b.onclick=()=>choose(s.x,s.y);$('point-list').append(b);});
     if(result){
       const outcomes={moving:['ДВИЖЕНИЕ ПОДТВЕРДИЛОСЬ','Точка продолжила движение','Ты выбрал движущийся объект. По двум положениям прибор рассчитал, где искать его дальше, и нашёл рядом с прогнозом на третьем снимке.'],stationary:['ЦЕЛЬ НАЙДЕНА, ДВИЖЕНИЯ НЕТ','Эта точка осталась на месте','На всех трёх снимках она находится в одном месте. Для слежения за движением выбери другую точку — ту, которая сместилась.'],lost:['СЛЕЖЕНИЕ НЕ ПОДТВЕРДИЛОСЬ','Точка не нашлась там, где ожидал прибор','Возможно, прибор связал разные точки или следующий след слишком слабый. Сравни снимки и попробуй другую цель.'],unresolved:['НУЖНА ДРУГАЯ ПРОВЕРКА','Не удалось подтвердить слежение','Прибор не смог однозначно связать эту точку между снимками. По этим данным нельзя уверенно сказать, куда она переместилась. Попробуй другую точку.']};
-      const copy=outcomes[result.outcome];$('outcome-tag').textContent=copy[0];$('outcome-title').textContent=copy[1];$('outcome-copy').textContent=copy[2];
+      const copy=outcomes[result.outcome];$('outcome-tag').textContent=result.outcome==='moving'&&state.journal.length===2?'ЭПИЗОД 1 ЗАВЕРШЁН':copy[0];$('outcome-title').textContent=copy[1];$('outcome-copy').textContent=copy[2];
       $('reward').textContent=result.outcome==='moving'?(state.journal.length===2?'Два следа в журнале. Ты проверил слежение на двух разных участках неба.':'Три положения объекта записаны в журнал. Проверь прибор на другом участке!'):'';
-      $('next-field').hidden=result.outcome!=='moving';$('next-field').textContent=state.field===0?'Попробовать на другом участке':'Продолжить: изменение света';
+      $('next-field').hidden=result.outcome!=='moving';$('next-field').textContent=state.field===0?'Открыть участок 2 · ещё один астероид':'К эпизоду 2 «Свет сверхновой» →';
       $('trail-strip').replaceChildren();result.positions.forEach((point,i)=>{const f=document.createElement('figure'),c=document.createElement('canvas'),caption=document.createElement('figcaption');c.width=c.height=96;crop(c,item,i,point,true);caption.textContent=point?`Снимок ${i+1}`:`${i+1}: след не определён`;f.append(c,caption);$('trail-strip').append(f);});
     }
     $('brightness-invitation').hidden=state.journal.length<2;
     $('journal-count').textContent=`${state.journal.length} / 2`;$('journal-empty').hidden=!!state.journal.length;$('journal-list').replaceChildren();
-    state.journal.forEach(entry=>{const row=document.createElement('div');row.className='journal-entry';const positions=entry.result.positions;row.innerHTML=`<strong>${fields.find(c=>c.id===entry.caseId).name} · движение подтверждено</strong><svg viewBox="0 0 128 128" preserveAspectRatio="xMidYMid meet" aria-label="Три положения объекта"><polyline points="${positions.map(p=>`${p.x},${p.y}`).join(' ')}" fill="none" stroke="#8de1ce" stroke-width="2" vector-effect="non-scaling-stroke"/>${positions.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="3" fill="#e7fff7"/>`).join('')}</svg><small>Выбрана цель → проверен прогноз → записан след</small>`;$('journal-list').append(row);});
+    state.journal.forEach(entry=>{const row=document.createElement('div');row.className='journal-entry';const positions=entry.result.positions;row.innerHTML=`<strong>${fields.find(c=>c.id===entry.caseId).name} · движение подтверждено</strong><svg viewBox="0 0 128 128" preserveAspectRatio="xMidYMid meet" aria-label="Три положения объекта"><polyline points="${positions.map(p=>`${p.x},${p.y}`).join(' ')}" fill="none" stroke="#8de1ce" stroke-width="2" vector-effect="non-scaling-stroke"/>${positions.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="3" fill="#e7fff7"/>`).join('')}</svg><small>Выбрана цель → проверен прогноз → записан след</small>`;const button=document.createElement('button');button.className='secondary';button.dataset.savedCase=entry.caseId;button.textContent='Открыть след и историю · '+fields.find(c=>c.id===entry.caseId).name;button.onclick=()=>{openSaved(entry.caseId);$('tracking-story').focus({preventScroll:true});$('tracking-story').scrollIntoView({behavior:reduced()?'instant':'smooth',block:'start'});};row.append(button);$('journal-list').append(row);});
     $('source-note').textContent=`${item.name}. Наблюдения: ${item.dates.map(d=>d.replace('T',' ').replace('Z',' UTC')).join('; ')}.`;
     if(scene)scene.draw();
+    window.journey?.refresh();
   }
   class Sky extends Phaser.Scene {
     create(){scene=this;this.input.on('pointerdown',p=>{if(state.phase!=='search')return;const r=this.rects.find(r=>p.x>=r.x&&p.x<r.x+r.size&&p.y>=r.y&&p.y<r.y+r.size);if(!r)return;if(r.side!==1){feedback('Выбери цель на втором снимке: именно за этой точкой прибор будет следить дальше.');return;}choose((p.x-r.x)/r.size*128-.5,(p.y-r.y)/r.size*128-.5);});this.draw();}
@@ -140,5 +154,5 @@
   $('point-tools').ontoggle=()=>scene?.draw();
   matchMedia('(max-width:760px)').addEventListener('change',()=>update());
   const game=new Phaser.Game({type:Phaser.CANVAS,parent:'game',width:mobile()?480:960,height:520,backgroundColor:'#121e30',scene:Sky,render:{antialias:true},audio:{noAudio:true},banner:false});
-  window.comparisonProbe={state,choose,follow,retry,nextField,reset,setAmount,setView,game};reset();
+  window.comparisonProbe={state,choose,follow,retry,nextField,reset,setAmount,setView,game,suspend,openSaved,refresh:update};reset();
 })();
