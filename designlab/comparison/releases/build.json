@@ -1,0 +1,33 @@
+{
+  "title": "Мастерская неба",
+  "version": "2026.10.04",
+  "entry": "index.html",
+  "cases": 9,
+  "modes": [
+    3,
+    6,
+    9
+  ],
+  "files": {
+    "index.html": "fcfa6250d01f3b695550a82ec3af0387fe1db62a58a2656ec8a50630ebfa66a3",
+    "night.css": "14fc4d07de993a4cd90e7b0ad168ee814488896174c4541f128f77016f356cbf",
+    "night.js": "13b48332145a993be6939942994010d02d0f7931f8a21809d0b4c1ffe9c389bc",
+    "night-model.js": "494393d642919b7b021059bdf5f5bceab397544f411e7c80436b08c3766111b0",
+    "data.js": "8fdc3d8999e5367fe458f767e7e7cc9d9260bf6451bada8eccd3923312e72a95",
+    "model.js": "e56cbb32e7f7661d96cc4dff4384ff6da8e8ab694cbd0c6595ef86cd9d4f0dbe",
+    "tracking.js": "b296d239a6ad0f17e899f54e99b46b0e2a123d4c9977c89a9204a53c0775de2f",
+    "brightness-data.js": "3504b5e27121c1a1a47a171086dca0921719ee7708dcfc2aea7f703526df11fd",
+    "brightness-model.js": "51290359a710ce2687c2bd9b39c4e0ea375cc1ff5aba71c84d7af53c0ac17bec",
+    "launch-data.js": "e32ba2d06e4e1577f14c3edaf680e7d17851408c15e45ba75852d80802ef9b04",
+    "launch-model.js": "60044a6cd3a8713ab0617fea0ec32cbe1ebddd0841092724526cfc827f65de6b",
+    "learning-model.js": "55d753ec7490fdd65e93888db517f7a334ca5e0f1d17ce6a1ecc784a2c6129aa",
+    "learning-data.js": "a578c7581cc18ac3752be0abccc27e0b819185a49942aa87df5252e411208fdc",
+    "archive-data.js": "e0f56664a0ee4f92e524cdfda9741ad53e1e73dcd8aa51d50d565ac1ce5d0362",
+    "provenance.json": "ed983259b6026c4469f4181a446e7344b37b82bc661dbb393cda712495c11d71",
+    "brightness-provenance.json": "f65ff0f9d6fff09603d94468d5d0360f9c3f786750b0c9cc89a1d55e7a633f01",
+    "launch-provenance.json": "3e5eb5ad278110d5dd493a29290ef097a595cddb2ca9122cc7066d54d59105ff",
+    "learning-provenance.json": "0e1f9d62810dc3d76c0ffcce1509b9bfea8faad6f0fcccf200f5e8ced2bca1ea",
+    "archive-provenance.json": "172f154f78ff646dbbb897abb4f080d1c798c4811a132e1feca3eea125b34fff",
+    "NIGHT-SOURCES.txt": "0f078c4615b9367a3634ed3457a95953ef970055d9ec816988172138fe1ebdbf"
+  }
+}

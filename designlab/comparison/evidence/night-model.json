@@ -1,0 +1,16 @@
+{
+  "count": 11,
+  "checks": [
+    "campaign has a coherent 3/6/9 inventory with nine distinct observations",
+    "real movement is saved and installs only after a three-epoch confirmation",
+    "stationary or unresolved apparent tracks cannot unlock movement",
+    "real photometry is gated by a science measurement and stable controls",
+    "empty scans say what failed rather than claiming empty sky",
+    "one saved record per field: replacement does not duplicate the shift log",
+    "restore rejects duplicate/unknown records and derives instruments from evidence",
+    "changing the ML correction changes future Gianni proposals and two bad accepted links fail geometry",
+    "manual brightening does not pretend a fading-only scan discovered it",
+    "a wrong tool does not resolve a specifically asked motion or light question",
+    "common field brightening is removed before judging a smaller target change"
+  ]
+}

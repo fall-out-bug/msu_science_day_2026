@@ -1,0 +1,21 @@
+Мастерская неба — данные и источники
+
+Снимки: ZTF Public Survey, архив IRSA (Caltech).
+Источники, даты, координаты и SHA-256 исходных FITS записаны в файлах provenance.json.
+Кадры выровнены по WCS, поток откалиброван, местный фон вычтен.
+Цветовая шкала условная; показ не меняет научных значений.
+
+Благодарности обзора:
+Based on observations obtained with the Samuel Oschin 48-inch Telescope at the Palomar Observatory as part of the Zwicky Transient Facility project. ZTF is supported by the National Science Foundation under Grant No. AST-1440341 and a collaboration including Caltech, IPAC, the Weizmann Institute for Science, the Oskar Klein Center at Stockholm University, the University of Maryland, the University of Washington, Deutsches Elektronen-Synchrotron and Humboldt University, Los Alamos National Laboratories, the TANGO Consortium of Taiwan, the University of Wisconsin at Milwaukee, and Lawrence Berkeley National Laboratories. Operations are conducted by COO, IPAC, and UW.
+Based on observations obtained with the Samuel Oschin Telescope 48-inch and the 60-inch Telescope at the Palomar Observatory as part of the Zwicky Transient Facility project. ZTF is supported by the National Science Foundation under Grant No. AST-2034437 and a collaboration including Caltech, IPAC, the Weizmann Institute for Science, the Oskar Klein Center at Stockholm University, the University of Maryland, Deutsches Elektronen-Synchrotron and Humboldt University, the TANGO Consortium of Taiwan, the University of Wisconsin at Milwaukee, Trinity College Dublin, Lawrence Livermore National Laboratories, and INAF. Operations are conducted by COO, IPAC, and UW.
+
+История SN 2023tyk и роли BTSbot/SNIascore:
+https://arxiv.org/html/2401.15167v1#S5.SS1
+
+Архив ZTF:
+https://irsa.ipac.caltech.edu/Missions/ztf.html
+
+Наши цветовые шкалы условные. Это архивные научные наблюдения,
+не команда настоящему телескопу и не новые открытия.
+Ника и смена — игровой рассказ. Обучаемый отбор работает локально
+методом ближайших примеров, без внешнего ИИ-сервиса.
