@@ -65,4 +65,24 @@ check('common field brightening is removed before judging a smaller target chang
   assert.equal(result.outcome,'unresolved','field-corrected 20 percent change is below diagnostic gate');
  } finally {field.arrays=arrays;field.sources=sources;}
 });
+check('later investigations require evidence for their stated question',()=>{
+ const s=N.fresh(9);
+ const background=N.motion('s04',box.window.TrackingModel.select(C('s04').data,111,91));
+ assert.equal(background.outcome,'stationary');assert.equal(N.save(s,background),false);
+ const single=N.motion('s04',box.window.TrackingModel.select(C('s04').data,63,64));
+ const old=N.fresh(6);old.records=[moving(),faded(),background];old.finished=true;old.caseId='s04';
+ const restored=N.restore(clone(old));assert.equal(restored.records.length,3);assert.equal(restored.finished,false);
+ assert.equal(single.reason,'several_possible_origins');assert.equal(N.save(s,single),true);
+ const ordinary=N.photometry('archive-brightening',{x:105,y:74});
+ assert.equal(ordinary.outcome,'unresolved');assert.equal(N.save(s,ordinary),false);
+ const bright=N.photometry('archive-brightening',{x:64,y:63});
+ assert.equal(bright.outcome,'brightened');assert.equal(N.save(s,bright),true);
+ const small=N.photometry('archive-small-change',{x:63,y:63});
+ assert.equal(small.outcome,'unresolved');assert.deepEqual(clone(small.ratios),[100,82,101]);assert.equal(N.save(s,small),true);
+ const edge=N.photometry('archive-small-change',{x:1,y:1});assert.equal(N.save(s,edge),false);
+ for(const method of ['fading','movement']){
+  const result=N.empty('archive-track',method,N.scan('archive-track',method,s));
+  assert.equal(N.save(s,result),method==='movement');
+ }
+});
 console.log(JSON.stringify({count:checks.length,checks},null,2));

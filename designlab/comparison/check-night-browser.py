@@ -141,22 +141,58 @@ with sync_playwright() as pw:
     # Artifact: use the visible point list with a real button, not a model call.
     check("artifact field follows steady field", page.evaluate("night.session.caseId === 's04'"))
     page.locator("#g-source-picker summary").click()
-    page.locator("#g-points button").nth(0).click()
-    if page.evaluate("night.state.phase") != "selected":
-        page.locator("#g-points button").nth(1).click()
+    stationary_index = page.evaluate("NightModel.byId('s04').data.sources[1].findIndex(p=>p.x===111&&p.y===91)")
+    page.locator("#g-points button").nth(stationary_index).click()
     check("artifact source can be selected through keyboard-accessible list", page.evaluate("night.state.phase") == "selected")
     action()
     check("artifact does not become a moving discovery", page.evaluate("night.state.result.outcome") != "moving")
     action()
+    check("a stationary background star does not resolve the single-signal question", page.evaluate("night.session.records.length === 5 && night.state.phase === 'choose'"))
+    canvas(63, 64); action()
+    check("single signal preserves the actual ambiguity of its origins", page.evaluate("night.state.result.outcome === 'unresolved' && night.state.result.reason === 'several_possible_origins'"))
+    action()
     check("artifact unresolved observation is saved honestly", page.evaluate("night.state.phase") == "saved")
     action()
     check("six-case path reaches a finished shift", page.locator("#g-ending").is_visible())
+    check("ending keeps six observation cards and real epoch images", page.locator("#g-summary .observation-card").count() == 6
+          and page.locator("#g-summary canvas").count() >= 14)
+    with page.expect_download() as download_info:
+        page.locator("#g-export").click()
+    download = download_info.value
+    check("player receives an HTML journal, not a raw data file", download.suggested_filename == "my-sky-journal.html")
+    journal_path = OUT / "night-export-check.html"
+    download.save_as(str(journal_path))
+    journal_page = ctx.new_page()
+    journal_requests = []
+    journal_page.on("request", lambda r: journal_requests.append(r.url) if r.url.startswith(("http://", "https://")) else None)
+    journal_page.goto(journal_path.resolve().as_uri())
+    check("downloaded journal opens independently with all embedded pictures", journal_page.locator("article").count() == 6
+          and journal_page.evaluate("[...document.images].length >= 14 && [...document.images].every(i=>i.complete && i.naturalWidth === 256)")
+          and not journal_requests)
+    check("downloaded SN evidence retains its real light ratio", "Свет: 34" in journal_page.locator("[data-case-id='brightness-01']").inner_text())
+    journal_page.set_viewport_size({"width": 390, "height": 844})
+    check("standalone journal fits a phone", journal_page.evaluate("document.documentElement.scrollWidth <= innerWidth"))
+    journal_page.close()
+    # A saved photometry observation remains the same observation when reopened.
+    page.locator("#g-summary [data-case-id='brightness-01'] button").click()
+    check("ending card reopens saved SN evidence without another measurement", page.evaluate("night.state.phase === 'saved' && night.state.result.point.x === 65 && night.session.records.length === 6"))
+    snap("reopened-light")
+    page.locator("#g-journal-open").click()
+    check("journal shows all saved observations with images", page.locator("#g-overlay .observation-card").count() == 6
+          and page.locator("#g-overlay canvas").count() >= 14)
+    snap("journal")
+    page.locator("#g-close").click(); action()
     snap("ending-six")
     page.locator("#g-continue").click()
     check("ending extends the archive to nine", page.locator("#g-game").is_visible() and page.evaluate("night.session.length === 9"))
 
     # The three continuation investigations are distinct questions, not a replay of a card.
     check("manual brightening investigation opens", page.evaluate("night.session.caseId === 'archive-brightening'"))
+    canvas(105, 74); action()
+    check("an ordinary star does not earn the brightening reward", page.evaluate("night.state.result.outcome === 'unresolved'")
+          and page.locator("#g-reward").is_hidden())
+    action()
+    check("ordinary star keeps the brightening investigation open", page.evaluate("night.session.records.length === 6 && night.state.phase === 'choose'"))
     canvas(63, 63); action()
     check("manual photometry produces a recorded comparison", page.evaluate("night.state.result !== null"))
     save_next()
@@ -165,6 +201,8 @@ with sync_playwright() as pw:
     check("small-change produces a measured or open result", page.evaluate("night.state.result !== null"))
     save_next()
     check("artifact-track investigation opens", page.evaluate("night.session.caseId === 'archive-track'"))
+    page.locator("[data-tool='fading']").click(); scan(); action()
+    check("fading search cannot close a question about motion", page.evaluate("night.session.records.length === 8 && night.state.phase === 'choose'"))
     page.locator("[data-tool='movement']").click(); scan()
     if page.locator("#g-candidates button").count():
         page.locator("#g-candidates button").first.click()
@@ -179,6 +217,14 @@ with sync_playwright() as pw:
     check("reload restores persisted shift", page.locator("#g-resume").is_visible() and page.evaluate("night.session.records.length === 9"))
     page.locator("#g-resume").click()
     check("resume restores completed shift", page.locator("#g-ending").is_visible())
+    page.evaluate("""() => { const s=JSON.parse(localStorage.getItem('science-day-night-v1')); const r=s.records.find(r=>r.caseId==='archive-brightening'); r.outcome='unresolved'; r.ratios=[100,97,102]; r.summary='Яркость почти не изменилась'; localStorage.setItem('science-day-night-v1',JSON.stringify(s)); }""")
+    page.reload(); page.wait_for_function("window.night"); page.locator("#g-resume").click()
+    check("old premature completion preserves observations but reopens its question", page.evaluate("night.session.records.length === 9 && !night.session.finished"))
+    action()
+    check("resumed shift returns to the unanswered brightening question", page.evaluate("night.session.caseId === 'archive-brightening' && night.state.phase === 'choose'"))
+    canvas(63, 63); action(); save_next()
+    check("repairing an old result finishes without duplicating journal records", page.locator("#g-ending").is_visible()
+          and page.evaluate("night.session.records.length === 9"))
 
     # A new three-investigation mode starts cleanly and limits its archive honestly.
     page.locator("#g-new").click(); page.locator("#g-overlay .primary").click()

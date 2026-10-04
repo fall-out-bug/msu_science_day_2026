@@ -102,7 +102,7 @@ main { width: min(1320px, calc(100% - 40px)); margin: 0 auto; }
 #g-autosave { margin: 2px 0 20px; }
 .ending { width: min(820px, 100%); padding: clamp(38px, 10vh, 110px) 0 60px; }
 .ending > p:not(.eyebrow) { max-width: 620px; color: var(--muted); font-size: 1.08rem; }
-.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin: 25px 0; }
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 12px; margin: 25px 0; }
 .summary > * { min-height: 90px; padding: 13px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
 .ending-idea { padding-left: 14px; border-left: 3px solid var(--warm); }
 .ending-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
@@ -185,3 +185,15 @@ main { width: min(1320px, calc(100% - 40px)); margin: 0 auto; }
 }
 
 .candidate-preview { width: min(48%, 180px); height: auto; flex-shrink: 0; border-radius: 3px; }
+.observation-card h2 { margin: 8px 0; font-size: 1.2rem; }
+.observation-card p { font-size: .88rem; }
+.observation-card .small { font-size: .75rem; }
+.observation-card > button { margin-top: 4px; }
+#g-overlay-content .observation-card { padding: 16px 0; border-bottom: 1px solid var(--line); }
+#g-overlay-content > button { margin: 16px 8px 0 0; }
+.evidence-strip { display: flex; gap: 8px; margin: 12px 0; }
+.evidence-strip figure { flex: 1; min-width: 0; margin: 0; }
+.evidence-strip canvas { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 4px; }
+.evidence-strip figcaption { padding-top: 5px; font-size: .68rem; line-height: 1.35; color: var(--muted); }
+.evidence-strip figcaption > * { display: block; }
+.evidence-strip figcaption b { margin-top: 3px; color: var(--warm); font-size: .8rem; }

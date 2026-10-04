@@ -1,26 +1,26 @@
 {
   "date": "2026-10-04",
   "url": "http://192.168.50.12:8081/",
-  "image": "sha256:fcc6ca65a013395a180fa6d08ebd1c36e71803001ba69e8240d44fdd099f1fb9",
+  "image": "sha256:d7423ab54bbb2fab0e3fd3c3fae480fb99caef9c0b8c42a2318c60bb49506b88",
   "assets": [
     {
       "file": "index.html",
-      "sha256": "fcfa6250d01f3b695550a82ec3af0387fe1db62a58a2656ec8a50630ebfa66a3",
+      "sha256": "9dfdc21d9554ebf7cd5674c823875cc5656bedbd81eb4abe2212d9c22d76e01d",
       "cacheControl": "no-store"
     },
     {
       "file": "night.css",
-      "sha256": "14fc4d07de993a4cd90e7b0ad168ee814488896174c4541f128f77016f356cbf",
+      "sha256": "4fbd30d652d8c250fcb32db23d69e550193128ac6301e0a4fa4b3bfa827f3241",
       "cacheControl": "no-store"
     },
     {
       "file": "night.js",
-      "sha256": "13b48332145a993be6939942994010d02d0f7931f8a21809d0b4c1ffe9c389bc",
+      "sha256": "53bfbee5f3b725d8be9ff7d47b202e3416ba8ad39ef701cce9beafcbb81add3e",
       "cacheControl": "no-store"
     },
     {
       "file": "night-model.js",
-      "sha256": "494393d642919b7b021059bdf5f5bceab397544f411e7c80436b08c3766111b0",
+      "sha256": "780d34d98bd714020e0acde25bfe67b189442ef6445107b31208fb9f1c64f4bb",
       "cacheControl": "no-store"
     },
     {
@@ -104,18 +104,18 @@
       "cacheControl": "no-store"
     }
   ],
-  "zipSha256": "1f6bff72081d560b77fbbc3b7fed9e6a7a686e7ec7743ef4d1fe103b3ee9aa9c",
+  "zipSha256": "8cde1f49da84759945be5d43c3543af3f72a4ccd857e5af594fd49c7960e3943",
   "main8080Unchanged": {
     "id": "9c629ca6100c2f17e8672ff297e73a06e6f3042867ffb4cbaa214e35274c7b81",
     "startedAt": "2026-10-02T19:01:53.40672471Z"
   },
   "browser": {
-    "count": 72,
+    "count": 89,
     "entry": "http://192.168.50.12:8081/",
     "errors": []
   },
   "offlineZip": {
-    "count": 72,
+    "count": 89,
     "entry": "file:///tmp/night-shift-release-check/index.html",
     "errors": []
   },

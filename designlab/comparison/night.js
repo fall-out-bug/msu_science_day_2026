@@ -6,7 +6,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let session=null, stage='welcome', phase='choose', epoch=1, selected=null, result=null, scan=null, selectedCandidate=null, method='movement', hint=0, hintPoint=null, subtract=0, playing=false, timer=null, runTimer=null, generation=0, sound=false, audio=null;
 const frames=new Map();
 const current=()=>M.byId(session?.caseId||'s02');
-const summaryCount=()=>session.records.filter(r=>M.cases.slice(0,session.length).some(c=>c.id===r.caseId)).length;
+const summaryCount=()=>session.records.filter(r=>M.cases.slice(0,session.length).some(c=>c.id===r.caseId)&&M.canSave(r)).length;
 const date=s=>new Date(s).toLocaleString('ru-RU',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'UTC'})+' UTC';
 function el(tag,text,className){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(className)e.className=className;return e;}
 function button(text,fn,className){const e=el('button',text,className);e.onclick=fn;return e;}
@@ -32,7 +32,7 @@ function say(text){$('feedback').textContent=text;}
 function openCase(id,review=false){
  cancel();session.caseId=id;epoch=current().kind==='light'||current().kind==='photometry'?0:1;selected=null;result=null;scan=null;selectedCandidate=null;hint=0;hintPoint=null;subtract=0;$('subtract').value=0;
  phase='choose';method=current().kind==='light'||current().kind==='photometry'?'fading':current().id==='s07'&&session.learningSeen?'learning':'movement';
- if(review){result=session.records.find(r=>r.caseId===id)||null;phase=result?'saved':'choose';if(result)method=result.method;}
+ if(review){result=session.records.find(r=>r.caseId===id)||null;phase=result?(M.canSave(result)?'saved':'result'):'choose';if(result)method=result.method;}
  showStage('game');say(result?result.detail:current().kind==='auto'?'Выбери, какое изменение поручить искать прибору.':'Сравни кадры кнопками под снимком. Нажми на точку, которую хочешь проверить.');persist();render();$('title').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
 }
 function start(length){session=M.fresh(length);persist();openCase('s02');tone();}
@@ -55,7 +55,8 @@ function draw(){
  if(points){
   ctx.strokeStyle='#ffcc81';ctx.lineWidth=2;ctx.setLineDash([7,6]);ctx.beginPath();points.filter(Boolean).forEach((p,i)=>i?ctx.lineTo((p.x+.5)*5,(p.y+.5)*5):ctx.moveTo((p.x+.5)*5,(p.y+.5)*5));ctx.stroke();ctx.setLineDash([]);
   points.forEach((p,i)=>{if(!p)return;circle(p,i===epoch?'#effff9':'#ffcc81',i===epoch?15:8);ctx.fillStyle='#ffdfae';ctx.font='bold 20px system-ui';ctx.fillText(String(i+1),(p.x+.5)*5+17,(p.y+.5)*5-9);});
- }else if(selected){circle(epoch===0&&selected.origin?selected.origin:selected.point);if(selected.prediction&&epoch===2)circle(selected.prediction,'#ffcc81',15,true);}
+ }else if(result?.point){circle(result.point);}
+ else if(selected){circle(epoch===0&&selected.origin?selected.origin:selected.point);if(selected.prediction&&epoch===2)circle(selected.prediction,'#ffcc81',15,true);}
  if(result?.prediction&&epoch===2)circle(result.prediction,'#ffcc81',15,true);
  if(scan&&!result&&phase==='scanned')scan.candidates.slice(0,50).forEach((c,i)=>{const p=c.point||c.points[epoch];circle(p,'#ffcc81',14);ctx.fillStyle='#ffcc81';ctx.font='bold 19px system-ui';ctx.fillText(String(i+1),(p.x+.5)*5+15,(p.y+.5)*5-12);});
  if($('source-picker').open&&!result&&!['learning','learned','scanned'].includes(phase)){ctx.font='bold 18px system-ui';(d.sources[epoch]||[]).forEach((p,i)=>{const x=Math.min(610,(p.x+.5)*5+12),y=Math.max(22,(p.y+.5)*5-12);ctx.fillStyle='#101725';ctx.fillRect(x-3,y-20,28,24);ctx.fillStyle='#ffdfae';ctx.fillText(String(i+1),x,y);});}
@@ -68,12 +69,12 @@ function play(){if(phase==='scanning')return;stop();playing=true;timer=setInterv
 function chooseEpoch(i){if(i===2&&!thirdAllowed())return;stop();epoch=i;draw();renderPoints();}
 function renderPoints(){const container=$('points');container.replaceChildren();(current().data.sources[epoch]||[]).forEach((p,i)=>container.append(button(String(i+1),()=>pick(p.x,p.y))));}
 function renderArchive(){
- const nav=$('archive');nav.replaceChildren();const completed=new Set(session.records.map(r=>r.caseId));
+ const nav=$('archive');nav.replaceChildren();const completed=new Set(session.records.filter(M.canSave).map(r=>r.caseId));
  M.cases.slice(0,session.length).forEach((c,i)=>{const b=button((completed.has(c.id)?'✓ ':String(i+1)+'. ')+c.title,()=>openCase(c.id,completed.has(c.id)));b.className=completed.has(c.id)?'complete':'';if(c.id===session.caseId)b.classList.add('active');b.disabled=!completed.has(c.id)&&c.id!==session.caseId&&(i>0&&!completed.has(M.cases[i-1].id));b.setAttribute('aria-current',String(c.id===session.caseId));nav.append(b);});
 }
 function render(){
  if(stage!=='game')return;const c=current(),tutorial=c.kind==='motion'||c.kind==='light'||c.kind==='photometry';
- $('chapter').textContent='СМЕНА · '+summaryCount()+' / '+session.length+' ИССЛЕДОВАНИЙ';$('count').textContent=session.records.length;
+ $('chapter').textContent='ЗАВЕРШЕНО '+summaryCount()+' ИЗ '+session.length+' ИССЛЕДОВАНИЙ';$('count').textContent=session.records.length;
  $('title').textContent=['learning','learned'].includes(phase)?'Покажи прибору ошибку':c.title;
  $('source').textContent='Архив ZTF · '+(c.data.id==='s04'||c.data.id==='archive-steady'||c.data.id==='archive-track'?'разные окна общих экспозиций':'реальные наблюдения');
  $('mission').textContent=['learning','learned'].includes(phase)?'Зелёный след — твоя проверка. Оранжевый — версия прибора. Какая точка в его версии не совпадает с твоим следом? Нажми на неё.':c.goal;
@@ -135,26 +136,62 @@ function label(value){
 }
 function next(){
  if(summaryCount()>=session.length){finish();return;}
- const candidate=M.cases.slice(0,session.length).find(c=>!session.records.some(r=>r.caseId===c.id));openCase(candidate.id);
+ const candidate=M.cases.slice(0,session.length).find(c=>!session.records.some(r=>r.caseId===c.id&&M.canSave(r)));openCase(candidate.id);
 }
 function act(){
  if(phase==='choose'&&current().kind==='auto'){run();return;}
  if(phase==='selected'){showResult(current().kind==='motion'?M.motion(current().id,selected):current().kind==='light'?M.light(current().id,selected):M.photometry(current().id,selected.point));return;}
- if(phase==='result'){if(!canSave()){if(scan?.candidates.length){result=null;selectedCandidate=null;phase='scanned';say('Эта версия не выдержала проверку. Открой другой предложенный след.');render();return;}retry();if(current().kind==='auto')say(current().id==='launch-variable'?'Поиск движения не ответил на вопрос о свете. Выбери измеритель света и проверь следующую дату.':'Здесь нужно проверить след на другом поле. Попробуй поиск движения или обучаемый отбор.');return;}M.save(session,result);phase='saved';persist();tone('save');$('sky-status').textContent='Сохранено в журнале';say(current().reward);render();return;}
+ if(phase==='result'){if(!canSave()){if(scan?.candidates.length){result=null;selectedCandidate=null;phase='scanned';say('Эта версия не выдержала проверку. Открой другой предложенный след.');render();return;}retry();if(current().kind==='auto')say(current().id==='archive-track'?'Полоска сама по себе ещё не говорит о движении. Выбери инструмент «Движение» и сравни даты.':current().id==='launch-variable'?'Поиск движения не ответил на вопрос о свете. Выбери измеритель света и проверь следующую дату.':'Здесь нужно проверить след на другом поле. Попробуй поиск движения или обучаемый отбор.');return;}M.save(session,result);phase='saved';persist();tone('save');$('sky-status').textContent='Сохранено в журнале';say(current().reward);render();return;}
  if(phase==='saved'){if(current().id==='s02'&&!session.learningSeen)learningLesson();else next();return;}
  if(phase==='learning')return;
  if(phase==='learned'){persist();next();}
 }
 function retry(){cancel();result=null;selected=null;selectedCandidate=null;scan=null;phase='choose';epoch=current().kind==='light'||current().kind==='photometry'?0:1;$('sky-status').textContent='';$('candidates').replaceChildren();say(current().goal);render();}
 function secondary(){if(phase==='learned'){M.label(session,null);session.learningSeen=false;learningLesson();persist();return;}retry();}
+function observationEvidence(r){
+ const d=M.byId(r.caseId).data,strip=el('div',undefined,'evidence-strip');
+ const count=r.ratios?.length||r.positions?.length||(r.point?d.arrays.length:2);
+ for(let i=0;i<Math.min(count,d.arrays.length);i++){
+  const frame=el('figure'),canvas=document.createElement('canvas');canvas.width=canvas.height=256;
+  const ctx=canvas.getContext('2d');ctx.drawImage(raw(d,i),0,0,256,256);
+  const p=r.positions?r.positions[i]:r.point;
+  if(p){ctx.strokeStyle='#ffce86';ctx.lineWidth=2;ctx.beginPath();ctx.arc((p.x+.5)*2,(p.y+.5)*2,12,0,Math.PI*2);ctx.stroke();}
+  canvas.setAttribute('role','img');canvas.setAttribute('aria-label','Снимок '+(i+1)+(p?': выбранная точка '+p.x+', '+p.y:': исследованный участок'));
+  const caption=el('figcaption');caption.append(el('strong','Снимок '+(i+1)),el('span',date(d.dates[i])));
+  if(r.ratios&&Number.isFinite(r.ratios[i]))caption.append(el('b','Свет: '+r.ratios[i]));
+  frame.append(canvas,caption);strip.append(frame);
+ }
+ return strip;
+}
+function recordCard(r,interactive=true){
+ const c=M.byId(r.caseId),card=el('article',undefined,'observation-card');card.dataset.caseId=r.caseId;
+ const methodName={movement:'Проверка движения',fading:'Измерение света',learning:'Отбор по примерам и проверка движения'}[r.method]||'Проверка снимков';
+ card.append(el('span',c.title,'eyebrow'),el('h2',r.summary),el('p',methodName,'small'),observationEvidence(r),el('p',r.detail));
+ if(!M.canSave(r))card.append(el('p','Наблюдение сохранено. Вопрос исследования ещё открыт.','small'));
+ if(r.ratios)card.append(el('p','Первый снимок = 100. '+(r.product==='difference'?'Изменившийся свет относительно архивного фона.':'Свет выбранной области после вычитания местного фона.'),'small'));
+ if(interactive)card.append(button('Открыть эти снимки',()=>{if($('overlay').open)$('overlay').close();openCase(r.caseId,true);}));
+ return card;
+}
 function finish(){cancel();session.finished=true;persist();showStage('ending');const found=session.records.filter(r=>['moving','faded','brightened'].includes(r.outcome)).length;
  $('ending-copy').textContent='Ты проверил '+summaryCount()+' участков. Подтверждённых изменений: '+found+'. Остальные наблюдения тоже сохранены — вместе с причинами, по которым вывод остался открытым.';
- $('summary').replaceChildren();session.records.forEach(r=>{const entry=el('article');entry.append(el('span',M.byId(r.caseId).title,'eyebrow'),el('h2',r.summary),el('p',r.detail));$('summary').append(entry);});
+ $('summary').replaceChildren(...session.records.map(r=>recordCard(r)));
  if(session.learningSeen){const e=el('article');e.append(el('span','ТВОЙ ОБУЧАЕМЫЙ ОТБОР','eyebrow'),el('h2','Пример помог отбирать следы'),el('p','Ты показал прибору ошибочную связь и проверил его предложения на другом поле. Это маленький учебный набор: на других наблюдениях у модели могут быть новые ошибки.'));$('summary').append(e);}
  $('continue').textContent=session.length<9?'Открыть ещё три исследования →':'Вернуться к прибору';$('ending').querySelector('h1').focus();tone('success');
 }
 function modal(title,content){stop();const box=$('overlay-content');box.replaceChildren(el('h2',title),...content);$('overlay').showModal();}
-function journal(){const content=[];session.records.forEach(r=>{const a=el('article');a.append(el('h3',M.byId(r.caseId).title),el('p',r.summary),button('Открыть наблюдение',()=>{$('overlay').close();openCase(r.caseId,true);}));content.push(a);});if(!content.length)content.push(el('p','Здесь останутся твои проверенные наблюдения.'));if(session.installed.movement)content.push(button('Вернуться к примерам для модели',()=>{$('overlay').close();learningLesson();}));modal('Журнал твоей смены',content);}
+function journal(){const content=session.records.map(r=>recordCard(r));if(!content.length)content.push(el('p','Здесь останутся твои снимки, измерения и выводы.'));else content.push(button('Скачать журнал со снимками',exportJournal));if(session.installed.movement)content.push(button('Вернуться к примерам для модели',()=>{$('overlay').close();learningLesson();}));modal('Журнал твоей смены',content);}
+function exportJournal(){
+ const doc=document.implementation.createHTMLDocument('Мастерская неба — мой журнал');doc.documentElement.lang='ru';
+ const charset=doc.createElement('meta');charset.setAttribute('charset','utf-8');doc.head.prepend(charset);
+ const meta=doc.createElement('meta');meta.name='viewport';meta.content='width=device-width, initial-scale=1';doc.head.append(meta);
+ const style=doc.createElement('style');style.textContent='body{max-width:800px;margin:32px auto;padding:0 16px;color:#142437;background:#fff;font:16px/1.5 system-ui}article{border-top:1px solid #bcc8d4;padding:20px 0;break-inside:avoid}h1,h2{line-height:1.2}.eyebrow{font-size:.85rem;color:#396057}.small,figcaption{font-size:.8rem}.evidence-strip{display:flex;gap:12px}figure{flex:1;min-width:0;margin:0}img{display:block;width:100%;height:auto;max-width:256px}figcaption>*{display:block}a{color:#176476}';doc.head.append(style);
+ doc.body.append(el('p','Наука 0+ · Мастерская неба','eyebrow'),el('h1','Мой журнал наблюдений'),el('p','Сохранено исследований: '+session.records.length+'. Эти снимки, измерения и выводы я собрал за свою смену.'));
+ for(const r of session.records){const card=recordCard(r,false);for(const canvas of card.querySelectorAll('canvas')){const img=doc.createElement('img');img.src=canvas.toDataURL('image/png');img.alt=canvas.getAttribute('aria-label');img.width=img.height=256;canvas.replaceWith(img);}doc.body.append(card);}
+ if(session.learningLabel==='wrongLink')doc.body.append(el('h2','Мой пример для обучения'),el('p','Я указал ошибочную связь между точками. Прибор использовал этот пример для отбора следов на другом поле. Его предложения всё равно потребовали проверки.'));
+ doc.body.append(el('h2','Откуда снимки и знания'),el('p','Учебное исследование архивных данных ZTF / IRSA. Эти результаты не являются новыми астрономическими открытиями.'));
+ for(const key of new Set(session.records.map(r=>M.byId(r.caseId).story))){for(const [title,url]of stories[key].links){const p=el('p'),a=el('a',title);a.href=url;p.append(a);doc.body.append(p);}}
+ const blob=new Blob(['<!doctype html>\n'+doc.documentElement.outerHTML],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download='my-sky-journal.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
 const stories={
  motion:{title:'Точки, за которыми движутся миры',text:'Астероид на короткой серии снимков выглядит как маленькая точка. Сравнение наблюдений позволяет выделить движение среди звёзд. Для орбиты нужны дополнительные наблюдения: трёх точек недостаточно. Ты проверил известные архивные данные, а не объявил новое открытие.',links:[['Как наблюдают астероиды · NASA/JPL','https://cneos.jpl.nasa.gov/about/search_program.html']]},
  supernova:{title:'ИИ помогает выбрать, куда смотреть',text:'В 2023 году BTSbot помог выбрать сверхновую SN 2023tyk для наблюдения спектра. Другой алгоритм, SNIascore, помог классифицировать спектр. Твои два снимка показывают изменение света; они сами по себе не определяют тип сверхновой. Разные инструменты решают разные части научной задачи.',links:[['Исследование авторов BTSbot','https://arxiv.org/html/2401.15167v1#S5.SS1']]},
@@ -187,7 +224,7 @@ $('pause').onclick=()=>{cancel();if(phase==='scanning'){phase='choose';say('По
 $('close').onclick=()=>$('overlay').close();$('overlay').onclick=e=>{if(e.target===$('overlay'))$('overlay').close();};
 $('continue').onclick=()=>{session.finished=false;if(session.length<9)session.length+=3;persist();if(summaryCount()<session.length)next();else openCase(session.caseId,true);};
 $('new').onclick=()=>modal('Передать смену?',[el('p','Сначала можно скачать свой журнал. Новая смена очистит сохранённое прохождение.'),button('Начать новую смену',()=>{$('overlay').close();session=null;try{localStorage.removeItem(storageKey);}catch{}$('resume').hidden=true;showStage('welcome');},'primary')]);
-$('export').onclick=()=>{const blob=new Blob([JSON.stringify({title:'Мастерская неба — мой журнал',version:1,observations:session.records,learningLabel:session.learningLabel,scienceNote:'Учебная работа с архивными наблюдениями. Не новые астрономические открытия.'},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download='my-sky-journal.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+$('export').onclick=exportJournal;
 reduced.addEventListener('change',()=>{if(reduced.matches){stop();draw();}});document.addEventListener('visibilitychange',()=>{if(document.hidden){cancel();if(phase==='scanning'){phase='choose';say('Поиск остановлен, пока вкладка скрыта. Запусти его снова.');render();}}});
 for(const [i,id]of ['intro-a','intro-b'].entries())$(id).getContext('2d').drawImage(raw(M.cases[0].data,i),0,0,256,256);
 try{const saved=localStorage.getItem(storageKey);if(saved){session=M.restore(JSON.parse(saved));$('resume').hidden=false;$('save-note').textContent='Есть сохранённая смена: '+session.records.length+' наблюдений.';}}catch{$('save-note').textContent='Предыдущее сохранение прочитать не удалось. Можно начать новую смену.';}

@@ -74,6 +74,10 @@ function canSave(result){
  if(!result)return false;
  if(['s02','s07'].includes(result.caseId))return result.outcome==='moving';
  if(['brightness-01','launch-variable'].includes(result.caseId))return result.outcome==='faded';
+ if(result.caseId==='s04')return result.method==='movement'&&['unresolved','lost'].includes(result.outcome)&&result.reason!=='no_selected_peak'&&Number.isFinite(result.point?.x)&&Number.isFinite(result.point?.y);
+ if(result.caseId==='archive-brightening')return result.outcome==='brightened';
+ if(result.caseId==='archive-small-change')return result.reason==='diagnostic_change_check'&&result.ratios?.length===3&&result.ratios.every(Number.isFinite);
+ if(result.caseId==='archive-track')return result.method==='movement';
  return !!byId(result.caseId);
 }
 function save(session,result){
@@ -87,7 +91,8 @@ function save(session,result){
 function restore(value){
  if(!value||value.version!==1||![3,6,9].includes(value.length)||!byId(value.caseId)||!Array.isArray(value.records)||value.records.some(r=>!byId(r.caseId)||typeof r.summary!=='string'||typeof r.detail!=='string')||new Set(value.records.map(r=>r.caseId)).size!==value.records.length)throw Error('Invalid saved shift');
  const s={...fresh(value.length),...value};s.installed={movement:s.records.some(r=>r.caseId==='s02'&&r.outcome==='moving'),fading:s.records.some(r=>r.caseId==='brightness-01'&&r.outcome==='faded')};
- if(![null,'sameObject','wrongLink'].includes(s.learningLabel))s.learningLabel=null;return s;
+ if(![null,'sameObject','wrongLink'].includes(s.learningLabel))s.learningLabel=null;
+ s.finished=!!s.finished&&cases.slice(0,s.length).every(c=>s.records.some(r=>r.caseId===c.id&&canSave(r)));return s;
 }
 root.NightModel=Object.freeze({cases,byId,fresh,restore,motion,light,photometry,scan,verify,empty,canSave,save,learning,label,train});
 })(typeof window==='undefined'?globalThis:window);

@@ -1,5 +1,5 @@
 {
-  "count": 11,
+  "count": 12,
   "checks": [
     "campaign has a coherent 3/6/9 inventory with nine distinct observations",
     "real movement is saved and installs only after a three-epoch confirmation",
@@ -11,6 +11,7 @@
     "changing the ML correction changes future Gianni proposals and two bad accepted links fail geometry",
     "manual brightening does not pretend a fading-only scan discovered it",
     "a wrong tool does not resolve a specifically asked motion or light question",
-    "common field brightening is removed before judging a smaller target change"
+    "common field brightening is removed before judging a smaller target change",
+    "later investigations require evidence for their stated question"
   ]
 }
