@@ -1,4 +1,4 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111b29"><title>Ночная смена · Мастерская неба</title><link rel="stylesheet" href="night.css"><link rel="stylesheet" href="world.css"></head><body><div id="g-room-scene" aria-hidden="true"></div>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111b29"><title>Ночная смена · Мастерская неба</title><link rel="stylesheet" href="night.css?v=4fbd30d652d8"><link rel="stylesheet" href="world.css?v=efd72edce634"><link rel="stylesheet" href="room-layout.css?v=82f32b0c1e9d"><link rel="stylesheet" href="training.css?v=7daf8e748b24"><link rel="stylesheet" href="experience.css?v=3bc09bf7437c"></head><body><div id="g-room-scene" aria-hidden="true"></div>
 <header class="topbar"><a class="wordmark" href="#">МАСТЕРСКАЯ НЕБА</a><span class="festival">Наука 0+ · факультет ИИ</span><div class="settings"><button id="g-room-back" hidden>В обсерваторию</button><button id="g-sound" aria-pressed="false" title="Включить звук">Звук выкл.</button><button id="g-pause">Пауза</button></div></header>
 <main>
 <section id="g-welcome" class="welcome">
@@ -14,14 +14,17 @@
 <button id="g-room-map" class="room-place"><span>Карта неба</span><small>Выбрать участок</small></button>
 <button id="g-room-instrument" class="room-place"><span>Твой прибор</span><small id="g-instrument-status">Ждёт снимки</small></button>
 <button id="g-room-mosaic" class="room-place"><span>Звёздное панно</span><small>Созвездия и прогулка по небу</small></button>
+<button id="g-room-observatory" class="room-place"><span>Купол за окном</span><small>Как здесь изучают Вселенную</small></button>
 <button id="g-room-board" class="room-place"><span>Доска наблюдений</span><small id="g-board-status">Здесь будут твои результаты</small></button>
 <div class="room-dialog"><div class="room-chat-actions"><button id="g-nika-talk" class="quiet">Поговорить с Никой</button><button id="g-algorithm" class="quiet">Мой алгоритм</button><button id="g-discoveries" class="quiet">Открытия с ИИ</button></div><span class="eyebrow">НИКА</span><p id="g-room-result" class="room-result" hidden></p><p id="g-room-speech" role="status"></p><button id="g-room-next" class="primary" hidden></button></div>
 </section>
 <section id="g-map" hidden aria-label="Наведение на участок неба">
-<canvas id="g-celestial-map"></canvas><div class="map-brief"><span class="eyebrow">КАРТА ЗВЁЗДНОГО НЕБА</span><h1 id="g-map-title"></h1><p>Тяни небо, пока жёлтый кружок не окажется в центре прицела. На названия созвездий и отмеченные звёзды можно нажимать.</p></div>
-<details class="sky-explore"><summary>Созвездия и интересные места</summary><label><input type="checkbox" id="g-constellations" checked> Линии созвездий</label><div id="g-sky-destinations"></div><button id="g-pattern-start">Соединить звёзды Кассиопеи</button><p id="g-sky-visited" class="small"></p></details>
+<canvas id="g-celestial-map"></canvas><div class="map-brief"><span class="eyebrow">КАРТА ЗВЁЗДНОГО НЕБА</span><h1 id="g-map-title"></h1><p>Наведи прицел на отмеченный участок — там лежат снимки для исследования.</p></div>
+<aside id="g-sky-caption" class="sky-caption" hidden aria-live="polite"></aside>
+<details class="sky-explore"><summary>Созвездия и интересные места</summary><label><input type="checkbox" id="g-constellations" checked> Линии созвездий</label><div id="g-sky-destinations"></div><button id="g-pattern-start">Узнать Кассиопею по пяти звёздам</button><p id="g-sky-visited" class="small"></p></details>
 <div class="map-actions"><div id="g-pattern" hidden><p id="g-pattern-text" role="status"></p><div id="g-pattern-points"></div></div><p id="g-map-feedback" role="status">Найди отмеченный участок.</p><button id="g-map-focus">Помочь с наведением</button><button id="g-map-capture" class="primary" disabled>Сначала наведи прицел</button><small>Карта выбирает архивные наблюдения. Это не управление настоящим телескопом.</small></div>
 </section>
+<section id="g-training" hidden aria-label="Лаборатория машинного обучения"></section>
 <section id="g-game" hidden>
 <div class="shiftbar"><div><span class="eyebrow" id="g-chapter"></span><h1 id="g-title" tabindex="-1"></h1></div><button id="g-journal-open">Журнал <span id="g-count">0</span></button></div>
 <div class="next-step"><strong id="g-next-step" role="status"></strong><button id="g-guide" class="quiet">Покажи, куда нажать</button></div>
@@ -38,7 +41,7 @@
 <div class="nika"><img id="g-nika-portrait" alt="Ника, напарница по смене"><span class="eyebrow">НИКА · НАПАРНИЦА ПО СМЕНЕ</span><p id="g-mission"></p></div>
 <div id="g-tools" class="tool-rack" aria-label="Инструменты"><button data-tool="movement">Движение <small>Проверка следа</small></button><button data-tool="fading">Свет <small>Измерение яркости</small></button><button data-tool="learning">ИИ по примерам <small>Обучение и отбор</small></button></div>
 <p id="g-feedback" role="status" aria-live="polite"></p>
-<div id="g-learning-effect" class="learning-effect" hidden><p id="g-learning-count"></p><button id="g-learning-edit">Пересмотреть мой пример</button></div>
+<div id="g-learning-effect" class="learning-effect" hidden><p id="g-learning-count"></p><button id="g-learning-edit">Пересмотреть мою выборку</button></div>
 <div id="g-candidates" class="candidates"></div>
 <div id="g-measurement" class="measurement" hidden><strong id="g-measurement-title"></strong><div id="g-bars"></div><p id="g-measurement-detail" class="small"></p></div>
 <div class="main-actions"><button id="g-action" class="primary"></button><button id="g-secondary" hidden></button><button id="g-hint" class="quiet">Нужна подсказка</button></div>
@@ -57,5 +60,5 @@
 </section>
 </main>
 <dialog id="g-overlay"><button id="g-close" class="close" aria-label="Закрыть">✕</button><div id="g-overlay-content"></div></dialog>
-<script src="data.js"></script><script src="model.js"></script><script src="tracking.js"></script><script src="brightness-data.js"></script><script src="brightness-model.js"></script><script src="launch-data.js"></script><script src="launch-model.js"></script><script src="learning-model.js"></script><script src="learning-data.js"></script><script src="archive-data.js"></script><script src="night-model.js"></script><script src="world-art.js"></script><script src="world-targets.js"></script><script src="vendor/phaser.min.js"></script><script src="sky-navigation-data.js"></script><script src="night-stories.js"></script><script src="constellation-data.js"></script><script src="sky-navigation.js"></script><script src="world-room.js"></script><script src="night.js"></script>
+<script src="data.js?v=8fdc3d8999e5"></script><script src="model.js?v=e56cbb32e7f7"></script><script src="tracking.js?v=b296d239a6ad"></script><script src="brightness-data.js?v=3504b5e27121"></script><script src="brightness-model.js?v=51290359a710"></script><script src="launch-data.js?v=e32ba2d06e4e"></script><script src="launch-model.js?v=60044a6cd3a8"></script><script src="learning-model.js?v=55d753ec7490"></script><script src="learning-data.js?v=a578c7581cc1"></script><script src="archive-data.js?v=e0f56664a0ee"></script><script src="training-model.js?v=d6132d957bf7"></script><script src="night-model.js?v=3382eed3c7cc"></script><script src="world-art.js?v=619a8426b775"></script><script src="world-targets.js?v=763e1faa28ef"></script><script src="vendor/phaser.min.js?v=66348b1b5141"></script><script src="sky-navigation-data.js?v=450cb9b6f69f"></script><script src="night-stories.js?v=4781d1a77b94"></script><script src="constellation-data.js?v=1be0faf34a68"></script><script src="sky-navigation.js?v=95fb7b396d69"></script><script src="world-room.js?v=6c9e859069e4"></script><script src="training-workshop.js?v=8ad278a9dba3"></script><script src="night.js?v=ab0e3a3f15c1"></script>
 </body></html>

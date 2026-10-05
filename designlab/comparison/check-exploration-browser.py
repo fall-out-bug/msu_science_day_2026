@@ -33,12 +33,14 @@ with sync_playwright() as pw:
  def open_explore():
   if page.locator('.sky-explore').get_attribute('open') is None:page.locator('.sky-explore summary').click()
  # Character questions are written dialogue, with distinct answers.
- page.locator('#g-nika-talk').click();page.get_by_role('button',name='Ты уже что-нибудь открыла?',exact=True).click()
+ page.locator('#g-nika-talk').click();topic_boxes=page.locator('.story-menu button').evaluate_all('(buttons)=>buttons.map(b=>{const r=b.getBoundingClientRect();return [r.x,r.y,r.width,r.height]})');page.get_by_role('button',name='Ты уже что-нибудь открыла?',exact=True).click()
+ check('dialogue buttons stay fixed',topic_boxes==page.locator('.story-menu button').evaluate_all('(buttons)=>buttons.map(b=>{const r=b.getBoundingClientRect();return [r.x,r.y,r.width,r.height]})'))
  check('Nika has a concrete past mistake', 'след самолёта' in page.locator('#g-overlay').inner_text());shot('nika');close()
  page.locator('#g-algorithm').click()
- check('ordinary rules, learning and verification are explained',page.locator('.algorithm-steps li').count()==3 and 'учится на твоей метке' in page.locator('#g-overlay').inner_text());close()
+ check('ordinary rules, learning and verification are explained',page.locator('.algorithm-steps li').count()==4 and 'шесть примеров' in page.locator('#g-overlay').inner_text());close()
  page.locator('#g-discoveries').click()
- for title in ['Тысяча астероидов в старых снимках','Программа позвала другой телескоп','Восьмая планета у далёкой звезды']:
+ check('eight sourced AI stories',page.evaluate('NIGHT_STORIES.discoveries.length')==8)
+ for title in page.evaluate('NIGHT_STORIES.discoveries.map(x=>x.title)'):
   # Use data-defined exact title for the third card to avoid making typography a contract.
   if title.startswith('Восьмая'): title=page.evaluate('NIGHT_STORIES.discoveries[2].title')
   page.get_by_role('button',name=title,exact=True).click()
@@ -48,17 +50,18 @@ with sync_playwright() as pw:
    check('local credited Hubble image for '+title,'CC BY 4.0' in page.locator('figcaption').inner_text())
   if 'другой телескоп' in title:check('illustration is distinguished from ZTF target','другая сверхновая' in page.locator('#g-overlay').inner_text())
  page.get_by_role('button',name='Тысяча астероидов в старых снимках',exact=True).click();shot('hubble');close()
- page.locator('#g-room-mosaic').click();check('all twelve mosaic destinations',page.locator('.zodiac-grid button').count()==12);shot('mosaic')
+ page.locator('#g-room-observatory').click();check('window dome has a BTA story','шести метров' in page.locator('#g-overlay').inner_text());close()
+ page.locator('#g-room-mosaic').click();check('all twelve mosaic destinations',page.locator('.zodiac-grid button').count()==12);shot('mosaic');check('Cassiopeia is not in zodiac mosaic','Кассиопе' not in page.locator('#g-overlay').inner_text())
  page.get_by_role('button',name='♉ Телец',exact=True).click()
  check('88 real constellation patterns loaded',page.evaluate('NIGHT_CONSTELLATIONS.length')==88)
- tap_text('Телец');check('constellation name opens its card',page.locator('#g-overlay').is_visible());close()
- open_explore();page.get_by_role('button',name='Вега',exact=True).click();close()
- page.locator('.sky-explore summary').click()
+ tap_text('Телец');check('constellation label is on the sky, without a dialog',page.locator('#g-sky-caption').is_visible() and not page.locator('#g-overlay').is_visible())
+ open_explore();page.get_by_role('button',name='Вега',exact=True).click()
  # Vega is at the center after the destination jump; use the actual canvas as the pointer target.
  box=page.locator('#g-celestial-map').bounding_box();page.mouse.click(box['x']+box['width']/2,box['y']+box['height']/2)
- check('clicking a star opens its story','Лиры' in page.locator('#g-overlay').inner_text());close()
+ check('clicking a star puts its story on sky','Лиры' in page.locator('#g-sky-caption').inner_text() and not page.locator('#g-overlay').is_visible())
+ check('exploration hides aiming instructions',not page.locator('.map-brief').is_visible() and not page.locator('#g-map-capture').is_visible())
  check('visits do not duplicate',page.evaluate("night.session.exploration.visited.filter(x=>x==='vega').length")==1)
- for width,height in [(1280,720),(390,844)]:
+ for width,height in [(1920,1080),(1536,864),(1280,720),(390,844)]:
   page.set_viewport_size({'width':width,'height':height});open_explore();page.locator('#g-pattern-start').click();shot('pattern-'+str(width))
   tap_text('3');check('wrong point does not advance '+str(width),'Готово: 0 из 5' in page.locator('#g-pattern-text').inner_text())
   for number in range(1,6):tap_text(str(number))
@@ -70,7 +73,7 @@ with sync_playwright() as pw:
  for i in range(1,6):page.get_by_role('button',name='Соединить звезду '+str(i),exact=True).click()
  check('keyboard alternative completes the same activity','Получилось!' in page.locator('#g-pattern-text').inner_text())
  page.locator('#g-map-focus').click();page.locator('#g-map-capture').click();shot('room-mobile')
- for id in ['g-room-map','g-room-mosaic','g-room-instrument','g-room-board']:
+ for id in ['g-room-map','g-room-mosaic','g-room-instrument','g-room-board','g-room-observatory']:
   check(id+' remains reachable on mobile',page.locator('#'+id).evaluate('e=>{const r=e.getBoundingClientRect();return r.y>=60&&r.bottom<=innerHeight&&document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest("button")===e}'))
  page.locator('#g-room-instrument').click()
  check('research target survives the excursion',page.evaluate("night.session.caseId==='s02' && night.state.stage==='game'"))

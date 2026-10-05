@@ -1,0 +1,16 @@
+# Public domain upstream on 8080. Shares the tested observatory image with 8081.
+# Retains the existing sd2026 service identity and LAN-only binding.
+name: sd2026
+services:
+  web:
+    image: sd2026-comparison:local
+    build: ./designlab/comparison
+    restart: unless-stopped
+    ports:
+      - "${SD2026_BIND_IP:-192.168.50.12}:${SD2026_PORT:-8080}:80"
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+    security_opt:
+      - no-new-privileges:true

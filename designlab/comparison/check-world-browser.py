@@ -17,7 +17,15 @@ with sync_playwright() as p:
  def pick(x,y):
   b=page.locator('#g-sky').bounding_box();page.mouse.click(b['x']+(x+.5)/128*b['width'],b['y']+(y+.5)/128*b['height'])
  def act():page.locator('#g-action').click()
- for selector in ['#g-room-map','#g-room-instrument','#g-room-board']:
+ def train():
+  page.locator('#g-room-next').click();check('room opens six-example workshop',page.evaluate("night.state.stage==='training'"))
+  for ex in page.evaluate('NightModel.examples.map(e=>({id:e.id,label:e.expectedLabel}))'):
+   page.locator(f".training-picker [data-example='{ex['id']}']").click()
+   page.locator(f".training-decision [data-label='{ex['label']}']").click()
+  page.get_by_role('button',name='2. Обучение').click();page.locator('#g-train-model').click();page.locator('#g-test-model').click()
+  check('world route trains and tests player labels',page.evaluate('NightModel.trainingStatus(night.session).evaluated'))
+  page.get_by_role('button',name='Применить модель в смене →').click()
+ for selector in ['#g-room-map','#g-room-instrument','#g-room-board','#g-room-mosaic','#g-room-observatory']:
   b=page.locator(selector).bounding_box();check(selector+' fits viewport',b['x']>=0 and b['y']>=60 and b['x']+b['width']<=1440 and b['y']+b['height']<=1000)
  snap('room-start');page.locator('#g-room-map').click();page.wait_for_timeout(150);snap('sky');b=page.locator('#g-celestial-map').bounding_box()
  page.mouse.move(b['x']+b['width']*.67,b['y']+b['height']*.4);page.mouse.down();page.mouse.move(b['x']+b['width']*.5,b['y']+b['height']*.5,steps=12);page.mouse.up()
@@ -27,12 +35,12 @@ with sync_playwright() as p:
  check('reload retains selected field',page.evaluate("night.session.aimedCase==='s02'") and page.locator('#g-room-instrument').is_enabled())
  page.locator('#g-room-instrument').click();pick(58,68);page.locator('#g-room-back').click();page.locator('#g-room-instrument').click();check('room visit keeps unsaved selected point',page.evaluate("night.state.phase==='selected' && night.state.selected.point.x===58"));act();act();act();page.wait_for_timeout(720);snap('first-result')
  check('first result returns to physical room with receipt',page.locator('#g-room').is_visible() and page.locator('#g-room-result').is_visible() and page.evaluate('night.session.records.length===1'))
- page.locator('#g-room-board').click();check('physical board opens real saved observation',page.locator('#g-overlay canvas').count()==3);page.locator('#g-close').click();page.locator('#g-room-next').click();page.locator('#g-candidates button').nth(2).click();act();snap('learned-room');nav();pick(65,64);act();act();act();page.wait_for_timeout(720);snap('two-results')
+ page.locator('#g-room-board').click();check('physical board opens real saved observation',page.locator('#g-overlay canvas').count()==3);page.locator('#g-close').click();train();snap('learned-room');nav();pick(65,64);act();act();act();page.wait_for_timeout(720);snap('two-results')
  check('room preserves two observations and installed instruments',page.evaluate('night.session.installed.movement && night.session.installed.fading && night.session.records.length===2'))
  page.reload();page.locator('#g-resume').click();check('reload targets next field and displays last receipt',page.evaluate("night.session.worldTarget==='s07'") and page.locator('#g-room-result').is_visible())
- for w,h in [(1280,720),(900,600),(390,844)]:
+ for w,h in [(1920,1080),(1536,864),(1280,720),(900,600),(390,844)]:
   page.set_viewport_size({'width':w,'height':h});page.wait_for_timeout(720);snap('room-'+str(w))
-  for selector in ['#g-room-map','#g-room-instrument','#g-room-board']:
+  for selector in ['#g-room-map','#g-room-instrument','#g-room-board','#g-room-mosaic','#g-room-observatory']:
    b=page.locator(selector).bounding_box();check(selector+' fits '+str(w),b['x']>=0 and b['y']>=50 and b['x']+b['width']<=w and b['y']+b['height']<=h)
    check(selector+' is not covered '+str(w),page.locator(selector).evaluate('(e)=>{const r=e.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest("button")===e;}'))
   check('room no horizontal overflow '+str(w),page.evaluate('document.documentElement.scrollWidth<=innerWidth'))

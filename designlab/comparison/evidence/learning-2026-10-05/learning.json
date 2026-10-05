@@ -1,0 +1,22 @@
+{
+  "count": 9,
+  "checks": [
+    "runtime extraction matches independent Python coordinates and features",
+    "source data hash is intact before lesson extraction",
+    "initial examples contain one same-object and four stationary wrong links",
+    "vector mismatch sees a turn even when the two speeds are equal",
+    "labels affect transfer to the reserved other field",
+    "calling the wrong triple same-object makes its own score worse as a filter",
+    "undo returns the exact original transfer decisions",
+    "repeating the same correction is idempotent",
+    "generate and score do not read names, identities or image pixels"
+  ],
+  "candidates": {
+    "train": 180,
+    "reserved": 1000
+  },
+  "reservedAccepted": {
+    "before": 991,
+    "after": 2
+  }
+}

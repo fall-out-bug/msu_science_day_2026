@@ -30,7 +30,7 @@
     let active = false, destroyed = false, target = null, aligned = false, pendingStart = false;
     let width = 0, height = 0, dpr = 1, zoom = 8, cameraX = 180, cameraY = 90, frame = 0;
     let textureReady = false, paused = false, showLines = true, pattern = null, press = null, revealAt = 0;
-    let labels = [];
+    let labels = [], mode='aim', travel=null;
     const constellations = window.NIGHT_CONSTELLATIONS || [], objects = window.NIGHT_STORIES?.sky || [];
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const texture = new Image();
@@ -59,7 +59,7 @@
     }
     function updateAim() {
       let next = false;
-      if (active && target && !pendingStart && width && height) {
+      if (mode==='aim' && active && target && !pendingStart && width && height) {
         const p = project(target.ra, target.dec);
         next = Math.hypot(p[0] - width / 2, p[1] - height / 2) <= 22 && separation() <= 1.2;
       }
@@ -74,7 +74,8 @@
           frame = 0;
           const box = canvas.getBoundingClientRect();
           if (box.width !== width || box.height !== height || (pendingStart && box.width && box.height)) resize();
-          draw();
+          if(travel){const t=Math.min(1,(performance.now()-travel.at)/600),ease=t*t*(3-2*t);cameraX=wrap(travel.x+travel.dx*ease);cameraY=travel.y+travel.dy*ease;zoom=travel.z+travel.dz*ease;if(t===1)travel=null;updateAim();}
+          draw();if(travel)requestDraw();
         });
       }
     }
@@ -145,8 +146,7 @@
       }
       ctx.globalAlpha = 1;
       drawExploration();
-      if (target) drawTarget();
-      drawReticle();
+      if (mode==='aim'){if(target)drawTarget();drawReticle();}
       // Visible attribution accompanies this adapted HYG dataset.
       ctx.font = '10px system-ui, sans-serif';
       ctx.textAlign = 'left';
@@ -194,13 +194,15 @@
       if(item) options.onExplore?.(item);
     }
     function focus(ra,dec,span=65) {
-      pendingStart=false;cameraX=wrap(180-ra);cameraY=90-dec;zoom=clamp(Math.min(width/span,height/(span*.8)),limits().min,limits().max);revealAt=performance.now();changed();
+      pendingStart=false;const x=wrap(180-ra),y=90-dec,z=clamp(Math.min(width/span,height/(span*.8)),limits().min,limits().max);revealAt=performance.now();
+      if(reduced.matches){cameraX=x;cameraY=y;zoom=z;travel=null;}else travel={at:performance.now(),x:cameraX,y:cameraY,z:zoom,dx:delta(x-cameraX),dy:y-cameraY,dz:z-zoom};changed();
     }
     this.focusConstellation=function(name){const c=constellations.find(c=>c.name===name);if(!c)return;pattern=null;options.onPattern?.(null);showLines=true;focus(c.ra,c.dec,70);};
     this.focusObject=function(id){const item=objects.find(o=>o.id===id);if(item){pattern=null;options.onPattern?.(null);focus(item.ra,item.dec,45);}};
     this.startPattern=function(){const c=constellations.find(c=>c.name==='Кассиопея');if(!c)return;pattern={name:c.name,points:c.lines[0],count:0};focus(c.ra,c.dec,60);options.onPattern?.({name:c.name,count:0,total:pattern.points.length});};
     this.connectPatternPoint=function(index){if(!pattern||index!==pattern.count)return;pickExploration(...project(...pattern.points[index]));};
     this.setConstellations=function(value){showLines=value;revealAt=performance.now();requestDraw();};
+    this.setMode=function(value){mode=value==='explore'?'explore':'aim';canvas.setAttribute('aria-label',mode==='explore'?'Прогулка по небу. Стрелки — обзор; плюс и минус — масштаб.':'Наведение на архивный участок. Стрелки — обзор; Home — навести на цель.');updateAim();requestDraw();};
     this.pause=function(){paused=true;clearPointers();if(frame)cancelAnimationFrame(frame);frame=0;};
     this.resume=function(){paused=false;requestDraw();};
     function drawTarget() {
@@ -237,7 +239,7 @@
 
     on(canvas, 'pointerdown', e => {
       if (!active || paused || e.button !== 0) return;
-      press={x:e.clientX,y:e.clientY,id:e.pointerId,moved:false};
+      travel=null;press={x:e.clientX,y:e.clientY,id:e.pointerId,moved:false};
       e.preventDefault();
       resize();
       canvas.focus({preventScroll: true});
@@ -277,7 +279,7 @@
     on(canvas, 'pointercancel', release);
     on(canvas, 'lostpointercapture', release);
     on(canvas, 'wheel', e => {
-      if (!active || paused) return;
+      if (!active || paused) return;travel=null;
       e.preventDefault();
       resize();
       const box = canvas.getBoundingClientRect();
@@ -286,7 +288,7 @@
     }, {passive: false});
     on(canvas, 'keydown', e => {
       if (!active || paused || e.altKey || e.ctrlKey || e.metaKey) return;
-      resize();
+      travel=null;resize();
       const step = (e.shiftKey ? 100 : 28) / zoom;
       switch (e.key) {
         case 'ArrowLeft': cameraX += step; break;
@@ -295,7 +297,7 @@
         case 'ArrowDown': cameraY -= step; break;
         case '+': case '=': zoomAt(width / 2, height / 2, 1.3); break;
         case '-': case '_': zoomAt(width / 2, height / 2, 1 / 1.3); break;
-        case 'Home': this.focusTarget(); break;
+        case 'Home': if(mode==='aim')this.focusTarget(); break;
         default: return;
       }
       e.preventDefault(); changed();
@@ -315,7 +317,7 @@
       if (!value || !Number.isFinite(value.ra) || !Number.isFinite(value.dec) || value.dec < -90 || value.dec > 90) {
         throw new TypeError('show needs real RA/Dec in decimal degrees; Dec must be within [-90,90]');
       }
-      pattern=null;options.onPattern?.(null);revealAt=performance.now();
+      travel=null;mode='aim';pattern=null;options.onPattern?.(null);revealAt=performance.now();
       target = {id: value.id, ra: wrap(value.ra), dec: value.dec, title: String(value.title || '')};
       clearPointers();
       active = true;
@@ -327,7 +329,7 @@
     };
     this.hide = function () {
       if (destroyed) return;
-      active = false;
+      active = false;travel=null;
       clearPointers();
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
@@ -336,7 +338,7 @@
     };
     this.focusTarget = function () {
       if (destroyed || !active || !target) return;
-      pattern=null;options.onPattern?.(null);
+      travel=null;mode='aim';pattern=null;options.onPattern?.(null);
       resize();
       pendingStart = false;
       cameraX = wrap(180 - target.ra);

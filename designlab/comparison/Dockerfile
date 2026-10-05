@@ -15,3 +15,5 @@ COPY art/ /usr/share/nginx/html/art/
 COPY releases/night-shift.zip /usr/share/nginx/html/night-shift.zip
 ENTRYPOINT ["nginx"]
 CMD ["-g", "daemon off;"]
+
+COPY training-model.js training-workshop.js training.css experience.css room-layout.css /usr/share/nginx/html/

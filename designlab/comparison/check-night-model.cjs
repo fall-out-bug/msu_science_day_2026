@@ -2,7 +2,7 @@
  * implementation details of the individual instruments. */
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const box={Date}; box.window=box; vm.createContext(box);
-for(const file of ['data.js','model.js','tracking.js','brightness-data.js','brightness-model.js','launch-data.js','launch-model.js','learning-model.js','learning-data.js','archive-data.js','night-model.js']) vm.runInContext(fs.readFileSync(path.join(__dirname,file),'utf8'),box);
+for(const file of ['data.js','model.js','tracking.js','brightness-data.js','brightness-model.js','launch-data.js','launch-model.js','learning-model.js','learning-data.js','training-model.js','archive-data.js','night-model.js']) vm.runInContext(fs.readFileSync(path.join(__dirname,file),'utf8'),box);
 const N=box.window.NightModel, checks=[]; const check=(name,fn)=>{fn();checks.push(name)};
 const C=id=>N.byId(id), clone=x=>JSON.parse(JSON.stringify(x));
 const moving=()=>N.motion('s02',box.window.TrackingModel.select(C('s02').data,58,68));
@@ -37,9 +37,12 @@ check('restore rejects duplicate/unknown records and derives instruments from ev
  const duplicate=clone(valid); duplicate.records.push(clone(duplicate.records[0])); assert.throws(()=>N.restore(duplicate));
  const forged=clone(valid); forged.installed={movement:false,fading:true}; const repaired=N.restore(forged); assert(repaired.installed.movement); assert(!repaired.installed.fading);
 });
-check('changing the ML correction changes future Gianni proposals and two bad accepted links fail geometry',()=>{
- const baseline=N.fresh(9), before=N.learning(baseline,'s07'); const corrected=N.fresh(9); N.label(corrected,'wrongLink'); const after=N.learning(corrected,'s07'); assert.notEqual(before.acceptedCount,after.acceptedCount);
- const bad=before.candidates.filter(candidate=>N.verify('s07','learning',candidate,baseline).outcome!=='moving').slice(0,2); assert.equal(bad.length,2); for(const candidate of bad){ const verified=N.verify('s07','learning',candidate,baseline); assert.equal(verified.outcome,'unresolved'); assert.match(verified.detail,/не выдержала проверки|остаётся на месте/); }
+check('player labels train Gianni proposals and wrong links still fail geometry',()=>{
+ const session=N.fresh(9);for(const example of N.examples)N.label(session,example.id,example.expectedLabel);
+ N.train(session);const evaluation=N.evaluate(session),proposals=N.learning(session,'s07');
+ assert(evaluation.falsePositives>0);assert(proposals.acceptedCount>0);
+ const bad=proposals.candidates.filter(candidate=>N.verify('s07','learning',candidate,session).outcome!=='moving').slice(0,2);
+ assert.equal(bad.length,2);for(const candidate of bad){const verified=N.verify('s07','learning',candidate,session);assert.equal(verified.outcome,'unresolved');assert.match(verified.detail,/не выдержала проверки|остаётся на месте/);}
 });
 check('manual brightening does not pretend a fading-only scan discovered it',()=>{
  const field=C('archive-brightening').data; const scan=N.scan('archive-brightening','fading',N.fresh(9));

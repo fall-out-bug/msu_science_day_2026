@@ -43,6 +43,17 @@ with sync_playwright() as pw:
     def action():
         page.locator('#g-action').click()
 
+    def train():
+        page.locator('#g-room-next').click()
+        check('scene route opens training workshop', page.evaluate("night.state.stage==='training'"))
+        for ex in page.evaluate('NightModel.examples.map(e=>({id:e.id,label:e.expectedLabel}))'):
+            page.locator(f".training-picker [data-example='{ex['id']}']").click()
+            page.locator(f".training-decision [data-label='{ex['label']}']").click()
+        page.get_by_role('button',name='2. Обучение').click()
+        page.locator('#g-train-model').click();page.locator('#g-test-model').click()
+        check('scene route evaluates trained model',page.evaluate('NightModel.trainingStatus(night.session).evaluated'))
+        page.get_by_role('button',name='Применить модель в смене →').click()
+
     page.wait_for_timeout(250)
     before = picture(); page.wait_for_timeout(300)
     check('room character has visible idle motion', before != picture())
@@ -64,10 +75,9 @@ with sync_playwright() as pw:
     check('saved observation changes Nika reaction', page.locator('#g-room-scene').get_attribute('data-expression') == 'pleased')
     page.wait_for_timeout(900)
     page.screenshot(path=str(OUT/'scene-first-success.png'))
-    page.locator('#g-room-next').click()
-    page.locator('#g-candidates button').nth(2).click(); action()
+    train()
     nav(); pick(65, 64); action(); action(); action()
-    nav(); action()
+    nav(); page.locator("[data-tool='learning']").click(); action()
     page.wait_for_function("night.state.phase !== 'scanning'")
     page.locator('#g-candidates button').first.click(); action(); action()
     page.wait_for_timeout(250)
@@ -80,7 +90,7 @@ with sync_playwright() as pw:
     dawn_red = sky_red()
     check('dawn actually brightens the painted sky over time', dawn_red > night_red+70 and night_red < mid_red < dawn_red)
     check('ending keeps the room visible', page.locator('#g-room-scene').evaluate('e=>getComputedStyle(e).filter') == 'none')
-    check('ending names the algorithm the player constructed', 'Ты собрал алгоритм поиска' in page.locator('#g-ending-copy').inner_text())
+    check('ending names the algorithm the player constructed', 'выборку из шести примеров' in page.locator('#g-ending-copy').inner_text() and 'Ложных тревог:' in page.locator('#g-ending-copy').inner_text())
     page.screenshot(path=str(OUT/'scene-ending-dawn.png'))
 
     for width, height in [(1280, 720), (900, 600), (390, 844)]:
