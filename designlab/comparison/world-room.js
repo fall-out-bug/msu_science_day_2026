@@ -22,16 +22,16 @@ window.ObservatoryRoom=function({host,onLayout}){
    this.mentorBaseY=mobile?h-165:h+10;this.mentor.setPosition(mobile?w-80:mode==='welcome'?w*.82:w*.18,this.mentorBaseY);this.mentor.setAlpha(mode==='game'?.15:1);
    this.board.setPosition(x,y).setScale(s);this.modules.setPosition(x,y).setScale(s);this.displays.setPosition(x,y).setScale(s);
    this.mentor.setVisible(mode!=='map'&&mode!=='game');
-   onLayout?.({map:{x:x+285*s,y:y+360*s},instrument:{x:x+873*s,y:y+410*s},board:{x:x+1510*s,y:y+205*s},mobile});
+   onLayout?.({mosaic:{x:x+285*s,y:y+185*s},map:{x:x+285*s,y:y+360*s},instrument:{x:x+873*s,y:y+410*s},board:{x:x+1510*s,y:y+205*s},mobile});
   }
   update(time){if(!reduced.matches&&['welcome','room','ending'].includes(mode)){this.mentor.y=this.mentorBaseY+Math.sin(time/1000)*1.1;this.mentor.rotation=Math.sin(time/1800)*.002;}else{this.mentor.y=this.mentorBaseY;this.mentor.rotation=0;}}
  }
  const game=new Phaser.Game({type:Phaser.CANVAS,parent:host,width:host.clientWidth||innerWidth,height:host.clientHeight||innerHeight,transparent:true,banner:false,audio:{noAudio:true},fps:{target:30},scale:{mode:Phaser.Scale.RESIZE},scene:Room});
  function drawState(){
   if(!scene)return;scene.board.removeAll(true);scene.modules.removeAll(true);scene.displays.removeAll(true);
-  (state.monitors||[]).forEach((canvas,i)=>{const key='monitor-'+i;if(scene.textures.exists(key))scene.textures.remove(key);scene.textures.addCanvas(key,canvas);scene.displays.add(scene.add.image(795+i*135,499,key).setDisplaySize(78,78).setAlpha(.85));});
+  (state.monitors||[]).forEach((canvas,i)=>{const key='monitor-'+i;if(scene.textures.exists(key))scene.textures.remove(key);scene.textures.addCanvas(key,canvas);scene.displays.add(scene.add.image(766+i*141,514,key).setDisplaySize(54,54).setAlpha(.85));});
   const modules=[['ДВИЖЕНИЕ',!!state.session?.installed.movement],['СВЕТ',!!state.session?.installed.fading],['ПРИМЕРЫ',state.session?.learningLabel==='wrongLink']];
-  modules.forEach(([label,on],i)=>{const x=692+i*114,y=565;const led=scene.add.circle(x,y,6,on?0x95ffe0:0x415052);scene.modules.add(led);scene.modules.add(scene.add.text(x+11,y-7,label,{fontFamily:'system-ui',fontSize:'11px',color:on?'#d2fff0':'#9aa7a5'}));if(on&&!lastModules[i]&&mode==='room'&&!reduced.matches){const glow=scene.add.circle(x,y,10,0x95ffe0,.7);scene.modules.add(glow);scene.tweens.add({targets:glow,scale:4,alpha:0,duration:800,ease:'Cubic.Out'});}});
+  modules.forEach(([label,on],i)=>{const x=688+i*114,y=579;const led=scene.add.circle(x,y,6,on?0x95ffe0:0x415052);scene.modules.add(led);scene.modules.add(scene.add.text(x+11,y-7,label,{fontFamily:'system-ui',fontSize:'11px',color:on?'#d2fff0':'#9aa7a5'}));if(on&&!lastModules[i]&&mode==='room'&&!reduced.matches){const glow=scene.add.circle(x,y,10,0x95ffe0,.7);scene.modules.add(glow);scene.tweens.add({targets:glow,scale:4,alpha:0,duration:800,ease:'Cubic.Out'});}});
   lastModules=modules.map(m=>m[1]);
   (state.previews||[]).slice(0,9).forEach((entry,i)=>{
    const key='result-'+entry.id;if(scene.textures.exists(key))scene.textures.remove(key);scene.textures.addCanvas(key,entry.canvas);

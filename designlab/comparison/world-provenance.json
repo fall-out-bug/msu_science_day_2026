@@ -1,6 +1,6 @@
 {
-  "art": "Approved night room and Nika retained unchanged; dawn lighting and success pose edited using built-in Imagegen. Scientific pixels are separate.",
-  "artSha256": "65d10bc2bccc6e8ecdf1a7106d8d9e1a3ccb5f8891b42166727d620891c3001c",
+  "art": "Arkhyz-inspired night room and matching dawn generated using built-in Imagegen. Nika base identity retained. Scientific pixels are separate.",
+  "artSha256": "619a8426b775e2a82ece71537121e72180d32067c0d195a1f10f254dfe52f1c6",
   "artCredits": "world-art-credits.md",
   "coordinates": "Centers of the actual registered 128x128 ZTF windows, not object classifications or detection targets.",
   "targets": {
@@ -49,9 +49,18 @@
     "designlab/comparison/archive-provenance.json": "172f154f78ff646dbbb897abb4f080d1c798c4811a132e1feca3eea125b34fff"
   },
   "sceneVariants": {
+    "room": {
+      "file": "art/observatory-arkhyz-night-v1.png",
+      "sha256": "7cfd010bfc7f61178e559c48f55f74d0ccc73212f241efcc3490e860f71be728",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB"
+    },
     "roomDawn": {
-      "file": "art/observatory-dawn-v1.png",
-      "sha256": "ba2f82409c21ebf567ded87aeaf8b62c01f879ccb97d7bd29d0865b32f33875e",
+      "file": "art/observatory-arkhyz-dawn-v1.png",
+      "sha256": "24c9eb98ff441b41899cf98eaa97998fd026969029f47b23fae22ec31e252cbc",
       "size": [
         1672,
         941
@@ -68,5 +77,8 @@
       "mode": "RGBA"
     }
   },
-  "sceneVariantPrompts": "art/scene-prompts.md"
+  "sceneVariantPrompts": [
+    "art/scene-prompts.md",
+    "art/arkhyz-prompts.md"
+  ]
 }

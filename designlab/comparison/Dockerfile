@@ -8,6 +8,7 @@ COPY vendor/ /usr/share/nginx/html/vendor/
 COPY index.html /usr/share/nginx/html/lab.html
 COPY night.html /usr/share/nginx/html/index.html
 COPY night.html night.css night.js night-model.js archive-data.js archive-provenance.json learning-model.js learning-data.js learning-provenance.json /usr/share/nginx/html/
+COPY night-stories.js constellation-data.js exploration-provenance.json /usr/share/nginx/html/
 COPY NIGHT-SOURCES.txt /usr/share/nginx/html/
 COPY world.css world-room.js world-art.js world-art-credits.md world-targets.js world-provenance.json sky-navigation.js sky-navigation-data.js sky-provenance.json /usr/share/nginx/html/
 COPY art/ /usr/share/nginx/html/art/

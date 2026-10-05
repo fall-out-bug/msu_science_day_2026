@@ -3,25 +3,28 @@
 <main>
 <section id="g-welcome" class="welcome">
 <p class="eyebrow">НАУКА 0+ · ТВОЯ ПЕРВАЯ ОБСЕРВАТОРИЯ</p><h1>Ночная смена</h1>
-<p class="intro">Небо меняется, пока мы спим. Вместе с Никой собери прибор, который поможет замечать эти изменения.</p>
+<p class="intro">Небо меняется, пока мы спим. Вместе с Никой собери алгоритм поиска, обучи маленький ИИ и узнай, что изменилось среди звёзд.</p>
 <div class="welcome-previews" hidden><canvas id="g-intro-a" width="256" height="256" aria-label="Первое настоящее наблюдение"></canvas><span aria-hidden="true">→</span><canvas id="g-intro-b" width="256" height="256" aria-label="Второе наблюдение того же участка"></canvas></div>
-<p class="source-note">Исследуем настоящие архивные снимки — из нашей маленькой обсерватории.</p>
+<p class="source-note">Ника ждёт тебя в горной обсерватории. Сегодня вы будете работать с настоящими снимками.</p>
 <fieldset id="g-length"><legend>Сколько исследований берём?</legend><label><input type="radio" name="length" value="3"> 3 · знакомство</label><label><input type="radio" name="length" value="6" checked> 6 · полная смена</label><label><input type="radio" name="length" value="9"> 9 · большой архив</label></fieldset>
-<div class="welcome-actions"><button id="g-start" class="primary" disabled>Обсерватория загружается…</button><button id="g-resume" hidden>Продолжить мою смену</button></div><p id="g-save-note" class="small"></p>
+<div class="welcome-actions"><button id="g-start" class="primary" disabled>Обсерватория загружается…</button><button id="g-meet" class="quiet">Кто такая Ника?</button><button id="g-resume" hidden>Продолжить мою смену</button></div><p id="g-save-note" class="small"></p>
 </section>
 <section id="g-room" hidden aria-label="Обсерватория">
 <div class="room-objective"><span class="eyebrow" id="g-room-chapter"></span><h1 id="g-room-title" tabindex="-1"></h1></div>
 <button id="g-room-map" class="room-place"><span>Карта неба</span><small>Выбрать участок</small></button>
 <button id="g-room-instrument" class="room-place"><span>Твой прибор</span><small id="g-instrument-status">Ждёт снимки</small></button>
+<button id="g-room-mosaic" class="room-place"><span>Звёздное панно</span><small>Созвездия и прогулка по небу</small></button>
 <button id="g-room-board" class="room-place"><span>Доска наблюдений</span><small id="g-board-status">Здесь будут твои результаты</small></button>
-<div class="room-dialog"><span class="eyebrow">НИКА</span><p id="g-room-result" class="room-result" hidden></p><p id="g-room-speech" role="status"></p><button id="g-room-next" class="primary" hidden></button></div>
+<div class="room-dialog"><div class="room-chat-actions"><button id="g-nika-talk" class="quiet">Поговорить с Никой</button><button id="g-algorithm" class="quiet">Мой алгоритм</button><button id="g-discoveries" class="quiet">Открытия с ИИ</button></div><span class="eyebrow">НИКА</span><p id="g-room-result" class="room-result" hidden></p><p id="g-room-speech" role="status"></p><button id="g-room-next" class="primary" hidden></button></div>
 </section>
 <section id="g-map" hidden aria-label="Наведение на участок неба">
-<canvas id="g-celestial-map"></canvas><div class="map-brief"><span class="eyebrow">КАРТА ЗВЁЗДНОГО НЕБА</span><h1 id="g-map-title"></h1><p>Перемещай карту, чтобы совместить отмеченный участок с прицелом.</p></div>
-<div class="map-actions"><p id="g-map-feedback" role="status">Найди отмеченный участок.</p><button id="g-map-focus">Навести по координатам</button><button id="g-map-capture" class="primary" disabled>Сначала наведи прицел</button><small>Карта выбирает архивные наблюдения. Это не управление настоящим телескопом.</small></div>
+<canvas id="g-celestial-map"></canvas><div class="map-brief"><span class="eyebrow">КАРТА ЗВЁЗДНОГО НЕБА</span><h1 id="g-map-title"></h1><p>Тяни небо, пока жёлтый кружок не окажется в центре прицела. На названия созвездий и отмеченные звёзды можно нажимать.</p></div>
+<details class="sky-explore"><summary>Созвездия и интересные места</summary><label><input type="checkbox" id="g-constellations" checked> Линии созвездий</label><div id="g-sky-destinations"></div><button id="g-pattern-start">Соединить звёзды Кассиопеи</button><p id="g-sky-visited" class="small"></p></details>
+<div class="map-actions"><div id="g-pattern" hidden><p id="g-pattern-text" role="status"></p><div id="g-pattern-points"></div></div><p id="g-map-feedback" role="status">Найди отмеченный участок.</p><button id="g-map-focus">Помочь с наведением</button><button id="g-map-capture" class="primary" disabled>Сначала наведи прицел</button><small>Карта выбирает архивные наблюдения. Это не управление настоящим телескопом.</small></div>
 </section>
 <section id="g-game" hidden>
 <div class="shiftbar"><div><span class="eyebrow" id="g-chapter"></span><h1 id="g-title" tabindex="-1"></h1></div><button id="g-journal-open">Журнал <span id="g-count">0</span></button></div>
+<div class="next-step"><strong id="g-next-step" role="status"></strong><button id="g-guide" class="quiet">Покажи, куда нажать</button></div>
 <div class="workspace">
 <section class="instrument" aria-label="Наблюдения и измерения">
 <div class="instrument-top"><span id="g-source"></span><span id="g-frame-label"></span></div>
@@ -33,7 +36,7 @@
 </section>
 <aside class="task-panel">
 <div class="nika"><img id="g-nika-portrait" alt="Ника, напарница по смене"><span class="eyebrow">НИКА · НАПАРНИЦА ПО СМЕНЕ</span><p id="g-mission"></p></div>
-<div id="g-tools" class="tool-rack" aria-label="Инструменты"><button data-tool="movement">Движение <small>Проверка следа</small></button><button data-tool="fading">Свет <small>Измерение яркости</small></button><button data-tool="learning">По примерам <small>Обучаемый отбор</small></button></div>
+<div id="g-tools" class="tool-rack" aria-label="Инструменты"><button data-tool="movement">Движение <small>Проверка следа</small></button><button data-tool="fading">Свет <small>Измерение яркости</small></button><button data-tool="learning">ИИ по примерам <small>Обучение и отбор</small></button></div>
 <p id="g-feedback" role="status" aria-live="polite"></p>
 <div id="g-learning-effect" class="learning-effect" hidden><p id="g-learning-count"></p><button id="g-learning-edit">Пересмотреть мой пример</button></div>
 <div id="g-candidates" class="candidates"></div>
@@ -54,5 +57,5 @@
 </section>
 </main>
 <dialog id="g-overlay"><button id="g-close" class="close" aria-label="Закрыть">✕</button><div id="g-overlay-content"></div></dialog>
-<script src="data.js"></script><script src="model.js"></script><script src="tracking.js"></script><script src="brightness-data.js"></script><script src="brightness-model.js"></script><script src="launch-data.js"></script><script src="launch-model.js"></script><script src="learning-model.js"></script><script src="learning-data.js"></script><script src="archive-data.js"></script><script src="night-model.js"></script><script src="world-art.js"></script><script src="world-targets.js"></script><script src="vendor/phaser.min.js"></script><script src="sky-navigation-data.js"></script><script src="sky-navigation.js"></script><script src="world-room.js"></script><script src="night.js"></script>
+<script src="data.js"></script><script src="model.js"></script><script src="tracking.js"></script><script src="brightness-data.js"></script><script src="brightness-model.js"></script><script src="launch-data.js"></script><script src="launch-model.js"></script><script src="learning-model.js"></script><script src="learning-data.js"></script><script src="archive-data.js"></script><script src="night-model.js"></script><script src="world-art.js"></script><script src="world-targets.js"></script><script src="vendor/phaser.min.js"></script><script src="sky-navigation-data.js"></script><script src="night-stories.js"></script><script src="constellation-data.js"></script><script src="sky-navigation.js"></script><script src="world-room.js"></script><script src="night.js"></script>
 </body></html>

@@ -30,6 +30,32 @@ https://github.com/astronexus/HYG-Database
 Это обзорный атлас, не увеличенный снимок телескопа: для исследования открываются
 отдельные реальные экспозиции ZTF по выбранным координатам.
 
-Обсерватория и Ника — ранее согласованные растровые иллюстрации проекта.
+Обсерватория — растровая иллюстрация по мотивам Архыза с зодиакальным панно.
+Это художественный образ, не реконструкция САО РАН. Ника — вымышленная героиня.
 Генерация и исходные описания: world-art-credits.md; преобразование и SHA: world-provenance.json.
 Комната: Phaser, MIT License, vendor/PHASER-LICENSE.md.
+
+Созвездия и дополнительные истории
+
+88 рисунков созвездий: прежняя выгрузка проекта из Stellarium Western sky culture.
+Координаты HYG/J2000 сохранены без изменений: constellation-data.js.
+Stellarium: https://github.com/Stellarium/stellarium/tree/master/skycultures/western
+Лицензии: vendor/FAL-1.3.txt, vendor/GPL-2.0.txt, vendor/SKY-CC-BY-SA-4.0.txt.
+Название созвездия отмечает положение подписи. Это не отдельная звезда.
+Карта показывает всё небо; видимость из Архыза в текущую ночь не рассчитывается.
+
+Фотографии «Хаббла» — иллюстрации историй, не игровые измерения:
+art/hubble-asteroids.jpg — https://esahubble.org/images/heic2407a/
+NASA, ESA, P. G. Martín (Autonomous University of Madrid), J. DePasquale (STScI).
+Acknowledgment: A. Filippenko (University of California, Berkeley). CC BY 4.0.
+art/hubble-supernova.jpg — https://esahubble.org/news/heic2018/
+ESA/Hubble & NASA, A. Riess and the SH0ES team. Acknowledgment: Mahdi Zamani. CC BY 4.0.
+Условия: https://esahubble.org/copyright/
+Лицензия: https://creativecommons.org/licenses/by/4.0/
+На второй фотографии SN 2018gv; игровая фотометрия относится к SN 2023tyk.
+
+Истории открытий с машинным обучением:
+https://esahubble.org/news/heic2407/
+https://arxiv.org/abs/2401.15167
+https://www.nasa.gov/news-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star/
+Ника, её биография и разговоры — авторская игровая история.

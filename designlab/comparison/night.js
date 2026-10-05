@@ -36,7 +36,7 @@ function showStage(value){
 function say(text){$('feedback').textContent=text;}
 function openCase(id,review=false){
  cancel();session.caseId=id;epoch=current().kind==='light'||current().kind==='photometry'?0:1;selected=null;result=null;scan=null;selectedCandidate=null;hint=0;hintPoint=null;subtract=0;$('subtract').value=0;
- phase='choose';method=current().kind==='light'||current().kind==='photometry'?'fading':current().id==='s07'&&session.learningSeen?'learning':'movement';
+ phase='choose';method=current().kind==='light'||current().kind==='photometry'?'fading':current().id==='s07'&&session.learningSeen?'learning':current().id==='launch-variable'?'fading':'movement';
  if(review){result=session.records.find(r=>r.caseId===id)||null;phase=result?(M.canSave(result)?'saved':'result'):'choose';if(result)method=result.method;}
  $('candidates').replaceChildren();$('sky-status').textContent=result?.summary||'';
  showStage('game');say(result?result.detail:current().kind==='auto'?'Выбери, какое изменение поручить искать прибору.':'Сравни кадры кнопками под снимком. Нажми на точку, которую хочешь проверить.');persist();render();$('title').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
@@ -48,20 +48,20 @@ function goRoom(id,receipt=null){
  session.worldTarget=roomTarget;session.worldReceipt=receipt?.caseId||null;showStage('room');room.setState(roomState());
  const c=M.byId(roomTarget),complete=summaryCount()>=session.length,lesson=session.installed.movement&&!session.learningSeen,ready=session.aimedCase===roomTarget;
  $('room-chapter').textContent='ТВОЯ ОБСЕРВАТОРИЯ · '+summaryCount()+' / '+session.length;
- $('room-title').textContent=complete?'Смена собрана на твоей доске':lesson?'Первый инструмент заработал':ready?'Снимки ждут в приборе':c.title;
- const leads={s02:'Я Ника. Давай соберём прибор, который заметит изменения среди звёзд. Открой карту слева — первое поле уже отмечено.', 'brightness-01':'Поиск движения уже работает. Но что, если точка стоит на месте и меняет яркость? Посмотрим на другое поле.',s07:'Теперь прибор умеет искать движение и измерять свет. Испытаем его на незнакомом участке: пусть сам предложит, что проверить.', 'launch-variable':'На двух датах свет ослаб. Интересно, что было дальше? Посмотрим, поддержит ли третья дата наш вывод.', 'archive-steady':'Мы видели изменения. А теперь проверим обычное поле — прибор должен уметь честно вернуть пустой результат.',s04:'В архиве есть одиночный сигнал. Проверим, удастся ли связать его с другими снимками.', 'archive-brightening':'Наш измеритель искал угасание. Попробуем поставить новый вопрос: а если свет усилился?', 'archive-small-change':'Теперь отличие совсем небольшое. Хватит ли точности прибора, чтобы доверять этому изменению?', 'archive-track':'Осталась странная полоска. Её вид ещё не говорит, что это астероид. Проверим движение между датами.'};
- $('room-speech').textContent=complete?'Посмотри на доску: здесь твои наблюдения. Мы собрали прибор и проверили, где он помогает, а где его выводам ещё нельзя доверять.':lesson?'Три положения сошлись с прогнозом — поиск движения работает! Но прибор может соединить не те точки. Покажем ему одну такую ошибку.':ready?'Участок выбран, архивные снимки загружены. Открой центральный прибор — там будем сравнивать наблюдения.':leads[roomTarget];
+ $('room-title').textContent=complete?'Наблюдения сохранены на доске':lesson?'Первый инструмент заработал':ready?'Снимки ждут в приборе':c.title;
+ const leads={s02:'Я Ника, студентка на практике. Сегодня мы соберём алгоритм поиска и обучим его на примерах. Начнём с карты слева: нажми «Карта неба».', 'brightness-01':'Поиск движения уже работает. Но что, если точка стоит на месте и меняет яркость? Посмотрим на другое поле.',s07:'Теперь прибор умеет искать движение и измерять свет. Испытаем его на незнакомом участке: пусть сам предложит, что проверить.', 'launch-variable':'На двух датах свет ослаб. Интересно, что было дальше? Посмотрим, поддержит ли третья дата наш вывод.', 'archive-steady':'Мы видели изменения. А теперь проверим обычное поле — прибор должен уметь честно вернуть пустой результат.',s04:'В архиве есть одиночный сигнал. Проверим, удастся ли связать его с другими снимками.', 'archive-brightening':'Наш измеритель искал угасание. Попробуем поставить новый вопрос: а если свет усилился?', 'archive-small-change':'Теперь отличие совсем небольшое. Хватит ли точности прибора, чтобы доверять этому изменению?', 'archive-track':'Осталась странная полоска. Её вид ещё не говорит, что это астероид. Проверим движение между датами.'};
+ $('room-speech').textContent=complete?'Посмотри на доску: здесь твои наблюдения. Мы собрали прибор и проверили, где он помогает, а где его выводам ещё нельзя доверять.':lesson?'Мы проверили правило: сравнить два снимка, предсказать движение и проверить третий. Такой порядок действий называется алгоритмом. Теперь добавим ИИ: научим его на примере отличать верный след от ошибки.':ready?'Участок выбран, архивные снимки загружены. Открой центральный прибор — там будем сравнивать наблюдения.':leads[roomTarget];
  $('room-map').disabled=lesson||complete;$('room-map').classList.toggle('needed',!ready&&!lesson&&!complete);
  $('room-instrument').disabled=(!ready&&!lesson)||complete;$('room-instrument').classList.toggle('needed',ready&&!lesson&&!complete);
  $('instrument-status').textContent=lesson?'Нужен пример ошибки':ready?'Снимки готовы':'Выбери участок на карте';
  $('board-status').textContent=session.records.length?'Наблюдений на доске: '+session.records.length:'Здесь появятся твои результаты';
  $('room-result').hidden=!receipt;$('room-result').textContent=receipt?'На доске: '+receipt.summary:'';
- $('room-next').hidden=!(lesson||complete||receipt&&!ready);$('room-next').textContent=complete?'Посмотреть результаты смены →':lesson?'Показать прибору ошибку →':'К следующему участку неба →';
+ $('room-next').hidden=!(lesson||complete||receipt&&!ready);$('room-next').textContent=complete?'Посмотреть результаты смены →':lesson?'Обучить ИИ на примере →':'К следующему участку неба →';
  $('room-next').onclick=()=>complete?finish():lesson?learningLesson():openMap();persist();$('room-title').focus({preventScroll:true});
 }
 function openMap(){
  cancel();showStage('map');$('map-title').textContent=M.byId(roomTarget).title;$('map-capture').disabled=true;$('map-capture').textContent='Сначала наведи прицел';$('map-feedback').textContent='Отмеченный участок нужно поместить в центр прицела.';
- skyNavigation.show({id:roomTarget,...OBSERVATORY_TARGETS[roomTarget],title:'Наш участок'});persist();
+ updateVisits();skyNavigation.show({id:roomTarget,...OBSERVATORY_TARGETS[roomTarget],title:'Наш участок'});persist();
 }
 function enterInstrument(){
  if(session.installed.movement&&!session.learningSeen){learningLesson();return;}
@@ -112,9 +112,9 @@ function renderArchive(){
 function render(){
  if(stage!=='game')return;const c=current(),tutorial=c.kind==='motion'||c.kind==='light'||c.kind==='photometry';
  $('chapter').textContent='ЗАВЕРШЕНО '+summaryCount()+' ИЗ '+session.length+' ИССЛЕДОВАНИЙ';$('count').textContent=session.records.length;
- $('title').textContent=['learning','learned'].includes(phase)?'Покажи прибору ошибку':c.title;
+ $('title').textContent=['learning','learned'].includes(phase)?'Обучи ИИ на ошибке':c.title;
  $('source').textContent='Архив ZTF · '+(c.data.id==='s04'||c.data.id==='archive-steady'||c.data.id==='archive-track'?'разные окна общих экспозиций':'реальные наблюдения');
- $('mission').textContent=['learning','learned'].includes(phase)?'Зелёный след — твоя проверка. Оранжевый — версия прибора. Какая точка в его версии не совпадает с твоим следом? Нажми на неё.':c.goal;
+ $('mission').textContent=['learning','learned'].includes(phase)?'Ты задаёшь пример для обучения ИИ. Зелёный след проверен тобой. Оранжевый — ошибочная версия. Найди точку, где они расходятся, и нажми на неё.':c.goal;
  $('hint-text').hidden=!hint;
  $('source-picker').hidden=['scanning','scanned','learning','learned'].includes(phase)||!!result;
  $('difference').hidden=c.kind!=='motion'||epoch===0||['learning','learned'].includes(phase);
@@ -122,7 +122,7 @@ function render(){
  document.querySelectorAll('[data-tool]').forEach(b=>{const t=b.dataset.tool;const available=t==='movement'?session.installed.movement||c.id==='s02':t==='fading'?session.installed.fading||c.id==='brightness-01':session.learningSeen&&c.id==='s07';b.disabled=!available||tutorial||['scanning','learning','learned'].includes(phase);b.classList.toggle('active',t===method);b.setAttribute('aria-pressed',String(t===method));b.title=available?'':'Сначала проверь этот инструмент';});
  $('tools').hidden=['learning','learned'].includes(phase);
  $('learning-effect').hidden=!(c.id==='s07'&&session.learningSeen||phase==='learned');
- if(!$('learning-effect').hidden){$('learning-count').textContent=session.learningLabel==='wrongLink'?'Ты показал прибору перепутанный след. Теперь он отбрасывает похожие ошибки. Оставшиеся версии всё равно нужно проверить.':'В учебном примере перепутанный след остался разрешённым. Поэтому прибор предлагает слишком много версий. Разберём эту ошибку на твоём проверенном следе.';$('learning-edit').textContent=session.learningLabel==='wrongLink'?'Посмотреть мой пример':'Разобрать учебный пример';}
+ if(!$('learning-effect').hidden){$('learning-count').textContent=session.learningLabel==='wrongLink'?'Ты обучил ИИ на ошибочном следе. Теперь он сравнивает новые связи с твоими примерами. Его предложения ещё нужно проверить.':'В учебном примере перепутанный след остался разрешённым. Поэтому прибор предлагает слишком много версий. Разберём эту ошибку на твоём проверенном следе.';$('learning-edit').textContent=session.learningLabel==='wrongLink'?'Посмотреть мой пример':'Разобрать учебный пример';}
  $('learning-edit').hidden=phase==='learned';
  $('action').hidden=false;$('action').disabled=false;$('secondary').hidden=true;$('hint').hidden=['saved','learning','learned'].includes(phase);$('science').hidden=!result;$('reward').hidden=!result||!canSave();
  $('reward-copy').textContent=c.reward;
@@ -137,7 +137,7 @@ function render(){
  if(phase==='saved'){action.textContent='Вернуться в обсерваторию →';$('secondary').hidden=false;$('secondary').textContent='Перепроверить наблюдение';}
  if(phase==='learning'){action.textContent='Нажми на отличающуюся точку';action.disabled=true;}
  if(phase==='learned'){action.textContent='Сохранить пример и продолжить →';$('secondary').hidden=false;$('secondary').textContent='Отменить мою метку';}
- renderPoints();renderArchive();draw();
+ renderPoints();renderArchive();draw();guide();
 }
 function canSave(){return M.canSave(result);}
 function pick(x,y){
@@ -156,7 +156,7 @@ function inspectCandidate(c){selectedCandidate=c;showResult(M.verify(current().i
 function run(){
  if(phase==='scanning')return;if(current().id==='s07'&&method==='learning'&&session.learningLabel!=='wrongLink'){learningLesson();return;}cancel();const token=generation;phase='scanning';selected=null;result=null;scan=null;selectedCandidate=null;$('candidates').replaceChildren();$('sky-status').textContent='Поиск по наблюдениям';say('Прибор просматривает измеренные точки. Затем ты проверишь его версии.');render();
  runTimer=setTimeout(()=>{if(token!==generation||stage!=='game')return;scan=M.scan(current().id,method,session);phase='scanned';
- const n=scan.candidates.length;say(n?(method==='learning'?'После твоего примера прибор отобрал '+n+' версии следа.':'Прибор нашёл '+n+' версии.')+' Открой каждую и проверь по снимкам. Предложение ещё не означает находку.':'Подходящих версий нет. Это результат выбранного способа, а не доказательство, что ничего не менялось.');
+ const n=scan.candidates.length;say(n?(method==='learning'?'После обучения ИИ предложил следы для проверки: '+n+'.':'Предложений прибора: '+n+'.')+' Выбери предложение и проверь его по снимкам. Предложение ещё не означает находку.':'Подходящих версий нет. Это результат выбранного способа, а не доказательство, что ничего не менялось.');
  $('sky-status').textContent=n?'Найдено версий: '+n:'Подходящих версий нет';
  if(!n){result=M.empty(current().id,method,scan);phase='result';say(result.summary+'. '+result.detail);}
  $('candidates').replaceChildren();scan.candidates.slice(0,30).forEach((c,i)=>{const b=button('След '+(i+1)+' · проверить',()=>inspectCandidate(c));if(c.points){const preview=document.createElement('canvas');preview.width=384;preview.height=128;preview.className='candidate-preview';preview.setAttribute('aria-hidden','true');const ctx=preview.getContext('2d');c.points.forEach((p,k)=>{ctx.drawImage(raw(current().data,k),k*128,0);ctx.strokeStyle='#ffcc81';ctx.lineWidth=2;ctx.beginPath();ctx.arc(k*128+p.x+.5,p.y+.5,7,0,Math.PI*2);ctx.stroke();});b.prepend(preview);}$('candidates').append(b);});
@@ -167,7 +167,7 @@ function learningLesson(){cancel();hint=0;hintPoint=null;$('subtract').value=0;$
 function chooseLearningPoint(i){const candidate=M.train.candidates.find(c=>c.id===LEARNING_DATA.correction.id).points,truth=session.records.find(r=>r.caseId==='s02')?.positions;if(!truth)return;if(Math.hypot(candidate[i].x-truth[i].x,candidate[i].y-truth[i].y)<3){say('Точка '+(i+1)+' совпадает с твоей проверкой. Ищи ту, где оранжевый след расходится с зелёным.');tone();return;}label('wrongLink');$('candidates').replaceChildren();}
 function label(value){
  M.label(session,value);phase='learned';
- say('Ты нашёл ошибку: прибор выбрал другую точку в третьем снимке. Эта связь сохранена как пример, который нужно отвергать. Теперь испытаем отбор на другом поле.');
+ say('Есть: третья точка чужая! Ты пометил ошибочную связь. Учебный ИИ пересчитал отбор по этому примеру. Проверим на другом поле, помогает ли обучение.');
  $('sky-status').textContent='Пример изменил отбор';persist();tone();render();
 }
 function next(){
@@ -208,12 +208,12 @@ function recordCard(r,interactive=true){
  return card;
 }
 function finish(){cancel();session.finished=true;session.daylight=true;persist();showStage('ending');room.setState(roomState());const found=session.records.filter(r=>['moving','faded','brightened'].includes(r.outcome)).length;
- $('ending-proof').textContent='На твоей доске: '+summaryCount()+' наблюдений. Подтверждённых изменений: '+found+'.';
- $('ending-copy').textContent='Ты собрал прибор: он ищет движение и измеряет свет.'+(session.learningLabel==='wrongLink'?' Твой пример помогает отбрасывать перепутанные следы.':'')+' А проверить, можно ли доверять его предложению, теперь умеешь ты.';
+ $('ending-proof').textContent='Наблюдений на твоей доске: '+summaryCount()+'. Подтверждённых изменений: '+found+'.';
+ $('ending-copy').textContent='Ты собрал алгоритм поиска: он сравнивает положения точек и измеряет свет.'+(session.learningLabel==='wrongLink'?' Твой пример обучил маленький ИИ отбирать следы.':'')+' А проверить, можно ли доверять его предложению, теперь умеешь ты.';
  $('ending-next').textContent=session.length===3?'В архиве есть свет, который меняется снова. Посмотрим, что два снимка не рассказали о нём?':session.length===6?'В большом архиве попробуем заметить усиление света и отличить слабое изменение от шума.':'Все участки этой смены проверены. Снимки и выводы можно забрать с собой или оставить прибор следующему исследователю.';
  $('continue').textContent=session.length<9?'Открыть ещё три исследования →':'Вернуться в обсерваторию';$('ending').querySelector('h1').focus();tone('success');
 }
-function modal(title,content){stop();room?.pause();const box=$('overlay-content');box.replaceChildren(el('h2',title),...content);$('overlay').showModal();}
+function modal(title,content){stop();room?.pause();skyNavigation?.pause();const box=$('overlay-content');box.replaceChildren(el('h2',title),...content);$('overlay').showModal();}
 function journal(){const content=session.records.map(r=>recordCard(r));if(!content.length)content.push(el('p','Здесь останутся твои снимки, измерения и выводы.'));else content.push(button('Скачать журнал со снимками',exportJournal));if(session.installed.movement)content.push(button('Вернуться к примерам для модели',()=>{$('overlay').close();learningLesson();}));modal('Журнал твоей смены',content);}
 function exportJournal(){
  const doc=document.implementation.createHTMLDocument('Мастерская неба — мой журнал');doc.documentElement.lang='ru';
@@ -227,6 +227,67 @@ function exportJournal(){
  for(const key of new Set(session.records.map(r=>M.byId(r.caseId).story))){for(const [title,url]of stories[key].links){const p=el('p'),a=el('a',title);a.href=url;p.append(a);doc.body.append(p);}}
  const blob=new Blob(['<!doctype html>\n'+doc.documentElement.outerHTML],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download='my-sky-journal.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+function talkToNika(index=0){
+ const story=NIGHT_STORIES.nika[index],portrait=el('img');portrait.src=NIGHTSHIFT_ART.mentor;portrait.alt='Ника';portrait.className='story-portrait';
+ modal(story.title,[portrait,el('p',story.text),el('p','Ника — вымышленная героиня нашей обсерватории.','small'),...NIGHT_STORIES.nika.map((s,i)=>button(s.title,()=>talkToNika(i)))]);
+}
+function discovery(index=0){
+ const d=NIGHT_STORIES.discoveries[index],items=[el('p',d.tag,'eyebrow')];
+ if(d.image){const figure=el('figure',undefined,'discovery-photo'),img=el('img');img.src=d.image;img.alt=d.alt;img.loading='eager';figure.append(img,el('figcaption',d.credit+' · '+d.license));items.push(figure);}
+ items.push(el('p',d.text),el('p',d.bridge,'story-bridge'));
+ const link=el('a','Источник: рассказ об исследовании ↗');link.href=d.source;link.target='_blank';link.rel='noopener noreferrer';items.push(link);
+ if(d.imageSource){const link=el('a','Источник фотографии ↗');link.href=d.imageSource;link.target='_blank';link.rel='noopener noreferrer';items.push(link);}
+ items.push(...NIGHT_STORIES.discoveries.map((s,i)=>button(s.title,()=>discovery(i))));modal(d.title,items);
+}
+function algorithm(){
+ const blocks=[['1. Задаём правило','Сравнить положения на двух снимках → предсказать следующее → проверить третий снимок. Это обычный алгоритм: порядок действий, который выполняет программа.'],['2. Обучаем на примерах','ИИ получает верный след и ошибочные связи. Сравнивает скорость, изменение направления и яркость точек. По похожести на примеры он отбирает новые связи.'],['3. Проверяем на другом поле','Предложение ИИ ещё не открытие. Мы проверяем, совпадают ли положения точек с расчётом. Ошибочный след отклоняем.']];
+ const list=el('ol',undefined,'algorithm-steps');blocks.forEach(([title,text],i)=>{const item=el('li');item.classList.toggle('done',!!(i===0?session?.installed.movement:i===1?session?.learningLabel==='wrongLink':session?.records.some(r=>r.caseId==='s07')));item.append(el('strong',title),el('p',text));list.append(item);});
+ modal('Что мы собираем',[list,el('p','Ника говорит заранее написанными репликами. Учебный ИИ работает внутри прибора: учится на твоей метке и пересчитывает отбор.','small'),button('Что ИИ уже помог открыть?',()=>discovery())]);
+}
+function exploration(){
+ const e=session.exploration||{};session.exploration={visited:Array.isArray(e.visited)?[...new Set(e.visited.filter(id=>NIGHT_STORIES.sky.some(s=>s.id===id)))]:[],patterns:Array.isArray(e.patterns)?e.patterns.filter(n=>n==='Кассиопея').slice(0,1):[]};return session.exploration;
+}
+function exploreCard(item){
+ if(item.id){const e=exploration();if(!e.visited.includes(item.id))e.visited.push(item.id);persist();updateVisits();}
+ const items=[el('p',item.text),el('p','Это карта всего неба по каталогу звёзд. Она не показывает, что видно из Архыза прямо сейчас.','small')];
+ if(item.activity)items.push(button('Соединить пять звёзд',()=>{$('overlay').close();skyNavigation.startPattern();},'primary'));
+ else if(item.constellation)items.push(button('Рассмотреть созвездие',()=>{$('overlay').close();$('constellations').checked=true;skyNavigation.focusConstellation(item.constellation);},'primary'));
+ modal(item.title,items);
+}
+function updateVisits(){const e=exploration();$('sky-visited').textContent='Знакомых мест: '+e.visited.length+' из '+NIGHT_STORIES.sky.length+(e.patterns.length?' · Кассиопея собрана':'');}
+function patternProgress(p){
+ $('pattern').hidden=!p;$('map-focus').textContent=p?'Вернуться к заданию':'Помочь с наведением';$('pattern-points').replaceChildren();if(!p)return;
+ const complete=p.count===p.total;$('pattern-text').textContent=complete?'Получилось! Пять звёзд складываются в букву W. Можешь вернуться к заданию кнопкой ниже.':'Соедини звёзды по порядку. Сейчас нажми на '+(p.count+1)+'. Готово: '+p.count+' из '+p.total+'.';
+ if(complete){const e=exploration();if(!e.patterns.includes(p.name))e.patterns.push(p.name);persist();updateVisits();tone('success');}
+ else for(let i=0;i<p.total;i++){const b=button(String(i+1),()=>skyNavigation.connectPatternPoint(i));b.disabled=i!==p.count;b.setAttribute('aria-label','Соединить звезду '+(i+1));$('pattern-points').append(b);}
+}
+function mosaic(){
+ const grid=el('div',undefined,'zodiac-grid');const symbols=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+ NIGHT_STORIES.zodiac.forEach((name,i)=>{const b=button(symbols[i]+' '+name,()=>{$('overlay').close();openMap();$('constellations').checked=true;skyNavigation.focusConstellation(name);});grid.append(b);});
+ modal('От панно — к созвездиям',[el('p','В Архызе меня больше всего поразило цветное панно со знаками зодиака. Наше — ему посвящение. Выбери фигуру: найдём одноимённое созвездие на карте.'),grid,button('Пять звёзд Кассиопеи',()=>{$('overlay').close();openMap();skyNavigation.startPattern();}),el('p','Обсерватория и панно в игре — художественный образ, вдохновлённый САО РАН.','small')]);
+}
+function guide(){
+ document.querySelectorAll('.guide-target').forEach(e=>e.classList.remove('guide-target'));
+ let text,target;
+ if(phase==='choose'&&current().kind==='auto'){text='Выбери способ поиска и нажми «Запустить». Потом проверим предложения.';target='tools';}
+ else if(phase==='choose'){text='Нажми «Чередовать» и найди точку, которая меняется. Затем нажми на неё.';target='blink';}
+ else if(phase==='selected'){text='Точка выбрана. Нажми большую кнопку под объяснением Ники, чтобы проверить её.';target='action';}
+ else if(phase==='learning'){text='Сравни зелёный и оранжевый следы. Нажми на несовпавшую точку или её номер.';target='candidates';}
+ else if(phase==='learned'){text='ИИ получил пример ошибки. Сохрани его, чтобы проверить на другом участке.';target='action';}
+ else if(phase==='scanning'){text='Алгоритм сравнивает точки. Результат появится через мгновение.';target='action';}
+ else if(phase==='scanned'){text='Нажми на предложенный след. Проверим, выдержит ли он сравнение снимков.';target='candidates';}
+ else if(phase==='saved'){text='Результат сохранён. Вернись к Нике — снимок появится на доске.';target='action';}
+ else{text=canSave()?'Проверка закончена. Сохрани наблюдение большой кнопкой.':'Эта версия не подтвердилась. Нажми большую кнопку и попробуй другую.';target='action';}
+ $('next-step').textContent='Сейчас: '+text;$('guide').onclick=()=>{if(phase==='choose'&&current().kind!=='auto')help();document.querySelectorAll('.guide-target').forEach(e=>e.classList.remove('guide-target'));$(target).classList.add('guide-target');$(target).scrollIntoView({block:'center',behavior:reduced.matches?'instant':'smooth'});};
+ $('sky').parentElement.classList.toggle('is-scanning',phase==='scanning');
+}
+function setupExtras(){
+ $('meet').onclick=()=>talkToNika();$('nika-talk').onclick=()=>talkToNika();$('discoveries').onclick=()=>discovery();$('algorithm').onclick=algorithm;$('room-mosaic').onclick=mosaic;
+ $('constellations').onchange=e=>skyNavigation.setConstellations(e.target.checked);
+ for(const item of NIGHT_STORIES.sky)$('sky-destinations').append(button(item.title,()=>{skyNavigation.focusObject(item.id);exploreCard(item);}));
+ $('pattern-start').onclick=()=>{document.querySelector('.sky-explore').open=false;skyNavigation.startPattern();};
+}
+
 const stories={
  motion:{title:'Точки, за которыми движутся миры',text:'Астероид на короткой серии снимков выглядит как маленькая точка. Сравнение наблюдений позволяет выделить движение среди звёзд. Для орбиты нужны дополнительные наблюдения: трёх точек недостаточно. Ты проверил известные архивные данные, а не объявил новое открытие.',links:[['Как наблюдают астероиды · NASA/JPL','https://cneos.jpl.nasa.gov/about/search_program.html']]},
  supernova:{title:'ИИ помогает выбрать, куда смотреть',text:'В 2023 году BTSbot помог выбрать сверхновую SN 2023tyk для наблюдения спектра. Другой алгоритм, SNIascore, помог классифицировать спектр. Твои два снимка показывают изменение света; они сами по себе не определяют тип сверхновой. Разные инструменты решают разные части научной задачи.',links:[['Исследование авторов BTSbot','https://arxiv.org/html/2401.15167v1#S5.SS1']]},
@@ -234,12 +295,12 @@ const stories={
  controls:{title:'Почему учёные любят проверять',text:'Различие на снимках может появиться из-за самого объекта, атмосферы или прибора. Поэтому мы сравниваем соседние точки, вычитаем фон и проверяем шум. «Пока неясно» — честный результат, после которого можно придумать более точный эксперимент.',links:[['Архив наблюдений ZTF · IRSA','https://irsa.ipac.caltech.edu/Missions/ztf.html']]},
  artifact:{title:'Космос оставляет не только открытия',text:'На изображении бывают следы помех. Один яркий сигнал не доказывает существование движущегося объекта. Его нужно сопоставить с другими наблюдениями и сведениями о качестве снимка. Именно поэтому результат алгоритма проверяет исследователь.',links:[['Данные и качество наблюдений ZTF','https://irsa.ipac.caltech.edu/data/ZTF/docs/releases/ztf_release_notes.html']]}
 };
-function science(){const s=stories[current().story];const items=[el('p',s.text)];for(const [title,url]of s.links){const a=el('a',title);a.href=url;a.target='_blank';a.rel='noopener noreferrer';items.push(a);}if(current().id==='brightness-01')items.push(el('p','Шкала 100 → 34 относится к изменившемуся свету выбранной области на разностных снимках ZTF. Она не равна полной светимости сверхновой.','small'));modal(s.title,items);}
+function science(){if(['motion','supernova'].includes(current().story)){discovery(current().story==='motion'?0:1);return;}const s=stories[current().story];const items=[el('p',s.text)];for(const [title,url]of s.links){const a=el('a',title);a.href=url;a.target='_blank';a.rel='noopener noreferrer';items.push(a);}if(current().id==='brightness-01')items.push(el('p','Шкала 100 → 34 относится к изменившемуся свету выбранной области на разностных снимках ZTF. Она не равна полной светимости сверхновой.','small'));modal(s.title,items);}
 function help(){
  hint=Math.min(3,hint+1);let message;
  if(hint===1)message='Сначала поочерёдно открой снимки 1 и 2. Смотри, какие точки остаются на месте, а какие отличаются.';
  else if(hint===2)message=current().kind==='motion'?'Попробуй ползунок «Убрать неизменившиеся звёзды». Парные следы могут показать смещение. Затем проверь третий снимок.':'Выбирай светлую область далеко от края. Для поиска ослабления пригодится инструмент «Свет».';
- else{const d=current().data;let p;if(current().kind==='motion'){const m=LaunchModel.scan(d,'movement').candidates[0];p=m?.point;}else if(current().id==='brightness-01'){p=d.sources[0].find(s=>M.light(d.id,{status:'selected',point:s}).outcome==='faded');}else{p=d.sources[0].filter(s=>s.x>12&&s.x<115&&s.y>12&&s.y<115).sort((a,b)=>b.peak-a.peak)[0];}
+ else{const d=current().data;let p;if(current().kind==='motion'){const m=LaunchModel.scan(d,'movement').candidates[0];p=m?.point;if(!p)p=d.sources[1].find(point=>M.canSave(M.motion(d.id,TrackingModel.select(d,point.x,point.y))));}else if(current().id==='brightness-01'){p=d.sources[0].find(s=>M.light(d.id,{status:'selected',point:s}).outcome==='faded');}else{p=d.sources[0].filter(s=>s.x>12&&s.x<115&&s.y>12&&s.y<115).sort((a,b)=>b.peak-a.peak)[0];}
   message=p?'Сравни точки в выделенном участке. Прямоугольник — подсказка, а не результат проверки.':'Попробуй другой инструмент. Если версий нет, это тоже можно сохранить с объяснением.';if(p){hintPoint=p;epoch=current().kind==='motion'?1:0;}}
  $('hint-text').textContent=message;render();
 }
@@ -266,11 +327,11 @@ for(const [i,id]of ['intro-a','intro-b'].entries())$(id).getContext('2d').drawIm
 try{const saved=localStorage.getItem(storageKey);if(saved){session=M.restore(JSON.parse(saved));$('resume').hidden=false;$('save-note').textContent='Есть сохранённая смена: '+session.records.length+' наблюдений.';}}catch{$('save-note').textContent='Предыдущее сохранение прочитать не удалось. Можно начать новую смену.';}
 $('nika-portrait').src=NIGHTSHIFT_ART.mentor;
 $('room-scene').addEventListener('roomready',()=>{$('start').disabled=false;$('start').textContent='Принять смену →';});
-room=ObservatoryRoom({host:$('room-scene'),onLayout:places=>{for(const [key,id]of [['map','room-map'],['instrument','room-instrument'],['board','room-board']]){const b=$(id),half=(b.offsetWidth||(places.mobile?110:175))/2;b.style.left=Math.max(half+8,Math.min(innerWidth-half-8,places[key].x))+'px';b.style.top=places[key].y+'px';}}});
-skyNavigation=ObservatorySky({canvas:$('celestial-map'),onAim:aligned=>{$('map-capture').disabled=!aligned;$('map-capture').textContent=aligned?'Открыть архив этого участка →':'Сначала наведи прицел';$('map-feedback').textContent=aligned?'Есть! Теперь откроем снимки этого участка.':'Совмести участок с центром прицела.';}});
+room=ObservatoryRoom({host:$('room-scene'),onLayout:places=>{for(const [key,id]of [['mosaic','room-mosaic'],['map','room-map'],['instrument','room-instrument'],['board','room-board']]){const b=$(id),half=(b.offsetWidth||(places.mobile?110:175))/2;b.style.left=Math.max(half+8,Math.min(innerWidth-half-8,places[key].x))+'px';b.style.top=places[key].y+'px';}}});
+skyNavigation=ObservatorySky({canvas:$('celestial-map'),onExplore:exploreCard,onPattern:patternProgress,onAim:aligned=>{$('map-capture').disabled=!aligned;$('map-capture').textContent=aligned?'Открыть архив этого участка →':'Сначала наведи прицел';$('map-feedback').textContent=aligned?'Есть! Теперь откроем снимки этого участка.':'Совмести участок с центром прицела.';}});
 $('room-map').onclick=openMap;$('room-instrument').onclick=enterInstrument;$('room-board').onclick=journal;
 $('room-back').onclick=()=>{if(stage==='game'&&session.records.some(r=>r.caseId===session.caseId&&M.canSave(r)))returnFromResearch();else goRoom(roomTarget);};
 $('map-focus').onclick=()=>skyNavigation.focusTarget();$('map-capture').onclick=()=>{if(!skyNavigation.isAligned())return;session.aimedCase=roomTarget;tone('save');goRoom(roomTarget);};
-$('overlay').addEventListener('close',()=>room.resume());
-showStage('welcome');window.night={get session(){return session;},get state(){return {stage,phase,epoch,method,selected,result,scan,playing};}};
+$('overlay').addEventListener('close',()=>{room.resume();skyNavigation?.resume();});
+setupExtras();showStage('welcome');window.night={get session(){return session;},get state(){return {stage,phase,epoch,method,selected,result,scan,playing};}};
 })();

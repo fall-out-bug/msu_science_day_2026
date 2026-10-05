@@ -28,7 +28,7 @@ with sync_playwright() as pw:
         return page.locator('#g-room-scene canvas').evaluate('e=>e.toDataURL()')
 
     def sky_red():
-        return page.locator('#g-room-scene canvas').evaluate('e=>e.getContext("2d").getImageData(Math.round(e.width*.58),Math.round(e.height*.32),1,1).data[0]')
+        return page.locator('#g-room-scene canvas').evaluate('e=>e.getContext("2d").getImageData(Math.round(e.width*.6),Math.round(e.height*.39),1,1).data[0]')
 
     def nav():
         page.locator('#g-room-map').click()
@@ -80,7 +80,7 @@ with sync_playwright() as pw:
     dawn_red = sky_red()
     check('dawn actually brightens the painted sky over time', dawn_red > night_red+70 and night_red < mid_red < dawn_red)
     check('ending keeps the room visible', page.locator('#g-room-scene').evaluate('e=>getComputedStyle(e).filter') == 'none')
-    check('ending describes the constructed instrument', 'Ты собрал прибор' in page.locator('#g-ending-copy').inner_text())
+    check('ending names the algorithm the player constructed', 'Ты собрал алгоритм поиска' in page.locator('#g-ending-copy').inner_text())
     page.screenshot(path=str(OUT/'scene-ending-dawn.png'))
 
     for width, height in [(1280, 720), (900, 600), (390, 844)]:

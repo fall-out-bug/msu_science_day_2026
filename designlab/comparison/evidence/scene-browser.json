@@ -10,7 +10,7 @@
     "finale immediately exposes its actions",
     "dawn actually brightens the painted sky over time",
     "ending keeps the room visible",
-    "ending describes the constructed instrument",
+    "ending names the algorithm the player constructed",
     "#g-continue is reachable at 1280",
     "#g-ending-journal is reachable at 1280",
     "#g-export is reachable at 1280",
