@@ -2,13 +2,14 @@
 """Exercise actual sky aiming, room receipts, persistence, and physical controls."""
 from pathlib import Path
 from playwright.sync_api import sync_playwright
+from browser_support import launch_chromium
 import json,sys,os
 base=Path(__file__).resolve().parent;entry=sys.argv[1] if len(sys.argv)>1 else (base/'night.html').as_uri();out=Path(os.environ.get('NIGHT_EVIDENCE_DIR',str(base/'evidence')));out.mkdir(exist_ok=True);checks=[];errors=[]
 def check(name,ok):
  if not ok: raise AssertionError(name)
  checks.append(name)
 with sync_playwright() as p:
- browser=p.chromium.launch(executable_path=str(sorted((Path.home()/'.cache/ms-playwright').glob('chromium-*/chrome-linux/chrome'))[-1]),headless=True)
+ browser=launch_chromium(p)
  page=browser.new_page(viewport={'width':1440,'height':1000},reduced_motion='no-preference');page.on('pageerror',lambda e:errors.append(str(e)));page.goto(entry);page.locator('#g-start').click()
  def snap(name):page.screenshot(path=str(out/('world-'+name+'.png')))
  def nav():

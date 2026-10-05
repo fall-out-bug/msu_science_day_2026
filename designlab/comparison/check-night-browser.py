@@ -4,6 +4,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 import json, os, sys
 from playwright.sync_api import sync_playwright
+from browser_support import launch_chromium
 
 HERE = Path(__file__).resolve().parent
 ENTRY = sys.argv[1] if len(sys.argv) > 1 else (HERE / "night.html").as_uri()
@@ -18,8 +19,7 @@ def check(name, ok):
     checks.append(name)
 
 def chrome(pw):
-    cached = sorted((Path.home()/".cache/ms-playwright").glob("chromium-*/chrome-linux/chrome"))
-    return pw.chromium.launch(headless=True, executable_path=os.environ.get("PW_CHROMIUM") or str(cached[-1]))
+    return launch_chromium(pw)
 
 with sync_playwright() as pw:
     browser = chrome(pw)

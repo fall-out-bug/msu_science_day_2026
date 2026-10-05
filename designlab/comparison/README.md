@@ -4,6 +4,10 @@
 использует этот файл как главную страницу. Прежний стенд механик остаётся
 в `index.html` исходников и на `/lab.html` в контейнере.
 
+Последний проверенный выпуск: `2026.10.05-arkhyz.1`.
+Проверка переноса на Mac, выпуск и восстановление сервиса:
+[`release-2026-10-05-mac.md`](../../docs/redesign-2026-10-04/release-2026-10-05-mac.md).
+
 - 3, 6 или 9 исследований реальных участков. Режим 6 — основная смена.
 - Обсерватория с Никой → карта звёздного неба → наведение на реальный участок →
   снимки в приборе → проверка → возвращение с результатом на доску.
@@ -336,3 +340,41 @@ Compose-проект `sd2026-comparison`, контейнер `sd2026-comparison-
 и `SD2026_COMPARISON_PORT` меняют привязку. Основная игра на 8080 — другой сервис.
 Образ содержит только приложение и лицензии, Nginx запрещает кеширование.
 Внешняя сеть для игры не нужна. Phaser поставлен локально, лицензии в `vendor/`.
+
+## Проверка текущей игры на macOS и Linux
+
+Из корня репозитория:
+
+```sh
+python3 -m venv .venv
+.venv/bin/pip install playwright pillow
+.venv/bin/playwright install chromium
+node designlab/comparison/check-night-model.cjs
+node designlab/comparison/check-learning.cjs
+node designlab/comparison/check-archive.cjs
+.venv/bin/python designlab/comparison/check-night-browser.py
+.venv/bin/python designlab/comparison/check-world-browser.py
+.venv/bin/python designlab/comparison/check-scene-browser.py
+.venv/bin/python designlab/comparison/check-exploration-browser.py
+.venv/bin/python designlab/comparison/build-night.py
+```
+
+Четыре проверки кампании выбирают браузер через `browser_support.py`:
+`PW_CHROMIUM`, затем существующий Linux/ARM-бинарник, затем штатный браузер
+Playwright. Можно задать `PLAYWRIGHT_BROWSERS_PATH` для отдельного каталога
+браузеров и `NIGHT_EVIDENCE_DIR` для отчётов. Каталог отчётов должен существовать.
+После распаковки ZIP передайте `file:///полный/путь/index.html` первым аргументом
+`check-night-browser.py` и `check-exploration-browser.py`.
+
+Если после перезапуска Sparky публикация недоступна, сначала проверьте
+`docker inspect sd2026-comparison-web-1` и наличие адреса `192.168.50.12`.
+Ошибка `cannot assign requested address` означает, что при запуске Docker
+этот адрес ещё не появился. После его появления восстановите только сервис игры:
+
+```sh
+docker compose -f compose.comparison.yaml up -d --force-recreate --no-build --pull never --no-deps web
+curl --fail http://192.168.50.12:8081/ -o /dev/null
+```
+
+Один `docker start` в этом состоянии может оставить контейнер без сети:
+статус `running` не доказывает доступность игры. Привязка к LAN-адресу сохранена.

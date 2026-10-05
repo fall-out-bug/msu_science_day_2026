@@ -2,6 +2,7 @@
 """Prove the visible finale, animation pause, and reduced-motion behavior via UI."""
 from pathlib import Path
 from playwright.sync_api import sync_playwright
+from browser_support import launch_chromium
 import json, os, sys
 
 HERE = Path(__file__).resolve().parent
@@ -16,8 +17,7 @@ def check(name, ok):
     checks.append(name)
 
 with sync_playwright() as pw:
-    chrome = sorted((Path.home()/'.cache/ms-playwright').glob('chromium-*/chrome-linux/chrome'))[-1]
-    browser = pw.chromium.launch(executable_path=str(chrome), headless=True)
+    browser = launch_chromium(pw)
     page = browser.new_page(viewport={'width': 1440, 'height': 1000}, reduced_motion='no-preference')
     page.on('pageerror', lambda error: errors.append(str(error)))
     page.goto(ENTRY)

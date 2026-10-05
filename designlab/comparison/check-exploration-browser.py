@@ -4,6 +4,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 import json, os, sys
 from playwright.sync_api import sync_playwright
+from browser_support import launch_chromium
 HERE=Path(__file__).resolve().parent
 ENTRY=sys.argv[1] if len(sys.argv)>1 else (HERE/'night.html').as_uri()
 OUT=Path(os.environ.get('NIGHT_EVIDENCE_DIR',str(HERE/'evidence'))); OUT.mkdir(exist_ok=True)
@@ -12,7 +13,7 @@ def check(name,value):
  if not value: raise AssertionError(name)
  checks.append(name)
 with sync_playwright() as pw:
- browser=pw.chromium.launch(headless=True,executable_path=str(sorted((Path.home()/'.cache/ms-playwright').glob('chromium-*/chrome-linux/chrome'))[-1]))
+ browser=launch_chromium(pw)
  page=browser.new_page(viewport={'width':1280,'height':720},reduced_motion='reduce')
  page.set_default_timeout(6000)
  page.on('pageerror',lambda e:errors.append(str(e)))

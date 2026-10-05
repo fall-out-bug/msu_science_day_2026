@@ -39,7 +39,7 @@ function motion(id,selection){
 function light(id,selection){
  const r=BrightnessModel.measure(byId(id).data,selection);
  const faded=r.outcome==='faded',stable=r.outcome==='stable';
- return recordBase(id,'fading',r.outcome,faded?'Свет заметно ослаб':stable?'Яркость почти не изменилась':'Для вывода не хватает точности',faded?'Изменившийся свет этой области: 100 → '+Math.round(100*r.ratio)+'. Это свет сверх архивного фона, а не вся яркость звезды.':stable?'Общая яркость выбранной точки почти та же. Попробуй сравнить другие области.':'Измерению мешают шум, соседние источники или край кадра. Такой результат нельзя выдавать за находку.',{point:r.point,ratios:faded?[100,Math.round(100*r.ratio)]:stable?[100,Math.round(100*(1+r.scienceChangeFraction))]:null,reason:r.reason,product:faded?'difference':'science'});
+ return recordBase(id,'fading',r.outcome,faded?'Свет заметно ослаб':stable?'Яркость почти не изменилась':'Для вывода не хватает точности',faded?'Сравниваем свет, добавившийся относительно старого снимка: на первой дате — 100 условных единиц, на второй — '+Math.round(100*r.ratio)+'. Это не вся яркость звезды.':stable?'Общая яркость выбранной точки почти та же. Попробуй сравнить другие области.':'Измерению мешают шум, соседние источники или край кадра. Такой результат нельзя выдавать за находку.',{point:r.point,ratios:faded?[100,Math.round(100*r.ratio)]:stable?[100,Math.round(100*(1+r.scienceChangeFraction))]:null,reason:r.reason,product:faded?'difference':'science'});
 }
 function photometry(id,p){
  const d=byId(id).data,ms=d.arrays.map(a=>LaunchModel.aperture(a,p));
