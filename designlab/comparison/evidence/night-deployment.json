@@ -1,8 +1,8 @@
 {
   "date": "2026-10-05",
-  "version": "2026.10.05-dawn",
+  "version": "2026.10.05-ready",
   "url": "http://192.168.50.12:8081/",
-  "image": "sha256:4f4f4ef9b50199076287820a3e119f1cff274b555955594da6f8d0c133b8326d",
+  "image": "sha256:03319a06dce9cb74a181a67d2d6771003d07dfccfe450911e869a43d26036195",
   "assets": [
     {
       "file": "index.html",
@@ -16,7 +16,7 @@
     },
     {
       "file": "night.js",
-      "sha256": "8911cd95032be90b351e09134f02905bca3659eb3b541f84f5eb6675a25b046b",
+      "sha256": "05740615b777b837966f3c9ce97eef2ec7635733b817fbd735b2e6bfae4d969b",
       "cacheControl": "no-store"
     },
     {
@@ -185,17 +185,18 @@
       "cacheControl": "no-store"
     }
   ],
-  "zipBytes": 9861054,
-  "zipSha256": "9da211f36546a1ce2c4e569f0819eaf115e3fa4437b2a39c3440dbabb80d38ca",
-  "offlineEntry": "file:///tmp/science-dawn-offline-8rc053jn/index.html",
+  "zipBytes": 9928908,
+  "zipSha256": "3b646bbec3a13d94641c4ef04a0d5761c3b98091f45630f2bafc23fe42d8cdd3",
+  "offlineEntry": "file:///tmp/science-ready-offline-45410tu3/index.html",
   "main8080Unchanged": true,
-  "main8080": "9c629ca6100c2f17e8672ff297e73a06e6f3042867ffb4cbaa214e35274c7b81 2026-10-02T19:01:53.40672471Z",
+  "main8080": "sha256:b80e39a8f50ae05fcbe6d856dab2588355acc24ea27a489d7025855a4ce64f3e 2026-10-02T19:01:53.40672471Z",
   "browserChecks": {
-    "http": 217,
-    "file": 217,
-    "worldHttp": 36,
-    "sceneHttp": 29
+    "http": 230,
+    "file": 230,
+    "worldSource": 36,
+    "sceneSource": 29
   },
+  "sourceAssetsMatchPublished": true,
   "browserErrors": [],
   "externalRequests": []
 }

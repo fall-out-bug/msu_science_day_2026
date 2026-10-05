@@ -38,6 +38,7 @@ function openCase(id,review=false){
  cancel();session.caseId=id;epoch=current().kind==='light'||current().kind==='photometry'?0:1;selected=null;result=null;scan=null;selectedCandidate=null;hint=0;hintPoint=null;subtract=0;$('subtract').value=0;
  phase='choose';method=current().kind==='light'||current().kind==='photometry'?'fading':current().id==='s07'&&session.learningSeen?'learning':'movement';
  if(review){result=session.records.find(r=>r.caseId===id)||null;phase=result?(M.canSave(result)?'saved':'result'):'choose';if(result)method=result.method;}
+ $('candidates').replaceChildren();$('sky-status').textContent=result?.summary||'';
  showStage('game');say(result?result.detail:current().kind==='auto'?'Выбери, какое изменение поручить искать прибору.':'Сравни кадры кнопками под снимком. Нажми на точку, которую хочешь проверить.');persist();render();$('title').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
 }
 function nextUnfinished(){return M.cases.slice(0,session.length).find(c=>!session.records.some(r=>r.caseId===c.id&&M.canSave(r)));}
@@ -95,6 +96,7 @@ function draw(){
  if(result?.prediction&&epoch===2)circle(result.prediction,'#ffcc81',15,true);
  if(scan&&!result&&phase==='scanned')scan.candidates.slice(0,50).forEach((c,i)=>{const p=c.point||c.points[epoch];circle(p,'#ffcc81',14);ctx.fillStyle='#ffcc81';ctx.font='bold 19px system-ui';ctx.fillText(String(i+1),(p.x+.5)*5+15,(p.y+.5)*5-12);});
  if($('source-picker').open&&!result&&!['learning','learned','scanned'].includes(phase)){ctx.font='bold 18px system-ui';(d.sources[epoch]||[]).forEach((p,i)=>{const x=Math.min(610,(p.x+.5)*5+12),y=Math.max(22,(p.y+.5)*5-12);ctx.fillStyle='#101725';ctx.fillRect(x-3,y-20,28,24);ctx.fillStyle='#ffdfae';ctx.fillText(String(i+1),x,y);});}
+ $('legend').textContent=['learning','learned'].includes(phase)?'Зелёный — твой проверенный след. Оранжевый — версия прибора. Найди отличающуюся точку.':subtract&&epoch>0?'Голубой: стало больше света. Оранжевый: стало меньше. Остаток может быть помехой.':result?.prediction?'Пунктирный круг — прогноз. Светлый круг — измеренное положение.':'Положение звёзд — наша опора при сравнении снимков.';
  $('frame-label').textContent='Снимок '+(epoch+1)+' · '+date(d.dates[epoch]);
  document.querySelectorAll('[data-epoch]').forEach(b=>{const i=+b.dataset.epoch;b.hidden=i>=d.arrays.length;b.setAttribute('aria-pressed',String(i===epoch));b.disabled=i>=d.arrays.length||(i===2&&!thirdAllowed());b.textContent='Снимок '+(i+1)+(i===2&&!thirdAllowed()?' · закрыт':'');});
  $('blink').textContent=playing?'Остановить':'Чередовать';$('blink').setAttribute('aria-pressed',String(playing));
@@ -117,7 +119,6 @@ function render(){
  $('source-picker').hidden=['scanning','scanned','learning','learned'].includes(phase)||!!result;
  $('difference').hidden=c.kind!=='motion'||epoch===0||['learning','learned'].includes(phase);
  $('subtract-value').textContent=subtract+'%';
- $('legend').textContent=['learning','learned'].includes(phase)?'Зелёный — твой проверенный след. Оранжевый — версия прибора. Найди отличающуюся точку.':subtract?'Голубой: стало больше света. Оранжевый: стало меньше. Остаток может быть помехой.':result?.prediction?'Пунктирный круг — прогноз. Светлый круг — измеренное положение.':'Положение звёзд — наша опора при сравнении снимков.';
  document.querySelectorAll('[data-tool]').forEach(b=>{const t=b.dataset.tool;const available=t==='movement'?session.installed.movement||c.id==='s02':t==='fading'?session.installed.fading||c.id==='brightness-01':session.learningSeen&&c.id==='s07';b.disabled=!available||tutorial||['scanning','learning','learned'].includes(phase);b.classList.toggle('active',t===method);b.setAttribute('aria-pressed',String(t===method));b.title=available?'':'Сначала проверь этот инструмент';});
  $('tools').hidden=['learning','learned'].includes(phase);
  $('learning-effect').hidden=!(c.id==='s07'&&session.learningSeen||phase==='learned');
@@ -162,7 +163,7 @@ function run(){
  if(n>30)$('candidates').append(el('p','Показаны первые 30 версий. Так много связей неудобно проверять: можно вернуться к примерам и улучшить отбор.','small'));
  tone();render();},reduced.matches?50:750);
 }
-function learningLesson(){cancel();$('candidates').replaceChildren();session.caseId='s02';result=null;selected=null;scan=null;selectedCandidate=null;phase='learning';epoch=2;subtract=0;showStage('game');$('sky-status').textContent='Предложенный след';say('Ты уже проверил движение на трёх снимках. Сравни с ним новую версию прибора: начало то же, а что случилось с концом?');[0,1,2].forEach(i=>$('candidates').append(button('Точка '+(i+1),()=>chooseLearningPoint(i))));render();}
+function learningLesson(){cancel();hint=0;hintPoint=null;$('subtract').value=0;$('candidates').replaceChildren();session.caseId='s02';result=null;selected=null;scan=null;selectedCandidate=null;phase='learning';epoch=2;subtract=0;showStage('game');$('sky-status').textContent='Предложенный след';say('Ты уже проверил движение на трёх снимках. Сравни с ним новую версию прибора: начало то же, а что случилось с концом?');[0,1,2].forEach(i=>$('candidates').append(button('Точка '+(i+1),()=>chooseLearningPoint(i))));render();}
 function chooseLearningPoint(i){const candidate=M.train.candidates.find(c=>c.id===LEARNING_DATA.correction.id).points,truth=session.records.find(r=>r.caseId==='s02')?.positions;if(!truth)return;if(Math.hypot(candidate[i].x-truth[i].x,candidate[i].y-truth[i].y)<3){say('Точка '+(i+1)+' совпадает с твоей проверкой. Ищи ту, где оранжевый след расходится с зелёным.');tone();return;}label('wrongLink');$('candidates').replaceChildren();}
 function label(value){
  M.label(session,value);phase='learned';
@@ -268,7 +269,7 @@ $('room-scene').addEventListener('roomready',()=>{$('start').disabled=false;$('s
 room=ObservatoryRoom({host:$('room-scene'),onLayout:places=>{for(const [key,id]of [['map','room-map'],['instrument','room-instrument'],['board','room-board']]){const b=$(id),half=(b.offsetWidth||(places.mobile?110:175))/2;b.style.left=Math.max(half+8,Math.min(innerWidth-half-8,places[key].x))+'px';b.style.top=places[key].y+'px';}}});
 skyNavigation=ObservatorySky({canvas:$('celestial-map'),onAim:aligned=>{$('map-capture').disabled=!aligned;$('map-capture').textContent=aligned?'Открыть архив этого участка →':'Сначала наведи прицел';$('map-feedback').textContent=aligned?'Есть! Теперь откроем снимки этого участка.':'Совмести участок с центром прицела.';}});
 $('room-map').onclick=openMap;$('room-instrument').onclick=enterInstrument;$('room-board').onclick=journal;
-$('room-back').onclick=()=>goRoom(stage==='map'?roomTarget:session.caseId);
+$('room-back').onclick=()=>{if(stage==='game'&&session.records.some(r=>r.caseId===session.caseId&&M.canSave(r)))returnFromResearch();else goRoom(roomTarget);};
 $('map-focus').onclick=()=>skyNavigation.focusTarget();$('map-capture').onclick=()=>{if(!skyNavigation.isAligned())return;session.aimedCase=roomTarget;tone('save');goRoom(roomTarget);};
 $('overlay').addEventListener('close',()=>room.resume());
 showStage('welcome');window.night={get session(){return session;},get state(){return {stage,phase,epoch,method,selected,result,scan,playing};}};

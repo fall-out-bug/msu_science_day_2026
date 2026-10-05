@@ -1,6 +1,6 @@
 {
   "title": "Ночная смена · Мастерская неба",
-  "version": "2026.10.05-dawn",
+  "version": "2026.10.05-ready",
   "entry": "index.html",
   "cases": 9,
   "modes": [
@@ -11,7 +11,7 @@
   "files": {
     "index.html": "d38033941897ed522435fe716240f7e9ad4e3fe799c4d9f5725da335618f6f6e",
     "night.css": "4fbd30d652d8c250fcb32db23d69e550193128ac6301e0a4fa4b3bfa827f3241",
-    "night.js": "8911cd95032be90b351e09134f02905bca3659eb3b541f84f5eb6675a25b046b",
+    "night.js": "05740615b777b837966f3c9ce97eef2ec7635733b817fbd735b2e6bfae4d969b",
     "night-model.js": "780d34d98bd714020e0acde25bfe67b189442ef6445107b31208fb9f1c64f4bb",
     "data.js": "8fdc3d8999e5367fe458f767e7e7cc9d9260bf6451bada8eccd3923312e72a95",
     "model.js": "e56cbb32e7f7661d96cc4dff4384ff6da8e8ab694cbd0c6595ef86cd9d4f0dbe",

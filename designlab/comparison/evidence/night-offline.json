@@ -1,5 +1,5 @@
 {
-  "count": 217,
+  "count": 230,
   "checks": [
     "welcome is initial and 6 is selected",
     "welcome does not overflow 1440",
@@ -13,12 +13,15 @@
     "s02: captured archive returns to the room",
     "s02: instrument opens the aimed observation",
     "start opens the first real observation",
+    "subtraction explains the colors while the slider moves",
+    "original frame does not claim difference colors",
     "Amosov point selection enables check",
     "third frame validates moving target",
     "movement instrument is installed",
     "s02: room replaces the research controls",
     "room opens the pending correction lesson",
     "learning correction scene begins",
+    "learning lesson clears hints from the motion exercise",
     "matching first point remains a question, not a label",
     "matching second point remains a question, not a label",
     "third differing point labels the wrong link",
@@ -31,6 +34,14 @@
     "brightness-01: instrument opens the aimed observation",
     "after examples the second investigation is opened",
     "main game does not expose raw candidate-count arithmetic",
+    "new observation clears the previous result banner",
+    "review names its saved observation",
+    "leaving an old journal observation returns to the pending field",
+    "brightness-01: room replaces the research controls",
+    "brightness-01: map opens with capture locked before aiming",
+    "brightness-01: coordinate aiming unlocks archive capture",
+    "brightness-01: captured archive returns to the room",
+    "brightness-01: instrument opens the aimed observation",
     "SN measurement is faded",
     "fading instrument is installed",
     "s07: room replaces the research controls",
@@ -54,6 +65,8 @@
     "launch-variable: captured archive returns to the room",
     "launch-variable: instrument opens the aimed observation",
     "weakmid field follows Gianni",
+    "new field has no clickable proposals from the previous field",
+    "new field has no previous saved-result banner",
     "automatic scan completes",
     "third observation exposes rebrightening case",
     "result is saved",
@@ -221,5 +234,5 @@
   ],
   "errors": [],
   "externalRequests": [],
-  "entry": "file:///tmp/science-dawn-offline-8rc053jn/index.html"
+  "entry": "file:///tmp/science-ready-offline-45410tu3/index.html"
 }

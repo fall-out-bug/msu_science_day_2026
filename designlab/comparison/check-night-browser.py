@@ -117,6 +117,16 @@ with sync_playwright() as pw:
     world()
     check("start opens the first real observation", page.locator("#g-game").is_visible() and page.locator("#g-title").inner_text() == "Поймать движение")
 
+    page.locator("#g-subtract").focus()
+    page.keyboard.press("End")
+    check("subtraction explains the colors while the slider moves", "Голубой" in page.locator("#g-legend").inner_text())
+    page.locator("[data-epoch='0']").click()
+    check("original frame does not claim difference colors", "Голубой" not in page.locator("#g-legend").inner_text())
+    page.locator("[data-epoch='1']").click()
+    page.locator("#g-subtract").focus()
+    page.keyboard.press("Home")
+    page.locator("#g-hint").click()
+
     # Amosov: a real click on the second frame drives the model.
     canvas(58, 68)
     check("Amosov point selection enables check", page.evaluate("night.state.phase") == "selected" and page.locator("#g-action").is_enabled())
@@ -127,6 +137,7 @@ with sync_playwright() as pw:
     check("movement instrument is installed", page.evaluate("night.session.installed.movement && night.state.phase === 'saved'"))
     action()
     check("learning correction scene begins", page.evaluate("night.state.phase") == "learning")
+    check("learning lesson clears hints from the motion exercise", page.locator("#g-hint-text").is_hidden())
     snap("learning-compare")
     page.locator("#g-candidates button").nth(0).click()
     check("matching first point remains a question, not a label", page.evaluate("night.session.learningLabel === null && night.state.phase === 'learning'"))
@@ -141,6 +152,15 @@ with sync_playwright() as pw:
     action()
     check("after examples the second investigation is opened", page.evaluate("night.session.caseId === 'brightness-01'"))
     check("main game does not expose raw candidate-count arithmetic", "991" not in page.locator("#g-game").inner_text())
+    check("new observation clears the previous result banner", page.locator("#g-sky-status").inner_text() == "")
+    page.locator("#g-journal-open").click()
+    page.locator("#g-overlay .observation-card button").first.click()
+    check("review names its saved observation", page.locator("#g-sky-status").inner_text() == page.evaluate("night.state.result.summary"))
+    page.locator("#g-room-back").click()
+    check("leaving an old journal observation returns to the pending field", page.evaluate("night.session.worldTarget === 'brightness-01'")
+          and page.locator("#g-room-map").is_enabled())
+    world()
+
 
     # SN: genuine click/measure/install.
     canvas(65, 64)
@@ -175,6 +195,9 @@ with sync_playwright() as pw:
     check("first learning proposal is a geometrically checked mover", page.evaluate("night.state.result.outcome") == "moving")
     save_next()
     check("weakmid field follows Gianni", page.evaluate("night.session.caseId === 'launch-variable'"))
+    check("new field has no clickable proposals from the previous field", page.locator("#g-candidates button").count() == 0)
+    check("new field has no previous saved-result banner", page.locator("#g-sky-status").inner_text() == "")
+
     page.locator("[data-tool='fading']").click()
     scan()
     page.locator("#g-candidates button").first.click()
