@@ -19,3 +19,17 @@ https://irsa.ipac.caltech.edu/Missions/ztf.html
 не команда настоящему телескопу и не новые открытия.
 Ника и смена — игровой рассказ. Обучаемый отбор работает локально
 методом ближайших примеров, без внешнего ИИ-сервиса.
+
+Карта неба: NASA SVS, Deep Star Maps 2020, https://svs.gsfc.nasa.gov/4851/
+Каталог 2058 звёзд: HYG v4.1 / David Nash, Astronexus. CC BY-SA 4.0.
+https://github.com/astronexus/HYG-Database
+Копия лицензии — vendor/SKY-CC-BY-SA-4.0.txt; SHA и преобразования — sky-provenance.json.
+Данные HYG в sky-navigation-data.js распространяются на тех же условиях CC BY-SA 4.0.
+Координаты участков — центры архивных окон ZTF (ICRF/J2000), world-provenance.json.
+Карта использует цилиндрическую проекцию; у полюсов она растягивает изображение.
+Это обзорный атлас, не увеличенный снимок телескопа: для исследования открываются
+отдельные реальные экспозиции ZTF по выбранным координатам.
+
+Обсерватория и Ника — ранее согласованные растровые иллюстрации проекта.
+Генерация и исходные описания: world-art-credits.md; преобразование и SHA: world-provenance.json.
+Комната: Phaser, MIT License, vendor/PHASER-LICENSE.md.

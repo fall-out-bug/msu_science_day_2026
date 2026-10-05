@@ -1,13 +1,24 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111b29"><title>Ночная смена · Мастерская неба</title><link rel="stylesheet" href="night.css"></head><body>
-<header class="topbar"><a class="wordmark" href="#">МАСТЕРСКАЯ НЕБА</a><span class="festival">Наука 0+ · факультет ИИ</span><div class="settings"><button id="g-sound" aria-pressed="false" title="Включить звук">Звук выкл.</button><button id="g-pause">Пауза</button></div></header>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111b29"><title>Ночная смена · Мастерская неба</title><link rel="stylesheet" href="night.css"><link rel="stylesheet" href="world.css"></head><body><div id="g-room-scene" aria-hidden="true"></div>
+<header class="topbar"><a class="wordmark" href="#">МАСТЕРСКАЯ НЕБА</a><span class="festival">Наука 0+ · факультет ИИ</span><div class="settings"><button id="g-room-back" hidden>В обсерваторию</button><button id="g-sound" aria-pressed="false" title="Включить звук">Звук выкл.</button><button id="g-pause">Пауза</button></div></header>
 <main>
 <section id="g-welcome" class="welcome">
-<p class="eyebrow">ТВОЯ ПЕРВАЯ НОЧНАЯ СМЕНА</p><h1>Научи прибор<br>замечать изменения.</h1>
-<p class="intro">Ты заметишь то, что легко пропустить среди звёзд. Соберёшь поисковик. И проверишь, справится ли он без твоих подсказок.</p>
-<div class="welcome-previews"><canvas id="g-intro-a" width="256" height="256" aria-label="Первое настоящее наблюдение"></canvas><span aria-hidden="true">→</span><canvas id="g-intro-b" width="256" height="256" aria-label="Второе наблюдение того же участка"></canvas></div>
-<p class="source-note">Это настоящие снимки телескопа. Точки между кадрами могут двигаться или менять яркость.</p>
+<p class="eyebrow">НАУКА 0+ · ТВОЯ ПЕРВАЯ ОБСЕРВАТОРИЯ</p><h1>Ночная смена</h1>
+<p class="intro">Небо меняется, пока мы спим. Вместе с Никой собери прибор, который поможет замечать эти изменения.</p>
+<div class="welcome-previews" hidden><canvas id="g-intro-a" width="256" height="256" aria-label="Первое настоящее наблюдение"></canvas><span aria-hidden="true">→</span><canvas id="g-intro-b" width="256" height="256" aria-label="Второе наблюдение того же участка"></canvas></div>
+<p class="source-note">Исследуем настоящие архивные снимки — из нашей маленькой обсерватории.</p>
 <fieldset id="g-length"><legend>Сколько исследований берём?</legend><label><input type="radio" name="length" value="3"> 3 · знакомство</label><label><input type="radio" name="length" value="6" checked> 6 · полная смена</label><label><input type="radio" name="length" value="9"> 9 · большой архив</label></fieldset>
-<div class="welcome-actions"><button id="g-start" class="primary">Принять смену →</button><button id="g-resume" hidden>Продолжить мою смену</button></div><p id="g-save-note" class="small"></p>
+<div class="welcome-actions"><button id="g-start" class="primary" disabled>Обсерватория загружается…</button><button id="g-resume" hidden>Продолжить мою смену</button></div><p id="g-save-note" class="small"></p>
+</section>
+<section id="g-room" hidden aria-label="Обсерватория">
+<div class="room-objective"><span class="eyebrow" id="g-room-chapter"></span><h1 id="g-room-title" tabindex="-1"></h1></div>
+<button id="g-room-map" class="room-place"><span>Карта неба</span><small>Выбрать участок</small></button>
+<button id="g-room-instrument" class="room-place"><span>Твой прибор</span><small id="g-instrument-status">Ждёт снимки</small></button>
+<button id="g-room-board" class="room-place"><span>Доска наблюдений</span><small id="g-board-status">Здесь будут твои результаты</small></button>
+<div class="room-dialog"><span class="eyebrow">НИКА</span><p id="g-room-result" class="room-result" hidden></p><p id="g-room-speech" role="status"></p><button id="g-room-next" class="primary" hidden></button></div>
+</section>
+<section id="g-map" hidden aria-label="Наведение на участок неба">
+<canvas id="g-celestial-map"></canvas><div class="map-brief"><span class="eyebrow">КАРТА ЗВЁЗДНОГО НЕБА</span><h1 id="g-map-title"></h1><p>Перемещай карту, чтобы совместить отмеченный участок с прицелом.</p></div>
+<div class="map-actions"><p id="g-map-feedback" role="status">Найди отмеченный участок.</p><button id="g-map-focus">Навести по координатам</button><button id="g-map-capture" class="primary" disabled>Сначала наведи прицел</button><small>Карта выбирает архивные наблюдения. Это не управление настоящим телескопом.</small></div>
 </section>
 <section id="g-game" hidden>
 <div class="shiftbar"><div><span class="eyebrow" id="g-chapter"></span><h1 id="g-title" tabindex="-1"></h1></div><button id="g-journal-open">Журнал <span id="g-count">0</span></button></div>
@@ -21,7 +32,7 @@
 <details id="g-source-picker"><summary>Выбрать точку кнопкой</summary><div id="g-points" class="point-buttons"></div></details>
 </section>
 <aside class="task-panel">
-<div class="nika"><span class="eyebrow">НИКА · НАПАРНИЦА ПО СМЕНЕ</span><p id="g-mission"></p></div>
+<div class="nika"><img id="g-nika-portrait" alt="Ника, напарница по смене"><span class="eyebrow">НИКА · НАПАРНИЦА ПО СМЕНЕ</span><p id="g-mission"></p></div>
 <div id="g-tools" class="tool-rack" aria-label="Инструменты"><button data-tool="movement">Движение <small>Проверка следа</small></button><button data-tool="fading">Свет <small>Измерение яркости</small></button><button data-tool="learning">По примерам <small>Обучаемый отбор</small></button></div>
 <p id="g-feedback" role="status" aria-live="polite"></p>
 <div id="g-learning-effect" class="learning-effect" hidden><p id="g-learning-count"></p><button id="g-learning-edit">Пересмотреть мой пример</button></div>
@@ -38,5 +49,5 @@
 <section id="g-ending" class="ending" hidden><p class="eyebrow">СМЕНА ЗАВЕРШЕНА</p><h1 tabindex="-1">Твой прибор работает.</h1><p id="g-ending-copy"></p><div class="ending-actions"><button id="g-continue" class="primary">Продолжить исследования →</button><button id="g-export">Забрать журнал</button><button id="g-new">Передать смену следующему игроку</button></div><div id="g-summary" class="summary"></div><p class="ending-idea">Наука начинается с любопытства. Изобретение — с вопроса: «А как научить прибор делать это самому?»</p></section>
 </main>
 <dialog id="g-overlay"><button id="g-close" class="close" aria-label="Закрыть">✕</button><div id="g-overlay-content"></div></dialog>
-<script src="data.js"></script><script src="model.js"></script><script src="tracking.js"></script><script src="brightness-data.js"></script><script src="brightness-model.js"></script><script src="launch-data.js"></script><script src="launch-model.js"></script><script src="learning-model.js"></script><script src="learning-data.js"></script><script src="archive-data.js"></script><script src="night-model.js"></script><script src="night.js"></script>
+<script src="data.js"></script><script src="model.js"></script><script src="tracking.js"></script><script src="brightness-data.js"></script><script src="brightness-model.js"></script><script src="launch-data.js"></script><script src="launch-model.js"></script><script src="learning-model.js"></script><script src="learning-data.js"></script><script src="archive-data.js"></script><script src="night-model.js"></script><script src="world-art.js"></script><script src="world-targets.js"></script><script src="vendor/phaser.min.js"></script><script src="sky-navigation-data.js"></script><script src="sky-navigation.js"></script><script src="world-room.js"></script><script src="night.js"></script>
 </body></html>

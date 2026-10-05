@@ -1,11 +1,11 @@
 {
-  "date": "2026-10-04",
+  "date": "2026-10-05",
   "url": "http://192.168.50.12:8081/",
-  "image": "sha256:d7423ab54bbb2fab0e3fd3c3fae480fb99caef9c0b8c42a2318c60bb49506b88",
+  "image": "sha256:faf1c8be994e24e08692cf2a5ca010ed7e25e14dc452affadb88ec1fef33a188",
   "assets": [
     {
       "file": "index.html",
-      "sha256": "9dfdc21d9554ebf7cd5674c823875cc5656bedbd81eb4abe2212d9c22d76e01d",
+      "sha256": "b7510922d5034f55751900f17a738fb3c36161c05e028b8a5acd7a2b48a406d3",
       "cacheControl": "no-store"
     },
     {
@@ -15,7 +15,7 @@
     },
     {
       "file": "night.js",
-      "sha256": "53bfbee5f3b725d8be9ff7d47b202e3416ba8ad39ef701cce9beafcbb81add3e",
+      "sha256": "e6a0a5241ca4542a51181adc6840c7f9426011906ce9a5b63e9d0a4895fed8d8",
       "cacheControl": "no-store"
     },
     {
@@ -100,28 +100,85 @@
     },
     {
       "file": "NIGHT-SOURCES.txt",
-      "sha256": "0f078c4615b9367a3634ed3457a95953ef970055d9ec816988172138fe1ebdbf",
+      "sha256": "c32c9a4cded9f1d12ec9961e9d564e788cecc5c47c2a5db9f6dfc74aacb9acdb",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world.css",
+      "sha256": "51fbc622c73fec989eee10604e9aa6002f82a207f0ac295e7e0bd50fa651139d",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-room.js",
+      "sha256": "a31f0a4ba07e9dc5de3af846e68ee435f012ce1abe3f6a369bbdbf82aa594b92",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-art.js",
+      "sha256": "6fe29fbdbeca577f49e86881fc177d6fc29f30593c4a40dedecc6222509f20f3",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-art-credits.md",
+      "sha256": "c94ae0691c284c3af96468c69134921fcf5dd8bbbd762866c050f159507fefe7",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-targets.js",
+      "sha256": "763e1faa28ef3c7344e00a370b165e948f8dae2ee04c0cd15894f36bb49704a9",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-provenance.json",
+      "sha256": "4e518caf7a98dd3d04dae24b2f6f9915a923872579c4a85dc245376407e4b649",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "sky-navigation.js",
+      "sha256": "b7ea87d96093dad29102f5ab97770717a405926602372750837e3e3ac6d8b719",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "sky-navigation-data.js",
+      "sha256": "450cb9b6f69ffd09e2dcfa8ac00968cba6eff70ed9dbcac674009edf02bb3463",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "sky-provenance.json",
+      "sha256": "fa34e78594d11465bd3339263c554b268c6d909e1b6d99d0f2a43819d2e99baf",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/phaser.min.js",
+      "sha256": "66348b1b5141e49b7d5ebbe688cddcb502eab1cb00f21c538686a5b2c5abe4de",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/PHASER-LICENSE.md",
+      "sha256": "d59c20a9deb5dc240614b428dce5246ae561d15efeeebea0e069d73f0a78fbff",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/EVENTEMITTER3-LICENSE.txt",
+      "sha256": "3aecc12b1cb28832b5f65ab64291de96568c3f236a74d646281b4491f7bcadbf",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/SKY-CC-BY-SA-4.0.txt",
+      "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5",
       "cacheControl": "no-store"
     }
   ],
-  "zipSha256": "8cde1f49da84759945be5d43c3543af3f72a4ccd857e5af594fd49c7960e3943",
-  "main8080Unchanged": {
-    "id": "9c629ca6100c2f17e8672ff297e73a06e6f3042867ffb4cbaa214e35274c7b81",
-    "startedAt": "2026-10-02T19:01:53.40672471Z"
+  "zipBytes": 5319911,
+  "zipSha256": "451387e3f61f4c142a85acc25f56797c31a224eaff30d375a2e552d507f2dfe9",
+  "offlineEntry": "file:///tmp/science-world-offline-whlgdxvx/index.html",
+  "main8080Unchanged": true,
+  "main8080": "9c629ca6100c2f17e8672ff297e73a06e6f3042867ffb4cbaa214e35274c7b81 2026-10-02T19:01:53.40672471Z",
+  "browserChecks": {
+    "http": 205,
+    "file": 205,
+    "worldHttp": 36
   },
-  "browser": {
-    "count": 89,
-    "entry": "http://192.168.50.12:8081/",
-    "errors": []
-  },
-  "offlineZip": {
-    "count": 89,
-    "entry": "file:///tmp/night-shift-release-check/index.html",
-    "errors": []
-  },
-  "legacy": {
-    "count": 58,
-    "entry": "http://192.168.50.12:8081/lab.html",
-    "errors": []
-  }
+  "browserErrors": [],
+  "externalRequests": []
 }

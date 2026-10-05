@@ -1,6 +1,6 @@
 {
-  "title": "Мастерская неба",
-  "version": "2026.10.04",
+  "title": "Ночная смена · Мастерская неба",
+  "version": "2026.10.05-observatory",
   "entry": "index.html",
   "cases": 9,
   "modes": [
@@ -9,9 +9,9 @@
     9
   ],
   "files": {
-    "index.html": "9dfdc21d9554ebf7cd5674c823875cc5656bedbd81eb4abe2212d9c22d76e01d",
+    "index.html": "b7510922d5034f55751900f17a738fb3c36161c05e028b8a5acd7a2b48a406d3",
     "night.css": "4fbd30d652d8c250fcb32db23d69e550193128ac6301e0a4fa4b3bfa827f3241",
-    "night.js": "53bfbee5f3b725d8be9ff7d47b202e3416ba8ad39ef701cce9beafcbb81add3e",
+    "night.js": "e6a0a5241ca4542a51181adc6840c7f9426011906ce9a5b63e9d0a4895fed8d8",
     "night-model.js": "780d34d98bd714020e0acde25bfe67b189442ef6445107b31208fb9f1c64f4bb",
     "data.js": "8fdc3d8999e5367fe458f767e7e7cc9d9260bf6451bada8eccd3923312e72a95",
     "model.js": "e56cbb32e7f7661d96cc4dff4384ff6da8e8ab694cbd0c6595ef86cd9d4f0dbe",
@@ -28,6 +28,19 @@
     "launch-provenance.json": "3e5eb5ad278110d5dd493a29290ef097a595cddb2ca9122cc7066d54d59105ff",
     "learning-provenance.json": "0e1f9d62810dc3d76c0ffcce1509b9bfea8faad6f0fcccf200f5e8ced2bca1ea",
     "archive-provenance.json": "172f154f78ff646dbbb897abb4f080d1c798c4811a132e1feca3eea125b34fff",
-    "NIGHT-SOURCES.txt": "0f078c4615b9367a3634ed3457a95953ef970055d9ec816988172138fe1ebdbf"
+    "NIGHT-SOURCES.txt": "c32c9a4cded9f1d12ec9961e9d564e788cecc5c47c2a5db9f6dfc74aacb9acdb",
+    "world.css": "51fbc622c73fec989eee10604e9aa6002f82a207f0ac295e7e0bd50fa651139d",
+    "world-room.js": "a31f0a4ba07e9dc5de3af846e68ee435f012ce1abe3f6a369bbdbf82aa594b92",
+    "world-art.js": "6fe29fbdbeca577f49e86881fc177d6fc29f30593c4a40dedecc6222509f20f3",
+    "world-art-credits.md": "c94ae0691c284c3af96468c69134921fcf5dd8bbbd762866c050f159507fefe7",
+    "world-targets.js": "763e1faa28ef3c7344e00a370b165e948f8dae2ee04c0cd15894f36bb49704a9",
+    "world-provenance.json": "4e518caf7a98dd3d04dae24b2f6f9915a923872579c4a85dc245376407e4b649",
+    "sky-navigation.js": "b7ea87d96093dad29102f5ab97770717a405926602372750837e3e3ac6d8b719",
+    "sky-navigation-data.js": "450cb9b6f69ffd09e2dcfa8ac00968cba6eff70ed9dbcac674009edf02bb3463",
+    "sky-provenance.json": "fa34e78594d11465bd3339263c554b268c6d909e1b6d99d0f2a43819d2e99baf",
+    "vendor/phaser.min.js": "66348b1b5141e49b7d5ebbe688cddcb502eab1cb00f21c538686a5b2c5abe4de",
+    "vendor/PHASER-LICENSE.md": "d59c20a9deb5dc240614b428dce5246ae561d15efeeebea0e069d73f0a78fbff",
+    "vendor/EVENTEMITTER3-LICENSE.txt": "3aecc12b1cb28832b5f65ab64291de96568c3f236a74d646281b4491f7bcadbf",
+    "vendor/SKY-CC-BY-SA-4.0.txt": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5"
   }
 }

@@ -5,6 +5,7 @@ const $=id=>document.getElementById('g-'+id), M=NightModel, storageKey='science-
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let session=null, stage='welcome', phase='choose', epoch=1, selected=null, result=null, scan=null, selectedCandidate=null, method='movement', hint=0, hintPoint=null, subtract=0, playing=false, timer=null, runTimer=null, generation=0, sound=false, audio=null;
 const frames=new Map();
+let room=null,skyNavigation=null,roomTarget='s02',roomReceipt=null;
 const current=()=>M.byId(session?.caseId||'s02');
 const summaryCount=()=>session.records.filter(r=>M.cases.slice(0,session.length).some(c=>c.id===r.caseId)&&M.canSave(r)).length;
 const date=s=>new Date(s).toLocaleString('ru-RU',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'UTC'})+' UTC';
@@ -27,7 +28,11 @@ function raw(d,i){
 function stop(){clearInterval(timer);timer=null;playing=false;}
 function cancel(){stop();clearTimeout(runTimer);generation++;}
 function persist(){try{localStorage.setItem(storageKey,JSON.stringify(session));$('autosave').textContent='Смена сохранена на этом устройстве.';}catch{$('autosave').textContent='Автосохранение недоступно. Не закрывай вкладку; журнал можно скачать в конце.';}}
-function showStage(value){stage=value;for(const name of ['welcome','game','ending'])$(name).hidden=name!==value;$('pause').hidden=value!=='game';}
+function showStage(value){
+ stage=value;for(const name of ['welcome','room','map','game','ending'])$(name).hidden=name!==value;
+ document.body.dataset.scene=value;$('pause').hidden=['welcome','ending'].includes(value);$('room-back').hidden=['welcome','room'].includes(value);
+ if(value!=='map')skyNavigation?.hide();room?.setMode(value);if(session)session.worldScene=value;
+}
 function say(text){$('feedback').textContent=text;}
 function openCase(id,review=false){
  cancel();session.caseId=id;epoch=current().kind==='light'||current().kind==='photometry'?0:1;selected=null;result=null;scan=null;selectedCandidate=null;hint=0;hintPoint=null;subtract=0;$('subtract').value=0;
@@ -35,7 +40,37 @@ function openCase(id,review=false){
  if(review){result=session.records.find(r=>r.caseId===id)||null;phase=result?(M.canSave(result)?'saved':'result'):'choose';if(result)method=result.method;}
  showStage('game');say(result?result.detail:current().kind==='auto'?'Выбери, какое изменение поручить искать прибору.':'Сравни кадры кнопками под снимком. Нажми на точку, которую хочешь проверить.');persist();render();$('title').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
 }
-function start(length){session=M.fresh(length);persist();openCase('s02');tone();}
+function nextUnfinished(){return M.cases.slice(0,session.length).find(c=>!session.records.some(r=>r.caseId===c.id&&M.canSave(r)));}
+function roomState(){const field=M.byId(session.aimedCase||session.records.at(-1)?.caseId);return {session,receipt:roomReceipt?.caseId,monitors:field?[raw(field.data,0),raw(field.data,1)]:[],previews:session.records.map(r=>({id:r.caseId,canvas:raw(M.byId(r.caseId).data,Math.min(1,M.byId(r.caseId).data.arrays.length-1))}))};}
+function goRoom(id,receipt=null){
+ cancel();if(phase==='scanning')phase='choose';roomTarget=id||nextUnfinished()?.id||session.caseId;roomReceipt=receipt;
+ session.worldTarget=roomTarget;session.worldReceipt=receipt?.caseId||null;showStage('room');room.setState(roomState());
+ const c=M.byId(roomTarget),complete=summaryCount()>=session.length,lesson=session.installed.movement&&!session.learningSeen,ready=session.aimedCase===roomTarget;
+ $('room-chapter').textContent='ТВОЯ ОБСЕРВАТОРИЯ · '+summaryCount()+' / '+session.length;
+ $('room-title').textContent=complete?'Смена собрана на твоей доске':lesson?'Первый инструмент заработал':ready?'Снимки ждут в приборе':c.title;
+ const leads={s02:'Я Ника. Давай соберём прибор, который заметит изменения среди звёзд. Открой карту слева — первое поле уже отмечено.', 'brightness-01':'Поиск движения уже работает. Но что, если точка стоит на месте и меняет яркость? Посмотрим на другое поле.',s07:'Теперь прибор умеет искать движение и измерять свет. Испытаем его на незнакомом участке: пусть сам предложит, что проверить.', 'launch-variable':'На двух датах свет ослаб. Интересно, что было дальше? Посмотрим, поддержит ли третья дата наш вывод.', 'archive-steady':'Мы видели изменения. А теперь проверим обычное поле — прибор должен уметь честно вернуть пустой результат.',s04:'В архиве есть одиночный сигнал. Проверим, удастся ли связать его с другими снимками.', 'archive-brightening':'Наш измеритель искал угасание. Попробуем поставить новый вопрос: а если свет усилился?', 'archive-small-change':'Теперь отличие совсем небольшое. Хватит ли точности прибора, чтобы доверять этому изменению?', 'archive-track':'Осталась странная полоска. Её вид ещё не говорит, что это астероид. Проверим движение между датами.'};
+ $('room-speech').textContent=complete?'Посмотри на доску: здесь твои наблюдения. Мы собрали прибор и проверили, где он помогает, а где его выводам ещё нельзя доверять.':lesson?'Три положения сошлись с прогнозом — поиск движения работает! Но прибор может соединить не те точки. Покажем ему одну такую ошибку.':ready?'Участок выбран, архивные снимки загружены. Открой центральный прибор — там будем сравнивать наблюдения.':leads[roomTarget];
+ $('room-map').disabled=lesson||complete;$('room-map').classList.toggle('needed',!ready&&!lesson&&!complete);
+ $('room-instrument').disabled=(!ready&&!lesson)||complete;$('room-instrument').classList.toggle('needed',ready&&!lesson&&!complete);
+ $('instrument-status').textContent=lesson?'Нужен пример ошибки':ready?'Снимки готовы':'Выбери участок на карте';
+ $('board-status').textContent=session.records.length?'Наблюдений на доске: '+session.records.length:'Здесь появятся твои результаты';
+ $('room-result').hidden=!receipt;$('room-result').textContent=receipt?'На доске: '+receipt.summary:'';
+ $('room-next').hidden=!(lesson||complete||receipt&&!ready);$('room-next').textContent=complete?'Посмотреть результаты смены →':lesson?'Показать прибору ошибку →':'К следующему участку неба →';
+ $('room-next').onclick=()=>complete?finish():lesson?learningLesson():openMap();persist();$('room-title').focus({preventScroll:true});
+}
+function openMap(){
+ cancel();showStage('map');$('map-title').textContent=M.byId(roomTarget).title;$('map-capture').disabled=true;$('map-capture').textContent='Сначала наведи прицел';$('map-feedback').textContent='Отмеченный участок нужно поместить в центр прицела.';
+ skyNavigation.show({id:roomTarget,...OBSERVATORY_TARGETS[roomTarget],title:'Наш участок'});persist();
+}
+function enterInstrument(){
+ if(session.installed.movement&&!session.learningSeen){learningLesson();return;}
+ if(session.aimedCase!==roomTarget){openMap();return;}
+ if(session.worldOpened===roomTarget&&session.caseId===roomTarget&&phase!=='choose'){showStage('game');render();persist();}
+ else{session.worldOpened=roomTarget;openCase(roomTarget,session.records.some(r=>r.caseId===roomTarget&&M.canSave(r)));}
+}
+function returnFromResearch(){const r=session.records.find(r=>r.caseId===session.caseId);goRoom(session.installed.movement&&!session.learningSeen?'s02':nextUnfinished()?.id||session.caseId,r);}
+function resumeShift(){if(session.finished){finish();return;}const target=nextUnfinished()?.id||session.caseId;goRoom(target,session.records.find(r=>r.caseId===session.worldReceipt)||null);}
+function start(length){session=M.fresh(length);phase='choose';persist();goRoom('s02');tone();}
 function draw(){
  if(stage!=='game')return;
  const d=current().data,canvas=$('sky'),ctx=canvas.getContext('2d');
@@ -98,7 +133,7 @@ function render(){
  if(phase==='scanning'){action.textContent='Прибор сравнивает наблюдения…';action.disabled=true;}
  if(phase==='scanned'){action.textContent=scan.candidates.length?'Открой версию прибора':'Сохранить результат поиска';action.disabled=!!scan.candidates.length;}
  if(phase==='result'){action.textContent=canSave()?(c.id==='s02'?'Установить поиск движения':c.id==='brightness-01'?'Установить измеритель света':'Сохранить наблюдение'):(c.kind==='auto'?(scan?.candidates.length?'Открыть другую версию':'Изменить способ поиска'):'Выбрать другую точку');$('secondary').hidden=false;$('secondary').textContent='Проверить ещё раз';}
- if(phase==='saved'){action.textContent=c.id==='s02'&&!session.learningSeen?'Дать прибору примеры →':summaryCount()>=session.length?'Завершить смену →':'К следующему исследованию →';$('secondary').hidden=false;$('secondary').textContent='Перепроверить наблюдение';}
+ if(phase==='saved'){action.textContent='Вернуться в обсерваторию →';$('secondary').hidden=false;$('secondary').textContent='Перепроверить наблюдение';}
  if(phase==='learning'){action.textContent='Нажми на отличающуюся точку';action.disabled=true;}
  if(phase==='learned'){action.textContent='Сохранить пример и продолжить →';$('secondary').hidden=false;$('secondary').textContent='Отменить мою метку';}
  renderPoints();renderArchive();draw();
@@ -135,14 +170,13 @@ function label(value){
  $('sky-status').textContent='Пример изменил отбор';persist();tone();render();
 }
 function next(){
- if(summaryCount()>=session.length){finish();return;}
- const candidate=M.cases.slice(0,session.length).find(c=>!session.records.some(r=>r.caseId===c.id&&M.canSave(r)));openCase(candidate.id);
+ const candidate=nextUnfinished();goRoom(candidate?.id||session.caseId,session.records.at(-1)||null);
 }
 function act(){
  if(phase==='choose'&&current().kind==='auto'){run();return;}
  if(phase==='selected'){showResult(current().kind==='motion'?M.motion(current().id,selected):current().kind==='light'?M.light(current().id,selected):M.photometry(current().id,selected.point));return;}
  if(phase==='result'){if(!canSave()){if(scan?.candidates.length){result=null;selectedCandidate=null;phase='scanned';say('Эта версия не выдержала проверку. Открой другой предложенный след.');render();return;}retry();if(current().kind==='auto')say(current().id==='archive-track'?'Полоска сама по себе ещё не говорит о движении. Выбери инструмент «Движение» и сравни даты.':current().id==='launch-variable'?'Поиск движения не ответил на вопрос о свете. Выбери измеритель света и проверь следующую дату.':'Здесь нужно проверить след на другом поле. Попробуй поиск движения или обучаемый отбор.');return;}M.save(session,result);phase='saved';persist();tone('save');$('sky-status').textContent='Сохранено в журнале';say(current().reward);render();return;}
- if(phase==='saved'){if(current().id==='s02'&&!session.learningSeen)learningLesson();else next();return;}
+ if(phase==='saved'){returnFromResearch();return;}
  if(phase==='learning')return;
  if(phase==='learned'){persist();next();}
 }
@@ -172,13 +206,13 @@ function recordCard(r,interactive=true){
  if(interactive)card.append(button('Открыть эти снимки',()=>{if($('overlay').open)$('overlay').close();openCase(r.caseId,true);}));
  return card;
 }
-function finish(){cancel();session.finished=true;persist();showStage('ending');const found=session.records.filter(r=>['moving','faded','brightened'].includes(r.outcome)).length;
+function finish(){cancel();session.finished=true;persist();showStage('ending');room.setState(roomState());const found=session.records.filter(r=>['moving','faded','brightened'].includes(r.outcome)).length;
  $('ending-copy').textContent='Ты проверил '+summaryCount()+' участков. Подтверждённых изменений: '+found+'. Остальные наблюдения тоже сохранены — вместе с причинами, по которым вывод остался открытым.';
  $('summary').replaceChildren(...session.records.map(r=>recordCard(r)));
  if(session.learningSeen){const e=el('article');e.append(el('span','ТВОЙ ОБУЧАЕМЫЙ ОТБОР','eyebrow'),el('h2','Пример помог отбирать следы'),el('p','Ты показал прибору ошибочную связь и проверил его предложения на другом поле. Это маленький учебный набор: на других наблюдениях у модели могут быть новые ошибки.'));$('summary').append(e);}
- $('continue').textContent=session.length<9?'Открыть ещё три исследования →':'Вернуться к прибору';$('ending').querySelector('h1').focus();tone('success');
+ $('continue').textContent=session.length<9?'Открыть ещё три исследования →':'Вернуться в обсерваторию';$('ending').querySelector('h1').focus();tone('success');
 }
-function modal(title,content){stop();const box=$('overlay-content');box.replaceChildren(el('h2',title),...content);$('overlay').showModal();}
+function modal(title,content){stop();room?.pause();const box=$('overlay-content');box.replaceChildren(el('h2',title),...content);$('overlay').showModal();}
 function journal(){const content=session.records.map(r=>recordCard(r));if(!content.length)content.push(el('p','Здесь останутся твои снимки, измерения и выводы.'));else content.push(button('Скачать журнал со снимками',exportJournal));if(session.installed.movement)content.push(button('Вернуться к примерам для модели',()=>{$('overlay').close();learningLesson();}));modal('Журнал твоей смены',content);}
 function exportJournal(){
  const doc=document.implementation.createHTMLDocument('Мастерская неба — мой журнал');doc.documentElement.lang='ru';
@@ -209,7 +243,7 @@ function help(){
  $('hint-text').textContent=message;render();
 }
 $('start').onclick=()=>{const value=+document.querySelector('input[name=length]:checked').value;if(session?.records.length){modal('Начать новую смену?',[el('p','Сохранённая смена на этом устройстве будет заменена.'),button('Начать новую смену',()=>{$('overlay').close();start(value);},'primary')]);}else start(value);};
-$('resume').onclick=()=>session.finished?finish():openCase(session.caseId,session.records.some(r=>r.caseId===session.caseId));
+$('resume').onclick=resumeShift;
 $('learning-edit').onclick=learningLesson;
 $('action').onclick=act;$('secondary').onclick=secondary;$('hint').onclick=help;$('science').onclick=science;$('journal-open').onclick=journal;
 $('sky').onclick=e=>{const rect=e.currentTarget.getBoundingClientRect();pick((e.clientX-rect.left)/rect.width*128-.5,(e.clientY-rect.top)/rect.height*128-.5);};
@@ -222,11 +256,19 @@ for(const b of document.querySelectorAll('[data-tool]'))b.onclick=()=>{method=b.
 $('sound').onclick=()=>{sound=!sound;$('sound').textContent=sound?'Звук вкл.':'Звук выкл.';$('sound').setAttribute('aria-pressed',String(sound));tone();};
 $('pause').onclick=()=>{cancel();if(phase==='scanning'){phase='choose';say('Поиск остановлен. Его можно запустить снова.');render();}modal('Смена на паузе',[el('p','Все сохранённые наблюдения останутся на этом устройстве.'),button('Продолжить',()=>$('overlay').close(),'primary'),button('К началу игры',()=>{$('overlay').close();showStage('welcome');$('resume').hidden=false;})]);};
 $('close').onclick=()=>$('overlay').close();$('overlay').onclick=e=>{if(e.target===$('overlay'))$('overlay').close();};
-$('continue').onclick=()=>{session.finished=false;if(session.length<9)session.length+=3;persist();if(summaryCount()<session.length)next();else openCase(session.caseId,true);};
+$('continue').onclick=()=>{session.finished=false;if(session.length<9)session.length+=3;persist();if(summaryCount()<session.length)next();else goRoom(session.caseId,session.records.at(-1));};
 $('new').onclick=()=>modal('Передать смену?',[el('p','Сначала можно скачать свой журнал. Новая смена очистит сохранённое прохождение.'),button('Начать новую смену',()=>{$('overlay').close();session=null;try{localStorage.removeItem(storageKey);}catch{}$('resume').hidden=true;showStage('welcome');},'primary')]);
 $('export').onclick=exportJournal;
 reduced.addEventListener('change',()=>{if(reduced.matches){stop();draw();}});document.addEventListener('visibilitychange',()=>{if(document.hidden){cancel();if(phase==='scanning'){phase='choose';say('Поиск остановлен, пока вкладка скрыта. Запусти его снова.');render();}}});
 for(const [i,id]of ['intro-a','intro-b'].entries())$(id).getContext('2d').drawImage(raw(M.cases[0].data,i),0,0,256,256);
 try{const saved=localStorage.getItem(storageKey);if(saved){session=M.restore(JSON.parse(saved));$('resume').hidden=false;$('save-note').textContent='Есть сохранённая смена: '+session.records.length+' наблюдений.';}}catch{$('save-note').textContent='Предыдущее сохранение прочитать не удалось. Можно начать новую смену.';}
+$('nika-portrait').src=NIGHTSHIFT_ART.mentor;
+$('room-scene').addEventListener('roomready',()=>{$('start').disabled=false;$('start').textContent='Принять смену →';});
+room=ObservatoryRoom({host:$('room-scene'),onLayout:places=>{for(const [key,id]of [['map','room-map'],['instrument','room-instrument'],['board','room-board']]){const b=$(id),half=(b.offsetWidth||(places.mobile?110:175))/2;b.style.left=Math.max(half+8,Math.min(innerWidth-half-8,places[key].x))+'px';b.style.top=places[key].y+'px';}}});
+skyNavigation=ObservatorySky({canvas:$('celestial-map'),onAim:aligned=>{$('map-capture').disabled=!aligned;$('map-capture').textContent=aligned?'Открыть архив этого участка →':'Сначала наведи прицел';$('map-feedback').textContent=aligned?'Есть! Теперь откроем снимки этого участка.':'Совмести участок с центром прицела.';}});
+$('room-map').onclick=openMap;$('room-instrument').onclick=enterInstrument;$('room-board').onclick=journal;
+$('room-back').onclick=()=>goRoom(stage==='map'?roomTarget:session.caseId);
+$('map-focus').onclick=()=>skyNavigation.focusTarget();$('map-capture').onclick=()=>{if(!skyNavigation.isAligned())return;session.aimedCase=roomTarget;tone('save');goRoom(roomTarget);};
+$('overlay').addEventListener('close',()=>room.resume());
 showStage('welcome');window.night={get session(){return session;},get state(){return {stage,phase,epoch,method,selected,result,scan,playing};}};
 })();

@@ -39,8 +39,49 @@ with sync_playwright() as pw:
         box = page.locator("#g-sky").bounding_box()
         page.mouse.click(box["x"] + (x+.5)/128*box["width"], box["y"] + (y+.5)/128*box["height"])
 
+    map_keyboard_checked = False
+
+    def world(view=page):
+        """Follow the same room/map/instrument buttons available to the player."""
+        global map_keyboard_checked
+        if view.evaluate("night.state.stage") != "room":
+            return
+        target = view.evaluate("night.session.worldTarget")
+        check(f"{target}: room replaces the research controls", view.locator("#g-room").is_visible()
+              and view.locator("#g-game").is_hidden())
+        if view.evaluate("night.session.installed.movement && !night.session.learningSeen"):
+            view.locator("#g-room-next").click()
+            check("room opens the pending correction lesson", view.evaluate("night.state.stage === 'game' && night.state.phase === 'learning'"))
+            return
+        complete = view.evaluate("night.session.records.filter(NightModel.canSave).length >= night.session.length")
+        if complete:
+            view.locator("#g-room-next").click()
+            check("completed room opens the shift ending", view.locator("#g-ending").is_visible())
+            return
+        view.locator("#g-room-map").click()
+        check(f"{target}: map opens with capture locked before aiming", view.locator("#g-map").is_visible()
+              and view.locator("#g-map-capture").is_disabled() and view.locator("#g-game").is_hidden())
+        view.locator("#g-map-focus").click()
+        check(f"{target}: coordinate aiming unlocks archive capture", view.locator("#g-map-capture").is_enabled())
+        if not map_keyboard_checked:
+            view.locator("#g-celestial-map").focus()
+            view.keyboard.press("ArrowLeft")
+            check("keyboard navigation moves the sky away from the telescope axis", view.locator("#g-map-capture").is_disabled())
+            view.keyboard.press("Home")
+            check("keyboard Home restores aimed capture", view.locator("#g-map-capture").is_enabled())
+            snap("map-aimed")
+            map_keyboard_checked = True
+        view.locator("#g-map-capture").click()
+        check(f"{target}: captured archive returns to the room", view.locator("#g-room").is_visible()
+              and view.evaluate("night.session.aimedCase === night.session.worldTarget")
+              and view.locator("#g-room-instrument").is_enabled())
+        view.locator("#g-room-instrument").click()
+        check(f"{target}: instrument opens the aimed observation", view.locator("#g-game").is_visible()
+              and view.evaluate("night.session.caseId === night.session.aimedCase"))
+
     def action():
         page.locator("#g-action").click()
+        world()
 
     def save_next():
         action()
@@ -64,6 +105,9 @@ with sync_playwright() as pw:
     check("welcome does not overflow 1440", page.evaluate("document.documentElement.scrollWidth <= innerWidth"))
     snap("welcome")
     page.locator("#g-start").click()
+    check("start enters the observatory room", page.evaluate("night.state.stage === 'room'"))
+    snap("room-first")
+    world()
     check("start opens the first real observation", page.locator("#g-game").is_visible() and page.locator("#g-title").inner_text() == "Поймать движение")
 
     # Amosov: a real click on the second frame drives the model.
@@ -184,6 +228,7 @@ with sync_playwright() as pw:
     page.locator("#g-close").click(); action()
     snap("ending-six")
     page.locator("#g-continue").click()
+    world()
     check("ending extends the archive to nine", page.locator("#g-game").is_visible() and page.evaluate("night.session.length === 9"))
 
     # The three continuation investigations are distinct questions, not a replay of a card.
@@ -216,11 +261,12 @@ with sync_playwright() as pw:
     page.wait_for_function("window.night")
     check("reload restores persisted shift", page.locator("#g-resume").is_visible() and page.evaluate("night.session.records.length === 9"))
     page.locator("#g-resume").click()
+    world()
     check("resume restores completed shift", page.locator("#g-ending").is_visible())
     page.evaluate("""() => { const s=JSON.parse(localStorage.getItem('science-day-night-v1')); const r=s.records.find(r=>r.caseId==='archive-brightening'); r.outcome='unresolved'; r.ratios=[100,97,102]; r.summary='Яркость почти не изменилась'; localStorage.setItem('science-day-night-v1',JSON.stringify(s)); }""")
     page.reload(); page.wait_for_function("window.night"); page.locator("#g-resume").click()
     check("old premature completion preserves observations but reopens its question", page.evaluate("night.session.records.length === 9 && !night.session.finished"))
-    action()
+    world()
     check("resumed shift returns to the unanswered brightening question", page.evaluate("night.session.caseId === 'archive-brightening' && night.state.phase === 'choose'"))
     canvas(63, 63); action(); save_next()
     check("repairing an old result finishes without duplicating journal records", page.locator("#g-ending").is_visible()
@@ -229,6 +275,7 @@ with sync_playwright() as pw:
     # A new three-investigation mode starts cleanly and limits its archive honestly.
     page.locator("#g-new").click(); page.locator("#g-overlay .primary").click()
     page.locator("input[value='3']").check(); page.locator("#g-start").click()
+    world()
     check("new 3-case shift resets state and archive scope", page.evaluate("night.session.length === 3 && night.session.records.length === 0")
           and page.locator("#g-archive button").count() == 3)
 
@@ -250,12 +297,14 @@ with sync_playwright() as pw:
     # A valid old saved session with the formerly allowed positive correction must repair, not reset.
     page.locator("#g-new").click(); page.locator("#g-overlay .primary").click()
     page.locator("#g-start").click()
+    world()
     canvas(58, 68); action(); action(); action(); page.locator("#g-candidates button").nth(2).click(); action()
     canvas(65, 64); action(); action(); action()
     check("legacy fixture has two real records before migration", page.evaluate("night.session.caseId === 's07' && night.session.records.length === 2"))
     page.evaluate("""() => { const s=JSON.parse(localStorage.getItem('science-day-night-v1')); s.learningLabel='sameObject'; s.learningSeen=true; s.caseId='s07'; localStorage.setItem('science-day-night-v1', JSON.stringify(s)); }""")
     page.reload(); page.wait_for_function("window.night")
     page.locator("#g-resume").click()
+    world()
     check("old positive correction restores and offers repair", page.evaluate("night.session.records.length === 2 && night.session.learningLabel === 'sameObject'")
           and "Разобрать" in page.locator("#g-action").inner_text())
     action()
@@ -267,10 +316,17 @@ with sync_playwright() as pw:
     # Mobile keyboard source picker, pause cancelling a real scan, sound state, layout.
     mobile_ctx = browser.new_context(viewport={"width": 390, "height": 844}, reduced_motion="reduce")
     mobile = mobile_ctx.new_page()
+    mobile.on("pageerror", lambda e: errors.append(str(e)))
+    mobile.on("request", lambda r: requests.append(r.url) if r.url.startswith(("http://", "https://"))
+              and not (entry_origin and r.url.startswith(entry_origin + "/")) else None)
     mobile.set_viewport_size({"width": 390, "height": 844})
     mobile.goto(ENTRY); mobile.wait_for_function("window.night")
     check("mobile has no horizontal overflow", mobile.evaluate("document.documentElement.scrollWidth <= innerWidth"))
     mobile.locator("#g-start").click()
+    check("mobile start enters the room", mobile.evaluate("night.state.stage === 'room'"))
+    check("mobile room has no horizontal overflow", mobile.evaluate("document.documentElement.scrollWidth <= innerWidth"))
+    mobile.screenshot(path=str(OUT / "night-mobile-room.png"), full_page=True)
+    world(mobile)
     mobile.locator("#g-source-picker summary").focus(); mobile.keyboard.press("Enter")
     check("mobile keyboard opens point list", mobile.locator("#g-source-picker").evaluate("e=>e.open"))
     mobile.locator("#g-sound").click()
