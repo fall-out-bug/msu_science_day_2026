@@ -46,3 +46,5 @@
 !sky-navigation.js
 !sky-navigation-data.js
 !sky-provenance.json
+!art/
+!art/**

@@ -206,10 +206,10 @@ function recordCard(r,interactive=true){
  if(interactive)card.append(button('Открыть эти снимки',()=>{if($('overlay').open)$('overlay').close();openCase(r.caseId,true);}));
  return card;
 }
-function finish(){cancel();session.finished=true;persist();showStage('ending');room.setState(roomState());const found=session.records.filter(r=>['moving','faded','brightened'].includes(r.outcome)).length;
- $('ending-copy').textContent='Ты проверил '+summaryCount()+' участков. Подтверждённых изменений: '+found+'. Остальные наблюдения тоже сохранены — вместе с причинами, по которым вывод остался открытым.';
- $('summary').replaceChildren(...session.records.map(r=>recordCard(r)));
- if(session.learningSeen){const e=el('article');e.append(el('span','ТВОЙ ОБУЧАЕМЫЙ ОТБОР','eyebrow'),el('h2','Пример помог отбирать следы'),el('p','Ты показал прибору ошибочную связь и проверил его предложения на другом поле. Это маленький учебный набор: на других наблюдениях у модели могут быть новые ошибки.'));$('summary').append(e);}
+function finish(){cancel();session.finished=true;session.daylight=true;persist();showStage('ending');room.setState(roomState());const found=session.records.filter(r=>['moving','faded','brightened'].includes(r.outcome)).length;
+ $('ending-proof').textContent='На твоей доске: '+summaryCount()+' наблюдений. Подтверждённых изменений: '+found+'.';
+ $('ending-copy').textContent='Ты собрал прибор: он ищет движение и измеряет свет.'+(session.learningLabel==='wrongLink'?' Твой пример помогает отбрасывать перепутанные следы.':'')+' А проверить, можно ли доверять его предложению, теперь умеешь ты.';
+ $('ending-next').textContent=session.length===3?'В архиве есть свет, который меняется снова. Посмотрим, что два снимка не рассказали о нём?':session.length===6?'В большом архиве попробуем заметить усиление света и отличить слабое изменение от шума.':'Все участки этой смены проверены. Снимки и выводы можно забрать с собой или оставить прибор следующему исследователю.';
  $('continue').textContent=session.length<9?'Открыть ещё три исследования →':'Вернуться в обсерваторию';$('ending').querySelector('h1').focus();tone('success');
 }
 function modal(title,content){stop();room?.pause();const box=$('overlay-content');box.replaceChildren(el('h2',title),...content);$('overlay').showModal();}
@@ -257,8 +257,9 @@ $('sound').onclick=()=>{sound=!sound;$('sound').textContent=sound?'Звук вк
 $('pause').onclick=()=>{cancel();if(phase==='scanning'){phase='choose';say('Поиск остановлен. Его можно запустить снова.');render();}modal('Смена на паузе',[el('p','Все сохранённые наблюдения останутся на этом устройстве.'),button('Продолжить',()=>$('overlay').close(),'primary'),button('К началу игры',()=>{$('overlay').close();showStage('welcome');$('resume').hidden=false;})]);};
 $('close').onclick=()=>$('overlay').close();$('overlay').onclick=e=>{if(e.target===$('overlay'))$('overlay').close();};
 $('continue').onclick=()=>{session.finished=false;if(session.length<9)session.length+=3;persist();if(summaryCount()<session.length)next();else goRoom(session.caseId,session.records.at(-1));};
-$('new').onclick=()=>modal('Передать смену?',[el('p','Сначала можно скачать свой журнал. Новая смена очистит сохранённое прохождение.'),button('Начать новую смену',()=>{$('overlay').close();session=null;try{localStorage.removeItem(storageKey);}catch{}$('resume').hidden=true;showStage('welcome');},'primary')]);
+$('new').onclick=()=>modal('Передать смену?',[el('p','Сначала можно скачать свой журнал. Новая смена очистит сохранённое прохождение.'),button('Начать новую смену',()=>{$('overlay').close();session=null;try{localStorage.removeItem(storageKey);}catch{}$('resume').hidden=true;room.setState({previews:[],monitors:[]});showStage('welcome');},'primary')]);
 $('export').onclick=exportJournal;
+$('ending-journal').onclick=journal;
 reduced.addEventListener('change',()=>{if(reduced.matches){stop();draw();}});document.addEventListener('visibilitychange',()=>{if(document.hidden){cancel();if(phase==='scanning'){phase='choose';say('Поиск остановлен, пока вкладка скрыта. Запусти его снова.');render();}}});
 for(const [i,id]of ['intro-a','intro-b'].entries())$(id).getContext('2d').drawImage(raw(M.cases[0].data,i),0,0,256,256);
 try{const saved=localStorage.getItem(storageKey);if(saved){session=M.restore(JSON.parse(saved));$('resume').hidden=false;$('save-note').textContent='Есть сохранённая смена: '+session.records.length+' наблюдений.';}}catch{$('save-note').textContent='Предыдущее сохранение прочитать не удалось. Можно начать новую смену.';}

@@ -46,7 +46,12 @@
 <nav id="g-archive" class="archive" aria-label="Исследования смены"></nav>
 <p id="g-autosave" class="small"></p>
 </section>
-<section id="g-ending" class="ending" hidden><p class="eyebrow">СМЕНА ЗАВЕРШЕНА</p><h1 tabindex="-1">Твой прибор работает.</h1><p id="g-ending-copy"></p><div class="ending-actions"><button id="g-continue" class="primary">Продолжить исследования →</button><button id="g-export">Забрать журнал</button><button id="g-new">Передать смену следующему игроку</button></div><div id="g-summary" class="summary"></div><p class="ending-idea">Наука начинается с любопытства. Изобретение — с вопроса: «А как научить прибор делать это самому?»</p></section>
+<section id="g-ending" class="ending" hidden aria-label="Завершение смены">
+<div class="ending-heading"><p class="eyebrow">УТРО В ОБСЕРВАТОРИИ</p><h1 tabindex="-1">Твоя смена завершена.</h1><p id="g-ending-proof"></p></div>
+<div class="ending-dialog"><span class="eyebrow">НИКА</span><p id="g-ending-copy"></p><p id="g-ending-next"></p>
+<div class="ending-actions"><button id="g-continue" class="primary">Продолжить исследования →</button><button id="g-ending-journal">Посмотреть мою доску</button><button id="g-export">Забрать журнал</button></div>
+<button id="g-new" class="quiet">Передать смену следующему игроку</button></div>
+</section>
 </main>
 <dialog id="g-overlay"><button id="g-close" class="close" aria-label="Закрыть">✕</button><div id="g-overlay-content"></div></dialog>
 <script src="data.js"></script><script src="model.js"></script><script src="tracking.js"></script><script src="brightness-data.js"></script><script src="brightness-model.js"></script><script src="launch-data.js"></script><script src="launch-model.js"></script><script src="learning-model.js"></script><script src="learning-data.js"></script><script src="archive-data.js"></script><script src="night-model.js"></script><script src="world-art.js"></script><script src="world-targets.js"></script><script src="vendor/phaser.min.js"></script><script src="sky-navigation-data.js"></script><script src="sky-navigation.js"></script><script src="world-room.js"></script><script src="night.js"></script>

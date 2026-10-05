@@ -1,6 +1,6 @@
 {
-  "art": "Existing user-approved fictional room and Nika, generated 2026-10-02; reused unchanged from app/nightshift-art.js.",
-  "artSha256": "6fe29fbdbeca577f49e86881fc177d6fc29f30593c4a40dedecc6222509f20f3",
+  "art": "Approved night room and Nika retained unchanged; dawn lighting and success pose edited using built-in Imagegen. Scientific pixels are separate.",
+  "artSha256": "65d10bc2bccc6e8ecdf1a7106d8d9e1a3ccb5f8891b42166727d620891c3001c",
   "artCredits": "world-art-credits.md",
   "coordinates": "Centers of the actual registered 128x128 ZTF windows, not object classifications or detection targets.",
   "targets": {
@@ -47,5 +47,26 @@
     "designlab/comparison/brightness-provenance.json": "f65ff0f9d6fff09603d94468d5d0360f9c3f786750b0c9cc89a1d55e7a633f01",
     "designlab/comparison/launch-provenance.json": "3e5eb5ad278110d5dd493a29290ef097a595cddb2ca9122cc7066d54d59105ff",
     "designlab/comparison/archive-provenance.json": "172f154f78ff646dbbb897abb4f080d1c798c4811a132e1feca3eea125b34fff"
-  }
+  },
+  "sceneVariants": {
+    "roomDawn": {
+      "file": "art/observatory-dawn-v1.png",
+      "sha256": "ba2f82409c21ebf567ded87aeaf8b62c01f879ccb97d7bd29d0865b32f33875e",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB"
+    },
+    "mentorSuccess": {
+      "file": "art/nika-success-v1.png",
+      "sha256": "043f5c996b0159917d52e2b835fc90f1ddbaf84863b439034fd0dd4422041171",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA"
+    }
+  },
+  "sceneVariantPrompts": "art/scene-prompts.md"
 }

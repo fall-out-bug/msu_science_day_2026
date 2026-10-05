@@ -1,11 +1,12 @@
 {
   "date": "2026-10-05",
+  "version": "2026.10.05-dawn",
   "url": "http://192.168.50.12:8081/",
-  "image": "sha256:faf1c8be994e24e08692cf2a5ca010ed7e25e14dc452affadb88ec1fef33a188",
+  "image": "sha256:4f4f4ef9b50199076287820a3e119f1cff274b555955594da6f8d0c133b8326d",
   "assets": [
     {
       "file": "index.html",
-      "sha256": "b7510922d5034f55751900f17a738fb3c36161c05e028b8a5acd7a2b48a406d3",
+      "sha256": "d38033941897ed522435fe716240f7e9ad4e3fe799c4d9f5725da335618f6f6e",
       "cacheControl": "no-store"
     },
     {
@@ -15,7 +16,7 @@
     },
     {
       "file": "night.js",
-      "sha256": "e6a0a5241ca4542a51181adc6840c7f9426011906ce9a5b63e9d0a4895fed8d8",
+      "sha256": "8911cd95032be90b351e09134f02905bca3659eb3b541f84f5eb6675a25b046b",
       "cacheControl": "no-store"
     },
     {
@@ -105,22 +106,22 @@
     },
     {
       "file": "world.css",
-      "sha256": "51fbc622c73fec989eee10604e9aa6002f82a207f0ac295e7e0bd50fa651139d",
+      "sha256": "3e02c976d29889d9c82af4db961edacef850b74a24e5cf9c13f25cdd9fb774af",
       "cacheControl": "no-store"
     },
     {
       "file": "world-room.js",
-      "sha256": "a31f0a4ba07e9dc5de3af846e68ee435f012ce1abe3f6a369bbdbf82aa594b92",
+      "sha256": "7b3dfdf88eeb07612c2f979c445d0cde382fbb08697ae56a6ef3a3b4e53c0fc8",
       "cacheControl": "no-store"
     },
     {
       "file": "world-art.js",
-      "sha256": "6fe29fbdbeca577f49e86881fc177d6fc29f30593c4a40dedecc6222509f20f3",
+      "sha256": "65d10bc2bccc6e8ecdf1a7106d8d9e1a3ccb5f8891b42166727d620891c3001c",
       "cacheControl": "no-store"
     },
     {
       "file": "world-art-credits.md",
-      "sha256": "c94ae0691c284c3af96468c69134921fcf5dd8bbbd762866c050f159507fefe7",
+      "sha256": "42ae522276a5491c7840404e12c46e97b5fa7e7a6caaca5f7eec6d21c2290827",
       "cacheControl": "no-store"
     },
     {
@@ -130,7 +131,7 @@
     },
     {
       "file": "world-provenance.json",
-      "sha256": "4e518caf7a98dd3d04dae24b2f6f9915a923872579c4a85dc245376407e4b649",
+      "sha256": "273c73a6384e7d0fe0b85e005ebc29598fc25c8518328810616580efe43b1d93",
       "cacheControl": "no-store"
     },
     {
@@ -167,17 +168,33 @@
       "file": "vendor/SKY-CC-BY-SA-4.0.txt",
       "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5",
       "cacheControl": "no-store"
+    },
+    {
+      "file": "art/scene-prompts.md",
+      "sha256": "fdaf449c43b8db2ecbee699ea7260b960f0f5d07b042d22b0106b7639a7b468e",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "art/observatory-dawn-v1.png",
+      "sha256": "ba2f82409c21ebf567ded87aeaf8b62c01f879ccb97d7bd29d0865b32f33875e",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "art/nika-success-v1.png",
+      "sha256": "043f5c996b0159917d52e2b835fc90f1ddbaf84863b439034fd0dd4422041171",
+      "cacheControl": "no-store"
     }
   ],
-  "zipBytes": 5319911,
-  "zipSha256": "451387e3f61f4c142a85acc25f56797c31a224eaff30d375a2e552d507f2dfe9",
-  "offlineEntry": "file:///tmp/science-world-offline-whlgdxvx/index.html",
+  "zipBytes": 9861054,
+  "zipSha256": "9da211f36546a1ce2c4e569f0819eaf115e3fa4437b2a39c3440dbabb80d38ca",
+  "offlineEntry": "file:///tmp/science-dawn-offline-8rc053jn/index.html",
   "main8080Unchanged": true,
   "main8080": "9c629ca6100c2f17e8672ff297e73a06e6f3042867ffb4cbaa214e35274c7b81 2026-10-02T19:01:53.40672471Z",
   "browserChecks": {
-    "http": 205,
-    "file": 205,
-    "worldHttp": 36
+    "http": 217,
+    "file": 217,
+    "worldHttp": 36,
+    "sceneHttp": 29
   },
   "browserErrors": [],
   "externalRequests": []

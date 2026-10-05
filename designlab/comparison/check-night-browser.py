@@ -57,6 +57,11 @@ with sync_playwright() as pw:
         if complete:
             view.locator("#g-room-next").click()
             check("completed room opens the shift ending", view.locator("#g-ending").is_visible())
+            check("ending stays in the observatory at dawn", view.evaluate("night.state.stage === 'ending' && night.session.daylight === true")
+                  and view.locator("#g-room-scene").get_attribute("data-mode") == "ending"
+                  and view.locator("#g-room-scene").get_attribute("data-daylight") == "true"
+                  and view.locator("#g-room-scene canvas").is_visible()
+                  and view.locator("#g-game").is_hidden())
             return
         view.locator("#g-room-map").click()
         check(f"{target}: map opens with capture locked before aiming", view.locator("#g-map").is_visible()
@@ -106,6 +111,8 @@ with sync_playwright() as pw:
     snap("welcome")
     page.locator("#g-start").click()
     check("start enters the observatory room", page.evaluate("night.state.stage === 'room'"))
+    check("fresh shift begins before dawn", page.evaluate("!night.session.daylight")
+          and page.locator("#g-room-scene").get_attribute("data-daylight") == "false")
     snap("room-first")
     world()
     check("start opens the first real observation", page.locator("#g-game").is_visible() and page.locator("#g-title").inner_text() == "Поймать движение")
@@ -198,8 +205,14 @@ with sync_playwright() as pw:
     check("artifact unresolved observation is saved honestly", page.evaluate("night.state.phase") == "saved")
     action()
     check("six-case path reaches a finished shift", page.locator("#g-ending").is_visible())
-    check("ending keeps six observation cards and real epoch images", page.locator("#g-summary .observation-card").count() == 6
-          and page.locator("#g-summary canvas").count() >= 14)
+    snap("ending-six-scene")
+    page.locator("#g-ending-journal").click()
+    check("ending journal keeps six observation cards and real epoch images", page.locator("#g-overlay").evaluate("e=>e.open")
+          and page.locator("#g-overlay .observation-card").count() == 6
+          and page.locator("#g-overlay canvas").count() >= 14)
+    page.locator("#g-close").click()
+    check("closing the ending journal restores the room finale", page.locator("#g-ending").is_visible()
+          and not page.locator("#g-overlay").evaluate("e=>e.open"))
     with page.expect_download() as download_info:
         page.locator("#g-export").click()
     download = download_info.value
@@ -218,7 +231,8 @@ with sync_playwright() as pw:
     check("standalone journal fits a phone", journal_page.evaluate("document.documentElement.scrollWidth <= innerWidth"))
     journal_page.close()
     # A saved photometry observation remains the same observation when reopened.
-    page.locator("#g-summary [data-case-id='brightness-01'] button").click()
+    page.locator("#g-ending-journal").click()
+    page.locator("#g-overlay [data-case-id='brightness-01'] button").click()
     check("ending card reopens saved SN evidence without another measurement", page.evaluate("night.state.phase === 'saved' && night.state.result.point.x === 65 && night.session.records.length === 6"))
     snap("reopened-light")
     page.locator("#g-journal-open").click()
@@ -228,6 +242,8 @@ with sync_playwright() as pw:
     page.locator("#g-close").click(); action()
     snap("ending-six")
     page.locator("#g-continue").click()
+    check("archive continuation retains the dawn already reached", page.evaluate("night.session.daylight === true && JSON.parse(localStorage.getItem('science-day-night-v1')).daylight === true")
+          and page.locator("#g-room-scene").get_attribute("data-daylight") == "true")
     world()
     check("ending extends the archive to nine", page.locator("#g-game").is_visible() and page.evaluate("night.session.length === 9"))
 
@@ -263,6 +279,8 @@ with sync_playwright() as pw:
     page.locator("#g-resume").click()
     world()
     check("resume restores completed shift", page.locator("#g-ending").is_visible())
+    check("resumed completed shift restores its dawn", page.evaluate("night.session.daylight === true")
+          and page.locator("#g-room-scene").get_attribute("data-daylight") == "true")
     page.evaluate("""() => { const s=JSON.parse(localStorage.getItem('science-day-night-v1')); const r=s.records.find(r=>r.caseId==='archive-brightening'); r.outcome='unresolved'; r.ratios=[100,97,102]; r.summary='Яркость почти не изменилась'; localStorage.setItem('science-day-night-v1',JSON.stringify(s)); }""")
     page.reload(); page.wait_for_function("window.night"); page.locator("#g-resume").click()
     check("old premature completion preserves observations but reopens its question", page.evaluate("night.session.records.length === 9 && !night.session.finished"))
@@ -274,7 +292,11 @@ with sync_playwright() as pw:
 
     # A new three-investigation mode starts cleanly and limits its archive honestly.
     page.locator("#g-new").click(); page.locator("#g-overlay .primary").click()
+    check("handing off the shift resets the room to night", page.evaluate("night.session === null")
+          and page.locator("#g-room-scene").get_attribute("data-daylight") == "false")
     page.locator("input[value='3']").check(); page.locator("#g-start").click()
+    check("new three-case shift resets daylight", page.evaluate("!night.session.daylight")
+          and page.locator("#g-room-scene").get_attribute("data-daylight") == "false")
     world()
     check("new 3-case shift resets state and archive scope", page.evaluate("night.session.length === 3 && night.session.records.length === 0")
           and page.locator("#g-archive button").count() == 3)
@@ -296,6 +318,7 @@ with sync_playwright() as pw:
 
     # A valid old saved session with the formerly allowed positive correction must repair, not reset.
     page.locator("#g-new").click(); page.locator("#g-overlay .primary").click()
+    check("another fresh shift clears the previous dawn", page.locator("#g-room-scene").get_attribute("data-daylight") == "false")
     page.locator("#g-start").click()
     world()
     canvas(58, 68); action(); action(); action(); page.locator("#g-candidates button").nth(2).click(); action()

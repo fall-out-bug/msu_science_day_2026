@@ -10,12 +10,13 @@ ASSETS=['night.css','night.js','night-model.js','data.js','model.js','tracking.j
  'archive-provenance.json','NIGHT-SOURCES.txt','world.css','world-room.js','world-art.js',
  'world-art-credits.md','world-targets.js','world-provenance.json','sky-navigation.js',
  'sky-navigation-data.js','sky-provenance.json','vendor/phaser.min.js',
- 'vendor/PHASER-LICENSE.md','vendor/EVENTEMITTER3-LICENSE.txt','vendor/SKY-CC-BY-SA-4.0.txt']
+ 'vendor/PHASER-LICENSE.md','vendor/EVENTEMITTER3-LICENSE.txt','vendor/SKY-CC-BY-SA-4.0.txt',
+ 'art/scene-prompts.md','art/observatory-dawn-v1.png','art/nika-success-v1.png']
 
 def main():
     out=HERE/'releases';out.mkdir(exist_ok=True)
     sources={'index.html':HERE/'night.html',**{name:HERE/name for name in ASSETS}}
-    manifest={'title':'Ночная смена · Мастерская неба','version':'2026.10.05-observatory','entry':'index.html',
+    manifest={'title':'Ночная смена · Мастерская неба','version':'2026.10.05-dawn','entry':'index.html',
       'cases':9,'modes':[3,6,9],'files':{name:hashlib.sha256(path.read_bytes()).hexdigest() for name,path in sources.items()}}
     instructions='Мастерская неба\n\nРаспакуйте весь архив. Откройте index.html в современном браузере.\nИнтернет не нужен. Рекомендуемый первый режим — 6 исследований.\nВ обсерватории открой карту неба. Перетаскивай небо, чтобы совместить отмеченный участок с прицелом. Можно навести по координатам кнопкой или клавишей Home. Открой архив и центральный прибор. После проверки вернись к Нике: снимок останется на доске.\nКлик выбирает точку на снимке, кнопки под ним переключают даты. Есть помощь и список точек для клавиатуры.\nЗвук включается кнопкой. Пауза сохраняет смену на этом устройстве, если браузер разрешает локальное хранилище.\nВ финале можно продолжить или скачать журнал.\nПеред следующим игроком выберите «Передать смену».\n\nЦелевой возраст 10–13 лет. Время самостоятельного прохождения детьми ещё не измерено.\nДанные, научные границы и благодарности — NIGHT-SOURCES.txt и файлы provenance.json.\n'
     with zipfile.ZipFile(out/'night-shift.zip','w',zipfile.ZIP_DEFLATED) as archive:

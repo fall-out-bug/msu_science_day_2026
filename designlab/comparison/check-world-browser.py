@@ -35,6 +35,6 @@ with sync_playwright() as p:
    b=page.locator(selector).bounding_box();check(selector+' fits '+str(w),b['x']>=0 and b['y']>=50 and b['x']+b['width']<=w and b['y']+b['height']<=h)
    check(selector+' is not covered '+str(w),page.locator(selector).evaluate('(e)=>{const r=e.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest("button")===e;}'))
   check('room no horizontal overflow '+str(w),page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
- page.locator('#g-room-map').click();page.wait_for_timeout(200);snap('sky-mobile');page.locator('#g-map-focus').click();page.locator('#g-map-capture').click();page.locator('#g-room-instrument').click();snap('instrument-mobile')
+ page.locator('#g-room-map').click();page.wait_for_timeout(200);snap('sky-mobile');page.locator('#g-map-focus').click();page.locator('#g-map-capture').click();page.locator('#g-room-instrument').click();page.wait_for_timeout(300);snap('instrument-mobile')
  check('mobile room controls reach instrument',page.locator('#g-game').is_visible());check('runtime error free',not errors)
  (out/'world-browser.json').write_text(json.dumps({'entry':entry,'count':len(checks),'checks':checks,'errors':errors},ensure_ascii=False,indent=2));print(json.dumps({'count':len(checks),'errors':errors}));browser.close()
