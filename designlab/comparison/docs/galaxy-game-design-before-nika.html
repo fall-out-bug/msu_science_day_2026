@@ -1,0 +1,1310 @@
+<!DOCTYPE html><html lang="ru" data-review-document="galaxy-gdd-v1" data-review-title="Обсуждение дизайн-документа"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Первая смена: атлас галактик — дизайн-документ</title><link rel="stylesheet" href="galaxy-design.css?v=3"><link rel="stylesheet" href="scenario-comments.css?v=5"></head><body><main><header><p class="eyebrow">Science Day · дизайн игры · 6 октября 2026</p><div class="asset-links"><a href="/">Действующая игра</a><a href="first-shift-scenario.html">Сценарий и реплики</a><a href="galaxy-game-design.md" download="">Markdown</a><a href="galaxy-design-offline.zip" download="">Документ для чтения без сети</a></div><p class="build-note">Проект будущей игры. Иллюстрации — концепты, фотографии — реальные справочные примеры. Демонстраторы показывают управление, не обучают и не оценивают модель.</p></header><section class="visual-update" id="visual-v2" aria-labelledby="visual-v2-title">
+<p class="eyebrow" data-review-id="d2v001">Новый визуальный концепт · редакция 2</p>
+<h2 id="visual-v2-title" data-review-id="d2v002">Дневная смена в горах</h2>
+<p class="visual-lead" data-review-id="d2v003">Ночью телескоп собрал снимки. Сегодня мы с новым помощником разбираем галактики и готовим следующую программу наблюдений.</p>
+<figure class="concept">
+<div class="room-map"><img src="gdd-assets/concepts/laboratory-day-v2.png" alt="Новый концепт: современная дневная лаборатория, горы Кавказа и купол за окном, архив, ковёр и маленький двуногий помощник по Microduck">
+<button class="room-zone" data-zone="archive" type="button">Архив</button><button class="room-zone" data-zone="desk" type="button">Рабочее место</button><button class="room-zone" data-zone="assistant" type="button">Помощник</button><button class="room-zone" data-zone="atlas" type="button">Каталог</button></div>
+<p class="room-tip" role="status">Выберите рабочее место на новом концепте.</p>
+<figcaption data-review-id="d2v004">Новая художественная концепция · image_gen. Образ робота — по <a href="https://pollen-robotics.com/microduck/">Microduck, Pollen Robotics</a>. Это проект лаборатории, не документальное изображение САО. Снимки на экранах иллюстративны.</figcaption>
+</figure>
+<div class="visual-decisions"><article><h3 data-review-id="d2v005">Современная наука</h3><p data-review-id="d2v006">Рабочие станции и крупные экраны; архивы и ковёр сохраняют обжитость комнаты.</p></article><article><h3 data-review-id="d2v007">Кавказ за окном</h3><p data-review-id="d2v008">Горный рельеф и верхняя площадка телескопа входят в композицию. Мозаику без референса не выдумываем.</p></article><article><h3 data-review-id="d2v009">Подвижный коллега</h3><p data-review-id="d2v010">Двуногий помощник по Microduck вместо латунного шара. Его движения не зависят от качества разметки.</p></article></div>
+<div class="shift-story" aria-label="Ход рабочего дня"><span><b>Начало дня</b>Получить ночные снимки</span><span><b>Дневная работа</b>Разметить и проверить</span><span><b>К вечеру</b>Подготовить наблюдения</span></div>
+<p class="demo-note" data-review-id="d2v011">Смена света в будущей игре идёт по этапам, без таймера. Здесь показан статичный концепт; WebGL-сцена и анимация персонажа ещё не реализованы.</p>
+</section><section id="navigation-design" class="navigation-design">
+<p class="eyebrow" data-review-id="d3n001">Расширенный дизайн · экраны и переходы</p>
+<h2 data-review-id="d3n002">Одна смена — семь экранов</h2>
+<p data-review-id="d3n003">Нажмите на миниатюру, чтобы открыть экран 1920 × 1080. Стрелки показывают основной маршрут; из разбора можно вернуться к примерам. Это макеты интерфейса, а не результаты обученной модели.</p>
+<p data-review-id="d3n004"><a class="prototype-link" href="gdd-assets/navigation/preview.html" target="_blank">Пройти кликабельный маршрут ↗</a></p>
+<div class="screen-flow" aria-label="Схема экранов">
+<article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation/morning.png" data-screen-title="01 · Утро. Знакомство" aria-label="Открыть 01 · Утро. Знакомство в Full HD"><img loading="lazy" src="gdd-assets/navigation/morning.png" alt="01 · Утро. Знакомство"></button><h4 data-review-id="d3n005">01 · Утро. Знакомство</h4><p data-review-id="d3n006">Получить снимки → архив</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation/archive.png" data-screen-title="02 · Архив" aria-label="Открыть 02 · Архив в Full HD"><img loading="lazy" src="gdd-assets/navigation/archive.png" alt="02 · Архив"></button><h4 data-review-id="d3n007">02 · Архив</h4><p data-review-id="d3n008">К рабочему столу → разметка</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation/label.png" data-screen-title="03 · Разметка" aria-label="Открыть 03 · Разметка в Full HD"><img loading="lazy" src="gdd-assets/navigation/label.png" alt="03 · Разметка"></button><h4 data-review-id="d3n009">03 · Разметка</h4><p data-review-id="d3n010">Показать проверку → эксперимент</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation/experiment.png" data-screen-title="04 · Проверка" aria-label="Открыть 04 · Проверка в Full HD"><img loading="lazy" src="gdd-assets/navigation/experiment.png" alt="04 · Проверка"></button><h4 data-review-id="d3n011">04 · Проверка</h4><p data-review-id="d3n012">Открыть разбор → спорные ответы</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation/review.png" data-screen-title="05 · Разбор" aria-label="Открыть 05 · Разбор в Full HD"><img loading="lazy" src="gdd-assets/navigation/review.png" alt="05 · Разбор"></button><h4 data-review-id="d3n013">05 · Разбор</h4><p data-review-id="d3n014">↩ Исправить примеры / перейти в каталог</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation/day.png" data-screen-title="06 · День. Каталог" aria-label="Открыть 06 · День. Каталог в Full HD"><img loading="lazy" src="gdd-assets/navigation/day.png" alt="06 · День. Каталог"></button><h4 data-review-id="d3n015">06 · День. Каталог</h4><p data-review-id="d3n016">Подготовить задание → вечер</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation/evening.png" data-screen-title="07 · Вечер. Передача смены" aria-label="Открыть 07 · Вечер. Передача смены в Full HD"><img loading="lazy" src="gdd-assets/navigation/evening.png" alt="07 · Вечер. Передача смены"></button><h4 data-review-id="d3n017">07 · Вечер. Передача смены</h4><p data-review-id="d3n018">Передать задание команде</p><small>1920 × 1080 · нажмите для увеличения</small></article>
+</div>
+<p class="return-route" data-review-id="d3n019">↩ Разбор → исправление примеров → повторная проверка. Кнопка «Лаборатория» возвращает в общий план; выбранная метка в макете сохраняется.</p>
+<h3 data-review-id="d3n020">Утро, день и вечер</h3>
+<p data-review-id="d3n021">Три световых эскиза одной лаборатории. Свет меняется после завершённых этапов, а не по часам: ребёнка не торопит таймер. Это отдельные художественные эскизы: детали комнаты и корпус помощника немного различаются. Финальный облик помощника остаётся по референсу Microduck из дневного концепта; в игре одинаковую геометрию и персонажа обеспечит общая 3D-сцена.</p>
+<div class="time-gallery"><article class="time-card"><button type="button" data-screen-image="gdd-assets/navigation/morning-room.png" data-screen-title="Утро" aria-label="Открыть Утро в Full HD"><img loading="lazy" src="gdd-assets/navigation/morning-room.png" alt="Утро"></button><h4 data-review-id="d3n022">Утро</h4></article><article class="time-card"><button type="button" data-screen-image="gdd-assets/navigation/day-room.png" data-screen-title="День" aria-label="Открыть День в Full HD"><img loading="lazy" src="gdd-assets/navigation/day-room.png" alt="День"></button><h4 data-review-id="d3n023">День</h4></article><article class="time-card"><button type="button" data-screen-image="gdd-assets/navigation/evening-room.png" data-screen-title="Вечер" aria-label="Открыть Вечер в Full HD"><img loading="lazy" src="gdd-assets/navigation/evening-room.png" alt="Вечер"></button><h4 data-review-id="d3n024">Вечер</h4></article></div>
+<h3 data-review-id="d3n025">Как устроены переходы</h3>
+<table><thead><tr><th>Переход</th><th>Что видит ребёнок</th><th>Управление и состояние</th></tr></thead><tbody>
+<tr data-review-id="d3n026"><td>Лаборатория → архив</td><td>Приближение к левому шкафу, затем подборка снимков. Ориентир 600–800 мс.</td><td>Один клик по рабочей зоне. «Лаборатория» всегда доступна.</td></tr>
+<tr data-review-id="d3n027"><td>Архив → разметка</td><td>Камера переводит внимание на стол; снимок открывается фронтально, без перспективного искажения.</td><td>Один переход на всю серию. Не заставляем возвращаться в комнату после каждой метки.</td></tr>
+<tr data-review-id="d3n028"><td>Разметка → проверка</td><td>На том же рабочем месте открывается отдельная подборка для проверки. Ориентир 200–300 мс.</td><td>Учебные примеры и проверочные снимки явно разделены. Нет фиктивной долгой загрузки.</td></tr>
+<tr data-review-id="d3n029"><td>Разбор → исправление</td><td>Возврат к учебным примерам с сохранёнными метками.</td><td>После изменения данных нужен новый эксперимент. Показанные проверочные снимки не становятся снова «невиданными».</td></tr>
+<tr data-review-id="d3n030"><td>Рабочее место → общий план</td><td>Мягкое отдаление камеры. Каталог и очередь разбора остаются видимыми объектами комнаты.</td><td>Состояние выбора сохраняется. «Назад» возвращает на предыдущий экран.</td></tr>
+<tr data-review-id="d3n031"><td>День → вечер</td><td>Смена света после решения завершить дневную работу. Затем экран задания на следующую ночь.</td><td>Передача задания одноразовая; повторное нажатие исключено. Реального управления телескопом нет.</td></tr>
+</tbody></table>
+<p data-review-id="d3n032">В кликабельной версии сейчас реализованы смена экранов, лёгкое приближение фонового кадра, возврат и сохранение выбора в пределах вкладки. Полноценный пролёт камеры между предметами и движения робота ещё не реализованы. При настройке «уменьшить движение» переходы мгновенные.</p>
+<h3 data-review-id="d3n033">Навигация внутри игры</h3>
+<p data-review-id="d3n034">Слева сверху — возврат в лабораторию; в центре — текущее рабочее место; справа — подсказка. Главное действие находится рядом с задачей, «Назад» — справа снизу. Общий план даёт пространственный ориентир, рабочий экран — читаемый снимок. Никаких обязательных прогулок между каждой парой карточек.</p>
+<p data-review-id="d3n035">Научные фотографии в макетах взяты из уже проверенного набора ESA/Hubble с указанными кредитами. Интерфейсные снимки — справочные иллюстрации; настоящие обучающая и проверочная подборки ещё не утверждены.</p>
+<dialog id="screen-lightbox" aria-labelledby="screen-lightbox-title"><div class="lightbox-bar"><strong id="screen-lightbox-title"></strong><button type="button" class="lightbox-close">Закрыть ×</button></div><img src="gdd-assets/navigation/morning.png" alt="Утро · первый экран"><div class="lightbox-bar"><button type="button" class="lightbox-prev">← Предыдущий</button><a class="lightbox-original" target="_blank">Открыть PNG 1920 × 1080</a><button type="button" class="lightbox-next">Следующий →</button></div></dialog>
+</section>
+
+<nav aria-label="Оглавление"><strong>В документе</strong><div class="toc">
+<ul>
+<li><a href="#_1">Первая смена: атлас галактик</a><ul>
+<li><a href="#1">1. Игра в одном абзаце</a></li>
+<li><a href="#2">2. Принятые ограничения и проектные решения</a></li>
+<li><a href="#3">3. Игровое переживание и педагогика</a><ul>
+<li><a href="#_2">Почему это должно быть интересно</a></li>
+<li><a href="#_3">Возраст и темп</a></li>
+</ul>
+</li>
+<li><a href="#4">4. Мир и визуальная композиция</a><ul>
+<li><a href="#_4">Окружение: рабочая обсерватория</a></li>
+<li><a href="#_5">Визуальные параметры</a></li>
+</ul>
+</li>
+<li><a href="#5">5. Помощник как персонаж</a><ul>
+<li><a href="#_6">Образ</a></li>
+</ul>
+</li>
+<li><a href="#6">6. Отсылка к зоопарку: атлас разнообразия</a><ul>
+<li><a href="#_7">Три способа использовать мотив</a></li>
+</ul>
+</li>
+<li><a href="#7">7. Экраны и переходы</a><ul>
+<li><a href="#14-">Компоновка для 14-дюймового ноутбука</a></li>
+</ul>
+</li>
+<li><a href="#8">8. Варианты центральной механики</a><ul>
+<li><a href="#a">A. Стол исследователя — основной выбор</a></li>
+<li><a href="#b">B. Раскладка атласа — обзор и исправления</a></li>
+<li><a href="#c">C. Сопоставление примеров — объяснение модели</a></li>
+</ul>
+</li>
+<li><a href="#9">9. Галактики и научные данные</a><ul>
+<li><a href="#ic-2006">IC 2006 · Гладкая</a></li>
+<li><a href="#ic-5332">IC 5332 · Видна спираль</a></li>
+<li><a href="#ngc-5023">NGC 5023 · Диск с ребра</a></li>
+<li><a href="#messier-85">Messier 85 · Внешний облик и физический тип — разные вопросы</a></li>
+<li><a href="#_8">Допуск изображения в игру</a></li>
+</ul>
+</li>
+<li><a href="#10">10. Работа стендиста и обратная связь</a></li>
+<li><a href="#11">11. Техническое устройство</a><ul>
+<li><a href="#1_1">1. Решения и ограничения</a><ul>
+<li><a href="#_9">Неизменяемые технические границы</a></li>
+</ul>
+</li>
+<li><a href="#2_1">2. Что подтверждено в локальном состоянии</a></li>
+<li><a href="#3_1">3. Архитектура поставки</a><ul>
+<li><a href="#_10">Слои и ответственность</a></li>
+</ul>
+</li>
+<li><a href="#4_1">4. Данные и предрассчитанные эксперименты</a><ul>
+<li><a href="#_11">Единица изображения</a></li>
+<li><a href="#_12">Ключ эксперимента</a></li>
+<li><a href="#729">Непротиворечивость набора 729 вариантов</a></li>
+</ul>
+</li>
+<li><a href="#5_1">5. Состояния смены и защита от утечки контрольных данных</a><ul>
+<li><a href="#_13">Конечный автомат</a></li>
+<li><a href="#_14">Ревизии и инвалидация</a></li>
+<li><a href="#heldout">Набор разбора и итоговый heldout</a></li>
+</ul>
+</li>
+<li><a href="#6_1">6. Экран и механики</a><ul>
+<li><a href="#_15">Пространство</a></li>
+<li><a href="#_16">Ветви улучшения</a></li>
+<li><a href="#cnn">Честная дополнительная ветка CNN</a></li>
+</ul>
+</li>
+<li><a href="#7-">7. Допуск данных и офлайн-пакет</a><ul>
+<li><a href="#_17">Условия допуска одной карточки</a></li>
+<li><a href="#file-">file://-совместимость</a></li>
+<li><a href="#_18">Целевые бюджеты поставки</a></li>
+</ul>
+</li>
+<li><a href="#8_1">8. Сохранение, восстановление и миграция</a></li>
+<li><a href="#9_1">9. Проверка</a><ul>
+<li><a href="#_19">Матрица проверок</a></li>
+<li><a href="#_20">Вертикальный срез — критерий готовности до полной игры</a></li>
+</ul>
+</li>
+<li><a href="#10_1">10. Риски и решения</a></li>
+<li><a href="#11_1">11. Очерёдность реализации</a></li>
+</ul>
+</li>
+<li><a href="#12">12. Производство графики и звука</a></li>
+<li><a href="#13">13. План реализации и критерии приёмки</a><ul>
+<li><a href="#1_2">Срез 1. Один законченный опыт</a></li>
+<li><a href="#2_2">Срез 2. Разнообразие и исправления</a></li>
+<li><a href="#3_2">Срез 3. Лаборатория и завершение</a></li>
+<li><a href="#_21">Проверки выпуска</a></li>
+</ul>
+</li>
+<li><a href="#14">14. Риски и решения до начала сборки</a></li>
+<li><a href="#15">15. Статус документа и материалы</a></li>
+<li><a href="#16-microduck">16. Актуальные изменения: дневная лаборатория и Microduck</a><ul>
+<li><a href="#_22">Было → стало</a></li>
+<li><a href="#microduck">Помощник: Microduck как основной референс</a></li>
+<li><a href="#_23">Лаборатория, Кавказ и ход смены</a></li>
+<li><a href="#_24">Техническое следствие и следующий визуальный срез</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</nav><h1 id="_1">Первая смена: атлас галактик</h1>
+<p data-review-id="d1p001">Дизайн-документ игры · 6 октября 2026 · проект для обсуждения и подготовки вертикального среза</p>
+<p data-review-id="d1p002"><strong>Рабочее название:</strong> «Первая смена: атлас галактик». «Космический зоопарк» — возможное название дополнительной выставки внутри игры и отсылка к Galaxy Zoo, а не заявление о партнёрстве. Основной сценарий: <a href="first-shift-scenario.html">сцены, реплики и работа стендиста</a>.</p>
+<p data-review-id="d1p003">Документ определяет будущую игру. Иллюстрации окружения — концепты, схемы экранов — проект, демонстраторы механик — пробы взаимодействия. Это не готовая игровая сборка. Целевые длительности, размеры и качество модели ниже — проектные условия, если явно не указано измерение.</p>
+<h2 id="1" data-review-id="d1p004">1. Игра в одном абзаце</h2>
+<p data-review-id="d1p005">Ребёнок заступает на смену в горную обсерваторию. У нового машинного помощника тоже первый рабочий день. Вместе со стендистом ребёнок рассматривает настоящие снимки галактик, готовит примеры их видимого облика, проверяет ответы помощника и собирает маленький проверенный атлас. По мере работы комната меняется: прибывшие снимки переходят из архива на стол, затем — на стену атласа; спорные случаи остаются отдельной очередью. К рассвету видно, что сделала команда и что ещё предстоит исследовать.</p>
+<p data-review-id="d1p006"><strong>Обещание игроку:</strong> «Помоги новому ИИ разобраться в галактиках и собери атлас, которому можно доверять».</p>
+<p data-review-id="d1p007"><strong>Обещание факультета:</strong> через конкретные действия объяснить данные, разметку, обучение, независимую проверку и применение ИИ в реальной работе. Большая модель и сложные термины не являются наградой сами по себе.</p>
+<h2 id="2" data-review-id="d1p008">2. Принятые ограничения и проектные решения</h2>
+<table>
+<thead>
+<tr>
+<th>Решение</th>
+<th>Статус</th>
+<th>Следствие</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p009">
+<td>Галактики вместо движущихся следов</td>
+<td>Принято в обсуждении</td>
+<td>Один пример — изображение галактики, три учебные категории</td>
+</tr>
+<tr data-review-id="d1p010">
+<td>Живой стендист вместо Ники</td>
+<td>Принято</td>
+<td>Персонаж в комнате — только помощник; инструкция доступна и без непрерывной речи взрослого</td>
+</tr>
+<tr data-review-id="d1p011">
+<td>Все вычислительные варианты подготовлены заранее</td>
+<td>Принято</td>
+<td>Runtime выбирает пакет результатов; живого обучения, API и генеративного чата нет</td>
+</tr>
+<tr data-review-id="d1p012">
+<td>Игра работает без интернета</td>
+<td>Принято</td>
+<td>Локальные изображения, реплики, шрифты, результаты, справки и сохранения</td>
+</tr>
+<tr data-review-id="d1p013">
+<td>Общие комментарии к опубликованному документу</td>
+<td>Реализовано для сценария; применяется к GDD</td>
+<td>Это отдельный сервер обсуждения, не часть офлайн-игры</td>
+</tr>
+<tr data-review-id="d1p014">
+<td>Иллюстрированная комната и крупный рабочий стол</td>
+<td>Предлагаемый основной визуальный подход</td>
+<td>Пространственная игра с переходами; разметка не превращается в постоянную таблицу</td>
+</tr>
+<tr data-review-id="d1p015">
+<td>Основная механика — рассмотреть, затем выбрать метку</td>
+<td>Рекомендовано для первого среза</td>
+<td>Drag-and-drop только необязательное ускорение</td>
+</tr>
+<tr data-review-id="d1p016">
+<td>Три категории видимого облика</td>
+<td>Учебная схема, требует проверки на изображениях</td>
+<td>«Гладкая», «Видна спираль», «Диск с ребра»; сомнение вне классов</td>
+</tr>
+<tr data-review-id="d1p017">
+<td>Vanilla JS, DOM и canvas</td>
+<td>Рекомендуемое переиспользование текущего стека</td>
+<td>Новый движок и WebGL не нужны для этой версии</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3" data-review-id="d1p018">3. Игровое переживание и педагогика</h2>
+<h3 id="_2" data-review-id="d1p019">Почему это должно быть интересно</h3>
+<p data-review-id="d1p020">Первый интерес — разглядеть необычный настоящий объект. Второй — помочь персонажу, который не умеет всё заранее. Третий — увидеть последствия собственного решения: изменение примера влияет на конкретные ответы помощника, а проверенные записи становятся частью общей стены атласа.</p>
+<p data-review-id="d1p021">У игры нет заработка очков за слепую скорость и нет обязательного поражения перед успехом. Важные события — найденная деталь, обоснованная метка, разобранное расхождение и честное «недостаточно данных». Если метки удачны с первой попытки, история продолжается без выдуманной ошибки.</p>
+<table>
+<thead>
+<tr>
+<th>Действие</th>
+<th>Видимое последствие</th>
+<th>Понятие</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p022">
+<td>Приблизить изображение и отметить деталь</td>
+<td>Деталь сохраняется в карточке как основание наблюдения</td>
+<td>Данные и признаки</td>
+</tr>
+<tr data-review-id="d1p023">
+<td>Выбрать категорию</td>
+<td>Пример занимает место в учебной подборке</td>
+<td>Разметка</td>
+</tr>
+<tr data-review-id="d1p024">
+<td>Открыть эксперимент</td>
+<td>На новом изображении появляется ответ и объяснение выбранного способа</td>
+<td>Машинное обучение</td>
+</tr>
+<tr data-review-id="d1p025">
+<td>Сверить ответ с проверкой</td>
+<td>Виден конкретный правильный или ошибочный ответ</td>
+<td>Качество на новых данных</td>
+</tr>
+<tr data-review-id="d1p026">
+<td>Исправить метку или выбрать дополнение</td>
+<td>Сравнение ответов до/после, включая отсутствие изменений</td>
+<td>Влияние данных</td>
+</tr>
+<tr data-review-id="d1p027">
+<td>Передать атлас</td>
+<td>Отделены проверенные записи, предложения и сомнения</td>
+<td>Ответственное использование результата</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3" data-review-id="d1p028">Возраст и темп</h3>
+<p data-review-id="d1p029">Один сюжет без выбора возраста. Стендист регулирует глубину объяснения, интерфейс предлагает дополнительные шаги по интересу. Для планирования первого теста предполагаем основную смену порядка 8–12 минут и ещё 5–8 минут на лабораторию; это гипотеза, не обещание посетителям. Короткий проход должен содержать хотя бы разметку, один новый проверочный пример и итог.</p>
+<p data-review-id="d1p030">Двое детей могут меняться ролями «предлагает метку / ищет основание». Игра не требует читать мелкий текст и не превращает помощь стендиста в скрытую обязательную операцию.</p>
+<details class="superseded-design"><summary>Прежняя редакция: 4. Мир и визуальная композиция — заменена новым концептом</summary><h2 id="4" data-review-id="d1p031">4. Мир и визуальная композиция</h2><h3 id="_4" data-review-id="d1p032">Окружение: рабочая обсерватория</h3><p data-review-id="d1p033">Камера неподвижна, с мягким приближением к выбранному рабочему месту. За арочным окном — горы, купол и ночь. Внутри — дерево, эмаль, бумажные карточки, аккуратные оптические приборы. Техника выглядит доступной для исследования; помещение не похоже на космический военный командный центр.</p><p data-review-id="d1p034">Окружение рисуется растром. Текст, кнопки и состояния не запекаются в картинку. Перспективные предметы дают атмосферу, а удобство чтения обеспечивает отдельный фронтальный рабочий экран.</p><figure class="concept"><img src="gdd-assets/concepts/observatory-room-v1.png" alt="Художественный концепт: архив слева, стол и Помощник в центре, атлас справа"><figcaption data-review-id="d1p035">Концепт окружения · image_gen · галактики на рисунке иллюстративны. Текст и контролы будут отдельными слоями.</figcaption></figure><p data-review-id="d1p036">Художественный концепт, созданный image_gen; галактики внутри рисунка иллюстративны. Научные снимки показаны отдельно ниже.</p><table>
+<thead>
+<tr>
+<th>Зона</th>
+<th>Расположение в комнате</th>
+<th>Игровая функция</th>
+<th>Изменение за смену</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p037">
+<td>Архив</td>
+<td>Левая часть</td>
+<td>Получить подготовленную подборку</td>
+<td>Пачка снимков становится меньше</td>
+</tr>
+<tr data-review-id="d1p038">
+<td>Стол исследования</td>
+<td>Центр, главный визуальный акцент</td>
+<td>Приблизить снимок, заметить деталь, выбрать метку</td>
+<td>Появляются карточки выбранных примеров</td>
+</tr>
+<tr data-review-id="d1p039">
+<td>Помощник</td>
+<td>Небольшой прибор рядом со столом</td>
+<td>Показать эксперимент, объяснить ответ</td>
+<td>Индикация текущего рабочего состояния</td>
+</tr>
+<tr data-review-id="d1p040">
+<td>Атлас</td>
+<td>Правая стена</td>
+<td>Смотреть проверенные записи</td>
+<td>Пустые места заполняются карточками</td>
+</tr>
+<tr data-review-id="d1p041">
+<td>Очередь разбора</td>
+<td>Отдельный лоток рядом с атласом</td>
+<td>Сохранить сомнительные случаи</td>
+<td>Сомнения видны, но не считаются провалом</td>
+</tr>
+<tr data-review-id="d1p042">
+<td>Окно и купол</td>
+<td>Дальний план</td>
+<td>Атмосфера, необязательная справка</td>
+<td>В финале появляется рассвет</td>
+</tr>
+</tbody>
+</table><p data-review-id="d1p043">Переход: <strong>комната → архив → стол → проверка → атлас → комната</strong>. После значимого действия ребёнок возвращается к видимому изменению в комнате. Не заставляем проходить её заново после каждой метки: разметка небольшой серии происходит на одном столе.</p><h3 id="_5" data-review-id="d1p044">Визуальные параметры</h3><table>
+<thead>
+<tr>
+<th>Элемент</th>
+<th>Направление</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p045">
+<td>Палитра</td>
+<td>Чернильно-синий <code>#152D43</code>, тёплая бумага <code>#F3EBDD</code>, янтарный <code>#E7B65A</code>, спокойный бирюзовый <code>#73B5AE</code></td>
+</tr>
+<tr data-review-id="d1p046">
+<td>Предупреждения</td>
+<td>Цвет плюс текст и значок; «нужно проверить» не обязательно красное</td>
+</tr>
+<tr data-review-id="d1p047">
+<td>Типографика</td>
+<td>Локальный кириллический шрифт с проверенной лицензией либо системный fallback; основной текст целимся в 18–20 CSS px</td>
+</tr>
+<tr data-review-id="d1p048">
+<td>Кнопки</td>
+<td>Целевая область не меньше 44×44 CSS px; подпись — действие</td>
+</tr>
+<tr data-review-id="d1p049">
+<td>Иллюстрации</td>
+<td>Мягкая живописность, читаемые силуэты, спокойный фон вокруг снимков</td>
+</tr>
+<tr data-review-id="d1p050">
+<td>Научные изображения</td>
+<td>Нейтральная тёмная подложка; без цветового фильтра «под стиль игры»</td>
+</tr>
+<tr data-review-id="d1p051">
+<td>Анимация</td>
+<td>Короткий переход между состояниями, ориентир 200–400 мс; без постоянных мерцаний и обязательного движения</td>
+</tr>
+<tr data-review-id="d1p052">
+<td>Звук</td>
+<td>По умолчанию выключен; мягкий отклик действий, ничего важного только через звук</td>
+</tr>
+</tbody>
+</table><p data-review-id="d1p053">Все значения — стартовые проектные ориентиры. Контраст и читаемость проверяются в отрисованном интерфейсе, в том числе при масштабе 125% и 150%.</p></details>
+
+
+
+
+
+
+
+
+
+
+<details class="superseded-design"><summary>Прежняя редакция: 5. Помощник как персонаж — заменена новым концептом</summary><h2 id="5" data-review-id="d1p054">5. Помощник как персонаж</h2><h3 id="_6" data-review-id="d1p055">Образ</h3><p data-review-id="d1p056">Небольшой настольный оптический прибор: устойчивое основание, светлая эмалевая оболочка, одна линза и спокойный индикатор. Он физически находится в комнате. Ребёнок помогает готовить исследовательский инструмент, а не кормит виртуального питомца или заботится о его настроении.</p><p data-review-id="d1p057">Рабочее обращение — «Помощник». Имя можно выбрать после просмотра концептов. Не привязываем персонажа к бренду конкретной модели ИИ.</p><figure class="concept"><img src="gdd-assets/concepts/assistant-sheet-v1.png" alt="Концепт шести состояний Помощника"><figcaption data-review-id="d1p058">Состояния одного персонажа · художественный концепт image_gen, не готовая анимация.</figcaption></figure><p data-review-id="d1p059">Художественный концепт image_gen: шесть состояний одного прибора, не готовый игровой атлас анимаций.</p><table>
+<thead>
+<tr>
+<th>Состояние</th>
+<th>Что видно</th>
+<th>Реплика</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p060">
+<td>Знакомство</td>
+<td>Линза активируется, рядом появляется первый снимок</td>
+<td>«У меня первая смена. Покажешь, какие признаки будем различать?»</td>
+</tr>
+<tr data-review-id="d1p061">
+<td>Ожидает примеры</td>
+<td>Видна небольшая незаполненная подборка</td>
+<td>«Мне нужны изображения с метками»</td>
+</tr>
+<tr data-review-id="d1p062">
+<td>Примеры готовы</td>
+<td>Карточки собраны; доступна кнопка эксперимента</td>
+<td>«Посмотрим, как я справлюсь с другими снимками?»</td>
+</tr>
+<tr data-review-id="d1p063">
+<td>Показывает результат</td>
+<td>Подсвечен выбранный ответ и основание</td>
+<td>«Я предложил эту категорию по таким примерам»</td>
+</tr>
+<tr data-review-id="d1p064">
+<td>Есть расхождение</td>
+<td>Спокойный индикатор и знак вопроса</td>
+<td>«Здесь ответы различаются. Давай проверим»</td>
+</tr>
+<tr data-review-id="d1p065">
+<td>Смена завершена</td>
+<td>Рядом лежит журнал, не медаль «идеальный ИИ»</td>
+<td>«В атласе видно, что проверено и где ещё есть вопросы»</td>
+</tr>
+</tbody>
+</table><p data-review-id="d1p066">Эмоции не заменяют сведения о модели. Грустный персонаж не используется как наказание за неверную метку. Во время готового эксперимента не показываем фиктивную многоминутную загрузку обучения: открываем сохранённые этапы с подписью.</p></details>
+
+
+
+
+
+
+
+<h2 id="6" data-review-id="d1p067">6. Отсылка к зоопарку: атлас разнообразия</h2>
+<p data-review-id="d1p068">Galaxy Zoo даёт смысловую опору: множество разных форм, внимательное наблюдение, общий вклад людей. Визуальный образ — полевой атлас, музейная коллекция снимков и карточки с заметками. Галактики не превращаются в зверей, категории не называются биологическими видами, класс «диск с ребра» не изображается новым типом живого существа.</p>
+<h3 id="_7" data-review-id="d1p069">Три способа использовать мотив</h3>
+<table>
+<thead>
+<tr>
+<th>Вариант</th>
+<th>Как выглядит</th>
+<th>Где полезен</th>
+<th>Решение</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p070">
+<td>Атлас наблюдателя</td>
+<td>Карточки, закладки, поля для заметок, галерея проверенных изображений</td>
+<td>Основной маршрут и финал</td>
+<td>Основной вариант</td>
+</tr>
+<tr data-review-id="d1p071">
+<td>Прогулка по галерее форм</td>
+<td>Три части выставки, переходы между галактиками, стенд «ещё разбираемся»</td>
+<td>Дополнительное знакомство</td>
+<td>После базового среза</td>
+</tr>
+<tr data-review-id="d1p072">
+<td>Буквальный зверинец</td>
+<td>Персонажи-звери и клетки</td>
+<td>Отвлекает от свойств реальных снимков</td>
+<td>Не используем</td>
+</tr>
+</tbody>
+</table>
+<p data-review-id="d1p073">В финале — карточка «Это похоже на настоящую науку» с Galaxy Zoo, проверенными источниками и необязательным QR/ссылкой для знакомства позже. Логотип проекта не используется как наш бренд; никаких обещаний официального участия. Снимки не отправляются в Galaxy Zoo автоматически.</p>
+<h2 id="7" data-review-id="d1p074">7. Экраны и переходы</h2>
+<figure class="diagram" aria-label="Схема 1"><svg id="gddDiagram0" width="100%" xmlns="http://www.w3.org/2000/svg" class="flowchart" style="max-width: 1582px;" viewBox="0 0 1582 269.5" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#gddDiagram0{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#gddDiagram0 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#gddDiagram0 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#gddDiagram0 .error-icon{fill:#552222;}#gddDiagram0 .error-text{fill:#552222;stroke:#552222;}#gddDiagram0 .edge-thickness-normal{stroke-width:1px;}#gddDiagram0 .edge-thickness-thick{stroke-width:3.5px;}#gddDiagram0 .edge-pattern-solid{stroke-dasharray:0;}#gddDiagram0 .edge-thickness-invisible{stroke-width:0;fill:none;}#gddDiagram0 .edge-pattern-dashed{stroke-dasharray:3;}#gddDiagram0 .edge-pattern-dotted{stroke-dasharray:2;}#gddDiagram0 .marker{fill:#666;stroke:#666;}#gddDiagram0 .marker.cross{stroke:#666;}#gddDiagram0 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#gddDiagram0 p{margin:0;}#gddDiagram0 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#000000;}#gddDiagram0 .cluster-label text{fill:#333;}#gddDiagram0 .cluster-label span{color:#333;}#gddDiagram0 .cluster-label span p{background-color:transparent;}#gddDiagram0 .label text,#gddDiagram0 span{fill:#000000;color:#000000;}#gddDiagram0 .node rect,#gddDiagram0 .node circle,#gddDiagram0 .node ellipse,#gddDiagram0 .node polygon,#gddDiagram0 .node path{fill:#eee;stroke:#999;stroke-width:1px;}#gddDiagram0 .rough-node .label text,#gddDiagram0 .node .label text,#gddDiagram0 .image-shape .label,#gddDiagram0 .icon-shape .label{text-anchor:middle;}#gddDiagram0 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#gddDiagram0 .rough-node .label,#gddDiagram0 .node .label,#gddDiagram0 .image-shape .label,#gddDiagram0 .icon-shape .label{text-align:center;}#gddDiagram0 .node.clickable{cursor:pointer;}#gddDiagram0 .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}#gddDiagram0 .arrowheadPath{fill:#333333;}#gddDiagram0 .edgePaths .path{stroke:#666;stroke-width:1px;}#gddDiagram0 .flowchart-link{stroke:#666;fill:none;}#gddDiagram0 .edgeLabel{background-color:white;text-align:center;}#gddDiagram0 .edgeLabel p{background-color:white;}#gddDiagram0 .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}#gddDiagram0 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#gddDiagram0 .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}#gddDiagram0 .cluster text{fill:#333;}#gddDiagram0 .cluster span{color:#333;}#gddDiagram0 .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}#gddDiagram0 .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}#gddDiagram0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}#gddDiagram0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}#gddDiagram0 rect.text{fill:none;stroke-width:0;}#gddDiagram0 .icon-shape,#gddDiagram0 .image-shape{background-color:white;text-align:center;}#gddDiagram0 .icon-shape p,#gddDiagram0 .image-shape p{background-color:white;padding:2px;}#gddDiagram0 .icon-shape .label rect,#gddDiagram0 .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}#gddDiagram0 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#gddDiagram0 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#gddDiagram0 .node .neo-node{stroke:#999;}#gddDiagram0 [data-look="neo"].node rect,#gddDiagram0 [data-look="neo"].cluster rect,#gddDiagram0 [data-look="neo"].node polygon{stroke:url(#gddDiagram0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram0 [data-look="neo"].swimlane.cluster rect{filter:none;}#gddDiagram0 [data-look="neo"].node path{stroke:url(#gddDiagram0-gradient);stroke-width:1px;}#gddDiagram0 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram0 [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}#gddDiagram0 [data-look="neo"].node circle{stroke:url(#gddDiagram0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram0 [data-look="neo"].node circle .state-start{fill:#000000;}#gddDiagram0 [data-look="neo"].icon-shape .icon{fill:url(#gddDiagram0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram0 [data-look="neo"].icon-shape .icon-neo path{stroke:url(#gddDiagram0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram0 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker id="gddDiagram0_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="gddDiagram0_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="gddDiagram0_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="gddDiagram0_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="gddDiagram0_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="gddDiagram0_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="gddDiagram0_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="gddDiagram0_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="gddDiagram0_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="gddDiagram0_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="gddDiagram0_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="gddDiagram0_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M107.649,191.5L120.541,178.417C133.433,165.333,159.216,139.167,175.608,126.083C192,113,199,113,202.5,113L206,113" id="gddDiagram0-L_R_A_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 124.34266662597656 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_R_A_0" data-points="W3sieCI6MTA3LjY0ODc4MDQ4NzgwNDg4LCJ5IjoxOTEuNX0seyJ4IjoxODUsInkiOjExM30seyJ4IjoyMTAsInkiOjExM31d" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M362,113L366.167,113C370.333,113,378.667,113,386.333,113C394,113,401,113,404.5,113L408,113" id="gddDiagram0-L_A_L_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_A_L_0" data-points="W3sieCI6MzYyLCJ5IjoxMTN9LHsieCI6Mzg3LCJ5IjoxMTN9LHsieCI6NDEyLCJ5IjoxMTN9XQ==" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M564,89.297L568.167,87.998C572.333,86.698,580.667,84.099,588.333,82.8C596,81.5,603,81.5,606.5,81.5L610,81.5" id="gddDiagram0-L_L_T_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42.94194793701172 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_L_T_0" data-points="W3sieCI6NTY0LCJ5Ijo4OS4yOTcwMjk3MDI5NzAyOX0seyJ4Ijo1ODksInkiOjgxLjV9LHsieCI6NjE0LCJ5Ijo4MS41fV0=" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M766,81.5L770.167,81.5C774.333,81.5,782.667,81.5,790.364,82.601C798.06,83.702,805.121,85.904,808.651,87.005L812.181,88.106" id="gddDiagram0-L_T_V_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42.94005584716797 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_T_V_0" data-points="W3sieCI6NzY2LCJ5Ijo4MS41fSx7IngiOjc5MSwieSI6ODEuNX0seyJ4Ijo4MTYsInkiOjg5LjI5NzAyOTcwMjk3MDI5fV0=" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M841.762,161L833.301,169.083C824.841,177.167,807.921,193.333,782.627,201.417C757.333,209.5,723.667,209.5,690,209.5C656.333,209.5,622.667,209.5,593.669,197.877C564.67,186.254,540.341,163.009,528.176,151.386L516.011,139.763" id="gddDiagram0-L_V_L_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 356.98883056640625 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_V_L_0" data-points="W3sieCI6ODQxLjc2MTY1ODAzMTA4ODEsInkiOjE2MX0seyJ4Ijo3OTEsInkiOjIwOS41fSx7IngiOjY5MCwieSI6MjA5LjV9LHsieCI6NTg5LCJ5IjoyMDkuNX0seyJ4Ijo1MTMuMTE5MTcwOTg0NDU2LCJ5IjoxMzd9XQ==" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M964.358,65L969.132,61.833C973.905,58.667,983.453,52.333,991.73,49.514C1000.006,46.694,1007.013,47.387,1010.516,47.734L1014.019,48.081" id="gddDiagram0-L_V_X_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 50.083168029785156 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_V_X_0" data-points="W3sieCI6OTY0LjM1ODIwODk1NTIyMzksInkiOjY1fSx7IngiOjk5MywieSI6NDZ9LHsieCI6MTAxOCwieSI6NDguNDc1MjQ3NTI0NzUyNDc2fV0=" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M1018,98.891L1013.833,101.243C1009.667,103.594,1001.333,108.297,993.667,110.649C986,113,979,113,975.5,113L972,113" id="gddDiagram0-L_X_V_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 44.970726013183594 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_X_V_0" data-points="W3sieCI6MTAxOCwieSI6OTguODkxMDg5MTA4OTEwODl9LHsieCI6OTkzLCJ5IjoxMTN9LHsieCI6OTY4LCJ5IjoxMTN9XQ==" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M954.961,161L961.301,165.833C967.641,170.667,980.32,180.333,990.16,185.167C1000,190,1007,190,1010.5,190L1014,190" id="gddDiagram0-L_V_F_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 63.36997985839844 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_V_F_0" data-points="W3sieCI6OTU0Ljk2MTAzODk2MTAzOSwieSI6MTYxfSx7IngiOjk5MywieSI6MTkwfSx7IngiOjEwMTgsInkiOjE5MH1d" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M1170,190L1174.167,190C1178.333,190,1186.667,190,1195.657,191.696C1204.648,193.391,1214.296,196.782,1219.121,198.478L1223.945,200.174" id="gddDiagram0-L_F_C_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 51.318458557128906 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F_C_0" data-points="W3sieCI6MTE3MCwieSI6MTkwfSx7IngiOjExOTUsInkiOjE5MH0seyJ4IjoxMjI3LjcxODMwOTg1OTE1NSwieSI6MjAxLjV9XQ==" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M1227.718,249.5L1222.265,251.417C1216.812,253.333,1205.906,257.167,1183.62,259.083C1161.333,261,1127.667,261,1094,261C1060.333,261,1026.667,261,993,261C959.333,261,925.667,261,892,261C858.333,261,824.667,261,791,261C757.333,261,723.667,261,690,261C656.333,261,622.667,261,589,261C555.333,261,521.667,261,488,261C454.333,261,420.667,261,387,261C353.333,261,319.667,261,286,261C252.333,261,218.667,261,194.487,257.69C170.307,254.381,155.614,247.762,148.268,244.452L140.922,241.143" id="gddDiagram0-L_C_R_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 1086.910400390625 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_C_R_0" data-points="W3sieCI6MTIyNy43MTgzMDk4NTkxNTUsInkiOjI0OS41fSx7IngiOjExOTUsInkiOjI2MX0seyJ4IjoxMDk0LCJ5IjoyNjF9LHsieCI6OTkzLCJ5IjoyNjF9LHsieCI6ODkyLCJ5IjoyNjF9LHsieCI6NzkxLCJ5IjoyNjF9LHsieCI6NjkwLCJ5IjoyNjF9LHsieCI6NTg5LCJ5IjoyNjF9LHsieCI6NDg4LCJ5IjoyNjF9LHsieCI6Mzg3LCJ5IjoyNjF9LHsieCI6Mjg2LCJ5IjoyNjF9LHsieCI6MTg1LCJ5IjoyNjF9LHsieCI6MTM3LjI3NDcyNTI3NDcyNTI4LCJ5IjoyMzkuNX1d" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path><path d="M1372,225.5L1376.167,225.5C1380.333,225.5,1388.667,225.5,1396.333,225.5C1404,225.5,1411,225.5,1414.5,225.5L1418,225.5" id="gddDiagram0-L_C_Z_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_C_Z_0" data-points="W3sieCI6MTM3MiwieSI6MjI1LjV9LHsieCI6MTM5NywieSI6MjI1LjV9LHsieCI6MTQyMiwieSI6MjI1LjV9XQ==" data-look="neo" marker-end="url(#gddDiagram0_flowchart-v2-pointEnd-margin)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="L_R_A_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_A_L_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_L_T_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_T_V_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_V_L_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_V_X_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_X_V_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_V_F_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_F_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_C_R_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_C_Z_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="gddDiagram0-flowchart-R-0" data-look="neo" transform="translate(84, 215.5)"><rect class="basic label-container" style="" x="-76" y="-24" width="152" height="48"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Комната</p></span></div></foreignObject></g></g><g class="node default" id="gddDiagram0-flowchart-A-1" data-look="neo" transform="translate(286, 113)"><rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72"></rect><g class="label" style="" transform="translate(-60, -24)"><rect></rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Архив и справочник</p></span></div></foreignObject></g></g><g class="node default" id="gddDiagram0-flowchart-L-3" data-look="neo" transform="translate(488, 113)"><rect class="basic label-container" style="" x="-76" y="-24" width="152" height="48"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Стол разметки</p></span></div></foreignObject></g></g><g class="node default" id="gddDiagram0-flowchart-T-5" data-look="neo" transform="translate(690, 81.5)"><rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72"></rect><g class="label" style="" transform="translate(-60, -24)"><rect></rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Подборка и показ обучения</p></span></div></foreignObject></g></g><g class="node default" id="gddDiagram0-flowchart-V-7" data-look="neo" transform="translate(892, 113)"><rect class="basic label-container" style="" x="-76" y="-48" width="152" height="96"></rect><g class="label" style="" transform="translate(-60, -36)"><rect></rect><foreignObject width="120" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Проверка на новых изображениях</p></span></div></foreignObject></g></g><g class="node default" id="gddDiagram0-flowchart-X-11" data-look="neo" transform="translate(1094, 56)"><rect class="basic label-container" style="" x="-76" y="-48" width="152" height="96"></rect><g class="label" style="" transform="translate(-60, -36)"><rect></rect><foreignObject width="120" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Лаборатория способов и CNN</p></span></div></foreignObject></g></g><g class="node default" id="gddDiagram0-flowchart-F-15" data-look="neo" transform="translate(1094, 190)"><rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72"></rect><g class="label" style="" transform="translate(-60, -24)"><rect></rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Итоговая проверка</p></span></div></foreignObject></g></g><g class="node default" id="gddDiagram0-flowchart-C-17" data-look="neo" transform="translate(1296, 225.5)"><rect class="basic label-container" style="" x="-76" y="-24" width="152" height="48"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Атлас и журнал</p></span></div></foreignObject></g></g><g class="node default" id="gddDiagram0-flowchart-Z-21" data-look="neo" transform="translate(1498, 225.5)"><rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72"></rect><g class="label" style="" transform="translate(-60, -24)"><rect></rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Galaxy Zoo и индустрия</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="gddDiagram0-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="gddDiagram0-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><linearGradient id="gddDiagram0-gradient" gradientUnits="objectBoundingBox" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="hsl(0, 0%, 83.3333333333%)" stop-opacity="1"></stop><stop offset="100%" stop-color="hsl(0, 0%, 88.9215686275%)" stop-opacity="1"></stop></linearGradient></svg></figure>
+<table>
+<thead>
+<tr>
+<th>Экран</th>
+<th>Главное действие</th>
+<th>Что постоянно видно</th>
+<th>Что раскрывается по запросу</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p075">
+<td>Комната</td>
+<td>Открыть актуальное рабочее место</td>
+<td>Цель смены, прогресс, помощник</td>
+<td>История обсерватории, настройки</td>
+</tr>
+<tr data-review-id="d1p076">
+<td>Справочник</td>
+<td>Сравнить три эталона</td>
+<td>Изображения и один признак у каждого</td>
+<td>Ограничения категорий</td>
+</tr>
+<tr data-review-id="d1p077">
+<td>Стол</td>
+<td>Рассмотреть и выбрать метку</td>
+<td>Крупный снимок, 3 выбора, сомнение, номер примера</td>
+<td>Источник, подсказка, измерения</td>
+</tr>
+<tr data-review-id="d1p078">
+<td>Учебная подборка</td>
+<td>Проверить состав и открыть эксперимент</td>
+<td>Собственные метки, подготовленная часть набора</td>
+<td>История изменений</td>
+</tr>
+<tr data-review-id="d1p079">
+<td>Проверка</td>
+<td>Сопоставить ответ и основание</td>
+<td>Один новый снимок, ответ, сверка</td>
+<td>Распределение ошибок по группам</td>
+</tr>
+<tr data-review-id="d1p080">
+<td>Лаборатория</td>
+<td>Выбрать подготовленный вариант</td>
+<td>Какие условия меняем</td>
+<td>Сохранённые этапы и детали метода</td>
+</tr>
+<tr data-review-id="d1p081">
+<td>Атлас</td>
+<td>Передать смену</td>
+<td>Проверенные записи и сомнения отдельно</td>
+<td>Журнал, источники, отраслевой пример</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-" data-review-id="d1p082">Компоновка для 14-дюймового ноутбука</h3>
+<p data-review-id="d1p083">Основной расчёт — CSS viewport, а не число физических пикселей. Full HD при масштабе 150% даёт существенно меньше пространства. Проектируем рабочий стол прежде всего для 1280×720 CSS px и проверяем более низкую доступную высоту с браузерными панелями.</p>
+<p data-review-id="d1p084">Центральный снимок получает около 55–65% ширины рабочей области. Справа — компактная колонка решений; подпись помощника занимает одну-две строки. Источник и научные пояснения закрыты по умолчанию. На узком экране кнопки перемещаются под снимок; изображение и решение не разделяются большим полотном текста.</p>
+<p data-review-id="d1p085"><strong>Запрет на скрытые действия:</strong> никакой важной кнопки только по hover, никакого обязательного перетаскивания, никакого уменьшения всего интерфейса до нечитаемого масштаба. Tab проходит контролы в осмысленном порядке; Enter/Space подтверждают; Escape закрывает справку и возвращает фокус.</p>
+<h2 id="8" data-review-id="d1p086">8. Варианты центральной механики</h2>
+<p data-review-id="d1p087">Варианты решают одну учебную задачу. Отличаются способом взаимодействия, а не научной постановкой. В HTML ниже размещены демонстрационные раскладки: они не обучают модель и не оценивают корректность меток.</p>
+<section class="mechanic-demo" aria-label="Проба трёх представлений механики">
+  <div class="demo-top"><strong>Проба механик · не игровая модель</strong><p>Переключайте раскладки и выбирайте метки. Демонстрация не оценивает правильность и не показывает качество обучения.</p></div>
+  <div class="demo-tabs" role="group" aria-label="Вариант механики">
+    <button type="button" data-mode="desk" aria-pressed="true">A · Стол исследователя</button>
+    <button type="button" data-mode="atlas" aria-pressed="false">B · Раскладка атласа</button>
+    <button type="button" data-mode="compare" aria-pressed="false">C · Сопоставление</button>
+  </div>
+  <div class="demo-samples" role="group" aria-label="Выбрать изображение"></div>
+  <div class="demo-stage"></div>
+  <p class="demo-feedback" role="status">Выберите изображение и попробуйте действие.</p>
+  <button type="button" class="demo-reset">Сбросить пробу</button>
+  <p class="demo-note">Фото — ESA/Hubble; полный кредит показан у каждого изображения. Здесь образцы не являются обучающей или проверочной выборкой. Соседи в варианте C иллюстрируют расположение элементов, а не вычисленное сходство.</p>
+</section>
+
+
+<h3 id="a" data-review-id="d1p088">A. Стол исследователя — основной выбор</h3>
+<p data-review-id="d1p089">Один крупный снимок, лупа, три эталона и кнопки категорий. Ребёнок сначала рассматривает объект, затем выбирает метку. Можно отметить интересную деталь; она сохраняется как заметка, но не становится автоматически числовым признаком модели.</p>
+<p data-review-id="d1p090"><strong>Последовательность:</strong> открыть → приблизить → выбрать метку → увидеть карточку на доске → следующий пример. «Не уверен» оставляет решение открытым и предлагает справочник. Первый снимок разбирается со стендистом, остальные — самостоятельно.</p>
+<p data-review-id="d1p091"><strong>Сильная сторона:</strong> видно, что ребёнок классифицирует, удобно обсуждать основания. <strong>Риск:</strong> однообразие серии. <strong>Как проверить:</strong> наблюдать, продолжает ли ребёнок рассматривать изображения или начинает нажимать наугад; менять сложность случаев, а не добавлять фейерверки.</p>
+<h3 id="b" data-review-id="d1p092">B. Раскладка атласа — обзор и исправления</h3>
+<p data-review-id="d1p093">Небольшая группа карточек и три подписанные области. Клик по карточке открывает крупный просмотр; категорию можно выбрать кнопкой или перенести карточку. Надпись и миниатюра эталона помогают отличать области без знания терминов.</p>
+<p data-review-id="d1p094"><strong>Использование:</strong> проверка состава уже размеченной выборки, поиск однообразия, исправление конкретной метки. <strong>Риск:</strong> ребёнок сортирует по декоративному цвету рамки. Все неразмеченные карточки выглядят одинаково; цвет группы появляется только после решения.</p>
+<p data-review-id="d1p095">Это не обязательный первый экран: для знакомства с объектом важнее крупный снимок.</p>
+<h3 id="c" data-review-id="d1p096">C. Сопоставление примеров — объяснение модели</h3>
+<p data-review-id="d1p097">Новый объект в центре и несколько действительно близких учебных изображений рядом. Ребёнок предполагает ответ и открывает метки соседей. Видит, почему метод похожих примеров дал именно этот ответ.</p>
+<p data-review-id="d1p098"><strong>Использование:</strong> сцена «Почему?» и разбор ошибки. <strong>Риск:</strong> подмена настоящего основания визуально удобными картинками. Соседи и расстояния берутся из того же подготовленного эксперимента, что и ответ.</p>
+<p data-review-id="d1p099"><strong>Рекомендация:</strong> A — основной процесс; B — обзор; C — объяснение. Не предлагаем ребёнку три разных интерфейса для одной операции на входе. Сначала проверяем одну связку A → B → C на реальных изображениях.</p>
+<h2 id="9" data-review-id="d1p100">9. Галактики и научные данные</h2>
+<p data-review-id="d1p101">Три категории — «Гладкая», «Видна спираль», «Диск с ребра». Они описывают видимое строение в ограниченной учебной подборке. Физический тип и ракурс не смешиваются: гладкий вид не гарантирует эллиптическую природу, а вид с ребра сам по себе не создаёт новый тип галактики.</p>
+<p data-review-id="d1p102">Справочник показывает и границу применимости. Размытое изображение или сложная структура отправляются в очередь разбора. «Не уверен» не становится четвёртым классом. Отсутствие видимых рукавов на плохом снимке не считается доказательством гладкого строения.</p>
+<h3 id="ic-2006" data-review-id="d1p103">IC 2006 · Гладкая</h3>
+<figure class="science-card"><img loading="lazy" src="gdd-assets/galaxies/heic1508a.jpg" alt="IC 2006 — реальный снимок ESA/Hubble"><figcaption data-review-id="d1p104"><strong>IC 2006</strong> · Гладкая<small>ESA/Hubble &amp; NASA; Image acknowledgement: Judy Schmidt and J. Blakeslee (Dominion Astrophysical Observatory); Science acknowledgement: M. Carollo (ETH, Switzerland)</small><a href="https://esahubble.org/images/heic1508a/">Официальный источник</a> · <a href="https://esahubble.org/copyright/">CC BY 4.0</a></figcaption></figure>
+<p data-review-id="d1p105">Гладкий профиль без различимых рукавов. Это пример видимого облика; не любое гладкое изображение устанавливает эллиптическую природу.</p>
+<p data-review-id="d1p106">Источник: <a href="https://esahubble.org/images/heic1508a/">IC 2006 · ESA/Hubble</a>. Credit: ESA/Hubble &amp; NASA; Image acknowledgement: Judy Schmidt and J. Blakeslee (Dominion Astrophysical Observatory); Science acknowledgement: M. Carollo (ETH, Switzerland). <a href="https://esahubble.org/copyright/">CC BY 4.0</a>. Официальный screensize JPEG, без изменений.</p>
+<h3 id="ic-5332" data-review-id="d1p107">IC 5332 · Видна спираль</h3>
+<figure class="science-card"><img loading="lazy" src="gdd-assets/galaxies/potw2342a.jpg" alt="IC 5332 — реальный снимок ESA/Hubble"><figcaption data-review-id="d1p108"><strong>IC 5332</strong> · Видна спираль<small>ESA/Hubble &amp; NASA, R. Chandar, J. Lee and the PHANGS-HST team</small><a href="https://esahubble.org/images/potw2342a/">Официальный источник</a> · <a href="https://esahubble.org/copyright/">CC BY 4.0</a></figcaption></figure>
+<p data-review-id="d1p109">Спиральная структура хорошо видна. Цвет не служит самостоятельным основанием учебной метки.</p>
+<p data-review-id="d1p110">Источник: <a href="https://esahubble.org/images/potw2342a/">IC 5332 · ESA/Hubble</a>. Credit: ESA/Hubble &amp; NASA, R. Chandar, J. Lee and the PHANGS-HST team. <a href="https://esahubble.org/copyright/">CC BY 4.0</a>. Официальный screensize JPEG, без изменений.</p>
+<h3 id="ngc-5023" data-review-id="d1p111">NGC 5023 · Диск с ребра</h3>
+<figure class="science-card"><img loading="lazy" src="gdd-assets/galaxies/potw1512a.jpg" alt="NGC 5023 — реальный снимок ESA/Hubble"><figcaption data-review-id="d1p112"><strong>NGC 5023</strong> · Диск с ребра<small>ESA/Hubble &amp; NASA</small><a href="https://esahubble.org/images/potw1512a/">Официальный источник</a> · <a href="https://esahubble.org/copyright/">CC BY 4.0</a></figcaption></figure>
+<p data-review-id="d1p113">Диск виден с ребра. Источник описывает объект как спиральную галактику: ракурс и физический тип различаются.</p>
+<p data-review-id="d1p114">Источник: <a href="https://esahubble.org/images/potw1512a/">NGC 5023 · ESA/Hubble</a>. Credit: ESA/Hubble &amp; NASA. <a href="https://esahubble.org/copyright/">CC BY 4.0</a>. Официальный screensize JPEG, без изменений.</p>
+<h3 id="messier-85" data-review-id="d1p115">Messier 85 · Внешний облик и физический тип — разные вопросы</h3>
+<figure class="science-card"><img loading="lazy" src="gdd-assets/galaxies/potw1905a.jpg" alt="Messier 85 — реальный снимок ESA/Hubble"><figcaption data-review-id="d1p116"><strong>Messier 85</strong> · Внешний облик и физический тип — разные вопросы<small>ESA/Hubble &amp; NASA, R. O'Connell</small><a href="https://esahubble.org/images/potw1905a/">Официальный источник</a> · <a href="https://esahubble.org/copyright/">CC BY 4.0</a></figcaption></figure>
+<p data-review-id="d1p117">Дополнительный разговор: видимый гладкий облик не определяет всю физическую природу объекта. Не заставляем выбирать «Не уверен» только из-за промежуточного физического типа.</p>
+<p data-review-id="d1p118">Источник: <a href="https://esahubble.org/images/potw1905a/">Messier 85 · ESA/Hubble</a>. Credit: ESA/Hubble &amp; NASA, R. O'Connell. <a href="https://esahubble.org/copyright/">CC BY 4.0</a>. Официальный screensize JPEG, без изменений.</p>
+<p data-review-id="d1p119">Красивые обзорные изображения в этом документе служат визуальными примерами. Они не образуют автоматически обучающую выборку: у разных телескопов различаются разрешение, цветовое представление и поле зрения. Модель может выучить эти различия вместо формы галактики. Подборка для игры требует отдельного допуска и единообразной подготовки.</p>
+<h3 id="_8" data-review-id="d1p120">Допуск изображения в игру</h3>
+<ol>
+<li data-review-id="d1p121">Идентификатор объекта, источник, авторство и лицензия на локальное распространение.</li>
+<li data-review-id="d1p122">Описание обработки: вырезка, масштаб, поворот, цветовое представление; научный смысл изменений проверен.</li>
+<li data-review-id="d1p123">Справочная категория, основание и неопределённость. Один ответ не выдаётся за абсолютную истину о природе объекта.</li>
+<li data-review-id="d1p124">Решение: ясный учебный пример, проверочный пример либо спорный случай для демонстрации ограничения.</li>
+<li data-review-id="d1p125">Разделение по объектам: снимки и повороты одной галактики не попадают одновременно в обучение и независимый тест.</li>
+<li data-review-id="d1p126">Контроль целостности файла и включение всех зависимостей в офлайн-пакет.</li>
+</ol>
+<p data-review-id="d1p127">Синтетические галактики допустимы только как подписанная иллюстрация интерфейса. Они не выдаются за реальные наблюдения и не смешиваются с проверочными данными.</p>
+<h2 id="10" data-review-id="d1p128">10. Работа стендиста и обратная связь</h2>
+<p data-review-id="d1p129">Стартовая реплика: «У помощника первая смена. Подготовим ему примеры галактик, проверим ответы и соберём каталог». Во время работы стендист спрашивает: «Что заметил? Почему выбрал эту метку? Что предложил помощник? Как проверим?»</p>
+<table>
+<thead>
+<tr>
+<th>Событие</th>
+<th>Обратная связь игры</th>
+<th>Действие стендиста</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p130">
+<td>Ребёнок выбрал метку</td>
+<td>Карточка получила метку; ещё нет зелёного «правильно»</td>
+<td>Попросить основание на одном показательном примере</td>
+</tr>
+<tr data-review-id="d1p131">
+<td>Ребёнок сомневается</td>
+<td>Доступен справочник и очередь разбора</td>
+<td>Уточнить, какой детали не хватает</td>
+</tr>
+<tr data-review-id="d1p132">
+<td>Проверка выявила расхождение</td>
+<td>Показать объект и справочное основание</td>
+<td>Отделить ошибку разметки от ограничения модели</td>
+</tr>
+<tr data-review-id="d1p133">
+<td>Метки исправлены, ответ не изменился</td>
+<td>Честно показать отсутствие изменения</td>
+<td>Обсудить, что ещё влияет на результат</td>
+</tr>
+<tr data-review-id="d1p134">
+<td>Первая попытка удачна</td>
+<td>Разрешить завершение или сложный опыт</td>
+<td>Не придумывать обязательный провал</td>
+</tr>
+<tr data-review-id="d1p135">
+<td>Модель справилась не со всем</td>
+<td>Разделить проверенные записи и сомнения</td>
+<td>Завершить смену с обоснованным ограничением</td>
+</tr>
+</tbody>
+</table>
+<p data-review-id="d1p136">Итог — не экзамен на термины. Ребёнок объясняет, какую работу выполнил помощник и как её проверяли. Пример с заводом переносит ту же цепочку на фотографии деталей и известные категории дефектов. Сомнение и новый неизвестный дефект требуют отдельной проверки, а не автоматического назначения знакомого класса.</p>
+<h2 id="11" data-review-id="d1p137">11. Техническое устройство</h2>
+<h3 id="1_1" data-review-id="d1p138">1. Решения и ограничения</h3>
+<p data-review-id="d1p139">Игра работает в современном браузере без сети. Ребёнок вместе со стендистом готовит ИИ-помощника к <strong>многоклассовой классификации изображений галактик</strong>. Обязательные категории — <code>smooth</code> («Гладкая»), <code>spiral</code> («Видна спираль») и <code>edge_on</code> («Диск с ребра»). Это три взаимоисключающие учебные метки для заранее допущенных изображений, а не полная астрономическая классификация.</p>
+<p data-review-id="d1p140">В основной смене модель получает шесть эффективных меток: ребёнок ставит их сам либо в коротком маршруте добавляет свои к явно отделённым подготовленным меткам. Для трёх категорий существует <code>3^6 = 729</code> возможных векторов разметки. У каждого допустимого вектора заранее рассчитан результат эксперимента: предложения на наборе разбора, матрица ошибок, объяснение и следующая содержательная ветка. Игра не запускает обучение модели, не вызывает API и не выдаёт предрасчёт за вычисление в данный момент.</p>
+<p data-review-id="d1p141">Стендист — живой наставник, а не персонаж в интерфейсе. ИИ-помощник — единственный персонаж: он показывает, какие примеры получил, что предложил и какие ограничения обнаружились. Реплики, метрики и варианты ответов лежат локально.</p>
+<h4 id="_9" data-review-id="d1p142">Неизменяемые технические границы</h4>
+<ul>
+<li data-review-id="d1p143">Базовый runtime: статические HTML, CSS и JavaScript без фреймворка, сборщика и нового игрового движка.</li>
+<li data-review-id="d1p144">Изображения галактик рендерятся через <code>&lt;img&gt;</code> с локальным файлом или <code>&lt;canvas&gt;</code> при необходимости увеличения/аннотаций. Canvas не является источником истины разметки.</li>
+<li data-review-id="d1p145">Ника, наведение телескопа, карта неба и механика трёх кадров не переносятся как обязательные механики: они относятся к предыдущей задаче наблюдений.</li>
+<li data-review-id="d1p146">Свободного чата, внешних LLM, сетевой аналитики, реального обучения CNN и серверного хранения нет.</li>
+<li data-review-id="d1p147">«Не могу уверенно определить» — действие интерфейса и запись в очередь сомнений, не четвёртая метка и не один из 729 векторов.</li>
+</ul>
+<h3 id="2_1" data-review-id="d1p148">2. Что подтверждено в локальном состоянии</h3>
+<p data-review-id="d1p149">Ниже зафиксированы проверенные свойства репозитория, на которые можно опираться, а не требования к новому продукту.</p>
+<table>
+<thead>
+<tr>
+<th>Наблюдение</th>
+<th>Основание</th>
+<th>Следствие для новой игры</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p150">
+<td><code>app/index.html</code> — локальная автономная поставка, описанная в README; README не подтверждает, какой runtime сейчас опубликован.</td>
+<td><code>README.md</code>, <code>app/index.html</code></td>
+<td>Способ автономной поставки полезен как прецедент, но не задаёт место новой реализации.</td>
+</tr>
+<tr data-review-id="d1p151">
+<td>Публичный сценарий расширяет зафиксированный образ comparison runtime: <code>tools/scenario-review/Dockerfile.web</code> наследует <code>sd2026-comparison:before-comments-20261006</code>, а <code>designlab/comparison/Dockerfile</code> публикует <code>night.html</code> как <code>index.html</code>.</td>
+<td><code>tools/scenario-review/Dockerfile.web</code>, <code>designlab/comparison/Dockerfile</code></td>
+<td>Ближайший runtime для новой версии — <code>designlab/comparison</code>; публикация требует отдельного решения после готовности среза.</td>
+</tr>
+<tr data-review-id="d1p152">
+<td>В <code>app/</code> и comparison runtime применяются локальные JS/CSS-файлы, DOM и canvas; npm содержит только Prettier.</td>
+<td><code>app/index.html</code>, <code>designlab/comparison/index.html</code>, <code>package.json</code></td>
+<td>React, Phaser или сборщик для новой механики не нужны.</td>
+</tr>
+<tr data-review-id="d1p153">
+<td>Текущая ночная игра отделяет правила кампании от DOM: <code>NightModel</code> не рисует экран, а <code>night.js</code> управляет состояниями и локальным сохранением.</td>
+<td><code>designlab/comparison/night-model.js</code>, <code>designlab/comparison/night.js</code></td>
+<td>Такое же разделение следует сохранить, но с новым доменом галактик.</td>
+</tr>
+<tr data-review-id="d1p154">
+<td>Предыдущая ночная смена сохраняет JSON в <code>localStorage</code>, умеет инвалидировать результат обучения при изменении разметки и проверяет подпись снапшота при восстановлении.</td>
+<td><code>designlab/comparison/night.js</code>, <code>designlab/comparison/night-model.js</code></td>
+<td>Это полезный прецедент, но старое состояние нельзя читать как состояние новой игры.</td>
+</tr>
+<tr data-review-id="d1p155">
+<td>Скрипт <code>build-night.py</code> упаковывает явный список локальных ресурсов и добавляет контентные хэши к ссылкам.</td>
+<td><code>designlab/comparison/build-night.py</code></td>
+<td>Новая поставка должна иметь явный манифест и не зависеть от случайных файлов рабочей папки.</td>
+</tr>
+</tbody>
+</table>
+<p data-review-id="d1p156">Размер, происхождение и научная пригодность будущих изображений галактик пока не проверены. Поэтому названия файлов, метрики и квоты ниже — проектные решения до приёмки набора данных.</p>
+<h3 id="3_1" data-review-id="d1p157">3. Архитектура поставки</h3>
+<p data-review-id="d1p158">Предлагаемая директория находится рядом с текущей поставкой, чтобы не смешивать её с переходным кодом ночной смены.</p>
+<pre><code class="language-text">designlab/galaxy-shift/
+├── index.html                 # точка входа; открывается по file:// и HTTP
+├── galaxy-shift.css           # адаптивный layout, reduced motion, печать
+├── data/
+│   ├── manifest.js            # версия данных, пути, provenance, контрольные суммы
+│   ├── samples.js             # описания изображений, категории, доступность
+│   ├── experiments.js         # таблица 729 предрассчитанных результатов
+│   ├── copy.js                # реплики помощника и короткие объяснения
+│   └── gallery/               # локальные WEBP/PNG; без ленивой загрузки по сети
+├── src/
+│   ├── model.js               # чистые правила, валидация, переходы, миграции
+│   ├── state.js               # создание/сохранение/восстановление смены
+│   ├── ui.js                  # DOM-рендер и обработчики событий
+│   ├── image-viewer.js        # zoom, фокус, доступные подписи, canvas-аннотации
+│   ├── presenter.js           # панель стендиста и режим объяснения
+│   └── export.js              # локальная выгрузка журнала как HTML/JSON
+└── tools/
+    ├── build-galaxy-shift.py  # проверка манифеста и автономная ZIP-поставка
+    └── check-galaxy-shift.mjs # инварианты данных и переходов
+</code></pre>
+<p data-review-id="d1p159">Сценарный текст остаётся в <code>docs/</code>, а не копируется руками в код: <code>data/copy.js</code> получает короткие реплики, утверждённые из сценария. Одна версия набора (<code>datasetVersion</code>) связывает изображения, справочную разметку, эксперименты и тексты объяснений.</p>
+<h4 id="_10" data-review-id="d1p160">Слои и ответственность</h4>
+<table>
+<thead>
+<tr>
+<th>Модуль</th>
+<th>Делает</th>
+<th>Не делает</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p161">
+<td><code>model.js</code></td>
+<td>Валидирует метку, строит ключ из шести меток и полной конфигурации опыта, находит вариант эксперимента, инвалидирует зависимые результаты.</td>
+<td>Не читает DOM, <code>localStorage</code> или изображения.</td>
+</tr>
+<tr data-review-id="d1p162">
+<td><code>state.js</code></td>
+<td>Загружает JSON, применяет миграцию, сохраняет только валидное состояние.</td>
+<td>Не считает метрики и не выбирает «правильный» ответ.</td>
+</tr>
+<tr data-review-id="d1p163">
+<td><code>ui.js</code></td>
+<td>Показывает этап, карточки, состояние кнопок и доступные действия.</td>
+<td>Не содержит скрытый ключ разметки и не меняет состояние напрямую.</td>
+</tr>
+<tr data-review-id="d1p164">
+<td><code>image-viewer.js</code></td>
+<td>Рисует изображение/маркер, обеспечивает масштабирование и клавиатурное управление.</td>
+<td>Не меняет метку при визуальном клике без явного выбора категории.</td>
+</tr>
+<tr data-review-id="d1p165">
+<td><code>presenter.js</code></td>
+<td>Показывает стендисту вопрос следующего шага и расширенное объяснение.</td>
+<td>Не открывает правильные ответы ребёнку до разрешённой сцены.</td>
+</tr>
+<tr data-review-id="d1p166">
+<td><code>experiments.js</code></td>
+<td>Содержит только заранее рассчитанные результаты и объяснения.</td>
+<td>Не выполняет обучение или случайный выбор.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4_1" data-review-id="d1p167">4. Данные и предрассчитанные эксперименты</h3>
+<h4 id="_11" data-review-id="d1p168">Единица изображения</h4>
+<p data-review-id="d1p169">Каждый игровой пример — локальная вырезка с одной галактикой в центре. В <code>samples.js</code> хранятся только идентификаторы, видимые метаданные, путь к уже допущенному файлу и роль в игре. Справочная метка не показывается до точки, определённой сценарием.</p>
+<pre><code class="language-js">const SAMPLE = {
+  id: 'train-03',
+  image: 'data/gallery/train-03.webp',
+  alt: 'Астрономическое изображение: одна галактика расположена в центре кадра.',
+  role: 'training',                 // training | review | final | reference | doubtful
+  referenceLabel: 'spiral',         // доступно модели, но не обычному UI до разбора
+  admissibleLabels: ['smooth', 'spiral', 'edge_on'],
+  provenanceId: 'gz-source-042',
+  teachingNotes: ['spiral_arms_visible'],
+  quality: 'clear',                 // clear | difficult; difficult не попадает в шесть обязательных
+  width: 768,
+  height: 768
+};
+</code></pre>
+<p data-review-id="d1p170">У <code>doubtful</code> нет принудительной справочной метки для ребёнка: это материал очереди сомнений после основной проверки. Он не используется для вычисления метрик и не может тихо превратиться в один из трёх классов.</p>
+<p data-review-id="d1p171">До выбора метки <code>alt</code> остаётся нейтральным и не называет категорию или её отличительный признак. Это предотвращает случайную подсказку читателю экрана. В карточке стендиста может быть отдельный набор вопросов внимания («Что на форме кажется круглым, вытянутым или узорчатым?»), но он не раскрывает эталон и не включается в игроковый DOM как скрытый текст. После выбора можно открыть доступное объяснение наблюдаемых признаков и основания справочной разметки. Эквивалентный самостоятельный сценарий для незрячего ребёнка требует отдельного пользовательского теста: нельзя объявлять его решённым одним <code>alt</code> или вынуждать ребёнка угадывать по названию кнопки.</p>
+<h4 id="_12" data-review-id="d1p172">Ключ эксперимента</h4>
+<p data-review-id="d1p173">Порядок шести обучающих идентификаторов фиксирован в <code>manifest.js</code> и показывается в интерфейсе как шесть карточек. Метки кодируются цифрами: <code>smooth = 0</code>, <code>spiral = 1</code>, <code>edge_on = 2</code>. Ключ — шесть цифр в фиксированном порядке; например, <code>[spiral, smooth, spiral, edge_on, smooth, edge_on]</code> даёт <code>101202</code>.</p>
+<p data-review-id="d1p174">Числовой индекс таблицы определён однозначно как число в троичной системе с этими шестью цифрами: <code>index = Σ(code[i] × 3^(5 - i))</code>, от 0 до 728. В сохранении остаются и строковый ключ, и массив названий меток: это делает данные проверяемыми человеком и не зависит от неявного порядка объектов JavaScript.</p>
+<p data-review-id="d1p175">Схема ниже иллюстрирует формат: числа условные, не результат рассчитанного игрового эксперимента. В готовой таблице метрики проверяются по полному массиву предсказаний.</p>
+<pre><code class="language-js">const EXPERIMENT = {
+  id: 'v1-101202',
+  datasetVersion: 'galaxy-v1',
+  labels: ['spiral', 'smooth', 'spiral', 'edge_on', 'smooth', 'edge_on'],
+  trainingSummary: {
+    labelled: 6,
+    classCounts: { smooth: 2, spiral: 2, edge_on: 2 },
+    noteId: 'balanced_examples'
+  },
+  classifier: {
+    methodId: 'similarity-v1',
+    trainingSetId: 'core-six-v1',
+    supplementId: null,
+    featurePipelineVersion: 'image-features-v1',
+    kind: 'prepared-image-classifier',
+    label: 'Модель по примерам',
+    explanationId: 'similarity_uses_examples'
+  },
+  review: {
+    setId: 'review-a',
+    total: 9,
+    correct: 7,
+    confusion: [[2, 0, 1], [0, 3, 0], [1, 0, 2]],
+    predictions: [ // сокращённый пример; реальная запись содержит все 9
+      { sampleId: 'check-01', predicted: 'smooth', explanationId: 'match_smooth_profile' }
+    ]
+  },
+  diagnosis: { kind: 'label_review', sampleIds: ['train-02'], copyId: 'review_one_label' },
+  cnnLab: { experimentId: 'cnn-balanced-v1', available: true }
+};
+</code></pre>
+<p data-review-id="d1p176">Псевдовероятность или декоративная шкала уверенности не добавляются. Если позднее потребуется оценка уверенности, для неё отдельно определяются метод расчёта и корректное объяснение.</p>
+<h4 id="729" data-review-id="d1p177">Непротиворечивость набора 729 вариантов</h4>
+<p data-review-id="d1p178">Генератор подготовки данных, запускаемый до поставки, обязан:</p>
+<ol>
+<li data-review-id="d1p179">создать ровно 729 записей для фиксированной конфигурации метода и набора из шести карточек и трёх допустимых меток;</li>
+<li data-review-id="d1p180">проверить, что каждая запись относится к той же <code>datasetVersion</code>;</li>
+<li data-review-id="d1p181">проверить размер матрицы ошибок <code>3×3</code>, сумму ячеек, равную <code>review.total</code>, и принадлежность всех предсказаний набору разбора;</li>
+<li data-review-id="d1p182">проверить, что диагноз не выдаёт ссылок на скрытую справочную разметку до этапа разбора;</li>
+<li data-review-id="d1p183">проверить, что каждая ветка улучшения ссылается на существующий следующий эксперимент;</li>
+<li data-review-id="d1p184">записать хэш входного набора и хэш таблицы экспериментов в манифест.</li>
+</ol>
+<p data-review-id="d1p185">Не следует хранить 729 копий галереи. Общие изображения хранятся один раз; эксперимент хранит небольшие числовые результаты и идентификаторы реплик.</p>
+<h3 id="5_1" data-review-id="d1p186">5. Состояния смены и защита от утечки контрольных данных</h3>
+<h4 id="_13" data-review-id="d1p187">Конечный автомат</h4>
+<figure class="diagram" aria-label="Схема 2"><svg id="gddDiagram1" width="100%" xmlns="http://www.w3.org/2000/svg" class="statediagram" style="max-width: 1093.3101806640625px;" viewBox="0 0 1093.3101806640625 1224" role="graphics-document document" aria-roledescription="stateDiagram"><style>#gddDiagram1{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#gddDiagram1 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#gddDiagram1 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#gddDiagram1 .error-icon{fill:#552222;}#gddDiagram1 .error-text{fill:#552222;stroke:#552222;}#gddDiagram1 .edge-thickness-normal{stroke-width:1px;}#gddDiagram1 .edge-thickness-thick{stroke-width:3.5px;}#gddDiagram1 .edge-pattern-solid{stroke-dasharray:0;}#gddDiagram1 .edge-thickness-invisible{stroke-width:0;fill:none;}#gddDiagram1 .edge-pattern-dashed{stroke-dasharray:3;}#gddDiagram1 .edge-pattern-dotted{stroke-dasharray:2;}#gddDiagram1 .marker{fill:#666;stroke:#666;}#gddDiagram1 .marker.cross{stroke:#666;}#gddDiagram1 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#gddDiagram1 p{margin:0;}#gddDiagram1 defs [id$="-barbEnd"]{fill:#000;stroke:#000;}#gddDiagram1 g.stateGroup text{fill:#999;stroke:none;font-size:10px;}#gddDiagram1 g.stateGroup text{fill:#000000;stroke:none;font-size:10px;}#gddDiagram1 g.stateGroup .state-title{font-weight:bolder;fill:#111111;}#gddDiagram1 g.stateGroup rect{fill:#eee;stroke:#999;}#gddDiagram1 g.stateGroup line{stroke:#666;stroke-width:1;}#gddDiagram1 .transition{stroke:#000;stroke-width:1;fill:none;}#gddDiagram1 .stateGroup .composit{fill:#ffffff;border-bottom:1px;}#gddDiagram1 .stateGroup .alt-composit{fill:#e0e0e0;border-bottom:1px;}#gddDiagram1 .state-note{stroke:#999;fill:#666;}#gddDiagram1 .state-note text{fill:#fff;stroke:none;font-size:10px;}#gddDiagram1 .stateLabel .box{stroke:none;stroke-width:0;fill:#eee;opacity:0.5;}#gddDiagram1 .edgeLabel .label rect{fill:#eee;opacity:0.5;}#gddDiagram1 .edgeLabel{background-color:white;text-align:center;}#gddDiagram1 .edgeLabel p{background-color:white;}#gddDiagram1 .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}#gddDiagram1 .edgeLabel .label text{fill:#000000;}#gddDiagram1 .label div .edgeLabel{color:#000000;}#gddDiagram1 .stateLabel text{fill:#111111;font-size:10px;font-weight:bold;}#gddDiagram1 .node circle.state-start{fill:#222;stroke:#222;}#gddDiagram1 .node .fork-join{fill:#222;stroke:#222;}#gddDiagram1 .node circle.state-end{fill:hsl(0, 0%, 83.3333333333%);stroke:#ffffff;stroke-width:1.5;}#gddDiagram1 .end-state-inner{fill:#ffffff;stroke-width:1.5;}#gddDiagram1 .node rect{fill:#eee;stroke:#000;stroke-width:1px;}#gddDiagram1 .node polygon{fill:#eee;stroke:#000;stroke-width:1px;}#gddDiagram1 [id$="-barbEnd"]{fill:#666;}#gddDiagram1 .statediagram-cluster rect{fill:#eee;stroke:#000;stroke-width:1px;}#gddDiagram1 .cluster-label,#gddDiagram1 .nodeLabel{color:#111111;}#gddDiagram1 .statediagram-cluster rect.outer{rx:5px;ry:5px;}#gddDiagram1 .statediagram-state .divider{stroke:#000;}#gddDiagram1 .statediagram-state .title-state{rx:5px;ry:5px;}#gddDiagram1 .statediagram-cluster.statediagram-cluster .inner{fill:#ffffff;}#gddDiagram1 .statediagram-cluster.statediagram-cluster-alt .inner{fill:#f4f4f4;}#gddDiagram1 .statediagram-cluster .inner{rx:0;ry:0;}#gddDiagram1 .statediagram-state rect.basic{rx:5px;ry:5px;}#gddDiagram1 .statediagram-state rect.divider{stroke-dasharray:10,10;fill:#f4f4f4;}#gddDiagram1 .note-edge{stroke-dasharray:5;}#gddDiagram1 .statediagram-note rect{fill:#666;stroke:#999;stroke-width:1px;rx:0;ry:0;}#gddDiagram1 .statediagram-note rect{fill:#666;stroke:#999;stroke-width:1px;rx:0;ry:0;}#gddDiagram1 .statediagram-note text{fill:#fff;}#gddDiagram1 .statediagram-note .nodeLabel{color:#fff;}#gddDiagram1 .statediagram .edgeLabel{color:red;}#gddDiagram1 [id$="-dependencyStart"],#gddDiagram1 [id$="-dependencyEnd"]{fill:#666;stroke:#666;stroke-width:1;}#gddDiagram1 .statediagramTitleText{text-anchor:middle;font-size:18px;fill:#000000;}#gddDiagram1 [data-look="neo"].statediagram-cluster rect{fill:#eee;stroke:url(#gddDiagram1-gradient);stroke-width:1;}#gddDiagram1 [data-look="neo"].statediagram-cluster rect.outer{rx:5px;ry:5px;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram1 .node .neo-node{stroke:#999;}#gddDiagram1 [data-look="neo"].node rect,#gddDiagram1 [data-look="neo"].cluster rect,#gddDiagram1 [data-look="neo"].node polygon{stroke:url(#gddDiagram1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram1 [data-look="neo"].swimlane.cluster rect{filter:none;}#gddDiagram1 [data-look="neo"].node path{stroke:url(#gddDiagram1-gradient);stroke-width:1px;}#gddDiagram1 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram1 [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}#gddDiagram1 [data-look="neo"].node circle{stroke:url(#gddDiagram1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram1 [data-look="neo"].node circle .state-start{fill:#000000;}#gddDiagram1 [data-look="neo"].icon-shape .icon{fill:url(#gddDiagram1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram1 [data-look="neo"].icon-shape .icon-neo path{stroke:url(#gddDiagram1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#gddDiagram1 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker id="gddDiagram1_stateDiagram-barbEnd" refX="19" refY="7" markerWidth="20" markerHeight="14" markerUnits="strokeWidth" orient="auto"><path d="M 19,7 L11,14 L13,7 L11,0 Z"></path></marker></defs><defs><marker id="gddDiagram1_stateDiagram-barbEnd-margin" refX="17" refY="7" markerWidth="20" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M 19,7 L11,14 L13,7 L11,0 Z" fill="#000"></path></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M556.805,22L556.805,26.167C556.805,30.333,556.805,38.667,556.805,46.083C556.805,53.5,556.805,60,556.805,63.25L556.805,66.5" id="gddDiagram1-edge0" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 44.5 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge0" data-points="W3sieCI6NTU2LjgwNDY4NzUsInkiOjIyfSx7IngiOjU1Ni44MDQ2ODc1LCJ5Ijo0N30seyJ4Ijo1NTYuODA0Njg3NSwieSI6NzJ9XQ==" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M556.805,112L556.805,118.167C556.805,124.333,556.805,136.667,556.805,148.083C556.805,159.5,556.805,170,556.805,175.25L556.805,180.5" id="gddDiagram1-edge1" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 68.5 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge1" data-points="W3sieCI6NTU2LjgwNDY4NzUsInkiOjExMn0seyJ4Ijo1NTYuODA0Njg3NSwieSI6MTQ5fSx7IngiOjU1Ni44MDQ2ODc1LCJ5IjoxODZ9XQ==" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M556.805,226L556.805,234.167C556.805,242.333,556.805,258.667,556.805,274.083C556.805,289.5,556.805,304,556.805,311.25L556.805,318.5" id="gddDiagram1-edge2" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 92.5 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge2" data-points="W3sieCI6NTU2LjgwNDY4NzUsInkiOjIyNn0seyJ4Ijo1NTYuODA0Njg3NSwieSI6Mjc1fSx7IngiOjU1Ni44MDQ2ODc1LCJ5IjozMjR9XQ==" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M488.805,355.15L430.004,364.792C371.203,374.433,253.602,393.717,194.801,410.608C136,427.5,136,442,136,449.25L136,456.5" id="gddDiagram1-edge4" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 381.27728271484375 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge4" data-points="W3sieCI6NDg4LjgwNDY4NzUsInkiOjM1NS4xNTAwNjU5MDc5NTE2N30seyJ4IjoxMzYsInkiOjQxM30seyJ4IjoxMzYsInkiOjQ2Mn1d" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M538.979,364L531.7,372.167C524.421,380.333,509.863,396.667,494.485,412.375C479.108,428.084,462.911,443.168,454.812,450.71L446.714,458.252" id="gddDiagram1-edge5" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 131.9717559814453 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge5" data-points="W3sieCI6NTM4Ljk3ODYwMDU0MzQ3ODMsInkiOjM2NH0seyJ4Ijo0OTUuMzA0Njg3NSwieSI6NDEzfSx7IngiOjQ0Mi42ODkwNTExNzcyNzE2NiwieSI6NDYyfV0=" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M394.598,462L383.73,453.833C372.862,445.667,351.126,429.333,366.298,413.266C381.469,397.199,433.547,381.398,459.586,373.497L485.624,365.597" id="gddDiagram1-edge6" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 193.9589385986328 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge6" data-points="W3sieCI6Mzk0LjU5ODAxODU2ODU3NjA0LCJ5Ijo0NjJ9LHsieCI6MzI5LjM5MDYyNSwieSI6NDEzfSx7IngiOjQ5MC44ODc1Njc5MzQ3ODI2LCJ5IjozNjR9XQ==" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M136,502L136,510.167C136,518.333,136,534.667,136,550.75C136,566.833,136,582.667,136,590.583L136,598.5" id="gddDiagram1-edge7" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 96.5 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge7" data-points="W3sieCI6MTM2LCJ5Ijo1MDJ9LHsieCI6MTM2LCJ5Ijo1NTF9LHsieCI6MTM2LCJ5Ijo2MDR9XQ==" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M136,644L136,650.833C136,657.667,136,671.333,136,683.417C136,695.5,136,706,136,711.25L136,716.5" id="gddDiagram1-edge8" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 72.5 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge8" data-points="W3sieCI6MTM2LCJ5Ijo2NDR9LHsieCI6MTM2LCJ5Ijo2ODV9LHsieCI6MTM2LCJ5Ijo3MjJ9XQ==" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M204,746.923L323.889,755.602C443.778,764.282,683.556,781.641,798.84,795.786C914.124,809.931,904.914,820.863,900.309,826.328L895.704,831.794" id="gddDiagram1-edge9" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 718.5228271484375 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge9" data-points="W3sieCI6MjA0LCJ5Ijo3NDYuOTIyOTQ1MDI3MDcxOH0seyJ4Ijo5MjMuMzMzNTkzNzUwMzcyNSwieSI6Nzk5fSx7IngiOjg5Mi4xNjA0ODUxOTc3NDEsInkiOjgzNn1d" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M858.46,836L853.264,829.833C848.069,823.667,837.678,811.333,832.482,795.667C827.287,780,827.287,761,827.287,742C827.287,723,827.287,704,827.287,684.333C827.287,664.667,827.287,644.333,827.287,622C827.287,599.667,827.287,575.333,827.287,551.667C827.287,528,827.287,505,827.287,482C827.287,459,827.287,436,794.428,416.118C761.569,396.235,695.852,379.471,662.993,371.089L630.134,362.706" id="gddDiagram1-edge10" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 613.9619140625 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge10" data-points="W3sieCI6ODU4LjQ1OTgyNzMwMzAwNDEsInkiOjgzNn0seyJ4Ijo4MjcuMjg2NzE4NzUwMzcyNSwieSI6Nzk5fSx7IngiOjgyNy4yODY3MTg3NTAzNzI1LCJ5Ijo3NDJ9LHsieCI6ODI3LjI4NjcxODc1MDM3MjUsInkiOjY4NX0seyJ4Ijo4MjcuMjg2NzE4NzUwMzcyNSwieSI6NjI0fSx7IngiOjgyNy4yODY3MTg3NTAzNzI1LCJ5Ijo1NTF9LHsieCI6ODI3LjI4NjcxODc1MDM3MjUsInkiOjQ4Mn0seyJ4Ijo4MjcuMjg2NzE4NzUwMzcyNSwieSI6NDEzfSx7IngiOjYyNC44MDQ2ODc1LCJ5IjozNjEuMzQ2ODA4NTA0NDY5fV0=" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M807.31,862.346L695.425,872.789C583.54,883.231,359.77,904.115,241.385,922.033C123,939.95,110,954.9,103.5,962.375L97,969.85" id="gddDiagram1-edge11" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 724.5480346679688 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge11" data-points="W3sieCI6ODA3LjMxMDE1NjI1MDM3MjUsInkiOjg2Mi4zNDY0NTY4NDI2ODI4fSx7IngiOjEzNiwieSI6OTI1fSx7IngiOjkzLjM5MTMwNDM0NzgyNjEsInkiOjk3NH1d" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M843.426,876L830.407,884.167C817.387,892.333,791.349,908.667,745.117,925.24C698.884,941.813,632.458,958.626,599.246,967.033L566.033,975.439" id="gddDiagram1-edge12" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 296.2908935546875 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge12" data-points="W3sieCI6ODQzLjQyNjA5ODI3OTM1OCwieSI6ODc2fSx7IngiOjc2NS4zMTAxNTYyNTAzNzI1LCJ5Ijo5MjV9LHsieCI6NTYwLjcwMDc4MTI1MDM3MjUsInkiOjk3Ni43ODg1NTk2Mzc3Nn1d" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M58.609,974L51.507,965.833C44.406,957.667,30.203,941.333,23.101,921.667C16,902,16,879,16,858C16,837,16,818,28.154,802.727C40.309,787.453,64.618,775.907,76.772,770.133L88.927,764.36" id="gddDiagram1-edge13" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 258.2875061035156 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge13" data-points="W3sieCI6NTguNjA4Njk1NjUyMTczOTE0LCJ5Ijo5NzR9LHsieCI6MTYsInkiOjkyNX0seyJ4IjoxNiwieSI6ODU2fSx7IngiOjE2LCJ5Ijo3OTl9LHsieCI6OTMuODk0NzM2ODQyMTA1MjYsInkiOjc2Mn1d" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M424.701,974.178L396.584,965.981C368.467,957.785,312.234,941.393,284.117,921.696C256,902,256,879,256,858C256,837,256,818,243.846,802.727C231.691,787.453,207.382,775.907,195.228,770.133L183.073,764.36" id="gddDiagram1-edge14" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 354.1194152832031 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge14" data-points="W3sieCI6NDI0LjcwMDc4MTI1MDM3MjUzLCJ5Ijo5NzQuMTc3NTA1MjIzMn0seyJ4IjoyNTYsInkiOjkyNX0seyJ4IjoyNTYsInkiOjg1Nn0seyJ4IjoyNTYsInkiOjc5OX0seyJ4IjoxNzguMTA1MjYzMTU3ODk0NzQsInkiOjc2Mn1d" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M907.194,876L920.214,884.167C933.233,892.333,959.272,908.667,972.291,924.083C985.31,939.5,985.31,954,985.31,961.25L985.31,968.5" id="gddDiagram1-edge15" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 128.78929138183594 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge15" data-points="W3sieCI6OTA3LjE5NDIxNDIyMTM4NywieSI6ODc2fSx7IngiOjk4NS4zMTAxNTYyNTAzNzI1LCJ5Ijo5MjV9LHsieCI6OTg1LjMxMDE1NjI1MDM3MjUsInkiOjk3NH1d" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M985.31,1014L985.31,1022.167C985.31,1030.333,985.31,1046.667,985.31,1062.083C985.31,1077.5,985.31,1092,985.31,1099.25L985.31,1106.5" id="gddDiagram1-edge16" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 92.5 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge16" data-points="W3sieCI6OTg1LjMxMDE1NjI1MDM3MjUsInkiOjEwMTR9LHsieCI6OTg1LjMxMDE1NjI1MDM3MjUsInkiOjEwNjN9LHsieCI6OTg1LjMxMDE1NjI1MDM3MjUsInkiOjExMTJ9XQ==" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M985.31,1152L985.31,1156.167C985.31,1160.333,985.31,1168.667,985.31,1176.082C985.31,1183.498,985.31,1189.996,985.31,1193.244L985.31,1196.493" id="gddDiagram1-edge17" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 44.4930419921875 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge17" data-points="W3sieCI6OTg1LjMxMDE1NjI1MDM3MjUsInkiOjExNTJ9LHsieCI6OTg1LjMxMDE1NjI1MDM3MjUsInkiOjExNzd9LHsieCI6OTg1LjMxMDE1NjI1MDM3MjUsInkiOjEyMDEuOTkzMzUzMzY2ODUxOH1d" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path><path d="M534.077,364L529.532,368C524.987,372,515.896,380,528.017,384C540.138,388,573.471,388,586.281,384.606C599.09,381.211,591.375,374.422,587.518,371.028L583.661,367.633" id="gddDiagram1-edge3" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 111.7351303100586 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge3" data-points="W3sieCI6NTM0LjA3NzQxNDc3MjcyNzMsInkiOjM2NH0seyJ4Ijo1MDYuODA0Njg3NSwieSI6Mzg4fSx7IngiOjYwNi44MDQ2ODc1LCJ5IjozODh9LHsieCI6NTc5LjUzMTk2MDIyNzI3MjcsInkiOjM2NH1d" data-look="neo" marker-end="url(#gddDiagram1_stateDiagram-barbEnd-margin)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="edge0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(556.8046875, 149)"><g class="label" data-id="edge1" transform="translate(-49.5546875, -12)"><foreignObject width="99.109375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>начать смену</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(556.8046875, 275)"><g class="label" data-id="edge2" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>увидеть признаки и открыть выборку</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(556.8046875, 416)"><g class="label" data-id="edge3" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>поставить или изменить метку</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(136, 413)"><g class="label" data-id="edge4" transform="translate(-73.390625, -12)"><foreignObject width="146.78125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>шесть меток готовы</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(495.3046875, 413)"><g class="label" data-id="edge5" transform="translate(-45.9140625, -12)"><foreignObject width="91.828125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>«не уверен»</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(329.390625, 413)"><g class="label" data-id="edge6" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>вернуться к обязательной карточке</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(136, 551)"><g class="label" data-id="edge7" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>открыть предрассчитанный опыт</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(136, 685)"><g class="label" data-id="edge8" transform="translate(-89.703125, -12)"><foreignObject width="179.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>показать набор разбора</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(923.3335937503725, 799)"><g class="label" data-id="edge9" transform="translate(-76.046875, -12)"><foreignObject width="152.09375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>разобрать результат</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(827.2867187503725, 624)"><g class="label" data-id="edge10" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>исправить или дополнить выборку</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(136, 925)"><g class="label" data-id="edge11" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>дополнительно сравнить методы</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(765.3101562503725, 925)"><g class="label" data-id="edge12" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>дополнительно открыть CNN-опыт</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="edge13" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="edge14" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(985.3101562503725, 925)"><g class="label" data-id="edge15" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>независимая итоговая проверка</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(985.3101562503725, 1063)"><g class="label" data-id="edge16" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>зафиксировать проверенный каталог</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="edge17" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="gddDiagram1-state-root_start-0" data-look="neo" transform="translate(556.8046875, 15)"><circle class="state-start" r="7" width="14" height="14"></circle></g><g class="node  statediagram-state" id="gddDiagram1-state-welcome-1" data-look="neo" transform="translate(556.8046875, 92)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>welcome</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-orient-2" data-look="neo" transform="translate(556.8046875, 206)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>orient</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-label-10" data-look="neo" transform="translate(556.8046875, 344)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>label</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-train_ready-7" data-look="neo" transform="translate(136, 482)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>train_ready</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-doubt_queue-6" data-look="neo" transform="translate(421.21328124962747, 482)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>doubt_queue</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-experiment-8" data-look="neo" transform="translate(136, 624)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>experiment</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-review-14" data-look="neo" transform="translate(136, 742)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>review</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-diagnose-15" data-look="neo" transform="translate(875.3101562503725, 856)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>diagnose</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-method_lab-13" data-look="neo" transform="translate(76, 994)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>method_lab</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-cnn_lab-14" data-look="neo" transform="translate(492.70078125037253, 994)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>cnn_lab</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-final_check-16" data-look="neo" transform="translate(985.3101562503725, 994)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>final_check</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="gddDiagram1-state-catalogue-17" data-look="neo" transform="translate(985.3101562503725, 1132)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>catalogue</p></span></div></foreignObject></g></g><g class="node default" id="gddDiagram1-state-root_end-17" data-look="neo" transform="translate(985.3101562503725, 1209)"><g class="outer-path"><path d="M7 0 C7 0.40517908122283747, 6.964012880168563 0.816513743121899, 6.893654271085456 1.2155372436685123 C6.823295662002349 1.6145607442151257, 6.716427752933756 2.013397210557766, 6.5778483455013586 2.394141003279681 C6.439268938068961 2.7748847960015954, 6.26476736710249 3.149104622578984, 6.062177826491071 3.4999999999999996 C5.859588285879653 3.8508953774210153, 5.622755194947063 4.189128084166967, 5.362311101832846 4.499513267805774 C5.10186700871863 4.809898451444582, 4.809898451444583 5.10186700871863, 4.499513267805775 5.362311101832846 C4.189128084166968 5.622755194947063, 3.8508953774210166 5.859588285879652, 3.500000000000001 6.06217782649107 C3.149104622578985 6.264767367102489, 2.7748847960015963 6.439268938068961, 2.3941410032796817 6.5778483455013586 C2.013397210557767 6.716427752933756, 1.6145607442151264 6.823295662002349, 1.2155372436685128 6.893654271085456 C0.8165137431218992 6.964012880168563, 0.4051790812228379 7, 4.286263797015736e-16 7 C-0.405179081222837 7, -0.8165137431218985 6.964012880168563, -1.2155372436685121 6.893654271085456 C-1.6145607442151257 6.823295662002349, -2.0133972105577667 6.716427752933756, -2.394141003279681 6.5778483455013586 C-2.774884796001595 6.439268938068961, -3.149104622578983 6.26476736710249, -3.4999999999999982 6.062177826491071 C-3.8508953774210135 5.859588285879653, -4.189128084166966 5.6227551949470636, -4.499513267805773 5.362311101832848 C-4.809898451444581 5.101867008718632, -5.101867008718628 4.809898451444586, -5.3623111018328435 4.499513267805779 C-5.622755194947059 4.189128084166971, -5.859588285879649 3.8508953774210206, -6.062177826491068 3.5000000000000053 C-6.264767367102486 3.14910462257899, -6.439268938068958 2.774884796001602, -6.577848345501356 2.394141003279688 C-6.716427752933754 2.0133972105577738, -6.823295662002347 1.614560744215134, -6.893654271085454 1.215537243668521 C-6.9640128801685615 0.816513743121908, -6.999999999999999 0.4051790812228472, -7 1.0183126166254463e-14 C-7.000000000000001 -0.40517908122282686, -6.964012880168565 -0.8165137431218878, -6.893654271085459 -1.215537243668501 C-6.823295662002352 -1.6145607442151142, -6.716427752933759 -2.0133972105577542, -6.577848345501363 -2.394141003279669 C-6.439268938068967 -2.7748847960015834, -6.264767367102496 -3.149104622578972, -6.062177826491078 -3.4999999999999876 C-5.859588285879661 -3.8508953774210033, -5.6227551949470715 -4.1891280841669545, -5.362311101832856 -4.499513267805763 C-5.10186700871864 -4.809898451444571, -4.809898451444594 -5.10186700871862, -4.499513267805787 -5.362311101832836 C-4.189128084166979 -5.622755194947053, -3.850895377421028 -5.859588285879643, -3.5000000000000133 -6.062177826491062 C-3.1491046225789985 -6.264767367102482, -2.774884796001611 -6.439268938068954, -2.3941410032796973 -6.577848345501353 C-2.0133972105577835 -6.716427752933752, -1.6145607442151435 -6.823295662002345, -1.2155372436685306 -6.893654271085453 C-0.8165137431219176 -6.9640128801685615, -0.40517908122285695 -6.999999999999999, -1.9937625952807352e-14 -7 C0.4051790812228171 -7.000000000000001, 0.8165137431218781 -6.964012880168565, 1.2155372436684913 -6.89365427108546 C1.6145607442151044 -6.823295662002354, 2.013397210557745 -6.716427752933763, 2.3941410032796595 -6.5778483455013665 C2.774884796001574 -6.43926893806897, 3.149104622578963 -6.2647673671025, 3.499999999999979 -6.062177826491083 C3.8508953774209953 -5.859588285879665, 4.189128084166947 -5.622755194947077, 4.499513267805756 -5.362311101832862 C4.809898451444564 -5.1018670087186475, 5.101867008718613 -4.809898451444602, 5.362311101832829 -4.499513267805796 C5.622755194947046 -4.189128084166989, 5.859588285879637 -3.8508953774210393, 6.062177826491056 -3.500000000000025 C6.2647673671024755 -3.1491046225790105, 6.439268938068949 -2.774884796001623, 6.577848345501348 -2.3941410032797092 C6.716427752933747 -2.0133972105577955, 6.823295662002342 -1.6145607442151562, 6.893654271085451 -1.2155372436685434 C6.96401288016856 -0.8165137431219307, 6.982275711847575 -0.2025895406114567, 7 -3.2800750208310675e-14 C7.017724288152425 0.2025895406113911, 7.017724288152424 -0.2025895406114242, 7 0" stroke="none" stroke-width="0" fill="#eee" style=""></path><path d="M7 0 C7 0.40517908122283747, 6.964012880168563 0.816513743121899, 6.893654271085456 1.2155372436685123 C6.823295662002349 1.6145607442151257, 6.716427752933756 2.013397210557766, 6.5778483455013586 2.394141003279681 C6.439268938068961 2.7748847960015954, 6.26476736710249 3.149104622578984, 6.062177826491071 3.4999999999999996 C5.859588285879653 3.8508953774210153, 5.622755194947063 4.189128084166967, 5.362311101832846 4.499513267805774 C5.10186700871863 4.809898451444582, 4.809898451444583 5.10186700871863, 4.499513267805775 5.362311101832846 C4.189128084166968 5.622755194947063, 3.8508953774210166 5.859588285879652, 3.500000000000001 6.06217782649107 C3.149104622578985 6.264767367102489, 2.7748847960015963 6.439268938068961, 2.3941410032796817 6.5778483455013586 C2.013397210557767 6.716427752933756, 1.6145607442151264 6.823295662002349, 1.2155372436685128 6.893654271085456 C0.8165137431218992 6.964012880168563, 0.4051790812228379 7, 4.286263797015736e-16 7 C-0.405179081222837 7, -0.8165137431218985 6.964012880168563, -1.2155372436685121 6.893654271085456 C-1.6145607442151257 6.823295662002349, -2.0133972105577667 6.716427752933756, -2.394141003279681 6.5778483455013586 C-2.774884796001595 6.439268938068961, -3.149104622578983 6.26476736710249, -3.4999999999999982 6.062177826491071 C-3.8508953774210135 5.859588285879653, -4.189128084166966 5.6227551949470636, -4.499513267805773 5.362311101832848 C-4.809898451444581 5.101867008718632, -5.101867008718628 4.809898451444586, -5.3623111018328435 4.499513267805779 C-5.622755194947059 4.189128084166971, -5.859588285879649 3.8508953774210206, -6.062177826491068 3.5000000000000053 C-6.264767367102486 3.14910462257899, -6.439268938068958 2.774884796001602, -6.577848345501356 2.394141003279688 C-6.716427752933754 2.0133972105577738, -6.823295662002347 1.614560744215134, -6.893654271085454 1.215537243668521 C-6.9640128801685615 0.816513743121908, -6.999999999999999 0.4051790812228472, -7 1.0183126166254463e-14 C-7.000000000000001 -0.40517908122282686, -6.964012880168565 -0.8165137431218878, -6.893654271085459 -1.215537243668501 C-6.823295662002352 -1.6145607442151142, -6.716427752933759 -2.0133972105577542, -6.577848345501363 -2.394141003279669 C-6.439268938068967 -2.7748847960015834, -6.264767367102496 -3.149104622578972, -6.062177826491078 -3.4999999999999876 C-5.859588285879661 -3.8508953774210033, -5.6227551949470715 -4.1891280841669545, -5.362311101832856 -4.499513267805763 C-5.10186700871864 -4.809898451444571, -4.809898451444594 -5.10186700871862, -4.499513267805787 -5.362311101832836 C-4.189128084166979 -5.622755194947053, -3.850895377421028 -5.859588285879643, -3.5000000000000133 -6.062177826491062 C-3.1491046225789985 -6.264767367102482, -2.774884796001611 -6.439268938068954, -2.3941410032796973 -6.577848345501353 C-2.0133972105577835 -6.716427752933752, -1.6145607442151435 -6.823295662002345, -1.2155372436685306 -6.893654271085453 C-0.8165137431219176 -6.9640128801685615, -0.40517908122285695 -6.999999999999999, -1.9937625952807352e-14 -7 C0.4051790812228171 -7.000000000000001, 0.8165137431218781 -6.964012880168565, 1.2155372436684913 -6.89365427108546 C1.6145607442151044 -6.823295662002354, 2.013397210557745 -6.716427752933763, 2.3941410032796595 -6.5778483455013665 C2.774884796001574 -6.43926893806897, 3.149104622578963 -6.2647673671025, 3.499999999999979 -6.062177826491083 C3.8508953774209953 -5.859588285879665, 4.189128084166947 -5.622755194947077, 4.499513267805756 -5.362311101832862 C4.809898451444564 -5.1018670087186475, 5.101867008718613 -4.809898451444602, 5.362311101832829 -4.499513267805796 C5.622755194947046 -4.189128084166989, 5.859588285879637 -3.8508953774210393, 6.062177826491056 -3.500000000000025 C6.2647673671024755 -3.1491046225790105, 6.439268938068949 -2.774884796001623, 6.577848345501348 -2.3941410032797092 C6.716427752933747 -2.0133972105577955, 6.823295662002342 -1.6145607442151562, 6.893654271085451 -1.2155372436685434 C6.96401288016856 -0.8165137431219307, 6.982275711847575 -0.2025895406114567, 7 -3.2800750208310675e-14 C7.017724288152425 0.2025895406113911, 7.017724288152424 -0.2025895406114242, 7 0" stroke="#666" stroke-width="2" fill="none" stroke-dasharray="0 0" style=""></path><g><path d="M2.5 0 C2.5 0.14470681472244193, 2.487147457203058 0.29161205111496386, 2.46201938253052 0.4341204441673258 C2.436891307857982 0.5766288372196877, 2.3987241974763416 0.7190704323420595, 2.3492315519647713 0.8550503583141718 C2.299738906453201 0.991030284286284, 2.2374169168223177 1.124680222349637, 2.165063509461097 1.2499999999999998 C2.092710102099876 1.3753197776503625, 2.0081268553382365 1.496117172916774, 1.915111107797445 1.6069690242163481 C1.8220953602566536 1.7178208755159223, 1.7178208755159226 1.8220953602566536, 1.6069690242163484 1.915111107797445 C1.4961171729167742 2.0081268553382365, 1.375319777650363 2.0927101020998755, 1.2500000000000002 2.1650635094610964 C1.1246802223496375 2.2374169168223172, 0.9910302842862845 2.2997389064532, 0.8550503583141721 2.349231551964771 C0.7190704323420597 2.3987241974763416, 0.576628837219688 2.436891307857982, 0.43412044416732604 2.46201938253052 C0.291612051114964 2.487147457203058, 0.14470681472244212 2.5, 1.5308084989341916e-16 2.5 C-0.1447068147224418 2.5, -0.2916120511149638 2.487147457203058, -0.43412044416732576 2.46201938253052 C-0.5766288372196877 2.436891307857982, -0.7190704323420595 2.3987241974763416, -0.8550503583141718 2.3492315519647713 C-0.991030284286284 2.299738906453201, -1.124680222349637 2.2374169168223177, -1.2499999999999996 2.165063509461097 C-1.375319777650362 2.092710102099876, -1.4961171729167733 2.008126855338237, -1.6069690242163475 1.9151111077974459 C-1.7178208755159217 1.8220953602566548, -1.822095360256653 1.7178208755159234, -1.9151111077974443 1.6069690242163495 C-2.0081268553382357 1.4961171729167755, -2.0927101020998746 1.3753197776503645, -2.1650635094610955 1.250000000000002 C-2.2374169168223164 1.1246802223496395, -2.2997389064531992 0.9910302842862865, -2.34923155196477 0.8550503583141743 C-2.3987241974763407 0.7190704323420621, -2.436891307857981 0.5766288372196907, -2.4620193825305194 0.434120444167329 C-2.487147457203058 0.29161205111496724, -2.5 0.14470681472244545, -2.5 3.636830773662308e-15 C-2.5 -0.14470681472243818, -2.4871474572030587 -0.2916120511149599, -2.4620193825305208 -0.4341204441673218 C-2.436891307857983 -0.5766288372196837, -2.398724197476343 -0.7190704323420553, -2.3492315519647726 -0.8550503583141675 C-2.2997389064532023 -0.9910302842862798, -2.23741691682232 -1.1246802223496328, -2.165063509461099 -1.2499999999999956 C-2.092710102099878 -1.3753197776503583, -2.00812685533824 -1.4961171729167695, -1.9151111077974488 -1.606969024216344 C-1.8220953602566576 -1.7178208755159183, -1.7178208755159263 -1.82209536025665, -1.6069690242163523 -1.9151111077974416 C-1.4961171729167784 -2.0081268553382334, -1.3753197776503672 -2.0927101020998724, -1.2500000000000047 -2.1650635094610937 C-1.1246802223496422 -2.237416916822315, -0.9910302842862897 -2.299738906453198, -0.8550503583141776 -2.3492315519647686 C-0.7190704323420656 -2.3987241974763394, -0.5766288372196942 -2.4368913078579806, -0.43412044416733236 -2.462019382530519 C-0.29161205111497057 -2.4871474572030574, -0.1447068147224489 -2.4999999999999996, -7.120580697431198e-15 -2.5 C0.14470681472243463 -2.5000000000000004, 0.29161205111495647 -2.487147457203059, 0.4341204441673183 -2.4620193825305217 C0.5766288372196802 -2.436891307857984, 0.7190704323420518 -2.3987241974763442, 0.8550503583141642 -2.349231551964774 C0.9910302842862766 -2.2997389064532037, 1.1246802223496295 -2.2374169168223212, 1.2499999999999925 -2.165063509461101 C1.3753197776503554 -2.0927101020998804, 1.4961171729167668 -2.008126855338242, 1.6069690242163412 -1.915111107797451 C1.7178208755159157 -1.82209536025666, 1.8220953602566472 -1.7178208755159294, 1.915111107797439 -1.6069690242163557 C2.0081268553382308 -1.496117172916782, 2.09271010209987 -1.3753197776503712, 2.1650635094610915 -1.2500000000000089 C2.237416916822313 -1.1246802223496466, 2.299738906453196 -0.9910302842862939, 2.3492315519647673 -0.855050358314182 C2.3987241974763385 -0.71907043234207, 2.4368913078579792 -0.5766288372196986, 2.462019382530518 -0.4341204441673369 C2.487147457203057 -0.29161205111497523, 2.4936698970884197 -0.07235340736123454, 2.5 -1.1714553645825241e-14 C2.5063301029115803 0.07235340736121111, 2.50633010291158 -0.07235340736122292, 2.5 0" stroke="none" stroke-width="0" fill="#000" style=""></path><path d="M2.5 0 C2.5 0.14470681472244193, 2.487147457203058 0.29161205111496386, 2.46201938253052 0.4341204441673258 C2.436891307857982 0.5766288372196877, 2.3987241974763416 0.7190704323420595, 2.3492315519647713 0.8550503583141718 C2.299738906453201 0.991030284286284, 2.2374169168223177 1.124680222349637, 2.165063509461097 1.2499999999999998 C2.092710102099876 1.3753197776503625, 2.0081268553382365 1.496117172916774, 1.915111107797445 1.6069690242163481 C1.8220953602566536 1.7178208755159223, 1.7178208755159226 1.8220953602566536, 1.6069690242163484 1.915111107797445 C1.4961171729167742 2.0081268553382365, 1.375319777650363 2.0927101020998755, 1.2500000000000002 2.1650635094610964 C1.1246802223496375 2.2374169168223172, 0.9910302842862845 2.2997389064532, 0.8550503583141721 2.349231551964771 C0.7190704323420597 2.3987241974763416, 0.576628837219688 2.436891307857982, 0.43412044416732604 2.46201938253052 C0.291612051114964 2.487147457203058, 0.14470681472244212 2.5, 1.5308084989341916e-16 2.5 C-0.1447068147224418 2.5, -0.2916120511149638 2.487147457203058, -0.43412044416732576 2.46201938253052 C-0.5766288372196877 2.436891307857982, -0.7190704323420595 2.3987241974763416, -0.8550503583141718 2.3492315519647713 C-0.991030284286284 2.299738906453201, -1.124680222349637 2.2374169168223177, -1.2499999999999996 2.165063509461097 C-1.375319777650362 2.092710102099876, -1.4961171729167733 2.008126855338237, -1.6069690242163475 1.9151111077974459 C-1.7178208755159217 1.8220953602566548, -1.822095360256653 1.7178208755159234, -1.9151111077974443 1.6069690242163495 C-2.0081268553382357 1.4961171729167755, -2.0927101020998746 1.3753197776503645, -2.1650635094610955 1.250000000000002 C-2.2374169168223164 1.1246802223496395, -2.2997389064531992 0.9910302842862865, -2.34923155196477 0.8550503583141743 C-2.3987241974763407 0.7190704323420621, -2.436891307857981 0.5766288372196907, -2.4620193825305194 0.434120444167329 C-2.487147457203058 0.29161205111496724, -2.5 0.14470681472244545, -2.5 3.636830773662308e-15 C-2.5 -0.14470681472243818, -2.4871474572030587 -0.2916120511149599, -2.4620193825305208 -0.4341204441673218 C-2.436891307857983 -0.5766288372196837, -2.398724197476343 -0.7190704323420553, -2.3492315519647726 -0.8550503583141675 C-2.2997389064532023 -0.9910302842862798, -2.23741691682232 -1.1246802223496328, -2.165063509461099 -1.2499999999999956 C-2.092710102099878 -1.3753197776503583, -2.00812685533824 -1.4961171729167695, -1.9151111077974488 -1.606969024216344 C-1.8220953602566576 -1.7178208755159183, -1.7178208755159263 -1.82209536025665, -1.6069690242163523 -1.9151111077974416 C-1.4961171729167784 -2.0081268553382334, -1.3753197776503672 -2.0927101020998724, -1.2500000000000047 -2.1650635094610937 C-1.1246802223496422 -2.237416916822315, -0.9910302842862897 -2.299738906453198, -0.8550503583141776 -2.3492315519647686 C-0.7190704323420656 -2.3987241974763394, -0.5766288372196942 -2.4368913078579806, -0.43412044416733236 -2.462019382530519 C-0.29161205111497057 -2.4871474572030574, -0.1447068147224489 -2.4999999999999996, -7.120580697431198e-15 -2.5 C0.14470681472243463 -2.5000000000000004, 0.29161205111495647 -2.487147457203059, 0.4341204441673183 -2.4620193825305217 C0.5766288372196802 -2.436891307857984, 0.7190704323420518 -2.3987241974763442, 0.8550503583141642 -2.349231551964774 C0.9910302842862766 -2.2997389064532037, 1.1246802223496295 -2.2374169168223212, 1.2499999999999925 -2.165063509461101 C1.3753197776503554 -2.0927101020998804, 1.4961171729167668 -2.008126855338242, 1.6069690242163412 -1.915111107797451 C1.7178208755159157 -1.82209536025666, 1.8220953602566472 -1.7178208755159294, 1.915111107797439 -1.6069690242163557 C2.0081268553382308 -1.496117172916782, 2.09271010209987 -1.3753197776503712, 2.1650635094610915 -1.2500000000000089 C2.237416916822313 -1.1246802223496466, 2.299738906453196 -0.9910302842862939, 2.3492315519647673 -0.855050358314182 C2.3987241974763385 -0.71907043234207, 2.4368913078579792 -0.5766288372196986, 2.462019382530518 -0.4341204441673369 C2.487147457203057 -0.29161205111497523, 2.4936698970884197 -0.07235340736123454, 2.5 -1.1714553645825241e-14 C2.5063301029115803 0.07235340736121111, 2.50633010291158 -0.07235340736122292, 2.5 0" stroke="#000" stroke-width="2" fill="none" stroke-dasharray="0 0" style=""></path></g></g></g><g class="label edgeLabel" id="label---label---1" transform="translate(699.76171875, 482)"><rect width="0.1" height="0.1"></rect><g class="label" style="" transform="translate(0, 0)"><rect></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;"><span class="nodeLabel"></span></div></foreignObject></g></g><g class="label edgeLabel" id="label---label---2" transform="translate(644.2132812496275, 624)"><rect width="0.1" height="0.1"></rect><g class="label" style="" transform="translate(0, 0)"><rect></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;"><span class="nodeLabel"></span></div></foreignObject></g></g></g></g></g><defs><filter id="gddDiagram1-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="gddDiagram1-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><linearGradient id="gddDiagram1-gradient" gradientUnits="objectBoundingBox" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="hsl(0, 0%, 83.3333333333%)" stop-opacity="1"></stop><stop offset="100%" stop-color="hsl(0, 0%, 88.9215686275%)" stop-opacity="1"></stop></linearGradient></svg></figure>
+<p data-review-id="d1p188"><code>train_ready</code> доступен при шести эффективных учебных метках. В полной смене ребёнок может поставить все шесть. В короткой смене часть меток приходит из явно отделённого, заранее подготовленного набора, а ребёнок добавляет оставшиеся; в сумме модель всегда получает шесть записей. Подготовленные метки визуально и в журнале отделены от собственных решений ребёнка. Сомнение полезно как разговор со стендистом, но обязательная карточка должна вернуться к явному выбору одной из трёх категорий, чтобы сохранялся размер пространства 729.</p>
+<h4 id="_14" data-review-id="d1p189">Ревизии и инвалидация</h4>
+<pre><code class="language-js">const STATE = {
+  schemaVersion: 1,
+  datasetVersion: 'galaxy-v1',
+  phase: 'label',
+  labels: { 'train-01': 'spiral' },
+  labelRevision: 4,
+  experimentRevision: 6,
+  activeExperiment: null,          // { id, experimentRevision, signature }
+  review: { setId: null, result: null },
+  finalCheck: { setId: null, result: null },
+  exposedSetIds: [],
+  labs: { method: null, cnn: null },
+  catalogue: [],
+  doubtQueue: ['doubt-01'],
+  presenterMode: false
+};
+</code></pre>
+<p data-review-id="d1p190">После любого изменения <code>labels</code> или параметра, входящего в подпись (<code>methodId</code>, состав учебного набора/дополнение либо версия признаков):</p>
+<ul>
+<li data-review-id="d1p191">увеличивается <code>experimentRevision</code>; при изменении меток дополнительно увеличивается <code>labelRevision</code>;</li>
+<li data-review-id="d1p192">удаляются <code>activeExperiment</code>, результат проверки, выводы лабораторий и несохранённый каталог, созданные от старой подписи;</li>
+<li data-review-id="d1p193">скрываются ранее показанные результаты набора разбора и итогового heldout;</li>
+<li data-review-id="d1p194">UI возвращается в <code>label</code> или <code>train_ready</code> с понятной репликой «Условия опыта изменились — открой новый опыт и проверь его заново».</li>
+</ul>
+<p data-review-id="d1p195"><code>signature</code> вычисляется детерминированно из <code>datasetVersion</code>, фиксированного порядка шести карточек, шести меток, <code>methodId</code>, <code>trainingSetId</code>, <code>supplementId</code> и <code>featurePipelineVersion</code>. Любой результат разрешено показать или сохранить только когда совпадают <code>experimentRevision</code> и эта полная подпись. Восстановление после перезагрузки повторно валидирует условие и отбрасывает устаревшие результаты.</p>
+<h4 id="heldout" data-review-id="d1p196">Набор разбора и итоговый heldout</h4>
+<ul>
+<li data-review-id="d1p197"><code>review-a</code> — набор разбора: он даёт ребёнку обратную связь и может быть показан повторно только как уже знакомая тренировочная проверка. Его нельзя называть независимой оценкой после первого раскрытия.</li>
+<li data-review-id="d1p198"><code>final-a</code> — итоговый heldout: он не отображается в обучающей панели, диагностике разметки, метод-лаборатории и CNN-подборе до единственной итоговой проверки.</li>
+<li data-review-id="d1p199">Метки <code>referenceLabel</code> обоих наборов не попадают в DOM, HTML-экспорт до разрешённого разбора или тексты кнопок. Полностью спрятать их от технически мотивированного человека в автономной игре невозможно; педагогическая защита — честный интерфейс и отдельные роли наборов, не защита от взлома.</li>
+<li data-review-id="d1p200"><code>exposedSetIds</code> записывает факт показа набора. Сброс UI, новая вкладка или «новая смена» на том же устройстве не делают уже увиденный <code>final-a</code> невиденным: он помечается как повторный пример и не даёт новую итоговую метрику. Для новой независимой проверки нужен другой нераскрытый набор или другой пользовательский профиль/устройство.</li>
+<li data-review-id="d1p201">Итоговую метрику строит только <code>final-a</code>, невиденный на момент последнего выбора метода, дополнения и признаков. Если он был раскрыт, финал сообщает ограничение вместо повторной цифры.</li>
+</ul>
+<p data-review-id="d1p202">Это решение важнее красивой цифры «качества»: ребёнок должен увидеть, что проверка на уже просмотренных карточках не подтверждает способность помощника работать с новыми изображениями.</p>
+<h3 id="6_1" data-review-id="d1p203">6. Экран и механики</h3>
+<h4 id="_15" data-review-id="d1p204">Пространство</h4>
+<p data-review-id="d1p205">Обсерватория остаётся атмосферной рамкой, но без персонажа Ники и без обязательной карты. Основной экран — рабочая поверхность каталога:</p>
+<ol>
+<li data-review-id="d1p206">слева крупная карточка галактики с безопасным увеличением и подписью происхождения;</li>
+<li data-review-id="d1p207">справа три крупные кнопки категорий, краткая подсказка признака и действие «Не уверен»;</li>
+<li data-review-id="d1p208">сверху панель помощника: шесть полученных примеров, текущая задача и стадия смены;</li>
+<li data-review-id="d1p209">снизу журнал: обучающий набор, новая проверка, очередь сомнений, итоговый каталог;</li>
+<li data-review-id="d1p210">отдельная кнопка «Для стендиста» открывает краткий вопрос следующего шага, не заменяя живой разговор.</li>
+</ol>
+<p data-review-id="d1p211">Стендист может рассказать про ChatGPT, Claude, Алису, ГигаЧат, DeepSeek и Qwen в начале, но бренды не нужны для хода игры и не создают сетевую зависимость. Карточка помощника ясно говорит, что его реплики подготовлены авторами, а опыт обучения рассчитан заранее.</p>
+<h4 id="_16" data-review-id="d1p212">Ветви улучшения</h4>
+<p data-review-id="d1p213">Диагноз определяется записью эксперимента, а не тем, что «система знает ответ лучше ребёнка».</p>
+<table>
+<thead>
+<tr>
+<th>Диагноз</th>
+<th>Что видит ребёнок</th>
+<th>Следующее действие</th>
+<th>Чему учит</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p214">
+<td>Ошибка учебной метки</td>
+<td>На подготовленном тренировочном архиве есть карточка для перепроверки с видимыми признаками и справочником.</td>
+<td>Сам решает изменить метку или обосновать прежнюю.</td>
+<td>Метки влияют на обучение.</td>
+</tr>
+<tr data-review-id="d1p215">
+<td>Примеры односторонние</td>
+<td>Доска показывает, что одна категория почти не представлена или все примеры слишком похожи.</td>
+<td>Добавляет предложенную подготовленную карточку того же типа.</td>
+<td>Важны разнообразие и покрытие будущих случаев.</td>
+</tr>
+<tr data-review-id="d1p216">
+<td>Граница изображения</td>
+<td>На новых снимках часть объектов плохо различима.</td>
+<td>Отправляет их в очередь сомнений.</td>
+<td>Не всякий пример нужно принуждать к ответу.</td>
+</tr>
+<tr data-review-id="d1p217">
+<td>Хороший результат</td>
+<td>Помощник справился с базовым набором разбора.</td>
+<td>Ребёнок может завершить смену <strong>или</strong>, по желанию, открыть отдельный более трудный набор.</td>
+<td>Один успех не доказывает универсальность.</td>
+</tr>
+</tbody>
+</table>
+<p data-review-id="d1p218">Красная подсветка допустима только в режиме «проверенный учебный архив»: подпись сообщает, что это заранее подготовленная тренировка с эталоном. Она не должна возникать как магическое знание помощника о только что поставленной детской метке.</p>
+<h4 id="cnn" data-review-id="d1p219">Честная дополнительная ветка CNN</h4>
+<p data-review-id="d1p220">CNN — отдельная лаборатория для заинтересованных, доступная после основной проверки. Она не даёт ребёнку свободно собирать фактически неисполняемую сеть и не обещает, что больше цветных блоков автоматически лучше.</p>
+<p data-review-id="d1p221">Показываются два-три зафиксированных опыта на <strong>том же</strong> наборе и с явно заданными условиями:</p>
+<ul>
+<li data-review-id="d1p222">базовая модель по примерам;</li>
+<li data-review-id="d1p223">компактная CNN с заранее рассчитанными результатами;</li>
+<li data-review-id="d1p224">CNN с более богатой подготовленной выборкой либо примером переобучения.</li>
+</ul>
+<p data-review-id="d1p225">У каждого опыта видны: какие изображения были в учебном наборе, какие — в проверочном, количество слоёв как схематический рисунок, ответы на нескольких новых карточках и ограничения. Цветные блоки означают слои обработки изображения, но не рисуют несуществующие «мысли нейросети». Сначала ребёнок предсказывает, какой вариант поможет; затем открывает зафиксированный результат. При равных входных условиях маленькая модель может оказаться полезнее, а итоговый выбор остаётся «проверить на новых данных».</p>
+<h3 id="7-" data-review-id="d1p226">7. Допуск данных и офлайн-пакет</h3>
+<h4 id="_17" data-review-id="d1p227">Условия допуска одной карточки</h4>
+<p data-review-id="d1p228">До попадания в обязательные шесть карточка должна иметь:</p>
+<ul>
+<li data-review-id="d1p229">подтверждённое происхождение, лицензию/условия использования и локально сохранённую ссылку на первоисточник;</li>
+<li data-review-id="d1p230">научно просмотренную справочную разметку и обоснование именно для учебных трёх категорий;</li>
+<li data-review-id="d1p231">достаточную читаемость при целевом размере экрана; сложные, сливающиеся и неоднозначные объекты идут в необязательную очередь сомнений;</li>
+<li data-review-id="d1p232">уникальный стабильный <code>id</code>, размеры, <code>alt</code> на русском и хэш файла;</li>
+<li data-review-id="d1p233">проверку, что не является почти тем же кадром/вариантом объекта в train и heldout;</li>
+<li data-review-id="d1p234">запрет на подмену недоступного исходника похожим изображением без нового допуска.</li>
+</ul>
+<p data-review-id="d1p235">Galaxy Zoo упоминается в финальном материале как реальный гражданский научный проект, но игра не отправляет разметку участника в Galaxy Zoo и не называет учебные метки вкладом в его каталог. Ссылка, источник и лицензионные условия проверяются при подготовке данных; в автономную поставку включается краткая атрибуция.</p>
+<h4 id="file-" data-review-id="d1p236"><code>file://</code>-совместимость</h4>
+<p data-review-id="d1p237">Все исходные данные подключаются обычными <code>&lt;script src&gt;</code> или встроенными статическими JavaScript-объектами. Нельзя полагаться на <code>fetch('data/*.json')</code>, ES-модули с неподдерживаемыми браузером политиками, Service Worker, IndexedDB как обязательное хранилище или CORS-заголовки: эти пути ненадёжны при двойном клике по <code>index.html</code>.</p>
+<p data-review-id="d1p238">Пути только относительные (<code>data/gallery/train-01.webp</code>), без начального <code>/</code>, внешних URL в <code>src</code>, CDN и веб-шрифтов. После распаковки ZIP сохраняется структура каталогов. Браузерный запуск по HTTP полезен для разработки, но не является условием фестивального запуска.</p>
+<h4 id="_18" data-review-id="d1p239">Целевые бюджеты поставки</h4>
+<p data-review-id="d1p240">Это целевые ограничения, не измеренный текущий размер.</p>
+<table>
+<thead>
+<tr>
+<th>Объект</th>
+<th style="text-align: right;">Цель</th>
+<th>Причина</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p241">
+<td>Основной HTML + CSS + JS без изображений</td>
+<td style="text-align: right;">до 350 KB gzip</td>
+<td>Быстрое открытие со старого ноутбука и простая проверка.</td>
+</tr>
+<tr data-review-id="d1p242">
+<td>Одна галактика</td>
+<td style="text-align: right;">до 180 KB WebP, PNG только когда это научно необходимо</td>
+<td>Изображение остаётся достаточно крупным для признаков.</td>
+</tr>
+<tr data-review-id="d1p243">
+<td>Полная галерея обязательной и контрольной смены</td>
+<td style="text-align: right;">до 12 MB</td>
+<td>ZIP легко переносить и распаковать на фестивале.</td>
+</tr>
+<tr data-review-id="d1p244">
+<td>Полная автономная поставка с историей Galaxy Zoo и CNN-иллюстрациями</td>
+<td style="text-align: right;">до 20 MB</td>
+<td>Оставляет место для лицензий и локальной документации.</td>
+</tr>
+<tr data-review-id="d1p245">
+<td>Карта предрассчитанных 729 вариантов</td>
+<td style="text-align: right;">до 1.5 MB JSON-подобных данных после минификации</td>
+<td>Не препятствует работе офлайн и остаётся проверяемой.</td>
+</tr>
+</tbody>
+</table>
+<p data-review-id="d1p246">При превышении сначала удаляются дубли изображений и неиспользуемые размеры, а не снижаются требования к научному происхождению. Нужны миниатюра и основной размер одной карточки, а не несколько почти одинаковых копий.</p>
+<h3 id="8_1" data-review-id="d1p247">8. Сохранение, восстановление и миграция</h3>
+<p data-review-id="d1p248">Хранилище: <code>localStorage</code> с ключом <code>science-day-galaxy-shift-v1</code>. Оно хранит только прогресс на данном устройстве; общий сервер, учётная запись и обмен с коллегами не требуются.</p>
+<p data-review-id="d1p249">При недоступном <code>localStorage</code> игра продолжает работать в памяти и заметно предлагает локально скачать журнал. Экспорт содержит: версию набора, выбранные метки, подпись эксперимента, итоговые результаты и текстовые объяснения; он не включает скрытые метки набора разбора или итогового heldout, если соответствующий разбор не был открыт.</p>
+<p data-review-id="d1p250">Восстановление допустимо только когда совпадает <code>datasetVersion</code>. При новой версии набора безопасное поведение — начать новую смену и оставить прежний экспорт доступным для скачивания, а не подставлять новые изображения под старые <code>id</code>.</p>
+<pre><code class="language-js">function migrate(raw) {
+  if (raw.schemaVersion === 1 &amp;&amp; raw.datasetVersion === MANIFEST.datasetVersion) return validate(raw);
+  if (raw.schemaVersion === 0) return validate({ ...fresh(), labels: raw.labels ?? {} });
+  return fresh({ notice: 'Набор сменился: начнём новую смену.' });
+}
+</code></pre>
+<p data-review-id="d1p251">Миграция не должна угадывать соответствие категорий после их научного переопределения. Изменение названий или смысла <code>smooth</code>, <code>spiral</code>, <code>edge_on</code> повышает <code>datasetVersion</code>.</p>
+<h3 id="9_1" data-review-id="d1p252">9. Проверка</h3>
+<h4 id="_19" data-review-id="d1p253">Матрица проверок</h4>
+<table>
+<thead>
+<tr>
+<th>Область</th>
+<th>Проверка</th>
+<th>Критерий</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p254">
+<td>Данные</td>
+<td>Проверка манифеста, хэшей, provenance и ролей изображений.</td>
+<td>Ни одна обязательная карточка без источника или научного допуска не попадает в пакет.</td>
+</tr>
+<tr data-review-id="d1p255">
+<td>729 вариантов</td>
+<td>Генератор перебирает все ключи.</td>
+<td>Ровно 729, нет пропусков/дубликатов; каждая матрица ошибок согласована с total.</td>
+</tr>
+<tr data-review-id="d1p256">
+<td>Чистая модель</td>
+<td>Unit-тесты <code>label</code>, <code>signature</code>, переходов и инвалидации.</td>
+<td>Смена одной метки уничтожает результаты старой подписи.</td>
+</tr>
+<tr data-review-id="d1p257">
+<td>Набор разбора и heldout</td>
+<td>Тесты доступа по фазам, DOM-снимок до проверки, повторный запуск после сброса UI.</td>
+<td>Скрытые метки не отрисованы до разрешённого разбора; раскрытый финальный набор не выдаётся за новый.</td>
+</tr>
+<tr data-review-id="d1p258">
+<td>CNN-ветка</td>
+<td>Тест связей условий, идентификаторов опытов и подписи «предрассчитано».</td>
+<td>Нельзя назвать расчёт текущим обучением или показать результат чужого набора.</td>
+</tr>
+<tr data-review-id="d1p259">
+<td>Сохранение</td>
+<td>Сохранить, перезагрузить, изменить метку, восстановить.</td>
+<td>Устаревшая проверка не возвращается как действующая.</td>
+</tr>
+<tr data-review-id="d1p260">
+<td><code>file://</code></td>
+<td>Распаковать ZIP, открыть <code>index.html</code> без сервера и с отключённой сетью.</td>
+<td>Видны изображения, работает смена, экспорт и понятная деградация без localStorage.</td>
+</tr>
+<tr data-review-id="d1p261">
+<td>Доступность</td>
+<td>Клавиатура, фокус, экранный диктор, 320 px, <code>prefers-reduced-motion</code>.</td>
+<td>Все три категории и «не уверен» достижимы; изображения имеют смысловые <code>alt</code>.</td>
+</tr>
+<tr data-review-id="d1p262">
+<td>Визуал</td>
+<td>Ручной просмотр на проекторе/планшете.</td>
+<td>Категории, текущая стадия и очередь сомнений читаемы с обычной дистанции стенда.</td>
+</tr>
+</tbody>
+</table>
+<p data-review-id="d1p263">Текущие проверки ночной игры не являются проверкой новой механики. Можно перенять их принцип «модель отдельно от браузера», но тесты должны быть новыми и относиться к галактикам.</p>
+<h4 id="_20" data-review-id="d1p264">Вертикальный срез — критерий готовности до полной игры</h4>
+<p data-review-id="d1p265">Первый реализуемый срез ограничивается одним рабочим столом и нужен, чтобы проверить, что интерактив действительно перевешивает возможную сухость классификации.</p>
+<p data-review-id="d1p266">Срез принят, если без сети и на <code>file://</code> ребёнок может:</p>
+<ol>
+<li data-review-id="d1p267">увидеть одну реальную локальную карточку галактики и справочник трёх категорий;</li>
+<li data-review-id="d1p268">вместе со стендистом или самостоятельно получить шесть эффективных меток, явно различая собственные и подготовленные;</li>
+<li data-review-id="d1p269">открыть один честно подписанный предрассчитанный опыт;</li>
+<li data-review-id="d1p270">проверить не менее трёх новых карточек из отдельного набора;</li>
+<li data-review-id="d1p271">изменить одну метку и увидеть, что прежний результат стал недействителен;</li>
+<li data-review-id="d1p272">завершить мини-каталог и увидеть, что сомнительная карточка не притворилась четвёртым классом.</li>
+</ol>
+<p data-review-id="d1p273">Срез также должен включать хотя бы один ясный Galaxy Zoo-контекст с подтверждённым источником и одну карточку стендиста: «Что мы показали помощнику? Как проверили ответ на новом снимке?» До него не строятся полный декор обсерватории, конструктор CNN или расширенный каталог.</p>
+<h3 id="10_1" data-review-id="d1p274">10. Риски и решения</h3>
+<table>
+<thead>
+<tr>
+<th>Риск</th>
+<th>Решение</th>
+<th>Статус</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p275">
+<td>Три визуальные категории не всегда взаимоисключающие.</td>
+<td>В обязательный набор допускаются только ясные примеры; пограничные — в очередь сомнений. Научный просмотр до реализации.</td>
+<td>Требует данных.</td>
+</tr>
+<tr data-review-id="d1p276">
+<td>Предрасчёт ощущается как обман.</td>
+<td>Ясно назвать его учебным опытом с заранее подготовленными вариантами; не показывать ложную анимацию вычисления.</td>
+<td>Решено в дизайне.</td>
+</tr>
+<tr data-review-id="d1p277">
+<td>729 таблиц раздувают код и сложно проверяются вручную.</td>
+<td>Генерировать таблицу из версии данных; автоматически проверять полноту и инварианты; хранить ссылки, а не копии изображений.</td>
+<td>Предлагается.</td>
+</tr>
+<tr data-review-id="d1p278">
+<td>Ребёнок просто кликает метки, не рассматривая форму.</td>
+<td>Начинать с сравнения изображений и видимых признаков; стендист задаёт один вопрос до первой метки.</td>
+<td>Сценарное требование.</td>
+</tr>
+<tr data-review-id="d1p279">
+<td>«Красные ошибки» лишают ребёнка авторства.</td>
+<td>Использовать их только в заранее объявленном тренировочном архиве; давать основание и возможность не соглашаться до разбора.</td>
+<td>Предлагается.</td>
+</tr>
+<tr data-review-id="d1p280">
+<td>CNN превращается в бессмысленный конструктор блоков.</td>
+<td>Только несколько фиксированных опытов с одинаковой задачей, разными условиями и независимой проверкой.</td>
+<td>Решено в дизайне.</td>
+</tr>
+<tr data-review-id="d1p281">
+<td>Локальное сохранение ведёт себя по-разному при <code>file://</code>.</td>
+<td>Не делать его условием прохождения; предлагать экспорт; тестировать минимум Chrome, Firefox и Safari на целевых устройствах.</td>
+<td>Требует проверки.</td>
+</tr>
+<tr data-review-id="d1p282">
+<td>Обсерватория становится дорогим визуальным обходом вокруг карточек.</td>
+<td>Вертикальный срез сначала доказывает основной цикл на одном рабочем столе; декор добавляется после плейтеста.</td>
+<td>Решение о порядке работ.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="11_1" data-review-id="d1p283">11. Очерёдность реализации</h3>
+<ol>
+<li data-review-id="d1p284">Научно допустить изображения и создать манифест, три категории и отдельные train/review/final/сомнительные наборы.</li>
+<li data-review-id="d1p285">Сгенерировать и проверить 729 экспериментов с текстовыми диагнозами.</li>
+<li data-review-id="d1p286">Реализовать чистую модель состояния, инвалидацию и автономный вертикальный срез.</li>
+<li data-review-id="d1p287">Провести ручной плейтест со стендистом на разных детях; измерить, понимают ли они связь «метки → новый ответ → проверка».</li>
+<li data-review-id="d1p288">Только после этого добавить комнату обсерватории, карточки Galaxy Zoo, расширенный итог и CNN-лабораторию.</li>
+</ol>
+<p data-review-id="d1p289">Такой порядок сохраняет самое ценное: игра показывает не иллюстрацию кнопки «обучить», а управляемый ребёнком цикл работы с данными, который можно честно объяснить и технически стабильно показать без интернета.</p>
+<h2 id="12" data-review-id="d1p290">12. Производство графики и звука</h2>
+<table>
+<thead>
+<tr>
+<th>Материал</th>
+<th>Для первого среза</th>
+<th>Требование</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p291">
+<td>Комната ночью</td>
+<td>1 фон, ориентир 1920×1080</td>
+<td>Чистые области под контролы; без текста и научных данных в рисунке</td>
+</tr>
+<tr data-review-id="d1p292">
+<td>Рассвет</td>
+<td>Вариант того же ракурса</td>
+<td>Геометрия и активные зоны совпадают</td>
+</tr>
+<tr data-review-id="d1p293">
+<td>Помощник</td>
+<td>Базовый образ и 4–6 состояний</td>
+<td>Одинаковые масштаб, точка опоры и силуэт</td>
+</tr>
+<tr data-review-id="d1p294">
+<td>Рабочий стол</td>
+<td>Фон или фрагмент комнаты</td>
+<td>Снимок на нейтральной подложке</td>
+</tr>
+<tr data-review-id="d1p295">
+<td>Галактики</td>
+<td>Набор после научного допуска</td>
+<td>Реальные локальные файлы с атрибуцией</td>
+</tr>
+<tr data-review-id="d1p296">
+<td>Эталоны категорий</td>
+<td>3 ясных снимка</td>
+<td>Не подменяют собой все разнообразие класса</td>
+</tr>
+<tr data-review-id="d1p297">
+<td>UI</td>
+<td>DOM-контролы и простые пиктограммы</td>
+<td>Кириллица, клавиатура, масштабирование</td>
+</tr>
+<tr data-review-id="d1p298">
+<td>Звук</td>
+<td>Необязательные короткие отклики</td>
+<td>Локальные лицензированные файлы, отключение</td>
+</tr>
+</tbody>
+</table>
+<p data-review-id="d1p299">AI-концепты публикуются с промптами и отметкой происхождения. Это художественное направление, не автоматически готовые спрайты и не доказательство соответствия научным данным. Разрезание концепта на рабочие слои, настройка поз и тест попаданий — отдельная работа после выбора направления.</p>
+<h2 id="13" data-review-id="d1p300">13. План реализации и критерии приёмки</h2>
+<h3 id="1_2" data-review-id="d1p301">Срез 1. Один законченный опыт</h3>
+<p data-review-id="d1p302">Комната → первое реальное изображение → справочник → ограниченная разметка → один подготовленный эксперимент → отдельная проверка → запись в атласе. Работает без сети. Стендист может объяснить весь путь по короткой памятке. Есть ветка сомнения и успешная первая попытка.</p>
+<p data-review-id="d1p303"><strong>Выход среза:</strong> не количество экранов, а наблюдение за ребёнком или пробным взрослым пользователем: понимает ли он, что размечает, почему это влияет на помощника и зачем нужна проверка. Пробный взрослый проход не заменяет детскую проверку.</p>
+<h3 id="2_2" data-review-id="d1p304">Срез 2. Разнообразие и исправления</h3>
+<p data-review-id="d1p305">Шесть самостоятельных меток, полный набор разрешённых вариантов, обзор выборки, исправление, объяснение похожих примеров, сохранения и сброс зависимого финала. Проверяем все достижимые состояния таблицей, а не только счастливый путь.</p>
+<h3 id="3_2" data-review-id="d1p306">Срез 3. Лаборатория и завершение</h3>
+<p data-review-id="d1p307">Сравнение способов, ограниченная CNN-ветка с проверенными результатами, отдельная итоговая подборка, журнал, Galaxy Zoo и отраслевой перенос. Прогулка по небу и дополнительные истории подключаются после устойчивого основного маршрута.</p>
+<h3 id="_21" data-review-id="d1p308">Проверки выпуска</h3>
+<ul>
+<li data-review-id="d1p309">Запуск распакованной поставки через <code>file://</code> без сетевых запросов.</li>
+<li data-review-id="d1p310">Предсказуемость результата после одинаковых действий и восстановления сохранения.</li>
+<li data-review-id="d1p311">Все разрешённые метки и комбинации методов/наборов имеют подготовленные результаты либо понятное объяснение недоступности.</li>
+<li data-review-id="d1p312">Ошибки и неопределённость не исчезают при возврате назад; прежний финал не остаётся актуальным после изменения.</li>
+<li data-review-id="d1p313">Нет утечки одной галактики между учебной и итоговой подборками.</li>
+<li data-review-id="d1p314">1280×720 CSS px, доступная меньшая высота, масштаб 125/150%, узкая раскладка; клавиатура и reduced motion.</li>
+<li data-review-id="d1p315">Подписи, научные источники, лицензии и контрольные суммы входят в поставку.</li>
+<li data-review-id="d1p316">Все декоративные графики, концепты и рассчитанные результаты обозначены по происхождению.</li>
+</ul>
+<h2 id="14" data-review-id="d1p317">14. Риски и решения до начала сборки</h2>
+<table>
+<thead>
+<tr>
+<th>Риск или открытый вопрос</th>
+<th>Почему важен</th>
+<th>Следующее действие</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p318">
+<td>Категории не различимы на выбранных снимках</td>
+<td>Ребёнок учится угадывать вместо наблюдения</td>
+<td>Научная проверка маленькой подборки и справочника</td>
+</tr>
+<tr data-review-id="d1p319">
+<td>Сортировка быстро надоедает</td>
+<td>Учебная корректность не гарантирует игру</td>
+<td>Проверить эпизод с рассматриванием, объяснением и видимым атласом</td>
+</tr>
+<tr data-review-id="d1p320">
+<td>Число подготовленных вариантов растёт</td>
+<td>Нельзя обещать свободные действия без данных для результата</td>
+<td>Зафиксировать полную матрицу состояний до производства экспериментов</td>
+</tr>
+<tr data-review-id="d1p321">
+<td>Модель использует особенности телескопа вместо формы</td>
+<td>Красивый результат может быть методически неверен</td>
+<td>Единообразные изображения и анализ разбиения</td>
+</tr>
+<tr data-review-id="d1p322">
+<td>Помощник воспринимается всезнающим</td>
+<td>Теряется смысл проверки</td>
+<td>Показывать основания и источник справочного ответа</td>
+</tr>
+<tr data-review-id="d1p323">
+<td>Стендист занят</td>
+<td>Ребёнок теряет цель</td>
+<td>Короткие контекстные инструкции и доступный справочник</td>
+</tr>
+<tr data-review-id="d1p324">
+<td>Детские длительности неизвестны</td>
+<td>Нельзя обещать фестивальную пропускную способность</td>
+<td>Пробные проходы с фиксацией времени и затруднений</td>
+</tr>
+<tr data-review-id="d1p325">
+<td>Концепт выглядит лучше рабочего UI</td>
+<td>Нельзя считать иллюстрацию приёмкой игры</td>
+<td>Отдельный отрисованный срез с реальными контролами</td>
+</tr>
+</tbody>
+</table>
+<h2 id="15" data-review-id="d1p326">15. Статус документа и материалы</h2>
+<p data-review-id="d1p327">Сценарий согласован по направлению: галактики, живой стендист, помощник первой смены, офлайн-симуляция. Этот GDD предлагает конкретный визуальный и технический способ реализации. Изображения окружения и персонажа — концепты; научные иллюстрации — справочные примеры; метрики будущей игры пока не рассчитаны.</p>
+<ul>
+<li data-review-id="d1p328"><a href="first-shift-scenario.html">Сценарий и реплики</a>.</li>
+<li data-review-id="d1p329"><a href="gdd-assets/concepts/PROMPTS.md">Промпты художественных концептов</a>.</li>
+<li data-review-id="d1p330"><a href="gdd-assets/galaxies/sources.json">Источники, лицензии и SHA-256 научных изображений</a>.</li>
+<li data-review-id="d1p331">Художественные иллюстрации созданы встроенным image_gen; схемы подготовлены в Mermaid; раскладки механик — HTML/CSS.</li>
+<li data-review-id="d1p332">Публичный документ содержит общие комментарии без имени; офлайн-копия содержит локальные заметки браузера.</li>
+</ul>
+<p data-review-id="d1p333">Следующий практический шаг: выбрать окружение и основную связку механик A → B → C, допустить маленький набор реальных изображений и собрать один законченный игровой эпизод. Полная переделка действующей игры не выполняется в рамках подготовки этого документа.</p>
+<h2 id="16-microduck" data-review-id="d1p334">16. Актуальные изменения: дневная лаборатория и Microduck</h2>
+<p data-review-id="d1p335">Эта редакция заменяет прежние решения разделов 2, 4, 5 и 11 об облике помощника, ночной комнате, финальном рассвете и отказе от WebGL. Старые концепты выше оставлены для истории обсуждения; они больше не являются заданием художнику. Педагогика классификации и контракт офлайн-результатов сохраняются.</p>
+<h3 id="_22" data-review-id="d1p336">Было → стало</h3>
+<table>
+<thead>
+<tr>
+<th>Было в первом концепте</th>
+<th>Принятое направление</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p337">
+<td>Ночная комната, к финалу рассвет</td>
+<td>Дневной разбор ночных наблюдений; к вечеру подготовка следующего задания</td>
+</tr>
+<tr data-review-id="d1p338">
+<td>Ретрооптика и латунный настольный шар</td>
+<td>Современная лаборатория; образ и пластика помощника по Microduck</td>
+</tr>
+<tr data-review-id="d1p339">
+<td>Горы как общий декоративный фон</td>
+<td>Кавказ — значимая часть сцены: рельеф, лесистые склоны, научный городок и верхняя площадка</td>
+</tr>
+<tr data-review-id="d1p340">
+<td>Только растровая комната; WebGL не нужен</td>
+<td>WebGL допустим для пространства, света и персонажа; читаемый интерфейс разметки отдельным слоем</td>
+</tr>
+<tr data-review-id="d1p341">
+<td>Любая историческая деталь по художественной фантазии</td>
+<td>Архивы и ковёр сохраняют обжитость; конкретная архызская мозаика без фотографии не реконструируется</td>
+</tr>
+</tbody>
+</table>
+<h3 id="microduck" data-review-id="d1p342">Помощник: Microduck как основной референс</h3>
+<p data-review-id="d1p343">Берём за основу образ и характер движений <a href="https://pollen-robotics.com/microduck/">Microduck от Pollen Robotics</a>. Официальные материалы для дальнейшей работы: <a href="https://pollen-robotics.com/microduck/press-kit/">фото и клипы</a>, <a href="https://huggingface.co/spaces/pollen-robotics/microduck-simulator">симулятор</a>, <a href="https://github.com/pollen-robotics/microduck">программный стек</a>. Эти ссылки требуют сети; сама будущая игра использует локальные ресурсы.</p>
+<p data-review-id="d1p344">Источник описывает небольшого двуногого робота, ходьбу, приседание и вставание. Следующая таблица — предложенная игровая постановка движений, а не перечень просмотренных или уже перенесённых анимационных клипов.</p>
+<table>
+<thead>
+<tr>
+<th>Событие игры</th>
+<th>Постановка движения</th>
+<th>Что узнаёт ребёнок</th>
+</tr>
+</thead>
+<tbody>
+<tr data-review-id="d1p345">
+<td>Начало смены</td>
+<td>Несколько шагов к рабочему месту, поворот к ребёнку</td>
+<td>У команды появился новый помощник</td>
+</tr>
+<tr data-review-id="d1p346">
+<td>Ожидание выбора</td>
+<td>Спокойная поза; короткий поворот к снимку после действия</td>
+<td>Сейчас решение принимает человек</td>
+</tr>
+<tr data-review-id="d1p347">
+<td>Примеры собраны</td>
+<td>Поворот от карточек к экрану</td>
+<td>Можно проверить модель на других изображениях</td>
+</tr>
+<tr data-review-id="d1p348">
+<td>Показ результата</td>
+<td>Перевод внимания на ответ, без перекрытия снимка</td>
+<td>Ответ модели показан на экране</td>
+</tr>
+<tr data-review-id="d1p349">
+<td>Несогласие</td>
+<td>Небольшой наклон головы, затем неподвижная поза</td>
+<td>Нужно проверить ответ; никто не «провинился»</td>
+</tr>
+<tr data-review-id="d1p350">
+<td>Конец смены</td>
+<td>Подходит к экрану программы наблюдений, смотрит на результат</td>
+<td>Работа команды становится следующим шагом исследования</td>
+</tr>
+</tbody>
+</table>
+<p data-review-id="d1p351">Не запускаем непрерывный танец или хождение во время чтения. Полные движения персонажа могут быть длиннее прежнего ориентира 200–400 мс для интерфейсного перехода; ввод они не блокируют. При уменьшении движения в настройках остаются устойчивые позы и текстовые статусы.</p>
+<p data-review-id="d1p352">У реального Microduck движения связаны с обучением с подкреплением. В нашей игре ребёнок размечает изображения для классификации: это другая задача. Походка заранее анимирована и не становится лучше от исправления меток. Реплика стендиста: «У робота могут быть разные системы: одна помогает двигаться, другую мы сейчас учим различать изображения». Не заявляем, что настоящий Microduck уже умеет классифицировать галактики.</p>
+<p data-review-id="d1p353">Перенос готовой 3D-модели или клипов пока не выполнен. В официальном пресс-ките явно сказано, что открытость относится к программному стеку, а не к механическим и электронным чертежам. При выборе конкретных файлов отдельно фиксируем их происхождение и условия использования; лицензия кода не заменяет условия на все медиа сайта. Это не препятствует использованию ссылки как дизайн-референса.</p>
+<h3 id="_23" data-review-id="d1p354">Лаборатория, Кавказ и ход смены</h3>
+<p data-review-id="d1p355">Рабочий день начинается в современной лаборатории с большими экранами и оборудованием. Архивы, старые снимки и ковёр показывают преемственность и присутствие людей. За окном читаются горы Кавказа и телескоп на верхней площадке. Лаборатория ниже по склону — композиционное решение для нашей сцены, не утверждение об обязательном устройстве любой обсерватории.</p>
+<p data-review-id="d1p356">Свет меняется по завершённым этапам истории, без таймера и наказания за медленную работу: начало дня → работа с примерами → проверка → вечерняя передача результата. Финальный рассвет из первого концепта отменён.</p>
+<p data-review-id="d1p357">Предлагаемый исследовательский вопрос: «Команда изучает форму галактик. Поможем составить каталог и выберем объект, для которого нужен более подробный снимок». Это предложение для следующей детализации сценария. Плохой снимок может стать основанием нового наблюдения; непонятное правило разметки сначала обсуждают с человеком. Не каждое сомнение модели автоматически превращается в заявку телескопу.</p>
+<p data-review-id="d1p358">Архызская мозаика остаётся возможным элементом после появления достоверного визуального референса. Сейчас не рисуем вымышленное панно под видом существующего и не включаем его в обязательную механику.</p>
+<h3 id="_24" data-review-id="d1p359">Техническое следствие и следующий визуальный срез</h3>
+<p data-review-id="d1p360">Офлайн-симуляция модели не ограничивает выбор графического движка. Предпочтительный следующий срез — WebGL-сцена с фиксированной камерой, несколькими приближениями, сменой освещения и локальной анимацией помощника. Научный снимок показывается без перспективного искажения и художественных фильтров; кнопки и подписи остаются доступными HTML-элементами. Выбор конкретной библиотеки требует проверки на стендовом устройстве, но запрета на WebGL больше нет.</p>
+<p data-review-id="d1p361">Следующий визуальный результат должен показать дневной общий план, приближение к рабочему месту и вечерний финал с одним и тем же помощником. Нынешние рисунки обсерватории и шара не считаются таким результатом. Произвольные движения не меняют результаты модели: анимация реагирует на состояние сценария, а не управляет педагогической логикой.</p></main><script id="demo-data" type="application/json">[{"id": "heic1508a", "object": "IC 2006", "local_file": "heic1508a.jpg", "role": "clear_smooth_example", "visible_label": "Гладкая", "source_page": "https://esahubble.org/images/heic1508a/", "download_url": "https://cdn.esahubble.org/archives/images/screen/heic1508a.jpg", "source_claim": "ESA/Hubble identifies IC 2006 as an elliptical galaxy.", "credit": "ESA/Hubble & NASA; Image acknowledgement: Judy Schmidt and J. Blakeslee (Dominion Astrophysical Observatory); Science acknowledgement: M. Carollo (ETH, Switzerland)", "local_file_sha256": "407c0906cd5a81a1c5c7ca09aa06906e3190f44ad0126818bb0adaa63cdcc205"}, {"id": "potw2342a", "object": "IC 5332", "local_file": "potw2342a.jpg", "role": "clear_face_on_spiral_example", "visible_label": "Видна спираль", "source_page": "https://esahubble.org/images/potw2342a/", "download_url": "https://cdn.esahubble.org/archives/images/screen/potw2342a.jpg", "source_claim": "ESA/Hubble describes IC 5332 as an almost face-on spiral galaxy with well-defined arms.", "credit": "ESA/Hubble & NASA, R. Chandar, J. Lee and the PHANGS-HST team", "local_file_sha256": "841cd27ceedba7b2f60c07cab115dd22a8f8a7464f91ac1c154ab511473ed620"}, {"id": "potw1512a", "object": "NGC 5023", "local_file": "potw1512a.jpg", "role": "clear_edge_on_disk_example", "visible_label": "Диск с ребра", "source_page": "https://esahubble.org/images/potw1512a/", "download_url": "https://cdn.esahubble.org/archives/images/screen/potw1512a.jpg", "source_claim": "ESA/Hubble describes NGC 5023 as a spiral galaxy seen edge-on; its arms are not appreciable from this orientation.", "credit": "ESA/Hubble & NASA", "local_file_sha256": "7ca8e569ecf6c8052d8a2c8f25bebfc6027a79369e495e872f075dcdfd5a905c"}, {"id": "potw1905a", "object": "Messier 85", "local_file": "potw1905a.jpg", "role": "visible_appearance_vs_physical_type_discussion", "visible_label": "Внешний облик и физический тип — разные вопросы", "source_page": "https://esahubble.org/images/potw1905a/", "download_url": "https://cdn.esahubble.org/archives/images/screen/potw1905a.jpg", "source_claim": "ESA/Hubble says M85 has properties between lenticular and elliptical galaxies and appears to interact with neighbours.", "credit": "ESA/Hubble & NASA, R. O'Connell", "local_file_sha256": "28270014f69d5e5b7cb262ffb6dbfd35c468de8ee78c3f361ac8fa5e78c27951"}]</script><script src="galaxy-design-demo.js?v=3"></script><script src="scenario-comments.js?v=5"></script></body></html>

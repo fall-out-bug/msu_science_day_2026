@@ -1,0 +1,9 @@
+**
+!designlab/
+!designlab/comparison/
+!designlab/comparison/docs/
+!designlab/comparison/docs/**
+!tools/
+!tools/scenario-review/
+!tools/scenario-review/nginx.conf
+!tools/scenario-review/Dockerfile.web

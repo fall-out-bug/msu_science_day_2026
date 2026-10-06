@@ -1,0 +1,35 @@
+# Public domain upstream on 8080. Shares the tested observatory image with 8081.
+# Retains the existing sd2026 service identity and LAN-only binding.
+name: sd2026
+services:
+  web:
+    image: sd2026-public:scenario-comments
+    build:
+      context: .
+      dockerfile: tools/scenario-review/Dockerfile.web
+    restart: unless-stopped
+    ports:
+      - "${SD2026_BIND_IP:-192.168.50.12}:${SD2026_PORT:-8080}:80"
+    depends_on:
+      - comments
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+    security_opt:
+      - no-new-privileges:true
+
+  comments:
+    image: sd2026-comments:local
+    user: "1000:1000"
+    build: ./tools/scenario-review
+    restart: unless-stopped
+    read_only: true
+    volumes:
+      - ./var/scenario-comments:/data
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m
+    cpus: 0.5
