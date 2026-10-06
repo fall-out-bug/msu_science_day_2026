@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 0,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "tutorial",
+        "dialog-zoom",
+        "dialog-help",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "dialog-explain",
+        "repair",
+        "comparison",
+        "final"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 0,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "tutorial",
+        "dialog-zoom",
+        "dialog-help",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "dialog-explain",
+        "repair",
+        "comparison",
+        "final"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 0,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "tutorial",
+        "dialog-zoom",
+        "dialog-help",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "dialog-explain",
+        "repair",
+        "comparison",
+        "final"
+      ],
+      "errors": [],
+      "externalRequests": []
+    }
+  ],
+  "offlineZip": "verified exact resource set, hashes, images and full flow"
+}

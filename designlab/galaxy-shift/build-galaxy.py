@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+"""Build the offline first-shift package from an explicit runtime file list."""
+import hashlib,json,zipfile,shutil
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+runtime=['index.html','galaxy.css','game.js','model.js','data.js','provenance.json','DATA-NOTES.md','README.md']
+assets=sorted(p.relative_to(HERE).as_posix() for p in (HERE/'assets/galaxies').glob('*.jpg'))
+assets += ['assets/art/'+name for name in ['nika.png','laboratory-background.png','workstation.png','NIKA-CREDITS.md','ART-CREDITS.md']]
+files=runtime+assets
+for name in files:
+ if not (HERE/name).is_file():raise SystemExit('Missing package resource: '+name)
+manifest={'title':'Первая смена: Ника и модель','version':'2026.10.06-core.1','entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
+out=HERE/'releases';out.mkdir(exist_ok=True)
+web=out/'web'
+if web.exists():shutil.rmtree(web)
+web.mkdir()
+for name in files:
+ target=web/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(HERE/name,target)
+with zipfile.ZipFile(out/'galaxy-shift.zip','w',zipfile.ZIP_DEFLATED) as z:
+ for name in files:z.write(HERE/name,name)
+ z.writestr('build.json',json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+(web/'build.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+(out/'build.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'files':len(files),'zipBytes':(out/'galaxy-shift.zip').stat().st_size,'version':manifest['version']}))
