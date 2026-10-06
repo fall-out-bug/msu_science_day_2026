@@ -12,11 +12,12 @@ HERE = Path(__file__).resolve().parent
 EVIDENCE = HERE / 'evidence'
 
 
-def run(page, entry, capture=False):
+def run(page, entry, capture=False, offline=True):
     errors, external = [], []
     page.on('pageerror', lambda error: errors.append(str(error)))
-    for scheme in ['http', 'https']:
-        page.route(scheme + '://**/*', lambda route: (external.append(route.request.url), route.abort()))
+    if offline:
+        for scheme in ['http', 'https']:
+            page.route(scheme + '://**/*', lambda route: (external.append(route.request.url), route.abort()))
     page.goto(entry)
     page.wait_for_function('window.galaxyGame && window.GALAXY_DATA && galaxyWorld.stats().frames > 0')
     data = page.evaluate('GALAXY_DATA')

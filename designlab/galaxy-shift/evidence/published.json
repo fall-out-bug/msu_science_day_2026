@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "base": "http://192.168.50.12:8080",
+  "version": "2026.10.07-laboratory.1",
+  "resources": 32,
+  "zip": "exact local SHA-256",
+  "flow": {
+    "first": 1,
+    "corrected": 2,
+    "final": 1,
+    "total": 3,
+    "stages": [
+      "intro",
+      "dialog-about",
+      "tutorial",
+      "dialog-zoom",
+      "dialog-help",
+      "labels-1",
+      "labels-2",
+      "labels-3",
+      "first-result",
+      "dialog-explain",
+      "repair",
+      "comparison",
+      "final",
+      "cnn"
+    ],
+    "errors": [],
+    "externalRequests": []
+  },
+  "preserved": {
+    "documents": "exact original hashes",
+    "originalComments": 12
+  }
+}
