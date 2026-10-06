@@ -1,0 +1,250 @@
+{
+  "date": "2026-10-05",
+  "version": "2026.10.05-arkhyz",
+  "url": "http://192.168.50.12:8081/",
+  "image": "sha256:43241f50dc3775936c4c9ba59aac831bee09052896c1645ac0d0a57a42525aed",
+  "assets": [
+    {
+      "file": "index.html",
+      "sha256": "6d0c2b06312a6c6e37fc11096e5000c4b844721537eb158b21004c404aa5c697",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "night-stories.js",
+      "sha256": "b63533c24b5b60c809e74245f066f022349114e9e36f92891adce1214a8ea80d",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "constellation-data.js",
+      "sha256": "1be0faf34a68be5ccb01bf76d0e3e71d549fc6b988c36fb01c81b8e984ab94b5",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "exploration-provenance.json",
+      "sha256": "a1d0735b244f6c9b47ccf54b5ad9252bcdcbfde45bbfadec72691a1d6c519ed2",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "art/hubble-asteroids.jpg",
+      "sha256": "5c3831120f279e7ec06a8855e54304ddb5d1afe0d0d93fd47faedf35a5048bb6",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "art/hubble-supernova.jpg",
+      "sha256": "db9eb9f768c3d7f2d4d703337ae0be702c128c876eecbb3f490b7159e03012d5",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/FAL-1.3.txt",
+      "sha256": "ccd9f88bd04f00f2ec475f5c641ed5f9a79f8b0819db8189eeccdb0b3f734938",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/GPL-2.0.txt",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "night.css",
+      "sha256": "4fbd30d652d8c250fcb32db23d69e550193128ac6301e0a4fa4b3bfa827f3241",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "night.js",
+      "sha256": "7e25210bcb941c9b952630f65a633f800d0515b0022051108a1c88b778525bc7",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "night-model.js",
+      "sha256": "22987a7d3861dde72b87f24749a287e94e022a1fdcc15ea96dfa48c4c9c55570",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "data.js",
+      "sha256": "8fdc3d8999e5367fe458f767e7e7cc9d9260bf6451bada8eccd3923312e72a95",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "model.js",
+      "sha256": "e56cbb32e7f7661d96cc4dff4384ff6da8e8ab694cbd0c6595ef86cd9d4f0dbe",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "tracking.js",
+      "sha256": "b296d239a6ad0f17e899f54e99b46b0e2a123d4c9977c89a9204a53c0775de2f",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "brightness-data.js",
+      "sha256": "3504b5e27121c1a1a47a171086dca0921719ee7708dcfc2aea7f703526df11fd",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "brightness-model.js",
+      "sha256": "51290359a710ce2687c2bd9b39c4e0ea375cc1ff5aba71c84d7af53c0ac17bec",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "launch-data.js",
+      "sha256": "e32ba2d06e4e1577f14c3edaf680e7d17851408c15e45ba75852d80802ef9b04",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "launch-model.js",
+      "sha256": "60044a6cd3a8713ab0617fea0ec32cbe1ebddd0841092724526cfc827f65de6b",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "learning-model.js",
+      "sha256": "55d753ec7490fdd65e93888db517f7a334ca5e0f1d17ce6a1ecc784a2c6129aa",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "learning-data.js",
+      "sha256": "a578c7581cc18ac3752be0abccc27e0b819185a49942aa87df5252e411208fdc",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "archive-data.js",
+      "sha256": "e0f56664a0ee4f92e524cdfda9741ad53e1e73dcd8aa51d50d565ac1ce5d0362",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "provenance.json",
+      "sha256": "ed983259b6026c4469f4181a446e7344b37b82bc661dbb393cda712495c11d71",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "brightness-provenance.json",
+      "sha256": "f65ff0f9d6fff09603d94468d5d0360f9c3f786750b0c9cc89a1d55e7a633f01",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "launch-provenance.json",
+      "sha256": "3e5eb5ad278110d5dd493a29290ef097a595cddb2ca9122cc7066d54d59105ff",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "learning-provenance.json",
+      "sha256": "0e1f9d62810dc3d76c0ffcce1509b9bfea8faad6f0fcccf200f5e8ced2bca1ea",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "archive-provenance.json",
+      "sha256": "172f154f78ff646dbbb897abb4f080d1c798c4811a132e1feca3eea125b34fff",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "NIGHT-SOURCES.txt",
+      "sha256": "ef19930a7dd03f18ab571ea0c7f024295cd082d0a8c3672acba27795f7e2672e",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world.css",
+      "sha256": "efd72edce63409cff52e49acf35c0b05edf455156fbbc887616b908fc0a12c57",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-room.js",
+      "sha256": "01907b32e5b6d4215120556b47e99ee0b8021e1edb2e87adcebb4388b99bafcd",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-art.js",
+      "sha256": "619a8426b775e2a82ece71537121e72180d32067c0d195a1f10f254dfe52f1c6",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-art-credits.md",
+      "sha256": "ae7f2eb4a21d80201cca0f90161413d3df270e44ad8d58483f676dd3b5b74ffe",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-targets.js",
+      "sha256": "763e1faa28ef3c7344e00a370b165e948f8dae2ee04c0cd15894f36bb49704a9",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "world-provenance.json",
+      "sha256": "988aeac1a26b8baccd054282c1daf14c8daea0b199516f9799e4de256da5b40a",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "sky-navigation.js",
+      "sha256": "ab9f4f32b3071af0fe97efd7229d6674d958686873178a11e49c9fec016b96a8",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "sky-navigation-data.js",
+      "sha256": "450cb9b6f69ffd09e2dcfa8ac00968cba6eff70ed9dbcac674009edf02bb3463",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "sky-provenance.json",
+      "sha256": "fa34e78594d11465bd3339263c554b268c6d909e1b6d99d0f2a43819d2e99baf",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/phaser.min.js",
+      "sha256": "66348b1b5141e49b7d5ebbe688cddcb502eab1cb00f21c538686a5b2c5abe4de",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/PHASER-LICENSE.md",
+      "sha256": "d59c20a9deb5dc240614b428dce5246ae561d15efeeebea0e069d73f0a78fbff",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/EVENTEMITTER3-LICENSE.txt",
+      "sha256": "3aecc12b1cb28832b5f65ab64291de96568c3f236a74d646281b4491f7bcadbf",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "vendor/SKY-CC-BY-SA-4.0.txt",
+      "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "art/scene-prompts.md",
+      "sha256": "fdaf449c43b8db2ecbee699ea7260b960f0f5d07b042d22b0106b7639a7b468e",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "art/arkhyz-prompts.md",
+      "sha256": "d55794ba7f0ffbaaf61a8c2292bd05b1bc79e17d9b6b549263f16627b1eab7b5",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "art/observatory-arkhyz-night-v1.png",
+      "sha256": "7cfd010bfc7f61178e559c48f55f74d0ccc73212f241efcc3490e860f71be728",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "art/observatory-arkhyz-dawn-v1.png",
+      "sha256": "24c9eb98ff441b41899cf98eaa97998fd026969029f47b23fae22ec31e252cbc",
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "art/nika-success-v1.png",
+      "sha256": "043f5c996b0159917d52e2b835fc90f1ddbaf84863b439034fd0dd4422041171",
+      "cacheControl": "no-store"
+    }
+  ],
+  "zipBytes": 13568639,
+  "zipSha256": "956c49af391da63ed8466e81312e288336819ef53fecca47ca40a7a6224fa7aa",
+  "offlineEntry": "file:///tmp/science-arkhyz/published-offline/index.html",
+  "main8080Unchanged": true,
+  "main8080": "9c629ca6100c2f17e8672ff297e73a06e6f3042867ffb4cbaa214e35274c7b81 sha256:b80e39a8f50ae05fcbe6d856dab2588355acc24ea27a489d7025855a4ce64f3e 2026-10-02T19:01:53.40672471Z",
+  "sourceAssetsMatchPublished": true,
+  "browserChecks": {
+    "httpCampaign": 230,
+    "offlineCampaign": 230,
+    "httpExploration": 45,
+    "offlineExploration": 45,
+    "worldSource": 36,
+    "sceneSource": 29,
+    "model": 12
+  },
+  "browserErrors": [],
+  "externalRequests": []
+}

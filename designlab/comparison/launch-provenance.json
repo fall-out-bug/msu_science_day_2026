@@ -1,0 +1,366 @@
+{
+  "version": 1,
+  "inputs": [
+    {
+      "file": "assets/observations/variable-fields/raw/ztf_20180816213264_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz",
+      "sha256": "18430cd323fba5de42c1315024cb4fed3ae7c95ee42dfcd8fd7671b12bacae19",
+      "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2018/0816/213264/ztf_20180816213264_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false",
+      "date": "2018-08-16T05:07:07Z",
+      "magzp": 26.183724,
+      "seeing": 2.009,
+      "removedMedian": 45.56151580810547
+    },
+    {
+      "file": "assets/observations/variable-fields/raw/ztf_20210424407488_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz",
+      "sha256": "96d4fa186a161f5d7107e5cf0c98c61665ca7f24e34c2cc29b48e16f44bd41a3",
+      "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2021/0424/407488/ztf_20210424407488_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false",
+      "date": "2021-04-24T09:46:46Z",
+      "magzp": 26.250892,
+      "seeing": 2.034,
+      "removedMedian": 158.12698364257812
+    },
+    {
+      "file": "assets/observations/variable-fields/raw/ztf_20240507404792_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz",
+      "sha256": "3ba51f2c973ae43b65dc2a1996fbb55217565f033d806de6c9c44402a1d2d6a2",
+      "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/0507/404792/ztf_20240507404792_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false",
+      "date": "2024-05-07T09:42:54Z",
+      "magzp": 26.276099,
+      "seeing": 2.018,
+      "removedMedian": 53.07805633544922
+    }
+  ],
+  "handoffSha256": "6e365842ee1a38a1e8b5acd920f18b440591c1c072c5384935ce3681dc1e3317",
+  "exportedDataSha256": "e32ba2d06e4e1577f14c3edaf680e7d17851408c15e45ba75852d80802ef9b04",
+  "movementReference": {
+    "file": "designlab/comparison/data.js",
+    "case": "s07",
+    "sha256": "8fdc3d8999e5367fe458f767e7e7cc9d9260bf6451bada8eccd3923312e72a95",
+    "provenance": "designlab/comparison/provenance.json",
+    "provenanceSha256": "ed983259b6026c4469f4181a446e7344b37b82bc661dbb393cda712495c11d71",
+    "inputs": [
+      {
+        "file": "assets/observations/motion-fields/ztf_20200102273947_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz",
+        "sha256": "ec223e1cc1d71194149dd662da448cb2dc8f59429280bc6d689ab5627be66d1c"
+      },
+      {
+        "file": "assets/observations/motion-fields/ztf_20200102300035_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz",
+        "sha256": "8760cd4533d7147cdd27ba9345b87073836b0f68d68a2a5bec072ef0c442c8ed"
+      },
+      {
+        "file": "assets/observations/motion-fields/ztf_20200102342477_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz",
+        "sha256": "688ddf0368fd3e5d884e5dc81e9e1d95ecff8adcc6ececd4afd0bf1cfa3de1cd"
+      }
+    ],
+    "independence": "Reserved for the current launch; movement test uses only s02. Previously present in this project, not a claim of a never-seen field."
+  },
+  "grid": {
+    "ra": 283.35319246783206,
+    "dec": 30.117871500699305,
+    "pixelScaleArcsec": 1.01286
+  },
+  "coordinateContract": "128x128; zero-based pixel centers; x right, y down; ICRS north up east left",
+  "processing": "SHA-256 verification; MAGZP calibration to zero point 25; WCS bilinear alignment; one spatial median removed per science exposure; blind Gaussian-smoothed local maxima above 5 robust sigma. No downloads.",
+  "independentApertureChecks": [
+    {
+      "point": {
+        "x": 83.0,
+        "y": 12.0
+      },
+      "scienceFlux": [
+        719.7427368164062,
+        728.7174072265625,
+        699.0806884765625
+      ]
+    },
+    {
+      "point": {
+        "x": 76.0,
+        "y": 21.0
+      },
+      "scienceFlux": [
+        379.2664794921875,
+        348.1300964355469,
+        379.2071533203125
+      ]
+    },
+    {
+      "point": {
+        "x": 108.0,
+        "y": 30.0
+      },
+      "scienceFlux": [
+        9580.4833984375,
+        9376.017578125,
+        9238.2236328125
+      ]
+    },
+    {
+      "point": {
+        "x": 52.0,
+        "y": 32.0
+      },
+      "scienceFlux": [
+        2341.66552734375,
+        2314.055908203125,
+        2249.235595703125
+      ]
+    },
+    {
+      "point": {
+        "x": 80.0,
+        "y": 35.0
+      },
+      "scienceFlux": [
+        1335.0225830078125,
+        1315.631103515625,
+        1252.7723388671875
+      ]
+    },
+    {
+      "point": {
+        "x": 48.0,
+        "y": 38.0
+      },
+      "scienceFlux": [
+        117.11669158935547,
+        104.82438659667969,
+        103.95504760742188
+      ]
+    },
+    {
+      "point": {
+        "x": 32.0,
+        "y": 47.0
+      },
+      "scienceFlux": [
+        964.4808349609375,
+        920.296630859375,
+        924.5135498046875
+      ]
+    },
+    {
+      "point": {
+        "x": 67.0,
+        "y": 52.0
+      },
+      "scienceFlux": [
+        155.4364776611328,
+        108.26249694824219,
+        153.58346557617188
+      ]
+    },
+    {
+      "point": {
+        "x": 86.0,
+        "y": 52.0
+      },
+      "scienceFlux": [
+        371.5519104003906,
+        374.9376220703125,
+        379.0229187011719
+      ]
+    },
+    {
+      "point": {
+        "x": 86.0,
+        "y": 59.0
+      },
+      "scienceFlux": [
+        697.6517333984375,
+        673.3662109375,
+        678.1879272460938
+      ]
+    },
+    {
+      "point": {
+        "x": 63.0,
+        "y": 63.0
+      },
+      "scienceFlux": [
+        6215.31787109375,
+        3451.892578125,
+        5977.67578125
+      ]
+    },
+    {
+      "point": {
+        "x": 25.0,
+        "y": 70.0
+      },
+      "scienceFlux": [
+        10485.3310546875,
+        10325.900390625,
+        10169.7958984375
+      ]
+    },
+    {
+      "point": {
+        "x": 77.0,
+        "y": 74.0
+      },
+      "scienceFlux": [
+        496.8578186035156,
+        495.50860595703125,
+        483.03143310546875
+      ]
+    },
+    {
+      "point": {
+        "x": 113.0,
+        "y": 76.0
+      },
+      "scienceFlux": [
+        1524.9278564453125,
+        1440.6351318359375,
+        1484.1082763671875
+      ]
+    },
+    {
+      "point": {
+        "x": 100.0,
+        "y": 79.0
+      },
+      "scienceFlux": [
+        537.4716186523438,
+        534.8759155273438,
+        522.4852294921875
+      ]
+    },
+    {
+      "point": {
+        "x": 88.0,
+        "y": 81.0
+      },
+      "scienceFlux": [
+        111.553466796875,
+        81.1491470336914,
+        93.9565200805664
+      ]
+    },
+    {
+      "point": {
+        "x": 76.0,
+        "y": 87.0
+      },
+      "scienceFlux": [
+        9705.2783203125,
+        9463.7939453125,
+        9409.88671875
+      ]
+    },
+    {
+      "point": {
+        "x": 103.0,
+        "y": 87.0
+      },
+      "scienceFlux": [
+        1785.4676513671875,
+        1720.239990234375,
+        1711.1192626953125
+      ]
+    },
+    {
+      "point": {
+        "x": 105.0,
+        "y": 96.0
+      },
+      "scienceFlux": [
+        90.05409240722656,
+        97.07898712158203,
+        64.01197814941406
+      ]
+    },
+    {
+      "point": {
+        "x": 94.0,
+        "y": 97.0
+      },
+      "scienceFlux": [
+        755.4180908203125,
+        745.2030639648438,
+        721.2476806640625
+      ]
+    },
+    {
+      "point": {
+        "x": 39.0,
+        "y": 101.0
+      },
+      "scienceFlux": [
+        271.9205627441406,
+        283.47674560546875,
+        279.7561340332031
+      ]
+    },
+    {
+      "point": {
+        "x": 46.0,
+        "y": 106.0
+      },
+      "scienceFlux": [
+        280.2113952636719,
+        227.70814514160156,
+        215.25929260253906
+      ]
+    },
+    {
+      "point": {
+        "x": 72.0,
+        "y": 107.0
+      },
+      "scienceFlux": [
+        136.8685302734375,
+        83.84999084472656,
+        131.3878631591797
+      ]
+    },
+    {
+      "point": {
+        "x": 56.0,
+        "y": 108.0
+      },
+      "scienceFlux": [
+        395.21295166015625,
+        407.37823486328125,
+        447.2173156738281
+      ]
+    },
+    {
+      "point": {
+        "x": 90.0,
+        "y": 113.0
+      },
+      "scienceFlux": [
+        953.7958984375,
+        975.3636474609375,
+        919.3558959960938
+      ]
+    },
+    {
+      "point": {
+        "x": 31.0,
+        "y": 115.0
+      },
+      "scienceFlux": [
+        1109.542236328125,
+        1091.00341796875,
+        1104.4383544921875
+      ]
+    }
+  ],
+  "instrumentLimits": [
+    "Movement proposes matches from the first two epochs and freezes a linear prediction; the third epoch is used only after selection.",
+    "Fading scans fixed-position science apertures in the first two epochs. Relative field controls check large common changes; the numeric check repeats these measurements, not independent data.",
+    "Fading gates: at least 35% decrease after field median-ratio correction; decrease above five diagnostic noise scales, each including a 5% flux floor or larger robust control scatter; at least two matched positive control apertures, robust ratio scatter at most 15%, common ratio change at most 25%. These fixed heuristics are not a five-sigma confidence claim.",
+    "No pipeline difference images exist in this launch export.",
+    "Finite aperture, blending, seeing and calibration can bias flux; diagnostic gates are not calibrated probabilities.",
+    "Three sparse observations cannot establish persistent decline, period, astrophysical type, orbit, or a new discovery.",
+    "No ML or catalogue truth used by the runtime scan."
+  ],
+  "historicalContext": {
+    "catalogId": "ZTF18aavpvuj",
+    "note": "Provenance context only; not exported as a runtime target.",
+    "evidence": "Источник ZTF18aavpvuj во втором снимке стал слабее. Полная PSF-фотометрия IRSA/ZTF: 15,477±0,012 → 16,078±0,013 → 15,480±0,012 звёздной величины. Поток уменьшился примерно на 43%, затем вернулся к прежнему уровню. Апертурная фотометрия самих кадров подтверждает изменение: 15,468 → 16,075 → 15,476; потоки ярких соседних звёзд отличаются менее чем на 0,5%. Классификатор ALeRCE предлагает класс затменных двойных, но три кадра сами по себе не устанавливают природу переменности.",
+    "limitations": "Наблюдения сделаны в разные годы, а не в течение одного затмения. Значения seeing близки (2,03–2,04″), но остаточные различия формы соседних звёзд всё равно есть. Сравнивать надо поток источника, а не только самый яркий пиксель. Вывод об изменении подтверждён независимой фотометрией; низкая оценка игрового детектора его не отменяет."
+  }
+}

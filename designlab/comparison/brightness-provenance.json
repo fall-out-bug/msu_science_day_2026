@@ -1,0 +1,101 @@
+{
+  "inputs": [
+    {
+      "file": "assets/discoveries/ztf_20231007507292_000872_zr_c10_o_q3_science.fits",
+      "sha256": "79a798368ce5e727b08129699a99c5e4e29fc5c340961cf3d9172adb9fa08850",
+      "product": "science",
+      "date": "2023-10-07T12:10:31Z",
+      "magzp": 26.280288,
+      "source": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q3_sciimg.fits"
+    },
+    {
+      "file": "assets/discoveries/ztf_20231007507292_000872_zr_c10_o_q3_difference.fits",
+      "sha256": "ae8e00eddfbcea18485e5c406a5fe4e1baf0463d26ecc0078a1bf269890ce604",
+      "product": "difference",
+      "date": "2023-10-07T12:10:31Z",
+      "magzp": 26.280288,
+      "source": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q3_scimrefdiffimg.fits.fz"
+    },
+    {
+      "file": "assets/discoveries/ztf_20231110430868_000872_zr_c10_o_q3_science.fits",
+      "sha256": "a18f75ad9caea07282d5698a90d89cab2ec217c2b9b4aa9f1a331cd355de56b4",
+      "product": "science",
+      "date": "2023-11-10T10:20:34Z",
+      "magzp": 26.278709,
+      "source": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q3_sciimg.fits"
+    },
+    {
+      "file": "assets/discoveries/ztf_20231110430868_000872_zr_c10_o_q3_difference.fits",
+      "sha256": "eaf9fceec5c88ee73fcfa32966a40e92faddd64e4b78c198643d6dd7b47bc378",
+      "product": "difference",
+      "date": "2023-11-10T10:20:34Z",
+      "magzp": 26.278709,
+      "source": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q3_scimrefdiffimg.fits.fz"
+    }
+  ],
+  "inputProvenanceSha256": "d564e1a80319309248f92d654576219c6157366c5cc8d2862ac05f1906a27be0",
+  "exportedDataSha256": "3504b5e27121c1a1a47a171086dca0921719ee7708dcfc2aea7f703526df11fd",
+  "independentApertureChecks": [
+    {
+      "point": {
+        "x": 23.0,
+        "y": 64.0
+      },
+      "scienceFlux": [
+        14328.9228515625,
+        14014.5234375
+      ],
+      "differenceFlux": [
+        -172.77529907226562,
+        12.932926177978516
+      ]
+    },
+    {
+      "point": {
+        "x": 65.0,
+        "y": 64.0
+      },
+      "scienceFlux": [
+        2495.746826171875,
+        2068.92236328125
+      ],
+      "differenceFlux": [
+        552.42138671875,
+        185.8804168701172
+      ]
+    }
+  ],
+  "coordinateContract": "128x128, zero-based pixel centers; x right, y down; ICRS north up east left",
+  "grid": {
+    "ra": 143.79799404615386,
+    "dec": 83.9734582153846,
+    "pixelScaleArcsec": 1.01286
+  },
+  "processing": "Verify stored FITS SHA-256; MAGZP calibration to zero point 25; bilinear WCS alignment. Science median background removed; pipeline difference signs retained.",
+  "sourceDetection": "realdata.detect_sources(k=5), raw calibrated science in each epoch; no target snapping",
+  "display": {
+    "scienceTop": 300,
+    "differenceTop": 120,
+    "fixedAcrossEpochs": true
+  },
+  "photometry": {
+    "apertureRadiusPx": 4,
+    "backgroundAnnulusPx": [
+      8,
+      12
+    ],
+    "localBackground": "median of annulus",
+    "noiseScale": "1.4826*annulus MAD*sqrt(aperture pixel count)*3; correlation proxy, not a formal error bar",
+    "fadingRule": "First difference flux >5 noise scales, decrease >5 combined noise scales, >=35% of first difference flux, and >10% of first science aperture flux.",
+    "stabilityRule": "Science flux >5 noise scales in both epochs, science change <=10%, and absolute pipeline difference flux <=5% of first science flux in both epochs.",
+    "incompleteAnnulus": "unresolved"
+  },
+  "limits": [
+    "Two archived epochs only, no third observation.",
+    "Pipeline difference is science minus a ZTF reference, not second epoch minus first.",
+    "Aperture integrates nearby unresolved light; SN has a neighbour approximately 2.4 arcsec away.",
+    "Noise scale is a conservative heuristic, not calibrated statistical confidence; PSF and subtraction systematics remain.",
+    "Stable means no large change under these fixed gates, not proof of exact constancy.",
+    "No transient type, physical luminosity, orbital property or independent discovery is inferred."
+  ]
+}

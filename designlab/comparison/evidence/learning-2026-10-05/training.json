@@ -1,0 +1,10 @@
+{
+  "count": 5,
+  "checks": [
+    "six measured tracks start unlabeled and all six player labels are required",
+    "fit is based on six user-labeled rows, not a hidden full-field fit",
+    "wrong human label changes heldout predictions and evaluation without answer-key fit",
+    "relabeling clears trained and evaluated state and reopens saved s07",
+    "valid revision survives reload; legacy ML completion is reopened without losing other records"
+  ]
+}

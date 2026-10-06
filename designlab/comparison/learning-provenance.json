@@ -1,0 +1,34 @@
+{
+  "source": {
+    "data_js_sha256": "8fdc3d8999e5367fe458f767e7e7cc9d9260bf6451bada8eccd3923312e72a95",
+    "exporterSha256": "70d22635eaa28052f86756e736efb2dbca05870768b45c660a62f4d6ad41ee75",
+    "cases": [
+      "s02",
+      "s07"
+    ],
+    "coordinate_contract": "zero-based 128x128 source centers; all three measured epochs are visible"
+  },
+  "model": {
+    "features": [
+      "log1p(mean speed in arcsec/hour)",
+      "log1p(vector velocity difference in arcsec/hour)",
+      "log(max peak/min peak)"
+    ],
+    "scale": "population standard deviation fitted on all s02 candidate triples only",
+    "score": "nearest-negative distance minus nearest-positive distance, divided by their sum; an acceptance score, not a probability",
+    "decision": "score > 0"
+  },
+  "lesson": {
+    "initial": "one confirmed s02 track and four stationary measured triples",
+    "correction": "s02 42,82 -> 58,68 -> 19,76 is an initially accepted wrong association; learner labels it wrongLink",
+    "evaluation": "s07 is reserved for the before/after count"
+  },
+  "validation": {
+    "independent_python_extraction": true,
+    "runtime_must_match": "learning-reference.json features and coordinates",
+    "source_tuples": [
+      180,
+      1000
+    ]
+  }
+}

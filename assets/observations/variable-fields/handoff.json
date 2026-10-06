@@ -1,0 +1,1263 @@
+{
+ "cases": {
+  "variable1": {
+   "label": "variable",
+   "ra": 246.86628730714565,
+   "dec": 0.11909064319929588,
+   "patch_center": [
+    246.86628730714565,
+    0.11909064319929588
+   ],
+   "catalog_id": "ZTF18abmpdqv",
+   "evidence": "Источник ZTF18abmpdqv меняет блеск: полная PSF-фотометрия IRSA/ZTF даёт 16,900±0,017 → 15,916±0,012 → 16,875±0,017 звёздной величины. Между первым и вторым снимками поток вырос примерно в 2,4 раза, затем вернулся к прежнему уровню. Независимая апертурная фотометрия этих кадров согласуется с каталогом: 16,884 → 15,928 → 16,891. Классификатор ALeRCE предлагает тип RR Лиры; это дополнительное сведение, а не основание для вывода об изменении на снимках.",
+   "limitations": "Три наблюдения разнесены во времени и не показывают непрерывный цикл переменности. Размытие атмосферой близкое, но не одинаковое: seeing 1,64–1,71″. Форма отдельных пикселей может меняться и у постоянных звёзд; здесь вывод поддерживает измерение полного потока источника. Подтип звезды в этой работе независимо не подтверждался.",
+   "epochs": [
+    {
+     "file": "variable-fields/raw/ztf_20190608273160_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2019/0608/273160/ztf_20190608273160_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false",
+     "sha256": "4b3f6f931c03e5ae69d6c3229f4bc6a221783fde913d9cd6b229de2f8b01dae8",
+     "bytes": 582120,
+     "mjd": 58642.27317,
+     "phase_P": 1.0,
+     "row": {
+      "filefracday": "20190608273160",
+      "field": 431,
+      "ccdid": 16,
+      "qid": 4,
+      "filtercode": "zr",
+      "exptime": 30.0,
+      "expid": 88827317,
+      "catflags": 0,
+      "programid": 1,
+      "obsdate": "2019-06-08 06:33:22.078+00",
+      "obsjd": "2458642.773171300",
+      "seeing_ibe": "1.710320",
+      "maglimit_ibe": "21.071400",
+      "moonillf": "0.280625",
+      "infobits": "0",
+      "ipac_pub_date": "2020-12-09 00:00:00+00",
+      "progremid": null,
+      "irsa_mag": 16.9000378,
+      "irsa_magerr": 0.0167705268,
+      "limitmag": 21.4899998
+     },
+     "header": {
+      "filter": "ZTF_r",
+      "exptime": 30.0,
+      "magzp": 26.103984,
+      "seeing": 1.697,
+      "maglim": 21.49,
+      "infobits": 0,
+      "airmass": 1.261,
+      "moonillf": 0.280625,
+      "obsmjd": 58642.2731713,
+      "fieldid": 431,
+      "ccdid": 16,
+      "qid": 4,
+      "pixscale_as": 1.012557
+     },
+     "qc": {
+      "finite_128": true,
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 29,
+        "x": 269,
+        "y": 330,
+        "x0": 268,
+        "x1": 271,
+        "y0": 324,
+        "y1": 336
+       }
+      ],
+      "sat_clusters_in_patch128": [],
+      "max_dn": 60048.36328125,
+      "src_xy_raw": [
+       207.8,
+       207.9
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "aperture": {
+       "flux": 1763.802978515625,
+       "mag": 16.8839,
+       "err": 0.0268,
+       "bg": 42.3443
+      }
+     }
+    },
+    {
+     "file": "variable-fields/raw/ztf_20190704177141_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2019/0704/177141/ztf_20190704177141_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false",
+     "sha256": "6b51f837e680425cb11367eb8b4747adb6b75b61946ac1bc4ed47ac73b7f693f",
+     "bytes": 569353,
+     "mjd": 58668.17714,
+     "phase_P": 0.179,
+     "row": {
+      "filefracday": "20190704177141",
+      "field": 431,
+      "ccdid": 16,
+      "qid": 4,
+      "filtercode": "zr",
+      "exptime": 30.0,
+      "expid": 91417714,
+      "catflags": 0,
+      "programid": 1,
+      "obsdate": "2019-07-04 04:15:06.063+00",
+      "obsjd": "2458668.677141200",
+      "seeing_ibe": "1.642630",
+      "maglimit_ibe": "20.866699",
+      "moonillf": "0.026484",
+      "infobits": "0",
+      "ipac_pub_date": "2020-06-24 00:00:00+00",
+      "progremid": null,
+      "irsa_mag": 15.9159966,
+      "irsa_magerr": 0.0124804359,
+      "limitmag": 21.1800003
+     },
+     "header": {
+      "filter": "ZTF_r",
+      "exptime": 30.0,
+      "magzp": 26.081292,
+      "seeing": 1.59,
+      "maglim": 21.18,
+      "infobits": 0,
+      "airmass": 1.32,
+      "moonillf": 0.0264844,
+      "obsmjd": 58668.1771412,
+      "fieldid": 431,
+      "ccdid": 16,
+      "qid": 4,
+      "pixscale_as": 1.012537
+     },
+     "qc": {
+      "finite_128": true,
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 27,
+        "x": 268,
+        "y": 330,
+        "x0": 268,
+        "x1": 270,
+        "y0": 325,
+        "y1": 337
+       }
+      ],
+      "sat_clusters_in_patch128": [],
+      "max_dn": 59447.27734375,
+      "src_xy_raw": [
+       207.4,
+       207.6
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "aperture": {
+       "flux": 4253.0791015625,
+       "mag": 15.9282,
+       "err": 0.0174,
+       "bg": 84.0007
+      }
+     }
+    },
+    {
+     "file": "variable-fields/raw/ztf_20250605339282_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0605/339282/ztf_20250605339282_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false",
+     "sha256": "d0fe7f37a956956e4aab6983f90aad477040f4046edb683c605b3ded59c8e30a",
+     "bytes": 559151,
+     "mjd": 60831.33933,
+     "phase_P": 0.008,
+     "row": {
+      "filefracday": "20250605339282",
+      "field": 431,
+      "ccdid": 16,
+      "qid": 4,
+      "filtercode": "zr",
+      "exptime": 30.0,
+      "expid": 307733932,
+      "catflags": 0,
+      "programid": 1,
+      "obsdate": "2025-06-05 08:08:38.802+00",
+      "obsjd": "2460831.839328700",
+      "seeing_ibe": "1.702390",
+      "maglimit_ibe": "20.569000",
+      "moonillf": "0.706791",
+      "infobits": "0",
+      "ipac_pub_date": "2025-08-04 08:08:38+00",
+      "progremid": null,
+      "irsa_mag": 16.8752747,
+      "irsa_magerr": 0.0166054349,
+      "limitmag": 21.0100002
+     },
+     "header": {
+      "filter": "ZTF_r",
+      "exptime": 30.0,
+      "magzp": 26.126405,
+      "seeing": 1.672,
+      "maglim": 21.01,
+      "infobits": 0,
+      "airmass": 1.253,
+      "moonillf": 0.706791,
+      "obsmjd": 60831.3393287,
+      "fieldid": 431,
+      "ccdid": 16,
+      "qid": 4,
+      "pixscale_as": 1.012569
+     },
+     "qc": {
+      "finite_128": true,
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 28,
+        "x": 268,
+        "y": 329,
+        "x0": 267,
+        "x1": 270,
+        "y0": 324,
+        "y1": 335
+       }
+      ],
+      "sat_clusters_in_patch128": [],
+      "max_dn": 63745.73046875,
+      "src_xy_raw": [
+       207.3,
+       207.1
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "aperture": {
+       "flux": 1752.91943359375,
+       "mag": 16.8906,
+       "err": 0.0285,
+       "bg": 131.5798
+      }
+     }
+    }
+   ],
+   "epoch_mags": [
+    {
+     "mjd": 58642.27317,
+     "mag": 16.9000378,
+     "err": 0.0167705268,
+     "aperture_mag": 16.8839,
+     "aperture_err": 0.0268,
+     "filefracday": "20190608273160"
+    },
+    {
+     "mjd": 58668.17714,
+     "mag": 15.9159966,
+     "err": 0.0124804359,
+     "aperture_mag": 15.9282,
+     "aperture_err": 0.0174,
+     "filefracday": "20190704177141"
+    },
+    {
+     "mjd": 60831.33933,
+     "mag": 16.8752747,
+     "err": 0.0166054349,
+     "aperture_mag": 16.8906,
+     "aperture_err": 0.0285,
+     "filefracday": "20250605339282"
+    }
+   ],
+   "mag_note": "блеск IRSA LC — PSF-фотометрия полного (не разностного) потока на научных кадрах, catflags=0; апертурные величины настоящего отчёта (общий WCS, MAGZP→25, локальный фон) согласуются с каталогом в пределах 0.01–0.05 зв. вел.",
+   "science": {
+    "alerce": {
+     "classifier": "lc_classifier_periodic",
+     "class": "RRL",
+     "probability": 0.994,
+     "url": "https://alerce.science/object/ZTF18abmpdqv"
+    },
+    "lightcurve": {
+     "period_d": 0.469454,
+     "method": "Lomb-Scargle по полной IRSA/ZTF кривой блеска (zr, catflags=0, 30с)",
+     "log10_FAP": -133.3,
+     "fap_note": null,
+     "n_points": 581,
+     "folded_amplitude_mag": 0.95,
+     "lc_amplitude_mag": 1.057,
+     "median_err": 0.0151,
+     "epoch_phases": [
+      {
+       "mjd": 58642.27317,
+       "phase_P": 1.0,
+       "same_night_lc": [
+        [
+         58642.2732,
+         16.9,
+         0.0168
+        ]
+       ]
+      },
+      {
+       "mjd": 58668.17714,
+       "phase_P": 0.179,
+       "same_night_lc": [
+        [
+         58668.1771,
+         15.916,
+         0.0125
+        ]
+       ]
+      },
+      {
+       "mjd": 60831.33933,
+       "phase_P": 0.008,
+       "same_night_lc": [
+        [
+         60831.3393,
+         16.875,
+         0.0166
+        ]
+       ]
+      }
+     ],
+     "lc_points_sample": [
+      {
+       "mjd": 58198.4797,
+       "mag": 16.777,
+       "err": 0.016
+      },
+      {
+       "mjd": 58279.2741,
+       "mag": 16.786,
+       "err": 0.016
+      },
+      {
+       "mjd": 58362.1323,
+       "mag": 16.15,
+       "err": 0.0132
+      },
+      {
+       "mjd": 58491.5752,
+       "mag": 16.873,
+       "err": 0.0166
+      },
+      {
+       "mjd": 58494.5719,
+       "mag": 16.374,
+       "err": 0.014
+      },
+      {
+       "mjd": 58628.3586,
+       "mag": 16.358,
+       "err": 0.0139
+      },
+      {
+       "mjd": 58672.2075,
+       "mag": 16.799,
+       "err": 0.0161
+      },
+      {
+       "mjd": 58728.2115,
+       "mag": 16.901,
+       "err": 0.0168
+      },
+      {
+       "mjd": 58776.1036,
+       "mag": 16.85,
+       "err": 0.0164
+      },
+      {
+       "mjd": 58853.5735,
+       "mag": 16.825,
+       "err": 0.0163
+      },
+      {
+       "mjd": 58861.5719,
+       "mag": 16.331,
+       "err": 0.0138
+      },
+      {
+       "mjd": 58954.4594,
+       "mag": 16.864,
+       "err": 0.0165
+      },
+      {
+       "mjd": 59027.2896,
+       "mag": 16.136,
+       "err": 0.0131
+      },
+      {
+       "mjd": 59136.1131,
+       "mag": 16.796,
+       "err": 0.0161
+      },
+      {
+       "mjd": 59142.0904,
+       "mag": 16.738,
+       "err": 0.0158
+      },
+      {
+       "mjd": 59217.5687,
+       "mag": 16.522,
+       "err": 0.0146
+      },
+      {
+       "mjd": 59221.5782,
+       "mag": 16.863,
+       "err": 0.0165
+      },
+      {
+       "mjd": 59227.5729,
+       "mag": 16.792,
+       "err": 0.0161
+      },
+      {
+       "mjd": 59248.5418,
+       "mag": 16.468,
+       "err": 0.0144
+      },
+      {
+       "mjd": 59310.4447,
+       "mag": 16.207,
+       "err": 0.0134
+      },
+      {
+       "mjd": 59354.399,
+       "mag": 16.806,
+       "err": 0.0162
+      },
+      {
+       "mjd": 59375.3558,
+       "mag": 16.637,
+       "err": 0.0137
+      },
+      {
+       "mjd": 59402.2548,
+       "mag": 16.78,
+       "err": 0.016
+      },
+      {
+       "mjd": 59438.1714,
+       "mag": 16.355,
+       "err": 0.0139
+      },
+      {
+       "mjd": 59476.1757,
+       "mag": 16.274,
+       "err": 0.0136
+      },
+      {
+       "mjd": 59502.1127,
+       "mag": 16.637,
+       "err": 0.0152
+      },
+      {
+       "mjd": 59630.5075,
+       "mag": 16.907,
+       "err": 0.0168
+      },
+      {
+       "mjd": 59696.4422,
+       "mag": 16.568,
+       "err": 0.0149
+      },
+      {
+       "mjd": 59737.2747,
+       "mag": 16.543,
+       "err": 0.0147
+      },
+      {
+       "mjd": 59773.3135,
+       "mag": 16.143,
+       "err": 0.0131
+      },
+      {
+       "mjd": 59806.2083,
+       "mag": 16.293,
+       "err": 0.0137
+      },
+      {
+       "mjd": 59865.1202,
+       "mag": 16.773,
+       "err": 0.016
+      },
+      {
+       "mjd": 59877.0909,
+       "mag": 16.237,
+       "err": 0.0135
+      },
+      {
+       "mjd": 59979.5337,
+       "mag": 16.566,
+       "err": 0.0148
+      },
+      {
+       "mjd": 60059.4401,
+       "mag": 16.775,
+       "err": 0.016
+      },
+      {
+       "mjd": 60091.3588,
+       "mag": 16.804,
+       "err": 0.0162
+      },
+      {
+       "mjd": 60120.2323,
+       "mag": 16.086,
+       "err": 0.013
+      },
+      {
+       "mjd": 60163.2759,
+       "mag": 16.808,
+       "err": 0.0162
+      },
+      {
+       "mjd": 60230.1064,
+       "mag": 16.189,
+       "err": 0.0133
+      },
+      {
+       "mjd": 60240.0861,
+       "mag": 16.585,
+       "err": 0.0149
+      },
+      {
+       "mjd": 60245.0827,
+       "mag": 15.937,
+       "err": 0.0125
+      },
+      {
+       "mjd": 60323.5615,
+       "mag": 16.315,
+       "err": 0.0137
+      },
+      {
+       "mjd": 60325.5645,
+       "mag": 16.674,
+       "err": 0.0154
+      },
+      {
+       "mjd": 60421.4137,
+       "mag": 16.778,
+       "err": 0.016
+      },
+      {
+       "mjd": 60450.3799,
+       "mag": 16.549,
+       "err": 0.0148
+      },
+      {
+       "mjd": 60483.2887,
+       "mag": 16.702,
+       "err": 0.0156
+      },
+      {
+       "mjd": 60524.2109,
+       "mag": 16.796,
+       "err": 0.0161
+      },
+      {
+       "mjd": 60556.1479,
+       "mag": 16.804,
+       "err": 0.0162
+      },
+      {
+       "mjd": 60676.5622,
+       "mag": 16.204,
+       "err": 0.0133
+      },
+      {
+       "mjd": 60755.4991,
+       "mag": 16.474,
+       "err": 0.0144
+      },
+      {
+       "mjd": 60810.3395,
+       "mag": 16.16,
+       "err": 0.0132
+      },
+      {
+       "mjd": 60840.2946,
+       "mag": 16.898,
+       "err": 0.0168
+      },
+      {
+       "mjd": 60902.171,
+       "mag": 16.81,
+       "err": 0.0162
+      }
+     ]
+    },
+    "flux_pair_e0e1": {
+     "aperture_flux": [
+      1763.8,
+      4252.9
+     ],
+     "ratio": 2.411,
+     "irsa_mag_change": -0.984
+    },
+    "features_e0e1_bgsubtracted": {
+     "max_diff": 486.33,
+     "area": 41,
+     "peak_sigma": 223.6,
+     "argmax_px": [
+      63,
+      64
+     ],
+     "target_px": [
+      63.5,
+      63.5
+     ],
+     "argmax_is_target_px": true
+    },
+    "other_diff_peaks_gt4sigma_max_abs_sigma": 0.0,
+    "notes": "разности кадров получены после вычитания медианного фона каждого кадра (как в игре);Features по паре кадров 1–2",
+    "qc_summary": {
+     "finite_all": true,
+     "worst_other_peak_sigma": 0.0,
+     "argmax_is_target_px": true
+    }
+   },
+   "contact_sheet": "contact_variable1.png",
+   "raw_dir": "variable-fields/raw"
+  },
+  "weakmid1": {
+   "label": "weak_mid",
+   "ra": 283.35319246783206,
+   "dec": 30.117871500699305,
+   "patch_center": [
+    283.35319246783206,
+    30.117871500699305
+   ],
+   "catalog_id": "ZTF18aavpvuj",
+   "evidence": "Источник ZTF18aavpvuj во втором снимке стал слабее. Полная PSF-фотометрия IRSA/ZTF: 15,477±0,012 → 16,078±0,013 → 15,480±0,012 звёздной величины. Поток уменьшился примерно на 43%, затем вернулся к прежнему уровню. Апертурная фотометрия самих кадров подтверждает изменение: 15,468 → 16,075 → 15,476; потоки ярких соседних звёзд отличаются менее чем на 0,5%. Классификатор ALeRCE предлагает класс затменных двойных, но три кадра сами по себе не устанавливают природу переменности.",
+   "limitations": "Наблюдения сделаны в разные годы, а не в течение одного затмения. Значения seeing близки (2,03–2,04″), но остаточные различия формы соседних звёзд всё равно есть. Сравнивать надо поток источника, а не только самый яркий пиксель. Вывод об изменении подтверждён независимой фотометрией; низкая оценка игрового детектора его не отменяет.",
+   "epochs": [
+    {
+     "file": "variable-fields/raw/ztf_20180816213264_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2018/0816/213264/ztf_20180816213264_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false",
+     "sha256": "18430cd323fba5de42c1315024cb4fed3ae7c95ee42dfcd8fd7671b12bacae19",
+     "bytes": 578071,
+     "mjd": 58346.21328,
+     "phase_P": 0.316,
+     "row": {
+      "filefracday": "20180816213264",
+      "field": 684,
+      "ccdid": 2,
+      "qid": 3,
+      "filtercode": "zr",
+      "exptime": 30.0,
+      "expid": 59221327,
+      "catflags": 0,
+      "programid": 1,
+      "obsdate": "2018-08-16 05:07:07.448+00",
+      "obsjd": "2458346.713275500",
+      "seeing_ibe": "2.030640",
+      "maglimit_ibe": "20.931299",
+      "moonillf": "0.287591",
+      "infobits": "0",
+      "ipac_pub_date": "2020-06-24 00:00:00+00",
+      "progremid": null,
+      "irsa_mag": 15.4769135,
+      "irsa_magerr": 0.0115672415,
+      "limitmag": 21.2900009
+     },
+     "header": {
+      "filter": "ZTF_r",
+      "exptime": 30.0,
+      "magzp": 26.183724,
+      "seeing": 2.009,
+      "maglim": 21.29,
+      "infobits": 0,
+      "airmass": 1.001,
+      "moonillf": 0.287591,
+      "obsmjd": 58346.2132755,
+      "fieldid": 684,
+      "ccdid": 2,
+      "qid": 3,
+      "pixscale_as": 1.012566
+     },
+     "qc": {
+      "finite_128": true,
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 33,
+        "x": 20,
+        "y": 144,
+        "x0": 19,
+        "x1": 22,
+        "y0": 138,
+        "y1": 152
+       }
+      ],
+      "sat_clusters_in_patch128": [],
+      "max_dn": 59100.22265625,
+      "src_xy_raw": [
+       207.1,
+       207.5
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "aperture": {
+       "flux": 6498.75537109375,
+       "mag": 15.4679,
+       "err": 0.0143,
+       "bg": 45.2692
+      }
+     }
+    },
+    {
+     "file": "variable-fields/raw/ztf_20210424407488_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2021/0424/407488/ztf_20210424407488_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false",
+     "sha256": "96d4fa186a161f5d7107e5cf0c98c61665ca7f24e34c2cc29b48e16f44bd41a3",
+     "bytes": 581013,
+     "mjd": 59328.40749,
+     "phase_P": 0.835,
+     "row": {
+      "filefracday": "20210424407488",
+      "field": 684,
+      "ccdid": 2,
+      "qid": 3,
+      "filtercode": "zr",
+      "exptime": 30.0,
+      "expid": 157440748,
+      "catflags": 0,
+      "programid": 1,
+      "obsdate": "2021-04-24 09:46:47.652+00",
+      "obsjd": "2459328.907488400",
+      "seeing_ibe": "2.043860",
+      "maglimit_ibe": "20.162600",
+      "moonillf": "0.893052",
+      "infobits": "0",
+      "ipac_pub_date": "2021-06-30 00:00:00+00",
+      "progremid": null,
+      "irsa_mag": 16.0778618,
+      "irsa_magerr": 0.0126774833,
+      "limitmag": 20.3600006
+     },
+     "header": {
+      "filter": "ZTF_r",
+      "exptime": 30.0,
+      "magzp": 26.250892,
+      "seeing": 2.034,
+      "maglim": 20.36,
+      "infobits": 0,
+      "airmass": 1.196,
+      "moonillf": 0.893052,
+      "obsmjd": 59328.4074884,
+      "fieldid": 684,
+      "ccdid": 2,
+      "qid": 3,
+      "pixscale_as": 1.012676
+     },
+     "qc": {
+      "finite_128": true,
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 30,
+        "x": 21,
+        "y": 144,
+        "x0": 20,
+        "x1": 23,
+        "y0": 139,
+        "y1": 150
+       }
+      ],
+      "sat_clusters_in_patch128": [],
+      "max_dn": 62335.26171875,
+      "src_xy_raw": [
+       207.6,
+       207.4
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "aperture": {
+       "flux": 3713.83349609375,
+       "mag": 16.0754,
+       "err": 0.0206,
+       "bg": 157.8158
+      }
+     }
+    },
+    {
+     "file": "variable-fields/raw/ztf_20240507404792_000684_zr_c02_o_q3_sciimg_0cef177794.fits.gz",
+     "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/0507/404792/ztf_20240507404792_000684_zr_c02_o_q3_sciimg.fits?center=283.353192,30.117872&size=420.0arcsec&gzip=false",
+     "sha256": "3ba51f2c973ae43b65dc2a1996fbb55217565f033d806de6c9c44402a1d2d6a2",
+     "bytes": 572971,
+     "mjd": 60437.4048,
+     "phase_P": 0.501,
+     "row": {
+      "filefracday": "20240507404792",
+      "field": 684,
+      "ccdid": 2,
+      "qid": 3,
+      "filtercode": "zr",
+      "exptime": 30.0,
+      "expid": 268340480,
+      "catflags": 0,
+      "programid": 1,
+      "obsdate": "2024-05-07 09:42:55.39+00",
+      "obsjd": "2460437.904803200",
+      "seeing_ibe": "2.027170",
+      "maglimit_ibe": "20.699499",
+      "moonillf": "-0.007346",
+      "infobits": "0",
+      "ipac_pub_date": "2024-05-07 09:42:54+00",
+      "progremid": null,
+      "irsa_mag": 15.4804668,
+      "irsa_magerr": 0.0115722241,
+      "limitmag": 20.9500008
+     },
+     "header": {
+      "filter": "ZTF_r",
+      "exptime": 30.0,
+      "magzp": 26.276099,
+      "seeing": 2.018,
+      "maglim": 20.95,
+      "infobits": 0,
+      "airmass": 1.089,
+      "moonillf": -0.00734615,
+      "obsmjd": 60437.4048032,
+      "fieldid": 684,
+      "ccdid": 2,
+      "qid": 3,
+      "pixscale_as": 1.012666
+     },
+     "qc": {
+      "finite_128": true,
+      "sat_clusters_raw_cutout": [
+       {
+        "n": 31,
+        "x": 21,
+        "y": 145,
+        "x0": 20,
+        "x1": 23,
+        "y0": 140,
+        "y1": 151
+       }
+      ],
+      "sat_clusters_in_patch128": [],
+      "max_dn": 62243.24609375,
+      "src_xy_raw": [
+       207.3,
+       207.8
+      ],
+      "src_xy_patch128": [
+       63.5,
+       63.5
+      ],
+      "aperture": {
+       "flux": 6448.35693359375,
+       "mag": 15.4764,
+       "err": 0.0142,
+       "bg": 52.8462
+      }
+     }
+    }
+   ],
+   "epoch_mags": [
+    {
+     "mjd": 58346.21328,
+     "mag": 15.4769135,
+     "err": 0.0115672415,
+     "aperture_mag": 15.4679,
+     "aperture_err": 0.0143,
+     "filefracday": "20180816213264"
+    },
+    {
+     "mjd": 59328.40749,
+     "mag": 16.0778618,
+     "err": 0.0126774833,
+     "aperture_mag": 16.0754,
+     "aperture_err": 0.0206,
+     "filefracday": "20210424407488"
+    },
+    {
+     "mjd": 60437.4048,
+     "mag": 15.4804668,
+     "err": 0.0115722241,
+     "aperture_mag": 15.4764,
+     "aperture_err": 0.0142,
+     "filefracday": "20240507404792"
+    }
+   ],
+   "mag_note": "блеск IRSA LC — PSF-фотометрия полного (не разностного) потока на научных кадрах, catflags=0; апертурные величины настоящего отчёта (общий WCS, MAGZP→25, локальный фон) согласуются с каталогом в пределах 0.01–0.05 зв. вел.",
+   "science": {
+    "alerce": {
+     "classifier": "lc_classifier_periodic",
+     "class": "E",
+     "probability": 0.942,
+     "url": "https://alerce.science/object/ZTF18aavpvuj"
+    },
+    "lightcurve": {
+     "period_d": 0.156712,
+     "method": "Lomb-Scargle по полной IRSA/ZTF кривой блеска (zr, catflags=0, 30с)",
+     "log10_FAP": null,
+     "fap_note": "Расчёт FAP вернул ноль из-за численной точности. Числовая оценка здесь не приводится; это не означает нулевую вероятность ложной тревоги.",
+     "n_points": 1437,
+     "folded_amplitude_mag": 0.576,
+     "lc_amplitude_mag": 0.961,
+     "median_err": 0.0117,
+     "epoch_phases": [
+      {
+       "mjd": 58346.21328,
+       "phase_P": 0.316,
+       "same_night_lc": [
+        [
+         58346.21,
+         15.486,
+         0.0116
+        ],
+        [
+         58346.2117,
+         15.463,
+         0.0115
+        ],
+        [
+         58346.2133,
+         15.477,
+         0.0116
+        ]
+       ]
+      },
+      {
+       "mjd": 59328.40749,
+       "phase_P": 0.835,
+       "same_night_lc": [
+        [
+         59328.4075,
+         16.078,
+         0.0127
+        ]
+       ]
+      },
+      {
+       "mjd": 60437.4048,
+       "phase_P": 0.501,
+       "same_night_lc": [
+        [
+         60437.4048,
+         15.48,
+         0.0116
+        ]
+       ]
+      }
+     ],
+     "lc_points_sample": [
+      {
+       "mjd": 58216.3882,
+       "mag": 16.11,
+       "err": 0.0128
+      },
+      {
+       "mjd": 58255.3294,
+       "mag": 15.455,
+       "err": 0.0115
+      },
+      {
+       "mjd": 58269.3991,
+       "mag": 15.586,
+       "err": 0.0117
+      },
+      {
+       "mjd": 58283.3546,
+       "mag": 15.527,
+       "err": 0.0109
+      },
+      {
+       "mjd": 58292.3286,
+       "mag": 15.49,
+       "err": 0.0116
+      },
+      {
+       "mjd": 58299.2396,
+       "mag": 15.529,
+       "err": 0.0116
+      },
+      {
+       "mjd": 58299.2523,
+       "mag": 15.566,
+       "err": 0.0117
+      },
+      {
+       "mjd": 58299.2652,
+       "mag": 15.698,
+       "err": 0.0119
+      },
+      {
+       "mjd": 58299.2779,
+       "mag": 15.925,
+       "err": 0.0123
+      },
+      {
+       "mjd": 58299.2907,
+       "mag": 15.98,
+       "err": 0.0125
+      },
+      {
+       "mjd": 58300.2406,
+       "mag": 15.971,
+       "err": 0.0124
+      },
+      {
+       "mjd": 58300.2534,
+       "mag": 15.762,
+       "err": 0.012
+      },
+      {
+       "mjd": 58300.2662,
+       "mag": 15.621,
+       "err": 0.0118
+      },
+      {
+       "mjd": 58300.279,
+       "mag": 15.539,
+       "err": 0.0117
+      },
+      {
+       "mjd": 58300.2918,
+       "mag": 15.481,
+       "err": 0.0116
+      },
+      {
+       "mjd": 58312.4349,
+       "mag": 15.772,
+       "err": 0.012
+      },
+      {
+       "mjd": 58325.2529,
+       "mag": 15.498,
+       "err": 0.0116
+      },
+      {
+       "mjd": 58351.1888,
+       "mag": 15.731,
+       "err": 0.012
+      },
+      {
+       "mjd": 58358.2393,
+       "mag": 15.702,
+       "err": 0.0119
+      },
+      {
+       "mjd": 58369.1713,
+       "mag": 15.889,
+       "err": 0.0123
+      },
+      {
+       "mjd": 58379.2474,
+       "mag": 15.629,
+       "err": 0.0118
+      },
+      {
+       "mjd": 58389.1129,
+       "mag": 15.799,
+       "err": 0.0121
+      },
+      {
+       "mjd": 58432.0916,
+       "mag": 15.462,
+       "err": 0.0115
+      },
+      {
+       "mjd": 58593.4243,
+       "mag": 15.937,
+       "err": 0.0124
+      },
+      {
+       "mjd": 58618.3604,
+       "mag": 16.011,
+       "err": 0.0125
+      },
+      {
+       "mjd": 58643.2814,
+       "mag": 16.084,
+       "err": 0.0127
+      },
+      {
+       "mjd": 58653.4229,
+       "mag": 15.604,
+       "err": 0.0118
+      },
+      {
+       "mjd": 58681.2947,
+       "mag": 15.464,
+       "err": 0.0115
+      },
+      {
+       "mjd": 58698.4066,
+       "mag": 15.712,
+       "err": 0.0119
+      },
+      {
+       "mjd": 58706.3685,
+       "mag": 15.488,
+       "err": 0.0116
+      },
+      {
+       "mjd": 58732.2358,
+       "mag": 15.506,
+       "err": 0.0116
+      },
+      {
+       "mjd": 58765.1894,
+       "mag": 16.119,
+       "err": 0.0128
+      },
+      {
+       "mjd": 58956.5113,
+       "mag": 15.658,
+       "err": 0.0111
+      },
+      {
+       "mjd": 59020.2908,
+       "mag": 15.709,
+       "err": 0.0119
+      },
+      {
+       "mjd": 59065.3193,
+       "mag": 15.738,
+       "err": 0.012
+      },
+      {
+       "mjd": 59152.1779,
+       "mag": 15.479,
+       "err": 0.0116
+      },
+      {
+       "mjd": 59313.455,
+       "mag": 15.459,
+       "err": 0.0115
+      },
+      {
+       "mjd": 59377.4108,
+       "mag": 15.495,
+       "err": 0.0108
+      },
+      {
+       "mjd": 59466.172,
+       "mag": 15.978,
+       "err": 0.0124
+      },
+      {
+       "mjd": 59685.3644,
+       "mag": 15.589,
+       "err": 0.0117
+      },
+      {
+       "mjd": 59743.2969,
+       "mag": 15.471,
+       "err": 0.0116
+      },
+      {
+       "mjd": 59815.1821,
+       "mag": 15.91,
+       "err": 0.0123
+      },
+      {
+       "mjd": 59903.1414,
+       "mag": 15.488,
+       "err": 0.0116
+      },
+      {
+       "mjd": 60091.3952,
+       "mag": 15.536,
+       "err": 0.0117
+      },
+      {
+       "mjd": 60164.2861,
+       "mag": 15.695,
+       "err": 0.0119
+      },
+      {
+       "mjd": 60247.1563,
+       "mag": 15.465,
+       "err": 0.0116
+      },
+      {
+       "mjd": 60446.4532,
+       "mag": 15.543,
+       "err": 0.0117
+      },
+      {
+       "mjd": 60529.2586,
+       "mag": 15.579,
+       "err": 0.0117
+      },
+      {
+       "mjd": 60608.1541,
+       "mag": 15.836,
+       "err": 0.0122
+      },
+      {
+       "mjd": 60797.4143,
+       "mag": 15.911,
+       "err": 0.0123
+      },
+      {
+       "mjd": 60871.2873,
+       "mag": 15.558,
+       "err": 0.0117
+      },
+      {
+       "mjd": 60943.2153,
+       "mag": 15.628,
+       "err": 0.0118
+      }
+     ]
+    },
+    "flux_pair_e0e1": {
+     "aperture_flux": [
+      6498.76,
+      3714.53
+     ],
+     "ratio": 0.572,
+     "irsa_mag_change": 0.601
+    },
+    "features_e0e1_bgsubtracted": {
+     "max_diff": 512.79,
+     "area": 336,
+     "peak_sigma": 51.7,
+     "argmax_px": [
+      63,
+      63
+     ],
+     "target_px": [
+      63.5,
+      63.5
+     ],
+     "argmax_is_target_px": true
+    },
+    "other_diff_peaks_gt4sigma_max_abs_sigma": 50.2,
+    "notes": "разности кадров получены после вычитания медианного фона каждого кадра (как в игре);Features по паре кадров 1–2",
+    "qc_summary": {
+     "finite_all": true,
+     "worst_other_peak_sigma": 50.2,
+     "argmax_is_target_px": true
+    }
+   },
+   "contact_sheet": "contact_weakmid1.png",
+   "raw_dir": "variable-fields/raw"
+  }
+ },
+ "provenance": {
+  "slice": "assets/observations/variable-fields",
+  "date_utc": "2026-10-01",
+  "survey": "ZTF Public Survey, IRSA IBE ztf/products/sci (вырезки 420\" вокруг центра патча), IRSA ZTF light curve API (полный блеск, catflags=0)",
+  "pipeline": "вырезки -> calibrate MAGZP->25 -> общий TAN WCS (nord вверх, восток слева, scale=pixel_scale кадра ~1.0129\"/px, 128x128, astropy map_coordinates order=1) -> апертурная фотометрия r=6px, фон из кольца 10-15px -> разности после вычитания медианного фона каждого кадра (как в игре) -> признаки realdata.features по кадрам 1-2",
+  "epoch_selection": "хронологическая пара кадров 1-2 с |Δmag|≈цели (variable1: ~1.05 тусклый->яркий; weakmid1: ~0.60 квадратура->затмение), третий кадр позже пары и близок к первому; одна группа field/ccd/qid, zr, 30с, catflags=0, infobits=0 (IBE), seeing-согласование, HEAD-проверка наличия файла в архиве; период и фазы - Lomb-Scargle по полной IRSA кривой",
+  "verdict_on_previous_entries": {
+   "variable1_ZTF18abmpdqv": "п imgs чистые (NaN=0, насыщения в поле 128 нет), но пара признаков (кадры 1-2 по MJD) была минимум->минимум: Δmag=0.078, после вычитания фона нет ни одного пика >4σ (изменение x2.7 по потоку оказалось между кадрами 2-3); заменены эпохи, источник тот же",
+   "weakmid1_ZTF18aavpvuj": "кадры чистые, но seeing 1.48->1.24\" давал диполи субпиксельного сдвига на ярких постоянных соседях (+62σ при константном потоке) поверх затмения цели (−112σ); заменены эпохи на seeing-согласованные (2.03-2.04\"), цель - единственный экстремум разности"
+  },
+  "old_entries_qc_files": [
+   "qc_variable1.json",
+   "qc_weakmid1.json"
+  ],
+  "contact_sheets": [
+   "contact_variable1.png",
+   "contact_weakmid1.png"
+  ],
+  "labels_independent_of_detector": "классы ALeRCE (RRL 0.994, E 0.942) + собственный Lomb-Scargle период/фазы + полная IRSA фотометрия; score детектора не использовался при выборе"
+ }
+}
