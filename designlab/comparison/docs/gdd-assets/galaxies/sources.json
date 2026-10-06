@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "purpose": "Illustrative outreach images for the Galaxy Shift game design document. These files are not an admitted training, validation, or test dataset.",
+  "license": {
+    "name": "Creative Commons Attribution 4.0 International",
+    "url": "https://esahubble.org/copyright/",
+    "requirements": "Keep the complete, visible credit next to each image. Do not imply ESA/Hubble endorsement. Local copies below are unmodified screensize JPEGs."
+  },
+  "images": [
+    {
+      "id": "heic1508a",
+      "object": "IC 2006",
+      "local_file": "heic1508a.jpg",
+      "role": "clear_smooth_example",
+      "visible_label": "Гладкая",
+      "source_page": "https://esahubble.org/images/heic1508a/",
+      "download_url": "https://cdn.esahubble.org/archives/images/screen/heic1508a.jpg",
+      "source_claim": "ESA/Hubble identifies IC 2006 as an elliptical galaxy.",
+      "credit": "ESA/Hubble & NASA; Image acknowledgement: Judy Schmidt and J. Blakeslee (Dominion Astrophysical Observatory); Science acknowledgement: M. Carollo (ETH, Switzerland)",
+      "local_file_sha256": "407c0906cd5a81a1c5c7ca09aa06906e3190f44ad0126818bb0adaa63cdcc205"
+    },
+    {
+      "id": "potw2342a",
+      "object": "IC 5332",
+      "local_file": "potw2342a.jpg",
+      "role": "clear_face_on_spiral_example",
+      "visible_label": "Видна спираль",
+      "source_page": "https://esahubble.org/images/potw2342a/",
+      "download_url": "https://cdn.esahubble.org/archives/images/screen/potw2342a.jpg",
+      "source_claim": "ESA/Hubble describes IC 5332 as an almost face-on spiral galaxy with well-defined arms.",
+      "credit": "ESA/Hubble & NASA, R. Chandar, J. Lee and the PHANGS-HST team",
+      "local_file_sha256": "841cd27ceedba7b2f60c07cab115dd22a8f8a7464f91ac1c154ab511473ed620"
+    },
+    {
+      "id": "potw1512a",
+      "object": "NGC 5023",
+      "local_file": "potw1512a.jpg",
+      "role": "clear_edge_on_disk_example",
+      "visible_label": "Диск с ребра",
+      "source_page": "https://esahubble.org/images/potw1512a/",
+      "download_url": "https://cdn.esahubble.org/archives/images/screen/potw1512a.jpg",
+      "source_claim": "ESA/Hubble describes NGC 5023 as a spiral galaxy seen edge-on; its arms are not appreciable from this orientation.",
+      "credit": "ESA/Hubble & NASA",
+      "local_file_sha256": "7ca8e569ecf6c8052d8a2c8f25bebfc6027a79369e495e872f075dcdfd5a905c"
+    },
+    {
+      "id": "potw1905a",
+      "object": "Messier 85",
+      "local_file": "potw1905a.jpg",
+      "role": "visible_appearance_vs_physical_type_discussion",
+      "visible_label": "Внешний облик и физический тип — разные вопросы",
+      "source_page": "https://esahubble.org/images/potw1905a/",
+      "download_url": "https://cdn.esahubble.org/archives/images/screen/potw1905a.jpg",
+      "source_claim": "ESA/Hubble says M85 has properties between lenticular and elliptical galaxies and appears to interact with neighbours.",
+      "credit": "ESA/Hubble & NASA, R. O'Connell",
+      "local_file_sha256": "28270014f69d5e5b7cb262ffb6dbfd35c468de8ee78c3f361ac8fa5e78c27951"
+    }
+  ]
+}

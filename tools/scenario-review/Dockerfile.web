@@ -1,0 +1,4 @@
+# Extend the published game without rebuilding unrelated local game changes.
+FROM sd2026-comparison:before-comments-20261006
+COPY designlab/comparison/docs/ /usr/share/nginx/html/docs/
+COPY tools/scenario-review/nginx.conf /etc/nginx/conf.d/default.conf
