@@ -1,0 +1,592 @@
+{
+  "version": 1,
+  "manifest": "assets/observations/manifest.json",
+  "manifestSha256": "4fb474cb8cb9b75387245c6cb859c9a1d537bed40f331f26fb2679f42838cfa7",
+  "exportedDataSha256": "e0f56664a0ee4f92e524cdfda9741ad53e1e73dcd8aa51d50d565ac1ce5d0362",
+  "cases": [
+    {
+      "id": "archive-brightening",
+      "manifestCase": "variable1",
+      "lesson": "brightness_increased",
+      "inputs": [
+        {
+          "file": "assets/observations/variable-fields/raw/ztf_20190608273160_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz",
+          "sha256": "4b3f6f931c03e5ae69d6c3229f4bc6a221783fde913d9cd6b229de2f8b01dae8",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2019/0608/273160/ztf_20190608273160_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false",
+          "date": "2019-06-08T06:33:21Z",
+          "magzp": 26.103984,
+          "seeing": 1.697
+        },
+        {
+          "file": "assets/observations/variable-fields/raw/ztf_20190704177141_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz",
+          "sha256": "6b51f837e680425cb11367eb8b4747adb6b75b61946ac1bc4ed47ac73b7f693f",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2019/0704/177141/ztf_20190704177141_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false",
+          "date": "2019-07-04T04:15:04Z",
+          "magzp": 26.081292,
+          "seeing": 1.59
+        },
+        {
+          "file": "assets/observations/variable-fields/raw/ztf_20250605339282_000431_zr_c16_o_q4_sciimg_1fc02da053.fits.gz",
+          "sha256": "d0fe7f37a956956e4aab6983f90aad477040f4046edb683c605b3ded59c8e30a",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2025/0605/339282/ztf_20250605339282_000431_zr_c16_o_q4_sciimg.fits?center=246.866287,0.119091&size=420.0arcsec&gzip=false",
+          "date": "2025-06-05T08:08:38Z",
+          "magzp": 26.126405,
+          "seeing": 1.672
+        }
+      ],
+      "grid": {
+        "ra": 246.86628730714565,
+        "dec": 0.11909064319929588,
+        "pixelScaleArcsec": 1.0125574186393107
+      },
+      "sourceCounts": [
+        11,
+        7,
+        7
+      ],
+      "independentApertureChecks": [
+        {
+          "point": {
+            "x": 72.0,
+            "y": 26.0
+          },
+          "scienceFlux": [
+            86.19976806640625,
+            68.28800964355469,
+            42.898780822753906
+          ]
+        },
+        {
+          "point": {
+            "x": 64.0,
+            "y": 63.0
+          },
+          "scienceFlux": [
+            1677.6424560546875,
+            4092.1494140625,
+            1728.096435546875
+          ]
+        },
+        {
+          "point": {
+            "x": 105.0,
+            "y": 74.0
+          },
+          "scienceFlux": [
+            728.3799438476562,
+            707.8729858398438,
+            742.115478515625
+          ]
+        },
+        {
+          "point": {
+            "x": 76.0,
+            "y": 79.0
+          },
+          "scienceFlux": [
+            319.6286926269531,
+            324.0211181640625,
+            330.94873046875
+          ]
+        },
+        {
+          "point": {
+            "x": 50.0,
+            "y": 84.0
+          },
+          "scienceFlux": [
+            107.36305236816406,
+            98.56369018554688,
+            91.11358642578125
+          ]
+        },
+        {
+          "point": {
+            "x": 65.0,
+            "y": 84.0
+          },
+          "scienceFlux": [
+            502.40423583984375,
+            498.541259765625,
+            528.5594482421875
+          ]
+        },
+        {
+          "point": {
+            "x": 103.0,
+            "y": 111.0
+          },
+          "scienceFlux": [
+            305.2894287109375,
+            287.4423828125,
+            291.3085632324219
+          ]
+        }
+      ],
+      "independentTargetApertureCheck": {
+        "point": {
+          "x": 64.0,
+          "y": 63.0
+        },
+        "scienceFlux": [
+          1677.6424560546875,
+          4092.1494140625,
+          1728.096435546875
+        ]
+      }
+    },
+    {
+      "id": "archive-small-change",
+      "manifestCase": "weak1",
+      "lesson": "small_measured_change",
+      "inputs": [
+        {
+          "file": "assets/observations/cache/sci/ztf_20201027379861_000354_zr_c15_o_q2_sciimg_a7d895d2f7.fits.gz",
+          "sha256": "efb179b04f14ed7ec1f4c6026a3af34af5a713d2523d49a2b22f09b801a67879",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2020/1027/379861/ztf_20201027379861_000354_zr_c15_o_q2_sciimg.fits?center=67.51850000831395,-6.144846967152622&size=420.0arcsec&gzip=false",
+          "date": "2020-10-27T09:07:01Z",
+          "magzp": 26.154713,
+          "seeing": 2.635
+        },
+        {
+          "file": "assets/observations/cache/sci/ztf_20241214298009_000354_zr_c15_o_q2_sciimg_a7d895d2f7.fits.gz",
+          "sha256": "61929c40d3e1a96dc1939d9268ede71b94c3bb87a504257f0efb4f5bbf7b9b7b",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/1214/298009/ztf_20241214298009_000354_zr_c15_o_q2_sciimg.fits?center=67.51850000831395,-6.144846967152622&size=420.0arcsec&gzip=false",
+          "date": "2024-12-14T07:09:07Z",
+          "magzp": 25.976737,
+          "seeing": 2.427
+        },
+        {
+          "file": "assets/observations/cache/sci/ztf_20241231265058_000354_zr_c15_o_q2_sciimg_a7d895d2f7.fits.gz",
+          "sha256": "f3f46ce36fa2836ea7cf8b3a67efb87d8784c3831eb18aa8110fc0eb6f3e992f",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2024/1231/265058/ztf_20241231265058_000354_zr_c15_o_q2_sciimg.fits?center=67.51850000831395,-6.144846967152622&size=420.0arcsec&gzip=false",
+          "date": "2024-12-31T06:21:41Z",
+          "magzp": 26.170528,
+          "seeing": 2.054
+        }
+      ],
+      "grid": {
+        "ra": 67.51850000831395,
+        "dec": -6.144846967152622,
+        "pixelScaleArcsec": 1.0127252322538427
+      },
+      "sourceCounts": [
+        5,
+        5,
+        8
+      ],
+      "independentApertureChecks": [
+        {
+          "point": {
+            "x": 18.0,
+            "y": 52.0
+          },
+          "scienceFlux": [
+            16808.392578125,
+            16491.322265625,
+            17304.6796875
+          ]
+        },
+        {
+          "point": {
+            "x": 63.0,
+            "y": 63.0
+          },
+          "scienceFlux": [
+            25825.9140625,
+            21293.515625,
+            26165.126953125
+          ]
+        },
+        {
+          "point": {
+            "x": 84.0,
+            "y": 66.0
+          },
+          "scienceFlux": [
+            723.3423461914062,
+            925.1588134765625,
+            765.1964111328125
+          ]
+        },
+        {
+          "point": {
+            "x": 107.0,
+            "y": 87.0
+          },
+          "scienceFlux": [
+            5714.3955078125,
+            5625.71337890625,
+            5883.4990234375
+          ]
+        }
+      ],
+      "independentTargetApertureCheck": {
+        "point": {
+          "x": 63.0,
+          "y": 63.0
+        },
+        "scienceFlux": [
+          25825.9140625,
+          21293.515625,
+          26165.126953125
+        ]
+      }
+    },
+    {
+      "id": "archive-steady",
+      "manifestCase": "normal_1",
+      "lesson": "no_large_change",
+      "inputs": [
+        {
+          "file": "assets/observations/demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+          "sha256": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+          "date": "2023-10-07T12:10:31Z",
+          "magzp": 26.235391,
+          "seeing": 2.056
+        },
+        {
+          "file": "assets/observations/demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+          "sha256": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+          "date": "2023-10-29T11:54:57Z",
+          "magzp": 26.232791,
+          "seeing": 2.726
+        },
+        {
+          "file": "assets/observations/demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+          "sha256": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+          "date": "2023-11-10T10:20:34Z",
+          "magzp": 26.217144,
+          "seeing": 2.367
+        }
+      ],
+      "grid": {
+        "ra": 147.41905894056924,
+        "dec": 84.9345676651602,
+        "pixelScaleArcsec": 1.012857866176733
+      },
+      "sourceCounts": [
+        6,
+        4,
+        5
+      ],
+      "independentApertureChecks": [
+        {
+          "point": {
+            "x": 60.0,
+            "y": 29.0
+          },
+          "scienceFlux": [
+            49556.16015625,
+            47487.71484375,
+            48909.08203125
+          ]
+        },
+        {
+          "point": {
+            "x": 12.0,
+            "y": 95.0
+          },
+          "scienceFlux": [
+            6083.591796875,
+            5717.3681640625,
+            5951.353515625
+          ]
+        },
+        {
+          "point": {
+            "x": 98.0,
+            "y": 95.0
+          },
+          "scienceFlux": [
+            38837.73828125,
+            37138.4140625,
+            38145.1875
+          ]
+        }
+      ],
+      "independentTargetApertureCheck": {
+        "point": {
+          "x": 60.0,
+          "y": 29.0
+        },
+        "scienceFlux": [
+          49556.16015625,
+          47487.71484375,
+          48909.08203125
+        ]
+      }
+    },
+    {
+      "id": "archive-track",
+      "manifestCase": "artifact_track",
+      "lesson": "one_epoch_track",
+      "inputs": [
+        {
+          "file": "assets/observations/demo-quadrants/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+          "sha256": "513942ddc33922a09a38df74f9d89c08ed179d1d5e4ee06ed45ccf82823b068e",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1007/507292/ztf_20231007507292_000872_zr_c10_o_q2_sciimg.fits",
+          "date": "2023-10-07T12:10:31Z",
+          "magzp": 26.235391,
+          "seeing": 2.056
+        },
+        {
+          "file": "assets/observations/demo-quadrants/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+          "sha256": "77e018053ac3c817c0608d5fd54155b53b4b8d8ac6268f7b08db1f6fb75d05ad",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1029/496447/ztf_20231029496447_000872_zr_c10_o_q2_sciimg.fits",
+          "date": "2023-10-29T11:54:57Z",
+          "magzp": 26.232791,
+          "seeing": 2.726
+        },
+        {
+          "file": "assets/observations/demo-quadrants/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+          "sha256": "6dd079b32ce498a976ede536399e0f4223f6f834abab49f5df8a36d5a29a3181",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/ztf/products/sci/2023/1110/430868/ztf_20231110430868_000872_zr_c10_o_q2_sciimg.fits",
+          "date": "2023-11-10T10:20:34Z",
+          "magzp": 26.217144,
+          "seeing": 2.367
+        }
+      ],
+      "grid": {
+        "ra": 149.79644206730438,
+        "dec": 84.98907638130306,
+        "pixelScaleArcsec": 1.012857866176733
+      },
+      "sourceCounts": [
+        25,
+        3,
+        6
+      ],
+      "independentApertureChecks": [
+        {
+          "point": {
+            "x": 50.0,
+            "y": 39.0
+          },
+          "scienceFlux": [
+            8877.9375,
+            8407.873046875,
+            8714.8896484375
+          ]
+        },
+        {
+          "point": {
+            "x": 63.0,
+            "y": 63.0
+          },
+          "scienceFlux": [
+            264.4377746582031,
+            297.21453857421875,
+            307.7991638183594
+          ]
+        },
+        {
+          "point": {
+            "x": 85.0,
+            "y": 74.0
+          },
+          "scienceFlux": [
+            8839.7724609375,
+            -11.3394775390625,
+            14.46804428100586
+          ]
+        },
+        {
+          "point": {
+            "x": 90.0,
+            "y": 74.0
+          },
+          "scienceFlux": [
+            8869.9296875,
+            31.378250122070312,
+            0.4634895324707031
+          ]
+        },
+        {
+          "point": {
+            "x": 97.0,
+            "y": 74.0
+          },
+          "scienceFlux": [
+            8710.4326171875,
+            5.5560150146484375,
+            -20.593814849853516
+          ]
+        },
+        {
+          "point": {
+            "x": 104.0,
+            "y": 74.0
+          },
+          "scienceFlux": [
+            8937.68359375,
+            37.13310241699219,
+            78.1045150756836
+          ]
+        },
+        {
+          "point": {
+            "x": 109.0,
+            "y": 74.0
+          },
+          "scienceFlux": [
+            8977.802734375,
+            102.24087524414062,
+            68.87171936035156
+          ]
+        },
+        {
+          "point": {
+            "x": 30.0,
+            "y": 75.0
+          },
+          "scienceFlux": [
+            8580.2021484375,
+            16.687393188476562,
+            -30.501110076904297
+          ]
+        },
+        {
+          "point": {
+            "x": 35.0,
+            "y": 75.0
+          },
+          "scienceFlux": [
+            8561.91796875,
+            47.29425048828125,
+            14.165252685546875
+          ]
+        },
+        {
+          "point": {
+            "x": 42.0,
+            "y": 75.0
+          },
+          "scienceFlux": [
+            8762.3876953125,
+            -0.03375244140625,
+            19.149700164794922
+          ]
+        },
+        {
+          "point": {
+            "x": 47.0,
+            "y": 75.0
+          },
+          "scienceFlux": [
+            8845.189453125,
+            9.08599853515625,
+            -3.444568634033203
+          ]
+        },
+        {
+          "point": {
+            "x": 54.0,
+            "y": 75.0
+          },
+          "scienceFlux": [
+            8632.6181640625,
+            -2.6903228759765625,
+            -13.048294067382812
+          ]
+        },
+        {
+          "point": {
+            "x": 66.0,
+            "y": 75.0
+          },
+          "scienceFlux": [
+            8840.328125,
+            17.852798461914062,
+            12.857261657714844
+          ]
+        },
+        {
+          "point": {
+            "x": 72.0,
+            "y": 75.0
+          },
+          "scienceFlux": [
+            8777.958984375,
+            -33.52348327636719,
+            21.29019546508789
+          ]
+        },
+        {
+          "point": {
+            "x": 78.0,
+            "y": 75.0
+          },
+          "scienceFlux": [
+            8719.12109375,
+            -29.232269287109375,
+            -47.3050537109375
+          ]
+        },
+        {
+          "point": {
+            "x": 17.0,
+            "y": 76.0
+          },
+          "scienceFlux": [
+            8922.3095703125,
+            77.11991882324219,
+            34.604583740234375
+          ]
+        },
+        {
+          "point": {
+            "x": 23.0,
+            "y": 76.0
+          },
+          "scienceFlux": [
+            8672.666015625,
+            24.445419311523438,
+            12.01007080078125
+          ]
+        },
+        {
+          "point": {
+            "x": 69.0,
+            "y": 92.0
+          },
+          "scienceFlux": [
+            973.2840576171875,
+            995.4354858398438,
+            956.6172485351562
+          ]
+        }
+      ],
+      "independentTargetApertureCheck": {
+        "point": {
+          "x": 63.0,
+          "y": 63.0
+        },
+        "scienceFlux": [
+          264.4377746582031,
+          297.21453857421875,
+          307.7991638183594
+        ]
+      }
+    }
+  ],
+  "coordinateContract": "128x128; zero-based pixel centers; x right, y down; ICRS north up east left",
+  "processing": "SHA-256 verification of local FITS; MAGZP calibration to zero point 25; WCS bilinear alignment; one spatial median removed from each science exposure; blind Gaussian-smoothed local maxima above 5 robust sigma. No downloads and no target snapping.",
+  "sharedExposureWindows": [
+    [
+      "s04",
+      "archive-steady",
+      "archive-track"
+    ]
+  ],
+  "limits": [
+    "Each row is an archived ZTF science exposure, not a new observation.",
+    "The fields are distinct sky windows, not nine independent observing nights.",
+    "The brightening and small-change cases establish only measured flux changes described in their manifest evidence; three sparse dates do not establish a period or subtype.",
+    "The one-epoch track is recorded by the ZTF mask as aircraft/satellite track; it does not identify a particular craft.",
+    "Blind peak detection is not an object classifier; TrackingModel, BrightnessModel and LaunchModel retain their own fixed gates."
+  ]
+}

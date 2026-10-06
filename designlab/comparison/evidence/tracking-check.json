@@ -1,0 +1,153 @@
+{
+  "count": 21,
+  "checks": [
+    "empty sky and out-of-frame clicks do not invent a target",
+    "a click selects the nearest measured peak within five pixels",
+    "overlapping click choices require a different click",
+    "unequal epoch spacing determines the held-out prediction",
+    "selection cannot read the third image, third detections or truth labels",
+    "third-frame changes alter confirmation without altering selection",
+    "confirmation uses the submitted prediction without recalculating dates",
+    "a changed first-frame measurement changes the prediction and outcome",
+    "two compatible disappeared peaks are unresolved",
+    "two new peaks cannot confidently share one origin",
+    "amplitude gate is fixed and weak vanished peaks can be excluded",
+    "stationary targets never count as moving",
+    "centroid jitter and crowded first-epoch matches are unresolved",
+    "invalid chronology cannot create a linear prediction",
+    "confirmation requires a unique third-frame peak within three pixels",
+    "a coincident existing background peak cannot confirm a mover",
+    "s02: measured moving target supports prediction in held-out frame",
+    "s02: another chosen peak produces a stationary outcome",
+    "s07: measured moving target supports prediction in held-out frame",
+    "s07: another chosen peak produces a stationary outcome",
+    "s04: isolated signal with several origins stays unresolved"
+  ],
+  "real": [
+    {
+      "id": "s02",
+      "selection": {
+        "status": "selected",
+        "point": {
+          "x": 58,
+          "y": 68
+        },
+        "origin": {
+          "x": 42,
+          "y": 82
+        },
+        "prediction": {
+          "x": 89.9125205030071,
+          "y": 40.07654455986878
+        },
+        "kind": "moving",
+        "reason": "unique_compatible_displacement",
+        "timeRatio": 1.9945325314379443,
+        "originCandidateCount": 1,
+        "disappearedCount": 2
+      },
+      "confirmation": {
+        "outcome": "moving",
+        "reason": "third_peak_supports_linear_prediction",
+        "positions": [
+          {
+            "x": 42,
+            "y": 82
+          },
+          {
+            "x": 58,
+            "y": 68
+          },
+          {
+            "x": 91,
+            "y": 40
+          }
+        ],
+        "prediction": {
+          "x": 89.9125205030071,
+          "y": 40.07654455986878
+        },
+        "distancePx": 1.0901700445460023
+      }
+    },
+    {
+      "id": "s07",
+      "selection": {
+        "status": "selected",
+        "point": {
+          "x": 59,
+          "y": 65
+        },
+        "origin": {
+          "x": 36,
+          "y": 72
+        },
+        "prediction": {
+          "x": 96.445184198846,
+          "y": 53.60363959165557
+        },
+        "kind": "moving",
+        "reason": "unique_compatible_displacement",
+        "timeRatio": 1.6280514869063472,
+        "originCandidateCount": 1,
+        "disappearedCount": 1
+      },
+      "confirmation": {
+        "outcome": "moving",
+        "reason": "third_peak_supports_linear_prediction",
+        "positions": [
+          {
+            "x": 36,
+            "y": 72
+          },
+          {
+            "x": 59,
+            "y": 65
+          },
+          {
+            "x": 95,
+            "y": 53
+          }
+        ],
+        "prediction": {
+          "x": 96.445184198846,
+          "y": 53.60363959165557
+        },
+        "distancePx": 1.5661858527033887
+      }
+    },
+    {
+      "id": "s04",
+      "selection": {
+        "status": "selected",
+        "point": {
+          "x": 63,
+          "y": 64
+        },
+        "origin": null,
+        "prediction": null,
+        "kind": "unresolved",
+        "reason": "several_possible_origins",
+        "originCandidateCount": 3,
+        "disappearedCount": 3
+      },
+      "confirmation": {
+        "outcome": "unresolved",
+        "reason": "several_possible_origins",
+        "positions": [
+          null,
+          {
+            "x": 63,
+            "y": 64
+          },
+          null
+        ],
+        "prediction": null,
+        "distancePx": null,
+        "observationAtSelection": null,
+        "samePositionDetected": false
+      }
+    }
+  ],
+  "limits": "Peak correspondence and linear extrapolation support a candidate motion only; no orbit, identity, artifact class or independent astronomical discovery is inferred."
+}

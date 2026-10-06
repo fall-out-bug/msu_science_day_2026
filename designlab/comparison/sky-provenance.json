@@ -1,0 +1,45 @@
+{
+  "input": "app/sky-data.js",
+  "input_sha256": "b8354ed8a06564bf54333876b1d6a257c4f1a97b916b4d3da25171f222a0d32d",
+  "output": "designlab/comparison/sky-navigation-data.js",
+  "output_bytes": 2085905,
+  "output_sha256": "450cb9b6f69ffd09e2dcfa8ac00968cba6eff70ed9dbcac674009edf02bb3463",
+  "reused": {
+    "texture": "Unmodified data URI from existing prepared asset",
+    "dimensions": [
+      8192,
+      4096
+    ],
+    "stars": 2058,
+    "star_fields": [
+      "ra_degrees",
+      "dec_degrees",
+      "visual_magnitude"
+    ],
+    "coordinates": "ICRF/J2000; all numeric star values copied without adjustment"
+  },
+  "sources": [
+    {
+      "file": "assets/sky/src/starmap_2020_8k.exr",
+      "url": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+      "bytes": 130530278,
+      "sha256": "dc6c4f413e85707a29a25a9451148154554ecca2c996f84fa8f47b65ef9ff7c4",
+      "license": "NASA SVS, согласно NASA Media Usage Guidelines: контент NASA не защищён авторским правом, указание источника приветствуется"
+    },
+    {
+      "file": "assets/sky/src/hygdata_v41.csv",
+      "url": "https://raw.githubusercontent.com/astronexus/hyg-database/main/hyg/CURRENT/hygdata_v41.csv",
+      "bytes": 33932548,
+      "sha256": "d9f69fd86bbf90a4e4d52b4c5c53eacfa6dfc0bfdef85bfd94f095e0bebe4ebd",
+      "license": "HYG v4.1, CC BY-SA 4.0 (astronexus)"
+    }
+  ],
+  "license_files": [
+    "assets/sky/licenses/CC-BY-SA-4.0.txt"
+  ],
+  "limits": [
+    "Catalog visualization, not a telescope photograph or live observing simulation.",
+    "Plate carree projection distorts angular separations near the celestial poles.",
+    "Target coordinates are supplied by the integration; this module does not infer coordinates from screen pixels."
+  ]
+}

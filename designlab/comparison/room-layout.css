@@ -1,0 +1,32 @@
+/* Load after world.css: room navigation and dialogue leave the floor visible. */
+.room-objective{max-width:min(460px,30vw);pointer-events:none}
+.room-dialog,.ending-dialog{left:4vw;right:auto;width:min(650px,51vw);max-width:none;bottom:4vh}
+.room-place{padding:9px 12px;max-width:230px;white-space:normal}
+.room-place small{line-height:1.25}
+#g-room-observatory{background:#122e3de8;border-color:#b7dce5}
+#g-room-observatory small{color:#cde8ec}
+body[data-scene=training] #g-room-scene{filter:blur(5px) brightness(.32)}
+
+@media(max-width:1100px) and (min-width:701px){
+ .room-objective{max-width:32vw;padding:10px 14px}
+ .room-objective h1{font-size:1.1rem}
+ .room-place{min-width:130px;max-width:190px;padding:8px 10px}
+ .room-place span{font-size:.8rem}
+ .room-place small{font-size:.62rem}
+ .room-dialog,.ending-dialog{width:52vw;padding:14px 18px}
+ .room-dialog p,.ending-dialog p{font-size:.9rem;line-height:1.4}
+}
+@media(max-height:780px) and (min-width:701px){
+ .room-dialog,.ending-dialog{bottom:18px;padding:14px 18px;width:52vw}
+ .room-dialog p,.ending-dialog p{font-size:.91rem;line-height:1.4;margin:6px 0 9px}
+ .room-chat-actions{gap:5px 14px;margin-bottom:6px}
+}
+@media(max-width:700px){
+ .room-objective{top:63px;left:12px;right:12px;max-width:none;padding:10px}
+ .room-dialog,.ending-dialog{left:12px;right:12px;width:auto;bottom:16px;padding:12px 14px}
+ .room-place{min-width:0;max-width:126px;padding:7px 8px;min-height:46px}
+ .room-place span{font-size:.67rem}
+ .room-place small{font-size:.55rem;max-width:110px}
+ #g-room-mosaic{max-width:150px}
+ .room-dialog p,.ending-dialog p{font-size:.83rem;line-height:1.4}
+}

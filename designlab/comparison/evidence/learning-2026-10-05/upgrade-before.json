@@ -1,0 +1,10 @@
+{
+  "legacy_cache_primed": true,
+  "errors": [
+    "Cannot read properties of undefined (reading 'cases')",
+    "COMPARISON_DATA is not defined",
+    "COMPARISON_DATA is not defined",
+    "NightModel is not defined"
+  ],
+  "ready": false
+}

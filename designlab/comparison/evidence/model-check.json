@@ -1,0 +1,103 @@
+{
+  "checks": [
+    "equal observations cancel exactly",
+    "unchanged source cancels while new signal remains",
+    "half subtraction preserves half the shared source",
+    "disappearing signal retains its negative sign",
+    "snapshot immutable and invalid settings rejected",
+    "s02: snapshot reproduces exact output after other settings",
+    "s02: selected coefficient actually determines every residual pixel",
+    "s02: subtraction and third epoch change the image",
+    "s07: snapshot reproduces exact output after other settings",
+    "s07: selected coefficient actually determines every residual pixel",
+    "s07: subtraction and third epoch change the image",
+    "s04: snapshot reproduces exact output after other settings",
+    "s04: selected coefficient actually determines every residual pixel",
+    "s04: subtraction and third epoch change the image"
+  ],
+  "count": 14,
+  "fields": [
+    {
+      "id": "s02",
+      "beforePeaks": 4,
+      "differencePeaks": 4,
+      "thirdEpochPeaks": 4,
+      "residualToRawAbsoluteSum": 0.8845575547606632,
+      "differencePositions": [
+        {
+          "x": 71,
+          "y": 10,
+          "value": -192.85610008239746
+        },
+        {
+          "x": 58,
+          "y": 68,
+          "value": 76.46893310546875
+        },
+        {
+          "x": 42,
+          "y": 82,
+          "value": -60.32878923416138
+        },
+        {
+          "x": 4,
+          "y": 45,
+          "value": -20.982972145080566
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "beforePeaks": 8,
+      "differencePeaks": 5,
+      "thirdEpochPeaks": 3,
+      "residualToRawAbsoluteSum": 0.9493717953154158,
+      "differencePositions": [
+        {
+          "x": 59,
+          "y": 65,
+          "value": 82.03922963142395
+        },
+        {
+          "x": 36,
+          "y": 72,
+          "value": -66.94986891746521
+        },
+        {
+          "x": 38,
+          "y": 7,
+          "value": 24.017404079437256
+        },
+        {
+          "x": 112,
+          "y": 16,
+          "value": 17.806435108184814
+        },
+        {
+          "x": 41,
+          "y": 109,
+          "value": 11.35465383529663
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "beforePeaks": 2,
+      "differencePeaks": 2,
+      "thirdEpochPeaks": 0,
+      "residualToRawAbsoluteSum": 1.1142207246841538,
+      "differencePositions": [
+        {
+          "x": 63,
+          "y": 64,
+          "value": 31.33909845352173
+        },
+        {
+          "x": 111,
+          "y": 90,
+          "value": -24.488285541534424
+        }
+      ]
+    }
+  ]
+}
