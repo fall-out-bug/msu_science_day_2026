@@ -3,12 +3,12 @@
   "runs": [
     {
       "viewport": [
-        1440,
-        900
+        1920,
+        1080
       ],
       "first": 1,
       "corrected": 2,
-      "final": 0,
+      "final": 1,
       "total": 3,
       "stages": [
         "intro",
@@ -23,7 +23,36 @@
         "dialog-explain",
         "repair",
         "comparison",
-        "final"
+        "final",
+        "cnn"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 1,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "tutorial",
+        "dialog-zoom",
+        "dialog-help",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "dialog-explain",
+        "repair",
+        "comparison",
+        "final",
+        "cnn"
       ],
       "errors": [],
       "externalRequests": []
@@ -35,7 +64,7 @@
       ],
       "first": 1,
       "corrected": 2,
-      "final": 0,
+      "final": 1,
       "total": 3,
       "stages": [
         "intro",
@@ -50,7 +79,8 @@
         "dialog-explain",
         "repair",
         "comparison",
-        "final"
+        "final",
+        "cnn"
       ],
       "errors": [],
       "externalRequests": []
@@ -62,7 +92,7 @@
       ],
       "first": 1,
       "corrected": 2,
-      "final": 0,
+      "final": 1,
       "total": 3,
       "stages": [
         "intro",
@@ -77,7 +107,36 @@
         "dialog-explain",
         "repair",
         "comparison",
-        "final"
+        "final",
+        "cnn"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 1,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "tutorial",
+        "dialog-zoom",
+        "dialog-help",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "dialog-explain",
+        "repair",
+        "comparison",
+        "final",
+        "cnn"
       ],
       "errors": [],
       "externalRequests": []

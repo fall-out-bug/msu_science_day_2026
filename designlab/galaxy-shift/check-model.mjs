@@ -21,7 +21,7 @@ for (const id of data.childIds) model.dispatch({ type: 'SET_LABEL', id, label: o
 model.dispatch({ type: 'RUN' });
 const initialKey = model.state.key;
 const initialReview = model.state.current.review.correct;
-assert.throws(() => model.dispatch({ type: 'FINISH' }), /старые подписи/);
+assert.throws(() => model.dispatch({ type: 'FINISH' }), /старые метки/);
 model.dispatch({ type: 'HOME' }); model.dispatch({ type: 'RESUME' });
 assert.equal(model.state.phase, 'results'); assert.equal(model.state.key, initialKey);
 model.dispatch({ type: 'REPAIR' }); model.dispatch({ type: 'RUN' });
@@ -40,7 +40,7 @@ const id = data.childIds[0];
 model.dispatch({ type: 'SET_LABEL', id, label: classIds.find(c => c !== objects[id].label) });
 assert.equal(model.state.current, null);assert.equal(model.state.finalSeen, true);
 model.dispatch({ type: 'RUN' });
-assert.throws(() => model.dispatch({ type: 'FINISH' }), /старые подписи/);
+assert.throws(() => model.dispatch({ type: 'FINISH' }), /старые метки/);
 model.dispatch({ type: 'REPAIR' });model.dispatch({ type: 'RUN' });
 model.dispatch({ type: 'FINISH' });assert.match(model.state.notice, /повторный просмотр/);
 model.dispatch({ type: 'HOME' });model.dispatch({ type: 'RESUME' });assert.match(model.state.notice, /повторный просмотр/);

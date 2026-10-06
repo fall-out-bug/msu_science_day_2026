@@ -18,13 +18,15 @@ def run(page, entry, capture=False):
     for scheme in ['http', 'https']:
         page.route(scheme + '://**/*', lambda route: (external.append(route.request.url), route.abort()))
     page.goto(entry)
-    page.wait_for_function('window.galaxyGame && window.GALAXY_DATA')
+    page.wait_for_function('window.galaxyGame && window.GALAXY_DATA && galaxyWorld.stats().frames > 0')
     data = page.evaluate('GALAXY_DATA')
     objects = {image['id']: image for image in data['images']}
     stages = []
 
     def action(name):
         page.locator(f'[data-action="{name}"]').first.click()
+        if name == 'run':
+            page.wait_for_function('!galaxyGame.busy && galaxyGame.model.state.phase === "results"')
 
     def state():
         return page.evaluate('galaxyGame.model.state')
@@ -68,6 +70,12 @@ def run(page, entry, capture=False):
     assert state()['phase'] == 'labels'
     assert page.locator('[data-action="run"]').is_disabled()
     dialog('help')
+    first_id = data['childIds'][0]
+    target = page.locator(f'[data-label-id="{first_id}"][data-label="{objects[first_id]["label"]}"]')
+    page.locator('[data-drag-id]').drag_to(target)
+    assert state()['labels'][first_id] == objects[first_id]['label']
+    page.keyboard.press('1')
+    assert state()['labels'][first_id] == data['classes'][0]['id']
     for index, item_id in enumerate(data['childIds']):
         choose(item_id, objects[item_id]['label'])
         stage('labels-' + str(index + 1))
@@ -82,7 +90,12 @@ def run(page, entry, capture=False):
     assert page.locator('[data-action="finish"]').count() == 0
     stage('first-result')
     dialog('explain')
-    action('repair'); action('run')
+    old_trace = next(p for p in baseline['review']['predictions'] if p['neighborId'] in data['oldIds'])
+    page.locator(f'[data-action="explain"][data-image-id="{old_trace["id"]}"]').click()
+    action('inspect-old')
+    assert state()['phase'] == 'repair'
+    assert page.locator(f'[data-label-id="{old_trace["neighborId"]}"]').count() == 3
+    action('run')
     assert state()['current']['key'] == baseline['key']
     assert 'тот же опыт' in state()['notice']
     action('repair')
@@ -100,6 +113,17 @@ def run(page, entry, capture=False):
     action('finish')
     assert state()['phase'] == 'final' and state()['finalSeen']
     stage('final')
+    if page.locator('[data-action="cnn"]').count():
+        action('cnn')
+        assert page.locator('.cnn-model').count() == 1
+        action('cnn-two')
+        assert page.locator('.cnn-model').count() == 2
+        action('cnn-one')
+        assert page.locator('.cnn-model').count() == 1
+        action('cnn-two')
+        stage('cnn')
+        action('close-cnn')
+        assert state()['phase'] == 'final'
     action('home'); action('resume')
     assert state()['phase'] == 'final'
     action('labels')
@@ -131,9 +155,9 @@ def main():
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True, **({'executable_path': os.environ['PW_CHROMIUM']} if os.environ.get('PW_CHROMIUM') else {}))
         records = []
-        for width, height in [(1440, 900), (1280, 720), (390, 844)]:
+        for width, height in [(1920, 1080), (1440, 900), (1280, 720), (390, 844), (844, 390)]:
             context = browser.new_context(viewport={'width': width, 'height': height}, reduced_motion='reduce')
-            result = run(context.new_page(), (HERE / 'index.html').as_uri(), width != 1280)
+            result = run(context.new_page(), (HERE / 'index.html').as_uri(), width in [1440, 390])
             records.append({'viewport': [width, height], **result})
             context.close()
         with tempfile.TemporaryDirectory() as temp:

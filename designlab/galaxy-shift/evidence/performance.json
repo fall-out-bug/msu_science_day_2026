@@ -1,0 +1,16 @@
+{
+  "roomAnimation": {
+    "medianMs": 16.699999999999818,
+    "p95Ms": 16.799999999999955,
+    "frames": 120
+  },
+  "stationDrawsDuring350ms": 0,
+  "world": {
+    "frames": 250,
+    "draws": 200,
+    "width": 1440,
+    "height": 900,
+    "elapsed": 4409.20000000298,
+    "canvas": true
+  }
+}

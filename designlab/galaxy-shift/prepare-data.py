@@ -22,7 +22,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / "assets" / "galaxies"
-DATA_VERSION = "2026-10-06-hubble-15-v1"
+DATA_VERSION = "2026-10-06-hubble-15-v3"
 # Admission locks for the exact ESA/Hubble screensize files.  These are
 # independent of generated provenance, so rebuilding cannot bless a changed JPEG.
 EXPECTED_SOURCE_SHA256 = {
@@ -45,7 +45,7 @@ EXPECTED_SOURCE_SHA256 = {
 CLASSES = [
     {"id": "smooth", "label": "Гладкая", "hint": "Ровное светящееся пятно без заметных рукавов."},
     {"id": "spiral", "label": "Видна спираль", "hint": "От центра расходятся закрученные рукава."},
-    {"id": "edge_on", "label": "Диск с ребра", "hint": "Диск виден сбоку как тонкая полоса."},
+    {"id": "edge_on", "label": "Вид с ребра", "hint": "Мы смотрим на диск сбоку: он выглядит как тонкая полоса."},
 ]
 
 # Each source and credit is copied/paraphrased from the linked primary ESA/Hubble
@@ -101,17 +101,29 @@ def sha256(path: Path) -> str:
 
 
 def feature(path: Path) -> np.ndarray:
-    """Normalized greyscale pixels from a square centre crop, deterministically."""
+    """Automatic brightness moments from a fixed centre crop, deterministically."""
     with Image.open(path) as opened:
         image = opened.convert("L")
         width, height = image.size
         side = int(min(width, height) * 0.75)
         left = (width - side) // 2
         top = (height - side) // 2
-        image = image.crop((left, top, left + side, top + side)).resize((24, 24), Image.Resampling.LANCZOS)
-    values = np.asarray(image, dtype=np.float64).reshape(-1)
+        image = image.crop((left, top, left + side, top + side)).resize((64, 64), Image.Resampling.LANCZOS)
+    values = np.asarray(image, dtype=np.float64) / 255.0
     values = (values - values.mean()) / (values.std() + 1e-12)
-    return values / (np.linalg.norm(values) + 1e-12)
+    y, x = np.indices(values.shape)
+    weights = np.maximum(values - np.quantile(values, 0.2), 0) + 1e-8
+    center_x = (weights * x).sum() / weights.sum()
+    center_y = (weights * y).sum() / weights.sum()
+    dx, dy = x - center_x, y - center_y
+    covariance = np.array([[(weights * dx * dx).sum(), (weights * dx * dy).sum()],
+                           [(weights * dx * dy).sum(), (weights * dy * dy).sum()]]) / weights.sum()
+    radius = np.hypot(dx, dy)
+    result = np.array([center_x / values.shape[1], center_y / values.shape[0],
+                       *np.linalg.eigvalsh(covariance),
+                       *np.quantile(radius, (0.1, 0.25, 0.5, 0.75, 0.9)),
+                       *np.quantile(weights, (0.1, 0.25, 0.5, 0.75, 0.9))])
+    return result / (np.linalg.norm(result) + 1e-12)
 
 
 def build() -> tuple[dict, dict]:
@@ -180,8 +192,8 @@ def build() -> tuple[dict, dict]:
         "oldIds": OLD_IDS,
         "initialOldLabels": INITIAL_OLD_LABELS,
         "tutorialId": "tutorial_ic2006",
-        "model": {"name": "1-ближайший сосед по пикселям", "description": "Заранее рассчитанный 1-NN по нормализованным серым пикселям центрального фрагмента 24×24. Это учебная модель изображений, не CNN и не живая тренировка."},
-        "protocol": {"feature": "24x24 grayscale crop from the central 75% square; per-image z-normalization; L2 distance", "selection": "The 75% centre crop is fixed for this episode. An audit recalculated leave-one-out on the nine training objects for raw grayscale crops: 100%=3/9, 90%=3/9, 75%=4/9, 60%=4/9, 45%=6/9. Therefore this package does not claim that 75% was selected as the best score; review/final predictions were not used in that recalculation.", "trainingIds": train, "reviewIds": review, "finalIds": final, "states": len(experiments), "seed": None,
+        "model": {"name": "1-ближайший сосед по числовым признакам изображения", "description": "Заранее рассчитанный 1-NN по автоматически вычисленным моментам яркости центрального фрагмента: центр света, главные оси, радиальные и яркостные квантили. Это учебная модель изображений, не CNN и не живая тренировка."},
+        "protocol": {"feature": "75% grayscale centre crop resized to 64x64; per-image z-normalization; brightness-weighted centroid/covariance, radial and brightness quantiles; L2 distance", "selection": "Before looking at either held-out split, leave-one-out on the nine training objects compared fixed automatic candidates: raw 45% pixels=6/9, 75% brightness moments=7/9, 75% HOG=6/9. Brightness moments were selected by the highest training-only score; the fixed compact-moments tie rule is recorded in feature-audit.py. Review/final predictions were not used in this selection.", "trainingIds": train, "reviewIds": review, "finalIds": final, "states": len(experiments), "seed": None,
                      "note": "Разбиение и метод зафиксированы до первого просмотра итоговой подборки. Проверочная подборка выбрана как учебная демонстрация и повторно используется для сравнения, поэтому не является независимой оценкой."},
         "experiments": experiments,
     }

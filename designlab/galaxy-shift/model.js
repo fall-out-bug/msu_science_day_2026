@@ -37,30 +37,30 @@
         case 'SET_LABEL': {
           const allowed = state.phase === 'labels' ? data.childIds : state.phase === 'repair' ? data.oldIds : [];
           if (!allowed.includes(action.id) || !classes.includes(action.label)) {
-            throw new Error('Выбери одну из трёх подписей к текущему снимку.');
+            throw new Error('Выбери одну из трёх меток к текущему снимку.');
           }
           if (state.labels[action.id] === action.label) {
-            state = { ...state, notice: 'Подпись не изменилась.' };
+            state = { ...state, notice: 'Метка не изменилась.' };
             break;
           }
           const labels = { ...state.labels, [action.id]: action.label };
           state = { ...state, labels, key: key(labels), current: null, repairCheckedKey: null,
-            notice: state.baseline ? 'Подписи изменились. Открой новый опыт, чтобы проверить результат.' : '' };
+            notice: state.baseline ? 'Метки изменились. Открой новый опыт, чтобы проверить результат.' : '' };
           break;
         }
         case 'RUN': {
           requirePhase('labels', 'repair');
           const signature = key(state.labels);
-          if (signature === null) throw new Error('Сначала выбери подписи для всех трёх снимков.');
+          if (signature === null) throw new Error('Сначала выбери метки для всех трёх снимков.');
           const experiment = data.experiments[signature];
           if (!experiment || experiment.key !== signature) {
-            throw new Error('Для этих подписей опыт отсутствует. Позови стендиста.');
+            throw new Error('Для этих меток опыт отсутствует. Позови стендиста.');
           }
           const unchanged = state.baseline && signature === state.baseline.key;
           state = { ...state, phase: 'results', key: signature, current: experiment,
             repairCheckedKey: state.phase === 'repair' ? signature : state.repairCheckedKey,
             baseline: state.baseline || experiment,
-            notice: unchanged ? 'Подписи те же, что в первой проверке: показан тот же опыт.' : '' };
+            notice: unchanged ? 'Метки те же, что в первой проверке: показан тот же опыт.' : '' };
           break;
         }
         case 'REPAIR':
@@ -71,11 +71,11 @@
         case 'FINISH':
           requirePhase('results');
           if (!state.current || state.current.key !== key(state.labels) || state.repairCheckedKey !== state.current.key) {
-            throw new Error('Сначала проверь старые подписи и открой повторный опыт.');
+            throw new Error('Сначала проверь старые метки и открой повторный опыт.');
           }
           state = { ...state, phase: 'final', notice: state.finalSeen
             ? 'Эти итоговые снимки уже были открыты. Это повторный просмотр.'
-            : 'Эти галактики не использовались для обучения и выбора модели.', finalSeen: true };
+            : 'Эти снимки не входили в учебную подборку. Посмотрим, как модель справилась.', finalSeen: true };
           break;
         case 'HOME':
           if (state.phase !== 'intro') state = { ...state, resumePhase: state.phase, phase: 'intro' };

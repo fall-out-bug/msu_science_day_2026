@@ -3,13 +3,13 @@
 import hashlib,json,zipfile,shutil
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
-runtime=['index.html','galaxy.css','game.js','model.js','data.js','provenance.json','DATA-NOTES.md','README.md']
+runtime=['index.html','galaxy.css','game.js','world.js','model.js','data.js','cnn-data.js','provenance.json','DATA-NOTES.md','README.md','FACILITATOR.md']
 assets=sorted(p.relative_to(HERE).as_posix() for p in (HERE/'assets/galaxies').glob('*.jpg'))
-assets += ['assets/art/'+name for name in ['nika.png','laboratory-background.png','workstation.png','NIKA-CREDITS.md','ART-CREDITS.md']]
+assets += ['assets/art/'+name for name in ['nika.png','laboratory-modern-v1.png','workstation-modern-v1.png','worktop-modern-v1.png','NIKA-CREDITS.md','ART-CREDITS.md']]
 files=runtime+assets
 for name in files:
  if not (HERE/name).is_file():raise SystemExit('Missing package resource: '+name)
-manifest={'title':'Первая смена: Ника и модель','version':'2026.10.06-core.1','entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
+manifest={'title':'Первая смена: Ника и модель','version':'2026.10.07-laboratory.1','entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
 out=HERE/'releases';out.mkdir(exist_ok=True)
 web=out/'web'
 if web.exists():shutil.rmtree(web)
