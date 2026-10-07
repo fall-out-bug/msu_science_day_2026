@@ -86,6 +86,45 @@ def run(page, entry, capture=False, offline=True):
 
     assert state()['phase'] == 'intro'
     stage('intro')
+    bounds = page.evaluate('galaxyWorld.stats().sceneBounds')
+    assert bounds['x'] >= -1 and bounds['y'] >= -1, bounds
+    assert bounds['x'] + bounds['width'] <= page.viewport_size['width'] + 1, bounds
+    assert bounds['y'] + bounds['height'] <= page.viewport_size['height'] + 1, bounds
+    assert page.locator('.brand').count() == 0
+    action('sky')
+    assert page.locator('.sky-atlas__panel.browse').is_visible()
+    stage('sky-explore')
+    marker = page.evaluate("""() => {
+      const item=GALAXY_ARCHIVE.images.find(i=>i.id==='archive_m101');
+      const c=galaxyGame.sky.state().camera,w=innerWidth,h=innerHeight;
+      const aim=w>=701&&h<=500?[w*.72,h*.55]:w<700?[w*.55,h*.4]:[w/2,h/2];
+      const delta=((item.ra-c.ra+180)%360+360)%360-180;
+      return {x:aim[0]-delta*c.zoom,y:aim[1]-(item.dec-c.dec)*c.zoom};
+    }""")
+    page.mouse.click(marker['x'], marker['y'])
+    page.wait_for_selector('.modal')
+    assert page.locator('.modal h2').inner_text() == 'Messier 101'
+    action('close-modal')
+    research = page.locator('[data-research-id]').first
+    if research.count():
+        research.click()
+        assert page.locator('.modal img').count() > 0
+        assert page.locator('.sky-atlas').evaluate('(el)=>el.inert')
+        stage('sky-discovery')
+        action('close-modal')
+        assert not page.locator('.sky-atlas').evaluate('(el)=>el.inert')
+    page.locator('.sky-atlas__close').click()
+    action('astronomy')
+    assert page.locator('.library-card').count() >= 16
+    page.locator('.library-card').first.click()
+    stage('illustrated-discovery')
+    action('close-modal')
+    action('astronomy'); action('archive')
+    assert page.locator('.library-card').count() >= 24
+    stage('archive')
+    page.locator('.library-card').first.click()
+    assert page.locator('.modal img').count() > 0
+    action('close-modal')
     dialog('about')
     dialog('astronomy')
     action('start')
@@ -122,11 +161,14 @@ def run(page, entry, capture=False, offline=True):
     assert page.locator('[data-action="finish"]').count() == 0
     stage('first-result')
     dialog('explain')
-    old_trace = next(p for p in baseline['review']['predictions'] if p['neighborId'] in data['oldIds'])
-    page.locator(f'[data-action="explain"][data-image-id="{old_trace["id"]}"]').click()
-    action('inspect-old')
+    old_trace = next((p for p in baseline['review']['predictions'] if p['neighborId'] in data['oldIds']), None)
+    if old_trace:
+        page.locator(f'[data-action="explain"][data-image-id="{old_trace["id"]}"]').click()
+        action('inspect-old')
+        assert page.locator(f'[data-label-id="{old_trace["neighborId"]}"]').count() == 3
+    else:
+        action('repair')
     assert state()['phase'] == 'repair'
-    assert page.locator(f'[data-label-id="{old_trace["neighborId"]}"]').count() == 3
     action('run')
     assert state()['current']['key'] == baseline['key']
     assert 'тот же опыт' in state()['notice']
@@ -171,6 +213,7 @@ def run(page, entry, capture=False, offline=True):
     assert 'повторный просмотр' in state()['notice']
     page.once('dialog', lambda dialog: dialog.accept())
     action('reset')
+    assert set(page.evaluate('GALAXY_DATA.childIds')) != set(data['childIds'])
     assert page.evaluate('galaxyGame.found.length') == 0
     assert state()['phase'] == 'intro' and not state()['finalSeen'] and state()['baseline'] is None
     page.reload()

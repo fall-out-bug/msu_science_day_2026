@@ -1,0 +1,23 @@
+{
+  "version": "2026-10-07-discovery-atlas-v1",
+  "licenseNote": "Each item retains the credit and original page in discovery-data.js. ESA/Hubble images are CC BY 4.0; NASA and ESA illustrations use the credit shown by their source page.",
+  "assets": [
+    {"file":"hubble-asteroids.jpg","sha256":"5c3831120f279e7ec06a8855e54304ddb5d1afe0d0d93fd47faedf35a5048bb6","source":"https://esahubble.org/news/heic2407/"},
+    {"file":"hubble-supernova.jpg","sha256":"db9eb9f768c3d7f2d4d703337ae0be702c128c876eecbb3f490b7159e03012d5","source":"https://esahubble.org/news/heic2018/"},
+    {"file":"kepler-90.jpg","sha256":"7ed910790f121a6301e8d8b772369caf3746ee70be1e234285ec5bde5bfb90c2","source":"https://www.nasa.gov/news-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star/"},
+    {"file":"euclid-galaxy-zoo.jpg","sha256":"9f039655bc882e7b8a29c036e7524db4a5b321e295d975464dfb7f1feffc57cf","source":"https://www.esa.int/Science_Exploration/Space_Science/Euclid/Euclid_Galaxy_Zoo_help_us_classify_the_shapes_of_galaxies"},
+    {"file":"m85.jpg","sha256":"28270014f69d5e5b7cb262ffb6dbfd35c468de8ee78c3f361ac8fa5e78c27951","source":"https://esahubble.org/images/potw1905a/"},
+    {"file":"ic5332.jpg","sha256":"841cd27ceedba7b2f60c07cab115dd22a8f8a7464f91ac1c154ab511473ed620","source":"https://esahubble.org/images/potw2342a/"},
+    {"file":"ngc5023.jpg","sha256":"7ca8e569ecf6c8052d8a2c8f25bebfc6027a79369e495e872f075dcdfd5a905c","source":"https://esahubble.org/images/potw1512a/"},
+    {"file":"ngc3318.jpg","sha256":"851cc045558852ef22dd0769df01dddc391de55fc97d520ad4acb2b2a51279f4","source":"https://esahubble.org/images/potw2203a/"},
+    {"file":"ngc691.jpg","sha256":"2d6885f3cdbc397610745e6e4364e93b25ddcf546d97403a5954430e10b25ea8","source":"https://esahubble.org/images/potw2008a/"},
+    {"file":"ic755.jpg","sha256":"9a3793256c8f24fd8db5b4ccf5ea126e5721fb251ab51e10092842c48742490c","source":"https://esahubble.org/images/potw1129a/"},
+    {"file":"m49.jpg","sha256":"c284ff3261d06ef9f3fa7417bcf98d37c656e06a3355cec97067689a781005f4","source":"https://esahubble.org/images/potw1911a/"},
+    {"file":"pics-pipeline.png","sha256":"e43a7fcdd5db364de11cca34c1e17b603de7c6c42329940a57a64584cc9c94e9","source":"https://arxiv.org/pdf/1309.0776"},
+    {"file":"frb-waterfall.png","sha256":"5e088cd59adeace224347945a82908a34337d920dc9d754b73b501822486f543","source":"https://arxiv.org/pdf/1809.03043"},
+    {"file":"laiss-pipeline.png","sha256":"0b582a1872ca18af9bd7c3e13c625562a5fd782d150841c1b40065b826a771f8","source":"https://arxiv.org/pdf/2404.01235"},
+    {"file":"green-bank-telescope.jpg","sha256":"a3b060294ae5ab9950a68bb00dd4351f00b10aa2605ccc52db0c14b094b55fb3","source":"https://public.nrao.edu/gallery/green-bank-telescope/"},
+    {"file":"rubin-first-light.png","sha256":"2ac63ab7767b9f68c8f95ebac46ff750fdc5365382cd743824758002bfb22e57","source":"https://rubinobservatory.org/news/first-imagery-rubin"},
+    {"file":"roman-mirror.jpg","sha256":"98bdf7dcb64656abe7dd0eba55c30dbef2c711b8d63157907c9ff219d83ceb21","source":"https://science.nasa.gov/missions/roman-space-telescope/building-roman/"}
+  ]
+}

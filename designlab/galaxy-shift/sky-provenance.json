@@ -63,5 +63,55 @@
       "source": "https://esahubble.org/images/potw1512a/"
     }
   ],
-  "integration": "Текстура и звёзды перенесены без изменений. x = aimX - delta(RA - cameraRA) * zoom. Наведение требует расстояния <=22 CSS px и углового расстояния <=1.2 градуса."
+  "integration": "Текстура и звёзды перенесены без изменений. x = aimX - delta(RA - cameraRA) * zoom. Наведение требует расстояния <=22 CSS px и углового расстояния <=1.2 градуса.",
+  "constellations": {
+    "input": "designlab/comparison/constellation-data.js",
+    "input_sha256": "1be0faf34a68be5ccb01bf76d0e3e71d549fc6b988c36fb01c81b8e984ab94b5",
+    "names": [
+      "Кассиопея",
+      "Орион",
+      "Скульптор",
+      "Лебедь",
+      "Лира",
+      "Большая Медведица",
+      "Волосы Вероники",
+      "Гончие Псы"
+    ],
+    "method": "Exact numeric subset, without coordinate or line changes. Source and license copied from the admitted exploration provenance.",
+    "upstream": [
+      {
+        "file": "assets/sky/src/constellationship.fab",
+        "url": "https://raw.githubusercontent.com/Stellarium/stellarium/release/skycultures/western/constellationship.fab",
+        "bytes": 8851,
+        "sha256": "878d514ebf8974c8c82d78620a4e1edcd77a3c43e241db89841d6c2e92701872",
+        "license": "Stellarium western (CC BY-SA 4.0 + Free Art License, info.ini)"
+      },
+      {
+        "file": "assets/sky/src/constellation_names.eng.fab",
+        "url": "https://raw.githubusercontent.com/Stellarium/stellarium/release/skycultures/western/constellation_names.eng.fab",
+        "bytes": 2491,
+        "sha256": "282f913ca5dc79f4d61efde2d0366f8385a3282a25c635d09026504cd5ccd4d5",
+        "license": "Stellarium western (CC BY-SA 4.0 + Free Art License, info.ini)"
+      },
+      {
+        "file": "assets/sky/src/skycultures_ru.po",
+        "url": "https://raw.githubusercontent.com/Stellarium/stellarium/release/po/stellarium-skycultures/ru.po",
+        "bytes": 2126244,
+        "sha256": "1cc890aa2b2d7c9e098f03977e5469ba2af3162de7bb0ad59ab255d1f8f8ff9f",
+        "license": "Stellarium translations (GPL-2.0+)"
+      },
+      {
+        "file": "assets/sky/src/info.ini",
+        "url": "https://raw.githubusercontent.com/Stellarium/stellarium/release/skycultures/western/info.ini",
+        "bytes": 166,
+        "sha256": "46445f05abd7793278a8edf88dd181004b699836051bfd207215d6000d78479d",
+        "license": "Исходное заявление лицензии Stellarium western"
+      }
+    ],
+    "license_files": [
+      "assets/sky/licenses/CC-BY-SA-4.0.txt",
+      "assets/sky/licenses/FAL-1.3.txt",
+      "assets/sky/licenses/GPL-2.0.txt"
+    ]
+  }
 }
