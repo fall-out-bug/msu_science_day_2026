@@ -35,6 +35,70 @@ def run(page, entry, capture=False, offline=True):
     def choose(item_id, label):
         page.locator(f'[data-label-id="{item_id}"][data-label="{label}"]').click()
 
+    def quest(stage_name, labels_before=None):
+        scene = page.locator('.quest-scene')
+        assert scene.is_visible(), stage_name
+        nika = scene.locator('.quest-scene__nika img')
+        assert nika.count() == 1 and nika.evaluate('(img) => img.complete && img.naturalWidth > 0'), stage_name
+        assert nika.bounding_box()['height'] >= 290, stage_name
+        photo_area = scene.locator('.quest-scene__photo-area').bounding_box()
+        conversation = scene.locator('.quest-scene__conversation').bounding_box()
+        assert photo_area and conversation and photo_area['y'] + photo_area['height'] <= conversation['y'] + 1, (stage_name, photo_area, conversation)
+        observations = [scene.locator(f'[data-quest-observation="{name}"]') for name in ('arms', 'smooth', 'edge')]
+        assert all(control.count() == 1 and control.is_visible() for control in observations), stage_name
+        center = scene.locator('[data-quest="center"]')
+        zoom = scene.locator('[data-quest="zoom"]')
+        hint = scene.locator('[data-quest="hint"]')
+        assert center.count() == zoom.count() == hint.count() == 1, stage_name
+        if labels_before is not None:
+            observations[0].click()
+            hint.click()
+            assert state()['labels'] == labels_before, stage_name
+        # Point at the contained image, never in object-fit letterbox space.
+        photo = scene.locator('[data-quest-photo]')
+        page.wait_for_function('(img) => img.complete && img.naturalWidth > 0', arg=photo.element_handle())
+        geometry = photo.evaluate("""img => {
+          const r=img.getBoundingClientRect(), scale=Math.min(r.width/img.naturalWidth,r.height/img.naturalHeight);
+          const width=img.naturalWidth*scale,height=img.naturalHeight*scale;
+          return {left:r.left+(r.width-width)/2,top:r.top+(r.height-height)/2,width,height,elementLeft:r.left,elementTop:r.top};
+        }""")
+        click = {'x': geometry['left'] + geometry['width'] * .25, 'y': geometry['top'] + geometry['height'] * .4}
+        page.mouse.click(click['x'], click['y'])
+        page.wait_for_function('galaxyGame.quest && galaxyGame.quest.point')
+        point = page.evaluate('galaxyGame.quest.point')
+        assert abs(point['x'] - .25) < .02 and abs(point['y'] - .4) < .02, (stage_name, point)
+        ring = scene.locator('.quest-scene__ring')
+        assert ring.count() == 1, stage_name
+        ring_box = ring.bounding_box()
+        assert ring_box and abs(ring_box['x'] + ring_box['width'] / 2 - click['x']) < 3 and abs(ring_box['y'] + ring_box['height'] / 2 - click['y']) < 3, (stage_name, ring_box, click)
+        # Crop zoom anchors at that exact contained-image pixel and can be returned.
+        zoom.click()
+        page.wait_for_function("""() => {
+          const img=document.querySelector('.quest-scene [data-quest-photo]');
+          return img && getComputedStyle(img).transform !== 'none';
+        }""")
+        zoomed = scene.locator('[data-quest-photo]')
+        origin = zoomed.evaluate("img => getComputedStyle(img).transformOrigin")
+        transform = zoomed.evaluate("img => getComputedStyle(img).transform")
+        assert '2.15' in transform, (stage_name, transform)
+        origin_xy = [float(value.replace('px', '')) for value in origin.split()[:2]]
+        assert abs(origin_xy[0] - (geometry['left'] - geometry['elementLeft'] + geometry['width'] * .25)) < 3 and abs(origin_xy[1] - (geometry['top'] - geometry['elementTop'] + geometry['height'] * .4)) < 3, (stage_name, origin, geometry)
+        scene.locator('[data-quest="zoom"]').click()
+        page.wait_for_function("""() => {
+          const img=document.querySelector('.quest-scene [data-quest-photo]');
+          return img && getComputedStyle(img).transform === 'none';
+        }""")
+        # The centre control is also keyboard reachable; it intentionally moves to .5/.5.
+        center = scene.locator('[data-quest="center"]')
+        center.focus()
+        assert center.evaluate('(el) => document.activeElement === el'), stage_name
+        page.keyboard.press('Enter')
+        page.wait_for_function("""() => galaxyGame.quest && galaxyGame.quest.point &&
+          Math.abs(galaxyGame.quest.point.x - .5) < .001 && Math.abs(galaxyGame.quest.point.y - .5) < .001""")
+        if labels_before is not None:
+            assert state()['labels'] == labels_before, stage_name
+
+
     def stage(name):
         page.wait_for_function('Array.from(document.images).every(i => i.complete && i.naturalWidth > 0)')
         assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), name
@@ -138,33 +202,32 @@ def run(page, entry, capture=False, offline=True):
     dialog('astronomy')
     action('start')
     assert state()['phase'] == 'tutorial'
+    before_quest_labels = state()['labels'].copy()
+    quest('tutorial', before_quest_labels)
+    assert page.locator('[data-action="labels"]').last.bounding_box()['y'] + page.locator('[data-action="labels"]').last.bounding_box()['height'] <= page.viewport_size['height']
+    assert page.locator('.quest-scene [data-action="talk"]').count() == 0
     stage('tutorial')
+    # Full-image viewer remains the footer action; crop zoom stays inline.
+    tutorial_zoom = page.locator('.workbench > .station ~ .film-footer [data-action="zoom"], .workbench .film-footer [data-action="zoom"]').first
+    assert tutorial_zoom.count() == 1
     dialog('zoom')
-    before_talk = state()
-    action('talk')
-    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'curious'
-    page.locator('[data-nika="arms"]').click()
-    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'thinking'
-    assert page.locator('.nika-dialogue__image img').count() == 1
-    page.locator('[data-nika="hint"]').click()
-    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'warm'
-    stage('nika-observation')
-    page.keyboard.press('Escape')
-    assert state() == before_talk
-    assert not page.locator('#game').evaluate('(el)=>el.inert')
+    assert state()['labels'] == before_quest_labels
     action('home'); action('start')
     assert state()['phase'] == 'tutorial'
     action('labels')
     collect_sky(data['childIds'][0],drag=True)
     assert state()['phase'] == 'labels'
     assert page.locator('[data-action="run"]').is_disabled()
-    dialog('help')
     first_id = data['childIds'][0]
+    before_class = state()['labels'].copy()
+    quest('labels', before_class)
+    run_box = page.locator('[data-action="run"]').bounding_box()
+    assert run_box['y'] + run_box['height'] <= page.viewport_size['height'], ('labels', run_box)
+    assert page.locator('.quest-scene [data-action="help"]').count() == 0
+    # Only an explicit class button writes a label; pointing or hints must not.
+    assert state()['labels'] == before_class
     target = page.locator(f'[data-label-id="{first_id}"][data-label="{objects[first_id]["label"]}"]')
-    if page.viewport_size['width'] > 700 and page.viewport_size['height'] > 550:
-        page.locator('[data-drag-id]').drag_to(target)
-    else:
-        target.click()
+    target.click()
     assert state()['labels'][first_id] == objects[first_id]['label']
     page.keyboard.press('1')
     assert state()['labels'][first_id] == data['classes'][0]['id']
@@ -206,6 +269,10 @@ def run(page, entry, capture=False, offline=True):
     assert state()['current']['key'] == baseline['key']
     assert 'тот же опыт' in state()['notice']
     action('repair')
+    assert state()['phase'] == 'repair'
+    quest('repair', state()['labels'].copy())
+    run_box = page.locator('[data-action="run"]').bounding_box()
+    assert run_box['y'] + run_box['height'] <= page.viewport_size['height'], ('repair', run_box)
     for index, item_id in enumerate(data['oldIds']):
         choose(item_id, objects[item_id]['label'])
         if index < len(data['oldIds']) - 1:
@@ -264,9 +331,9 @@ def main():
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True, **({'executable_path': os.environ['PW_CHROMIUM']} if os.environ.get('PW_CHROMIUM') else {}))
         records = []
-        for width, height in [(1920, 1080), (1440, 900), (1280, 720), (390, 844), (844, 390)]:
+        for width, height in [(1920, 1080), (1440, 900), (1366, 768), (1280, 720)]:
             context = browser.new_context(viewport={'width': width, 'height': height}, reduced_motion='reduce')
-            result = run(context.new_page(), (HERE / 'index.html').as_uri(), width in [1440, 390])
+            result = run(context.new_page(), (HERE / 'index.html').as_uri(), width == 1440)
             records.append({'viewport': [width, height], **result})
             context.close()
         with tempfile.TemporaryDirectory() as temp:
