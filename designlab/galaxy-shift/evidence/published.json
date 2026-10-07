@@ -1,8 +1,8 @@
 {
   "status": "PASS",
   "base": "http://192.168.50.12:8080",
-  "version": "2026.10.07-laboratory.1",
-  "resources": 32,
+  "version": "2026.10.07-observatory.2",
+  "resources": 38,
   "zip": "exact local SHA-256",
   "flow": {
     "first": 1,
@@ -12,11 +12,15 @@
     "stages": [
       "intro",
       "dialog-about",
+      "dialog-astronomy",
       "tutorial",
       "dialog-zoom",
+      "sky-child_m85",
       "dialog-help",
       "labels-1",
+      "sky-child_ic5332",
       "labels-2",
+      "sky-child_ngc5023",
       "labels-3",
       "first-result",
       "dialog-explain",

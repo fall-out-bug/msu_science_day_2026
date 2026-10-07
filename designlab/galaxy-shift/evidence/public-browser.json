@@ -1,7 +1,8 @@
 {
   "status": "PASS",
   "base": "https://sd2026.beetles.family/",
-  "transport": "Chromium through temporary SSH SOCKS tunnel via superduper; default TLS verification",
+  "version": "2026.10.07-observatory.2",
+  "transport": "Chromium through temporary SSH SOCKS via superduper; default TLS verification",
   "flow": {
     "first": 1,
     "corrected": 2,
@@ -10,11 +11,15 @@
     "stages": [
       "intro",
       "dialog-about",
+      "dialog-astronomy",
       "tutorial",
       "dialog-zoom",
+      "sky-child_m85",
       "dialog-help",
       "labels-1",
+      "sky-child_ic5332",
       "labels-2",
+      "sky-child_ngc5023",
       "labels-3",
       "first-result",
       "dialog-explain",
