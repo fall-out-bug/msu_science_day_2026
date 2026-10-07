@@ -4,6 +4,7 @@
   let storage; try { storage=globalThis.localStorage; } catch {}
   let data, model, byId;
   function newShift() {
+    QuestScene.reset();
     data=GalaxySession.create(baseData,GALAXY_ARCHIVE,GalaxySession.choose(baseData,GALAXY_ARCHIVE,storage));
     globalThis.GALAXY_DATA=data;
     model=GalaxyModel.create(data);
@@ -11,6 +12,7 @@
   }
   newShift();
   const root = document.querySelector('#game');
+  let quest = null;
   let cardIndex = 0, modal = null, modalTrigger = null, busy = false, view = null;
   let soundEnabled = false, audio = null, cnnSecond = false, sky = null;
   const found = new Set();
@@ -45,6 +47,7 @@
     return `<div class="photo-companion">${mentor(words,false,mood)}<button class="text-button" data-action="talk" data-image-id="${esc(image.id)}">Поговорить с Никой →</button></div>`;
   }
   function talk(id, storyId) {
+    if(quest && !sky && !modal && !storyId && root.querySelector("#quest-scene")?.dataset.imageId===id){quest.startConversation();return;}
     const story=storyId?GALAXY_DISCOVERIES.find(i=>i.id===storyId):null;
     const image=story?{id:story.id,name:story.title,src:story.image,explanation:story.text}:byId[id];
     const prediction=[...(model.state.current?.review.predictions||[]),...(model.state.current?.final.predictions||[])].find(p=>p.id===id);
@@ -63,22 +66,19 @@
     return `<section class="room">${nav()}<h1 class="sr-only">Обсерватория</h1><button class="hotspot science-hotspot" data-action="astronomy"><i></i><span>ИИ в астрономии<small>Открытия и исследования</small></span></button><button class="hotspot sky-hotspot" data-action="sky"><i></i><span>Звёздное небо<small>Исследовать небо</small></span></button><button class="hotspot desk-hotspot" data-action="${resumable?'resume':'start'}"><i></i><span>Рабочий стол<small>${resumable?'Продолжить смену':'Наше исследование'}</small></span></button><div class="welcome">${mentor(resumable?'Снимки и твои метки остались на столе. Продолжим исследование?':'Привет, я Ника. На карте — снимки и открытия ИИ. За столом можно собрать примеры для модели и проверить её ответы.',true)}<button class="primary" data-action="${resumable?'resume':'start'}">${resumable?'Продолжить работу':'Разобрать снимки'} <span>→</span></button><button class="secondary" data-action="sky">Исследовать небо</button></div></section>`;
   }
   function station(title,subtitle,phase,content,footer='',words='') {
-    return `<section class="workbench">${nav()}${progress(phase)}<div class="station"><div class="station-head"><div><span class="eyebrow">${subtitle}</span><h1>${title}</h1></div></div>${content}${footer}</div>${words&&!['labels','repair'].includes(phase)?mentor(words,false,phase==='results'?'thinking':'curious'):''}</section>`;
+    return `<section class="workbench${content.includes('id="quest-scene"')?' workbench--quest':''}">${nav()}${progress(phase)}<div class="station"><div class="station-head"><div><span class="eyebrow">${subtitle}</span><h1>${title}</h1></div></div>${content}${footer}</div>${words&&!['labels','repair'].includes(phase)?mentor(words,false,phase==='results'?'thinking':'curious'):''}</section>`;
   }
   function tutorial() {
     const image=byId[data.tutorialId];
-    return station('Как ИИ помогает астрономам?','01 / НАШЕ ИССЛЕДОВАНИЕ','tutorial',`<div class="photo-stage">${photo(image)}<div class="tutorial-notes"><h2>У телескопов — миллионы снимков.</h2><p>Машинное обучение — один из методов искусственного интеллекта, или ИИ. Люди дают программе примеры, а она ищет похожие признаки в новых данных.</p><p>Сначала подготовим такие примеры. У этой галактики — ровное овальное свечение, без заметных спиральных рукавов.</p><div class="example-stamp smooth">Гладкая <span>✓</span></div><p class="note">Снимок и его метка — учебный пример. По таким примерам работает модель: программа, которая выбирает ответ для нового снимка.</p><button class="primary" data-action="labels">Найти галактики на карте →</button><button class="text-button" data-action="talk" data-image-id="${image.id}">Рассмотреть с Никой</button><button class="text-button" data-action="astronomy">А что ИИ уже помог открыть?</button><details class="credits"><summary>Источник снимка</summary>${source(image)}</details></div></div>`, '', 'Наша задача — подготовить примеры для модели и проверить её ответы. Начнём с трёх галактик: найди их на карте и открой снимки Hubble.');
+    return station('Как ИИ помогает астрономам?','01 / НАШЕ ИССЛЕДОВАНИЕ','tutorial',`<div id="quest-scene" data-image-id="${image.id}"></div><div class="film-footer"><button class="text-button" data-action="astronomy">А что ИИ уже помог открыть?</button><div class="navigation"><button class="secondary" data-action="zoom" data-image-id="${image.id}">Открыть снимок целиком</button><button class="primary" data-action="labels">Найти галактики на карте →</button></div></div><details class="credits"><summary>Источник снимка</summary>${source(image)}</details>`);
   }
   function samples(ids) {
     return `<div class="samples" aria-label="Снимки этой подборки">${ids.map((id,i)=>`<button data-action="sample" data-index="${i}" class="sample ${i===cardIndex?'selected':''}" aria-label="Снимок ${i+1}: ${esc(byId[id].name)}" aria-current="${i===cardIndex}">${found.has(id)||data.oldIds.includes(id)?`<img src="${esc(byId[id].src)}" alt="">`:'<span class="unfound">✦</span>'}<span>${i+1}</span><i>${model.state.labels[id]? '✓' : '·'}</i></button>`).join('')}</div>`;
   }
-  function chooser(image,selected,old) {
-    return `<div class="stamp-tray"><span class="eyebrow">${old?'Проверим старую метку':'Выбери метку'}</span><h2>${esc(image.name)}</h2>${old?`<div class="old-label"><span>В архиве было</span><b>${esc(label(data.initialOldLabels[image.id]))}</b></div>`:'<p class="tray-hint">Перетащи снимок к метке<br>или нажми на неё.</p>'}<div class="class-list">${data.classes.map(item=>`<button class="label-btn ${item.id}" data-label-id="${esc(image.id)}" data-label="${item.id}" aria-pressed="${selected===item.id}"><span class="class-symbol" aria-hidden="true"></span><span><b>${esc(item.label)}</b><small>${esc(item.hint)}</small></span><i>${selected===item.id?'✓':'+'}</i></button>`).join('')}</div><button class="text-button" data-action="help" data-image-id="${esc(image.id)}">✧ Посмотреть вместе с Никой</button><p class="chosen" role="status">${selected?'Твоя метка: <b>'+esc(label(selected))+'</b>':'Выбери метку для снимка'}</p></div>`;
-  }
   function labelsView(old=false) {
     const state=model.state,ids=old?data.oldIds:data.childIds,image=byId[ids[cardIndex]],missing=ids.filter(id=>!state.labels[id]).length;
     const available=old||found.has(image.id);
-    const content=`${available?`<div class="photo-stage"><div class="photo-with-nika">${photo(image,true)}${companion(image,old?'repair':'labels')}</div>${chooser(image,state.labels[image.id],old)}</div>`:`<div class="missing-photo"><span>✦</span><h2>${esc(image.name)}</h2><p>Найди эту галактику на карте неба, чтобы открыть её архивный снимок.</p><button class="primary" data-action="sky" data-image-id="${image.id}">К звёздному небу →</button></div>`}<div class="film-footer">${samples(ids)}<div class="navigation"><button class="secondary" data-action="sky" data-image-id="${image.id}">Карта неба</button><button class="secondary" data-action="previous" ${cardIndex===0?'disabled':''} aria-label="Предыдущий снимок">←</button><button class="secondary" data-action="next" ${cardIndex===ids.length-1?'disabled':''}>Следующий →</button><button class="primary" data-action="run" ${!old&&missing?'disabled':''}>${old?'Проверить снова':missing?'Поставь все 3 метки':'Проверить модель'} <span>↗</span></button></div></div><details class="credits"><summary>Источник и условия опыта</summary>${source(image)}<p>Признаки снимков измерены заранее. Программа сравнивает учебные примеры этой смены.${old?' Две старые метки намеренно перепутаны авторами учебной истории.':''}</p></details>`;
+    const content=`${available?`<div id="quest-scene" data-image-id="${image.id}"></div>`:`<div class="missing-photo"><span>✦</span><h2>${esc(image.name)}</h2><p>Найди эту галактику на карте неба, чтобы открыть её архивный снимок.</p><button class="primary" data-action="sky" data-image-id="${image.id}">К звёздному небу →</button></div>`}<div class="film-footer">${samples(ids)}<div class="navigation"><button class="secondary" data-action="sky" data-image-id="${image.id}">Карта неба</button><button class="secondary" data-action="previous" ${cardIndex===0?'disabled':''} aria-label="Предыдущий снимок">←</button><button class="secondary" data-action="next" ${cardIndex===ids.length-1?'disabled':''}>Следующий →</button><button class="primary" data-action="run" ${!old&&missing?'disabled':''}>${old?'Проверить снова':missing?'Поставь все 3 метки':'Проверить модель'} <span>↗</span></button></div></div><details class="credits"><summary>Источник и условия опыта</summary>${source(image)}<p>Признаки снимков измерены заранее. Программа сравнивает учебные примеры этой смены.${old?' Две старые метки намеренно перепутаны авторами учебной истории.':''}</p></details>`;
     return station(old?'Заглянем в старые примеры':'Разметим учебные примеры',`${old?'04 / ПРОВЕРЯЕМ ДАННЫЕ':'02 / РАЗМЕЧАЕМ'} · ${cardIndex+1} ИЗ ${ids.length}`,old?'repair':'labels',content,'',old?'Посмотри на снимок и выбери метку. В старой подборке тоже бывают ошибки.':'Выбери метку по тому, что видно на снимке. Потом проверим ответы модели на других галактиках.');
   }
   function predictionCard(prediction,previous,final=false) {
@@ -145,14 +145,22 @@
     const phase=model.state.phase;
     document.body.dataset.phase=view==='cnn'?'cnn':phase;
     galaxyWorld.setPhase(view==='cnn'?'repair':phase);
+    quest?.destroy();quest=null;
     root.innerHTML=view==='cnn'?cnnView():phase==='intro'?intro():phase==='tutorial'?tutorial():phase==='labels'?labelsView():phase==='results'?results():phase==='repair'?labelsView(true):final();
-    globalThis.galaxyGame={model,render,get view(){return view;},get busy(){return busy;},get sky(){return sky;},get found(){return [...found];}};
+    const host=root.querySelector('#quest-scene');
+    if(host){
+      const image=byId[host.dataset.imageId];
+      quest=QuestScene.mount(host,{image,phase,classes:data.classes,selected:model.state.labels[image.id],initialSelected:model.state.labels[image.id],initialOldLabel:phase==='repair'?label(data.initialOldLabels[image.id]):null,
+        opening:phase==='tutorial'?'У телескопов миллионы снимков. Люди дают программе примеры с метками, а она ищет похожие признаки. Рассмотрим один пример вместе.':null,
+        onLabel:value=>choose(image.id,value)});
+    }
+    globalThis.galaxyGame={model,render,get quest(){return quest;},get view(){return view;},get busy(){return busy;},get sky(){return sky;},get found(){return [...found];}};
   }
   function dispatch(type,payload={}) {
     try{model.dispatch({type,...payload});if(type==='LABELS'||type==='REPAIR')cardIndex=0;view=null;render();if(type!=='SET_LABEL'){window.scrollTo({top:0,behavior:'instant'});const heading=root.querySelector('h1');heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});}chime();}
     catch(error){openModal(`<h2>Нужен ещё один шаг</h2><p>${esc(error.message)}</p>`);}
   }
-  function choose(id,value){if(busy||sky||model.state.phase==='labels'&&!found.has(id))return;dispatch('SET_LABEL',{id,label:value});const stamp=document.createElement('span');stamp.className='stamp-feedback';stamp.textContent=label(value)+' ✓';root.querySelector('.photo-stage .galaxy-frame')?.append(stamp);setTimeout(()=>stamp.remove(),900);const selected=root.querySelector(`[data-label-id="${id}"][data-label="${value}"]`);selected?.focus({preventScroll:true});}
+  function choose(id,value){if(busy||sky||model.state.phase==='labels'&&!found.has(id))return;dispatch('SET_LABEL',{id,label:value});const stamp=document.createElement('span');stamp.className='stamp-feedback';stamp.textContent=label(value)+' ✓';root.querySelector('.quest-scene__photo-shell, .photo-stage .galaxy-frame')?.append(stamp);setTimeout(()=>stamp.remove(),900);const selected=root.querySelector(`[data-label-id="${id}"][data-label="${value}"]`);selected?.focus({preventScroll:true});}
   function runExperience() {
     if(busy)return;busy=true;const overlay=document.createElement('div');overlay.className='experiment-loading';overlay.setAttribute('role','status');overlay.innerHTML=`<div class="scanning"><div class="scan-images">${data.childIds.map(id=>`<img src="${esc(byId[id].src)}" alt="">`).join('')}</div><span class="scan-beam"></span><h2>Сравниваем снимки</h2><p>Снимки + твои метки → ответы модели</p><small>Сравниваем признаки и берём метку ближайшего примера.</small></div>`;document.body.append(overlay);root.inert=true;
     setTimeout(()=>{overlay.remove();root.inert=false;busy=false;dispatch('RUN');},matchMedia('(prefers-reduced-motion: reduce)').matches?120:1000);
@@ -168,7 +176,7 @@
     if(action==='archive-image'){archiveImage(button.dataset.id);return;}
     if(action==='labels'){dispatch('LABELS');if(!found.has(data.childIds[cardIndex]))openSky(data.childIds[cardIndex]);return;}
     if(action==='zoom'){const image=byId[button.dataset.imageId];openModal(`<img class="modal-image" src="${esc(image.src)}" alt="${esc(image.name)}">${source(image)}`,true);return;}
-    if(action==='help'){const image=byId[button.dataset.imageId];openModal(`<span class="eyebrow">СМОТРИМ ВМЕСТЕ С НИКОЙ</span><h2>Посмотрим на снимок</h2><img class="hint-image" src="${esc(image.src)}" alt="${esc(image.name)}"><p>${esc(image.explanation)}</p><p>Посмотри, видны ли спиральные рукава, ровное свечение или тонкая полоса диска.</p>${source(image)}`);return;}
+    if(action==='help'){if(quest){quest.hint();return;}const image=byId[button.dataset.imageId];openModal(`<span class="eyebrow">СМОТРИМ ВМЕСТЕ С НИКОЙ</span><h2>Посмотрим на снимок</h2><img class="hint-image" src="${esc(image.src)}" alt="${esc(image.name)}"><p>${esc(image.explanation)}</p><p>Посмотри, видны ли спиральные рукава, ровное свечение или тонкая полоса диска.</p>${source(image)}`);return;}
     if(action==='explain'){openModal(explain(byId[button.dataset.imageId]));return;}
     if(action==='about'){openModal(about());return;}
     if(action==='journal'){openModal(journal());return;}

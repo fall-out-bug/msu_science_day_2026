@@ -3,7 +3,7 @@
 import hashlib,json,zipfile,shutil
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
-runtime=['index.html','galaxy.css','library.css','nika.css','companion.css','nika-dialogue.js','sky.css','sky.js','sky-data.js','sky-provenance.json','astronomy.js','game.js','world.js','model.js','session.js','data.js','archive-data.js','archive-catalog.json','archive-admission.json','cnn-data.js','discovery-data.js','discovery-provenance.json','provenance.json','DATA-NOTES.md','README.md','FACILITATOR.md']
+runtime=['index.html','galaxy.css','library.css','nika.css','companion.css','quest-scene.css','quest-scene.js','nika-dialogue.js','sky.css','sky.js','sky-data.js','sky-provenance.json','astronomy.js','game.js','world.js','model.js','session.js','data.js','archive-data.js','archive-catalog.json','archive-admission.json','cnn-data.js','discovery-data.js','discovery-provenance.json','provenance.json','DATA-NOTES.md','README.md','FACILITATOR.md']
 assets=sorted(p.relative_to(HERE).as_posix() for p in (HERE/'assets/galaxies').rglob('*.jpg'))
 assets += sorted(p.relative_to(HERE).as_posix() for p in (HERE/'assets/discoveries').rglob('*') if p.is_file())
 assets += ['assets/art/'+name for name in ['nika.png','observatory-night-v2.png','observatory-night-portrait-v3.png','worktop-night-v2.png','NIKA-CREDITS.md','ART-CREDITS.md','NIGHT-V2-PROMPTS.md','PORTRAIT-V3-PROMPT.md','NIKA-DIALOGUE-PROMPTS.md','nika-warm-v1.png','nika-curious-v1.png','nika-thinking-v1.png']]
@@ -11,7 +11,7 @@ assets += ['assets/sky/licenses/'+name for name in ['CC-BY-SA-4.0.txt','FAL-1.3.
 files=runtime+assets
 for name in files:
  if not (HERE/name).is_file():raise SystemExit('Missing package resource: '+name)
-manifest={'title':'ИИ в астрономии','version':'2026.10.07-nika.4','entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
+manifest={'title':'ИИ в астрономии','version':'2026.10.07-quest.5','entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
 out=HERE/'releases';out.mkdir(exist_ok=True)
 web=out/'web'
 if web.exists():shutil.rmtree(web)
