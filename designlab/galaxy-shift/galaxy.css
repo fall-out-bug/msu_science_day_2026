@@ -72,3 +72,68 @@ body{background:#08141e}.sr-only{position:absolute;width:1px;height:1px;margin:-
 @media(min-width:701px) and (max-height:550px){.room .welcome{left:2%;bottom:12px}.science-hotspot{left:2%;top:36%}.sky-hotspot{left:28%;top:27%}.room .desk-hotspot{right:2%;top:68%}}
 
 @media(max-width:700px){.room .welcome{bottom:8px}.room .desk-hotspot{top:49%;right:1%;bottom:auto}.room .desk-hotspot>span{max-width:126px}.science-hotspot{top:45%}}
+
+/* Intro: the greeting and its actions are one normal-flow stack. */
+.room > .welcome{
+  left:4%;
+  right:auto;
+  bottom:5%;
+  width:min(340px,calc(100vw - 28px));
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:10px;
+}
+.room > .welcome > .primary,
+.room > .welcome > .secondary{
+  margin:0;
+  flex:none;
+  min-height:44px;
+}
+/* Keep the whole bust visible; the image itself provides the expression. */
+.mentor-portrait{
+  width:96px;
+  height:112px;
+  overflow:hidden;
+  flex:none;
+}
+.mentor-portrait img{
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain;
+  object-position:center;
+  transform:none;
+  transform-origin:center;
+  border-radius:0;
+}
+@media (max-width:1000px){
+  .room > .welcome{width:min(300px,calc(100vw - 28px));}
+}
+@media (max-width:700px){
+  .room > .welcome{
+    left:10px;
+    right:10px;
+    bottom:8px;
+    width:auto;
+    gap:8px;
+  }
+  .room > .welcome > .room-dialogue{padding:12px;gap:10px;font-size:.85rem;line-height:1.35;}
+  .room > .welcome > .primary,
+  .room > .welcome > .secondary{min-height:44px;}
+  .mentor-portrait{width:72px;height:88px;}
+}
+@media (min-width:701px) and (max-height:550px){
+  .room > .welcome{left:2%;bottom:12px;width:330px;gap:8px;}
+  .room > .welcome > .room-dialogue{padding:11px;font-size:.78rem;line-height:1.35;}
+}
+/* At enlarged text sizes keep the two actions reachable without stacking them. */
+.room > .welcome{max-height:calc(100svh - 16px);overflow-y:auto;scrollbar-width:thin;}
+.room > .welcome > .room-dialogue{min-height:0;overflow-y:auto;flex:0 1 auto;}
+.room > .welcome{max-height:90svh;}
+@media (max-width:700px){.room > .welcome{max-height:calc(100svh - 16px);}}
+@media (min-width:701px) and (max-height:550px){.room > .welcome{max-height:calc(100svh - 24px);}}
+@media (min-width:701px) and (max-height:550px){
+  .science-hotspot{top:8%;}
+  .sky-hotspot{left:28%;top:18%;}
+}

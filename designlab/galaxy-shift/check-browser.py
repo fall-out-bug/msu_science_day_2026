@@ -91,6 +91,8 @@ def run(page, entry, capture=False, offline=True):
     assert bounds['x'] + bounds['width'] <= page.viewport_size['width'] + 1, bounds
     assert bounds['y'] + bounds['height'] <= page.viewport_size['height'] + 1, bounds
     assert page.locator('.brand').count() == 0
+    assert page.evaluate("""()=>{const buttons=[...document.querySelectorAll('.welcome>button')].map(b=>b.getBoundingClientRect());return buttons.every((b,i)=>!i||b.top>=buttons[i-1].bottom+7)}""")
+    assert page.locator('.mentor-portrait img').first.evaluate("img=>getComputedStyle(img).objectFit==='contain' && getComputedStyle(img).transform==='none'")
     action('sky')
     assert page.locator('.sky-atlas__panel.browse').is_visible()
     stage('sky-explore')
@@ -118,6 +120,13 @@ def run(page, entry, capture=False, offline=True):
     assert page.locator('.library-card').count() >= 16
     page.locator('.library-card').first.click()
     stage('illustrated-discovery')
+    action('talk')
+    assert page.locator('.modal').evaluate('(el)=>el.inert')
+    page.locator('[data-nika="story-ai"]').click()
+    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'thinking'
+    stage('nika-story')
+    page.keyboard.press('Escape')
+    assert page.locator('.modal').count() == 1 and not page.locator('.modal').evaluate('(el)=>el.inert')
     action('close-modal')
     action('astronomy'); action('archive')
     assert page.locator('.library-card').count() >= 24
@@ -131,6 +140,18 @@ def run(page, entry, capture=False, offline=True):
     assert state()['phase'] == 'tutorial'
     stage('tutorial')
     dialog('zoom')
+    before_talk = state()
+    action('talk')
+    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'curious'
+    page.locator('[data-nika="arms"]').click()
+    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'thinking'
+    assert page.locator('.nika-dialogue__image img').count() == 1
+    page.locator('[data-nika="hint"]').click()
+    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'warm'
+    stage('nika-observation')
+    page.keyboard.press('Escape')
+    assert state() == before_talk
+    assert not page.locator('#game').evaluate('(el)=>el.inert')
     action('home'); action('start')
     assert state()['phase'] == 'tutorial'
     action('labels')
@@ -140,7 +161,10 @@ def run(page, entry, capture=False, offline=True):
     dialog('help')
     first_id = data['childIds'][0]
     target = page.locator(f'[data-label-id="{first_id}"][data-label="{objects[first_id]["label"]}"]')
-    page.locator('[data-drag-id]').drag_to(target)
+    if page.viewport_size['width'] > 700 and page.viewport_size['height'] > 550:
+        page.locator('[data-drag-id]').drag_to(target)
+    else:
+        target.click()
     assert state()['labels'][first_id] == objects[first_id]['label']
     page.keyboard.press('1')
     assert state()['labels'][first_id] == data['classes'][0]['id']
@@ -160,6 +184,15 @@ def run(page, entry, capture=False, offline=True):
     baseline = state()['current']
     assert page.locator('[data-action="finish"]').count() == 0
     stage('first-result')
+    action('talk')
+    page.locator('[data-nika="why"]').click()
+    assert page.locator('.nika-dialogue__pair img').count() == 2
+    assert objects[baseline['review']['predictions'][0]['neighborId']]['name'] in page.locator('.nika-dialogue').inner_text()
+    stage('nika-reason')
+    page.locator('[data-nika="change"]').click()
+    page.locator('[data-nika="limits"]').click()
+    page.keyboard.press('Escape')
+    assert state()['current'] == baseline
     dialog('explain')
     old_trace = next((p for p in baseline['review']['predictions'] if p['neighborId'] in data['oldIds']), None)
     if old_trace:
