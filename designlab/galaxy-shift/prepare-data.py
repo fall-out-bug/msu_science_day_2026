@@ -53,11 +53,11 @@ CLASSES = [
 # expert morphological classification of the object.
 ITEMS = [
     ("tutorial_ic2006", "IC 2006", "heic1508a", "smooth", "train", "tutorial", "Эллиптическая галактика: ровное овальное свечение.", "ESA/Hubble & NASA. Image acknowledgement: Judy Schmidt and J. Blakeslee (Dominion Astrophysical Observatory). Science acknowledgement: M. Carollo (ETH, Switzerland)."),
-    ("child_m85", "Messier 85", "potw1905a", "smooth", "train", "child", "Для игры: гладкое овальное свечение без видимых рукавов.", "ESA/Hubble & NASA, R. O'Connell."),
+    ("child_m85", "Messier 85", "potw1905a", "smooth", "train", "child", "Видно ровное овальное свечение. Спиральных рукавов на этом снимке не видно.", "ESA/Hubble & NASA, R. O'Connell."),
     ("child_ic5332", "IC 5332", "potw2342a", "spiral", "train", "child", "На почти фронтальном диске хорошо видны закрученные рукава.", "ESA/Hubble & NASA, R. Chandar, J. Lee and the PHANGS-HST team."),
-    ("child_ngc5023", "NGC 5023", "potw1512a", "edge_on", "train", "child", "ESA/Hubble прямо описывает этот спиральный диск как видимый с ребра.", "ESA/Hubble & NASA."),
-    ("old_ngc3610", "NGC 3610", "potw1546a", "smooth", "train", "old", "Эллиптическая галактика; для урока старая подпись намеренно неверна.", "ESA/Hubble & NASA; acknowledgement: Judy Schmidt (Geckzilla)."),
-    ("old_ngc7090", "NGC 7090", "potw1237a", "edge_on", "train", "old", "ESA/Hubble прямо называет NGC 7090 галактикой, видимой с ребра; для урока старая подпись намеренно неверна.", "ESA/Hubble & NASA. Acknowledgement: R. Tugral."),
+    ("child_ngc5023", "NGC 5023", "potw1512a", "edge_on", "train", "child", "Диск виден сбоку: он выглядит как длинная тонкая полоска.", "ESA/Hubble & NASA."),
+    ("old_ngc3610", "NGC 3610", "potw1546a", "smooth", "train", "old", "Вокруг яркого центра — ровное овальное свечение. Отчётливых спиральных рукавов не видно.", "ESA/Hubble & NASA; acknowledgement: Judy Schmidt (Geckzilla)."),
+    ("old_ngc7090", "NGC 7090", "potw1237a", "edge_on", "train", "old", "Мы видим диск сбоку. Через него проходит тёмная полоса пыли.", "ESA/Hubble & NASA. Acknowledgement: R. Tugral."),
     ("fixed_ngc3318", "NGC 3318", "potw2203a", "spiral", "train", "fixed", "На снимке видны спиральные рукава NGC 3318.", "ESA/Hubble & NASA, ESO, R. J. Foley; acknowledgement: R. Colombari."),
     ("fixed_ngc691", "NGC 691", "potw2008a", "spiral", "train", "fixed", "ESA/Hubble описывает NGC 691 как характерную спиральную галактику.", "ESA/Hubble & NASA, A. Riess et al."),
     ("fixed_ic755", "IC 755", "potw1129a", "edge_on", "train", "fixed", "ESA/Hubble описывает IC 755 как спиральную галактику, которую мы видим с ребра.", "ESA/Hubble & NASA."),

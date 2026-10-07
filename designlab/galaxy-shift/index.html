@@ -4,18 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#103b40">
-  <title>Лаборатория Ники · Первая смена</title>
+  <title>Первая смена · ИИ в астрономии</title>
   <link rel="stylesheet" href="galaxy.css">
+  <link rel="stylesheet" href="sky.css">
 </head>
 <body>
-  <canvas id="world" aria-label="Дневная лаборатория Ники в горах"></canvas>
-  <div id="loading" role="status">Открываем лабораторию<span></span></div>
+  <canvas id="world" aria-label="Обсерватория ночью"></canvas>
+  <div id="loading" role="status">Открываем обсерваторию<span></span></div>
   <main id="game" class="game-shell"></main>
   <noscript>Для запуска игры включите JavaScript. Игра работает без сети.</noscript>
   <script src="data.js"></script>
   <script src="cnn-data.js"></script>
   <script src="model.js"></script>
   <script src="world.js"></script>
+  <script src="astronomy.js"></script>
+  <script src="sky-data.js"></script>
+  <script src="sky.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

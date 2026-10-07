@@ -58,9 +58,36 @@ def run(page, entry, capture=False, offline=True):
         assert not page.evaluate('document.querySelector("#game").inert')
         assert trigger.evaluate('(button) => document.activeElement === button')
 
+    def collect_sky(item_id, drag=False):
+        page.wait_for_selector('.sky-atlas')
+        page.wait_for_function('galaxyGame.sky && galaxyGame.sky.snapshot().active')
+        if not page.evaluate('(id)=>galaxyGame.sky.state().active===id', item_id):
+            page.locator(f'.sky-atlas [data-target="{item_id}"]').click()
+        if page.evaluate('!matchMedia("(prefers-reduced-motion: reduce)").matches'):
+            page.wait_for_timeout(650)
+        snap=page.evaluate('galaxyGame.sky.snapshot()')
+        assert not snap['aligned']
+        assert page.locator('.sky-atlas__open').is_disabled()
+        assert page.evaluate('document.querySelector("#game").inert')
+        page.keyboard.press('Tab')
+        assert page.evaluate('document.activeElement.closest(".sky-atlas") !== null')
+        if drag:
+            page.mouse.move(snap['targetPixel']['x'],snap['targetPixel']['y'])
+            page.mouse.down()
+            page.mouse.move(snap['aim']['x'],snap['aim']['y'],steps=12)
+            page.mouse.up()
+        else:
+            page.mouse.click(snap['targetPixel']['x'],snap['targetPixel']['y'])
+        page.wait_for_function('galaxyGame.sky.state().aligned')
+        stage('sky-' + item_id)
+        page.locator('.sky-atlas__open').click()
+        assert item_id in page.evaluate('galaxyGame.found')
+        assert not page.evaluate('document.querySelector("#game").inert')
+
     assert state()['phase'] == 'intro'
     stage('intro')
     dialog('about')
+    dialog('astronomy')
     action('start')
     assert state()['phase'] == 'tutorial'
     stage('tutorial')
@@ -68,6 +95,7 @@ def run(page, entry, capture=False, offline=True):
     action('home'); action('start')
     assert state()['phase'] == 'tutorial'
     action('labels')
+    collect_sky(data['childIds'][0],drag=True)
     assert state()['phase'] == 'labels'
     assert page.locator('[data-action="run"]').is_disabled()
     dialog('help')
@@ -82,6 +110,9 @@ def run(page, entry, capture=False, offline=True):
         stage('labels-' + str(index + 1))
         if index < len(data['childIds']) - 1:
             action('next')
+            assert page.locator('.missing-photo').is_visible()
+            page.locator('.missing-photo [data-action=sky]').click()
+            collect_sky(data['childIds'][index+1])
     action('home'); action('resume')
     assert state()['phase'] == 'labels'
     assert all(state()['labels'][i] == objects[i]['label'] for i in data['childIds'])
@@ -140,6 +171,7 @@ def run(page, entry, capture=False, offline=True):
     assert 'повторный просмотр' in state()['notice']
     page.once('dialog', lambda dialog: dialog.accept())
     action('reset')
+    assert page.evaluate('galaxyGame.found.length') == 0
     assert state()['phase'] == 'intro' and not state()['finalSeen'] and state()['baseline'] is None
     page.reload()
     page.wait_for_function('window.galaxyGame')
