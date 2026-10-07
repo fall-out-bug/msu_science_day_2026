@@ -37,8 +37,10 @@ def run(page, entry, capture=False, offline=True):
 
     def quest(stage_name, labels_before=None):
         scene = page.locator('.quest-scene')
+        scene.evaluate("async el => { await Promise.all(el.closest('.station').getAnimations().map(a => a.finished)); }")
         assert scene.is_visible(), stage_name
         nika = scene.locator('.quest-scene__nika img')
+        page.wait_for_function('(img) => img.complete && img.naturalWidth > 0', arg=nika.element_handle())
         assert nika.count() == 1 and nika.evaluate('(img) => img.complete && img.naturalWidth > 0'), stage_name
         assert nika.bounding_box()['height'] >= 290, stage_name
         photo_area = scene.locator('.quest-scene__photo-area').bounding_box()
