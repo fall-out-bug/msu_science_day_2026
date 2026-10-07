@@ -7,8 +7,11 @@
 ## Как играть
 
 Откройте `index.html` в браузере или распакуйте `releases/galaxy-shift.zip`
-целиком. Сервер и интернет не нужны. В обсерватории можно перейти к свободной
-карте, к рабочему столу или к карточкам об ИИ в астрономии. Карта поддерживает
+целиком. Сервер и интернет не нужны. Сначала Ника предлагает один маршрут:
+короткую историю о Euclid Galaxy Zoo, поиск трёх галактик на карте и сбор их
+уже существующих архивных снимков, затем разметку и проверку модели. После
+итоговой доски открывается свободное исследование карты и карточек об ИИ в
+астрономии. Карта поддерживает
 перетаскивание, масштабирование колёсиком и кнопками, а также стрелки на
 клавиатуре. Нажатие на метку открывает карточку объекта, снимка или
 исследования.
@@ -84,6 +87,7 @@ ESA/Hubble. В `archive-admission.json` зафиксированы SHA-256, пе
 ```bash
 node designlab/galaxy-shift/check-model.mjs
 node designlab/galaxy-shift/check-session.mjs
+python3 designlab/galaxy-shift/check-score-feedback.py
 python3 designlab/galaxy-shift/prepare-data.py --check
 python3 designlab/galaxy-shift/prepare-archive.py --check
 python3 designlab/galaxy-shift/feature-audit.py

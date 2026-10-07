@@ -9,3 +9,5 @@
 .sky-atlas [hidden]{display:none!important}
 
 .sky-atlas__legend{font-size:.65rem;color:#b9d7e8;margin:6px 0}@media(max-height:500px){.sky-atlas__legend{display:none}}
+
+.sky-atlas__complete{width:100%;padding:12px 14px;border:0;border-radius:9px;background:#d3a546;color:#132333;font:700 .86rem inherit}.sky-atlas__targets button.is-collected{display:flex;align-items:center;gap:9px;opacity:.8}.sky-atlas__targets button.is-collected img{width:42px;height:34px;object-fit:cover;border-radius:4px}

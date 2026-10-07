@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const GalaxyModel = require('./model.js');
 
 function loadGlobal(file, name) {
   const sandbox = {};
@@ -61,4 +65,29 @@ for (const result of Object.values(selected.experiments)) {
 assert.throws(() => create(base, archive, [base.childIds[0], 'archive_ngc4889', 'archive_ngc1132']), /Неверная подборка/);
 assert.throws(() => create(base, archive, ['archive_m101', 'archive_m81', 'archive_m83']), /Неверная подборка/);
 
-console.log(JSON.stringify({ status: 'PASS', combinations: all.length, states: Object.keys(selected.experiments).length, features: Object.keys(archive.features).length, checks: ['unique 512-cycle', 'one per class', 'original 243-state parity', 'reproducible vectors and neighbours', 'train-only no leakage', 'invalid selections'] }, null, 2));
+// A correction must be evaluated from the current five labels, not from the
+// first result.  The final set is intentionally independent of review, so its
+// score is not expected to improve by a fixed amount.
+for (const ids of all) {
+  const shift = create(base, archive, ids);
+  const images = Object.fromEntries(shift.images.map(image => [image.id, image]));
+  const expectedKey = shift.editableIds
+    .map(id => shift.classes.findIndex(item => item.id === images[id].label))
+    .join('');
+  const game = GalaxyModel.create(shift);
+  game.dispatch({ type: 'START' });
+  game.dispatch({ type: 'LABELS' });
+  for (const id of shift.childIds) game.dispatch({ type: 'SET_LABEL', id, label: images[id].label });
+  game.dispatch({ type: 'RUN' });
+  game.dispatch({ type: 'REPAIR' });
+  for (const id of shift.oldIds) game.dispatch({ type: 'SET_LABEL', id, label: images[id].label });
+  assert.equal(game.state.current, null, 'a corrected old label invalidates the prior result');
+  game.dispatch({ type: 'RUN' });
+  assert.equal(game.state.current.key, expectedKey);
+  assert.equal(game.state.repairCheckedKey, expectedKey);
+  assert.deepEqual(game.state.current.final, shift.experiments[expectedKey].final);
+  game.dispatch({ type: 'FINISH' });
+  assert.equal(game.state.phase, 'final');
+}
+
+console.log(JSON.stringify({ status: 'PASS', combinations: all.length, states: Object.keys(selected.experiments).length, features: Object.keys(archive.features).length, checks: ['unique 512-cycle', 'one per class', 'original 243-state parity', 'reproducible vectors and neighbours', 'train-only no leakage', 'invalid selections', 'all-shifts correction invalidation and current final result'] }, null, 2));

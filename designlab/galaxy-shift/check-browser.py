@@ -124,7 +124,7 @@ def run(page, entry, capture=False, offline=True):
         assert not page.evaluate('document.querySelector("#game").inert')
         assert trigger.evaluate('(button) => document.activeElement === button')
 
-    def collect_sky(item_id, drag=False):
+    def collect_sky(item_id, drag=False, complete=False):
         page.wait_for_selector('.sky-atlas')
         page.wait_for_function('galaxyGame.sky && galaxyGame.sky.snapshot().active')
         if not page.evaluate('(id)=>galaxyGame.sky.state().active===id', item_id):
@@ -148,7 +148,17 @@ def run(page, entry, capture=False, offline=True):
         stage('sky-' + item_id)
         page.locator('.sky-atlas__open').click()
         assert item_id in page.evaluate('galaxyGame.found')
-        assert not page.evaluate('document.querySelector("#game").inert')
+        if complete:
+            assert page.locator('.sky-atlas__complete').is_visible()
+            page.locator('.sky-atlas__complete').click()
+            page.wait_for_function("galaxyGame.model.state.phase === 'labels'")
+            assert not page.evaluate('document.querySelector("#game").inert')
+        else:
+            assert page.locator('.sky-atlas').is_visible()
+            assert page.locator(f'.sky-atlas [data-target="{item_id}"]').is_disabled()
+            assert page.locator(f'.sky-atlas [data-target="{item_id}"]').evaluate("el => el.classList.contains('is-collected')")
+            assert page.locator(f'.sky-atlas [data-target="{item_id}"] img').count() == 1
+            assert page.evaluate('document.querySelector("#game").inert')
 
     assert state()['phase'] == 'intro'
     stage('intro')
@@ -159,65 +169,47 @@ def run(page, entry, capture=False, offline=True):
     assert page.locator('.brand').count() == 0
     assert page.evaluate("""()=>{const buttons=[...document.querySelectorAll('.welcome>button')].map(b=>b.getBoundingClientRect());return buttons.every((b,i)=>!i||b.top>=buttons[i-1].bottom+7)}""")
     assert page.locator('.mentor-portrait img').first.evaluate("img=>getComputedStyle(img).objectFit==='contain' && getComputedStyle(img).transform==='none'")
-    action('sky')
-    assert page.locator('.sky-atlas__panel.browse').is_visible()
-    stage('sky-explore')
-    marker = page.evaluate("""() => {
+    dialog('about')
+    assert page.locator('[data-action="start-route"]').count() == 1
+    assert page.locator('[data-action="sky"]').count() == 0
+    action('start-route')
+    assert page.locator('.route-story__card').is_visible()
+    assert 'Euclid Galaxy Zoo' in page.locator('.route-story__card').inner_text()
+    stage('guided-story')
+    action('collect-map')
+    assert page.locator('.sky-atlas__panel.task').is_visible()
+    assert page.locator('.sky-atlas [data-filter]').count() == 0
+    assert page.locator('.sky-atlas [data-research-id]').count() == 0
+    page.locator('.sky-atlas [data-scale="all"]').click()
+    unrelated = page.evaluate("""() => {
       const item=GALAXY_ARCHIVE.images.find(i=>i.id==='archive_m101');
       const c=galaxyGame.sky.state().camera,w=innerWidth,h=innerHeight;
       const aim=w>=701&&h<=500?[w*.72,h*.55]:w<700?[w*.55,h*.4]:[w/2,h/2];
       const delta=((item.ra-c.ra+180)%360+360)%360-180;
       return {x:aim[0]-delta*c.zoom,y:aim[1]-(item.dec-c.dec)*c.zoom};
     }""")
-    page.mouse.click(marker['x'], marker['y'])
-    page.wait_for_selector('.modal')
-    assert page.locator('.modal h2').inner_text() == 'Messier 101'
-    action('close-modal')
-    research = page.locator('[data-research-id]').first
-    if research.count():
-        research.click()
-        assert page.locator('.modal img').count() > 0
-        assert page.locator('.sky-atlas').evaluate('(el)=>el.inert')
-        stage('sky-discovery')
-        action('close-modal')
-        assert not page.locator('.sky-atlas').evaluate('(el)=>el.inert')
+    page.mouse.click(unrelated['x'], unrelated['y'])
+    assert page.locator('.sky-atlas').count() == 1 and page.locator('.modal').count() == 0
+    collect_sky(data['childIds'][0],drag=True)
     page.locator('.sky-atlas__close').click()
-    action('astronomy')
-    assert page.locator('.library-card').count() >= 16
-    page.locator('.library-card').first.click()
-    stage('illustrated-discovery')
-    action('talk')
-    assert page.locator('.modal').evaluate('(el)=>el.inert')
-    page.locator('[data-nika="story-ai"]').click()
-    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'thinking'
-    stage('nika-story')
-    page.keyboard.press('Escape')
-    assert page.locator('.modal').count() == 1 and not page.locator('.modal').evaluate('(el)=>el.inert')
-    action('close-modal')
-    action('astronomy'); action('archive')
-    assert page.locator('.library-card').count() >= 24
-    stage('archive')
-    page.locator('.library-card').first.click()
-    assert page.locator('.modal img').count() > 0
-    action('close-modal')
-    dialog('about')
-    dialog('astronomy')
-    action('start')
+    assert '1 из 3' in page.locator('.route-story__card').inner_text()
+    action('collect-map')
+    collect_sky(data['childIds'][1])
+    collect_sky(data['childIds'][2])
+    assert page.locator('.sky-atlas__complete').is_visible()
+    page.locator('.sky-atlas__close').click()
+    assert 'Все три снимка уже в подборке' in page.locator('.route-story__card').inner_text()
+    action('complete-collection')
     assert state()['phase'] == 'tutorial'
     before_quest_labels = state()['labels'].copy()
     quest('tutorial', before_quest_labels)
-    assert page.locator('[data-action="labels"]').last.bounding_box()['y'] + page.locator('[data-action="labels"]').last.bounding_box()['height'] <= page.viewport_size['height']
     assert page.locator('.quest-scene [data-action="talk"]').count() == 0
     stage('tutorial')
-    # Full-image viewer remains the footer action; crop zoom stays inline.
-    tutorial_zoom = page.locator('.workbench > .station ~ .film-footer [data-action="zoom"], .workbench .film-footer [data-action="zoom"]').first
+    tutorial_zoom = page.locator('.workbench .film-footer [data-action="zoom"]').first
     assert tutorial_zoom.count() == 1
     dialog('zoom')
     assert state()['labels'] == before_quest_labels
-    action('home'); action('start')
-    assert state()['phase'] == 'tutorial'
     action('labels')
-    collect_sky(data['childIds'][0],drag=True)
     assert state()['phase'] == 'labels'
     assert page.locator('[data-action="run"]').is_disabled()
     first_id = data['childIds'][0]
@@ -238,9 +230,6 @@ def run(page, entry, capture=False, offline=True):
         stage('labels-' + str(index + 1))
         if index < len(data['childIds']) - 1:
             action('next')
-            assert page.locator('.missing-photo').is_visible()
-            page.locator('.missing-photo [data-action=sky]').click()
-            collect_sky(data['childIds'][index+1])
     action('home'); action('resume')
     assert state()['phase'] == 'labels'
     assert all(state()['labels'][i] == objects[i]['label'] for i in data['childIds'])
@@ -289,6 +278,47 @@ def run(page, entry, capture=False, offline=True):
     action('finish')
     assert state()['phase'] == 'final' and state()['finalSeen']
     stage('final')
+    action('sky')
+    assert page.locator('.sky-atlas__panel.browse').is_visible()
+    page.locator('.sky-atlas [data-filter="ai"]').click()
+    assert page.locator('.sky-atlas [data-filter="ai"]').evaluate("el => el.classList.contains('active')")
+    page.locator('.sky-atlas [data-filter="all"]').click()
+    assert page.locator('.sky-atlas [data-filter="all"]').evaluate("el => el.classList.contains('active')")
+    marker = page.evaluate("""() => {
+      const item=GALAXY_ARCHIVE.images.find(i=>i.id==='archive_m101');
+      const c=galaxyGame.sky.state().camera,w=innerWidth,h=innerHeight;
+      const aim=w>=701&&h<=500?[w*.72,h*.55]:w<700?[w*.55,h*.4]:[w/2,h/2];
+      const delta=((item.ra-c.ra+180)%360+360)%360-180;
+      return {x:aim[0]-delta*c.zoom,y:aim[1]-(item.dec-c.dec)*c.zoom};
+    }""")
+    page.mouse.click(marker['x'], marker['y'])
+    page.wait_for_selector('.modal')
+    assert page.locator('.modal h2').inner_text() == 'Messier 101'
+    action('close-modal')
+    research = page.locator('[data-research-id]').first
+    if research.count():
+        research.click()
+        assert page.locator('.modal img').count() > 0
+        assert page.locator('.sky-atlas').evaluate('(el)=>el.inert')
+        action('close-modal')
+        assert not page.locator('.sky-atlas').evaluate('(el)=>el.inert')
+    page.locator('.sky-atlas__close').click()
+    action('astronomy')
+    assert page.locator('.library-card').count() >= 16
+    page.locator('.library-card').first.click()
+    assert page.locator('.modal img').count() > 0
+    page.locator('.modal [data-action="talk"]').click()
+    assert page.locator('.modal').evaluate('(el)=>el.inert')
+    page.locator('[data-nika="story-ai"]').click()
+    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'thinking'
+    page.keyboard.press('Escape')
+    assert page.locator('.modal').count() == 1 and not page.locator('.modal').evaluate('(el)=>el.inert')
+    action('close-modal')
+    action('astronomy'); action('archive')
+    assert page.locator('.library-card').count() >= 24
+    page.locator('.library-card').first.click()
+    assert page.locator('.modal img').count() > 0
+    action('close-modal')
     if page.locator('[data-action="cnn"]').count():
         action('cnn')
         assert page.locator('.cnn-model').count() == 1
