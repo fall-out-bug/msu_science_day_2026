@@ -33,7 +33,7 @@
     const selectedClass = classes.find(item => item.id === (options.initialSelected || options.selected));
     function portraitMood() {
       if (options.phase === 'repair' || stage === 'hint') return 'thinking';
-      return stage === 'inspected' || options.initialSelected ? 'warm' : 'curious';
+      return stage === 'inspected' || options.initialSelected ? 'warm' : 'thinking';
     }
 
     function dialogue() {

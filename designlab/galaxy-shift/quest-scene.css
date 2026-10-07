@@ -23,9 +23,9 @@
 .quest-scene__photo-caption{padding:5px 10px;font-size:.65rem;border-radius:0 0 8px 8px}
 .quest-scene__inspect-controls{margin-top:5px;gap:8px}
 .quest-scene__inspect-controls button{min-height:30px;padding:4px 10px;font-size:.72rem}
-.quest-scene__nika{height:100%;min-height:0;overflow:visible}
+.quest-scene__nika{height:100%;min-height:0;overflow:visible;transform:translateY(30px)}
 .quest-scene__nika img{width:100%;height:100%;max-width:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 8px 20px #0008)}
-.quest-scene__conversation{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:24px;margin-top:8px;padding:10px 16px;min-height:84px;background:#f7f2e5f5;border:1px solid #fff9;box-shadow:0 6px 24px #0003}
+.quest-scene__conversation{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:24px;margin-top:8px;padding:10px 16px;min-height:84px;background:#f7f2e5;border:1px solid #fff9;box-shadow:0 6px 24px #0003;position:relative;z-index:1}
 .quest-scene__line p{font-family:inherit;font-size:.9rem;line-height:1.35;margin-top:4px}
 .quest-scene__observation button{font-size:.73rem;min-height:30px;padding:5px 9px}
 .quest-scene__observation>span{margin-bottom:4px}
@@ -45,3 +45,5 @@
 .workbench--quest .film-footer>.text-button{background:#f7f2e5ed;padding:8px 12px;border-radius:8px}
 @media(min-height:950px){.quest-scene__line p{font-size:1.05rem}.quest-scene__conversation{min-height:100px}.quest-scene__label{min-height:56px}}
 .workbench--quest:has(.quest-scene__labels) .quest-scene__main{height:clamp(290px,calc(100svh - 455px),620px)}
+
+.workbench--quest .tutorial-next{margin:6px 0 0;padding:7px 12px;border-radius:8px;background:#f7f2e5;color:#173d40;font-size:.8rem;line-height:1.4}
