@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "pages": [
+    "galaxy-game-design.html",
+    "goal.html",
+    "baseline.html",
+    "technical-plan.html",
+    "acceptance.html",
+    "text-review.html",
+    "release.html"
+  ],
+  "zipEntries": 132,
+  "jpegResources": 47,
+  "brokenLinksOrAnchors": [],
+  "historicalSha256": "31e26ea7bb4f8ba3f1b656c9fb89a4b27078174ff14871a7358fcd0430a1ac10",
+  "historicalMatch": true,
+  "newPagesWithDataReviewId": {},
+  "archivedHtmlWithDataReviewId": [
+    "first-shift-scenario.html",
+    "first-shift-scenario-before-nika.html",
+    "galaxy-game-design-before-nika.html",
+    "galaxy-game-design-20261006.html"
+  ],
+  "browser": [
+    {
+      "page": "galaxy-game-design.html",
+      "pageErrors": [],
+      "failedRequests": [],
+      "httpRequests": []
+    },
+    {
+      "page": "goal.html",
+      "pageErrors": [],
+      "failedRequests": [],
+      "httpRequests": []
+    },
+    {
+      "page": "baseline.html",
+      "pageErrors": [],
+      "failedRequests": [],
+      "httpRequests": []
+    },
+    {
+      "page": "technical-plan.html",
+      "pageErrors": [],
+      "failedRequests": [],
+      "httpRequests": []
+    },
+    {
+      "page": "acceptance.html",
+      "pageErrors": [],
+      "failedRequests": [],
+      "httpRequests": []
+    },
+    {
+      "page": "text-review.html",
+      "pageErrors": [],
+      "failedRequests": [],
+      "httpRequests": []
+    },
+    {
+      "page": "release.html",
+      "pageErrors": [],
+      "failedRequests": [],
+      "httpRequests": []
+    }
+  ],
+  "avMatrixJpegResources": 32,
+  "jpegScope": "32 A/V matrix frames plus 15 other JPEG evidence and historical assets; existence only, not image inspection.",
+  "finalBuild": {
+    "status": "PASS",
+    "zipEntries": 133,
+    "newPages": 7,
+    "scope": "final paths/fragments and historical bytes checked after report and normal-motion evidence update"
+  }
+}

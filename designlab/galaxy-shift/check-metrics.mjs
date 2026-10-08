@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import './metrics.js';
+const c=['a','b','c'], calc = pairs => GalaxyMetrics.calculate(pairs.map(([expected,predicted])=>({expected,predicted})),c);
+const correct=calc([['a','a'],['b','b'],['c','c']]);
+assert.equal(correct.accuracy,1); assert.equal(correct.macroF1,1);
+const wrong=calc([['a','b'],['b','c'],['c','a']]);
+assert.equal(wrong.accuracy,0); assert.equal(wrong.macroF1,0); assert.deepEqual(wrong.perClass.map(x=>x.f1),[0,0,0]);
+const noPrediction=calc([['a','b'],['b','b'],['c','b']]);
+assert.equal(noPrediction.perClass[0].precision,null); assert.equal(noPrediction.perClass[0].recall,0); assert.equal(noPrediction.perClass[0].f1,0);
+assert.equal(noPrediction.perClass[1].precision,1/3); assert.equal(noPrediction.perClass[1].recall,1); assert.equal(noPrediction.perClass[1].f1,.5); assert.equal(noPrediction.macroF1,1/6);
+const absent=calc([['a','a']]); assert.equal(absent.perClass[2].f1,null);assert.equal(absent.macroF1,1/3);
+assert.equal(calc([]).accuracy,null);assert.equal(calc([]).macroF1,null);
+assert.throws(()=>calc([['unknown','b']]));
+console.log(JSON.stringify({status:'PASS',checks:['perfect','all-wrong','no-predicted-class','absent-class','empty','invalid-class']}));

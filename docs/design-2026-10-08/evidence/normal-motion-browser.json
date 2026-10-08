@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "version": "2026.10.09-complete.1",
+  "motion": "no-preference",
+  "viewport": "1280x720",
+  "checks": [
+    "baseline full_route: A01/A02/A04/A09/A11/A12"
+  ],
+  "errors": [],
+  "runtimeSha256": {
+    "index.html": "971b6843abf5f2a8baf5e4c25130976e3191eb7cf048960a1534196fa66f894b",
+    "game.js": "cd9e52ba26359bbfc4d9f41c5bfa0d01a899771ac4774241c2564f8595c15fef",
+    "galaxy.css": "4170d595933f9bb4aaae9d492201ff5e9b20d20c6318ee19aca424079e6238ef",
+    "cnn-session.js": "0a32f8a9ebdf96e04e58fc0c5b32f109e3bd84f5545a87708f360d8fc525e983",
+    "cnn-architectures.js": "3b66d05d1cab7eb51e2d0f2d85b1878a4e39b7ef1b891a8889b0cdb28c4dda6b",
+    "cnn-results-loader.js": "95642d5fe21b0de310f4f97a013285a1c0e0d1e1569fff62cd87616469b5db88",
+    "metrics.js": "4e9f1df77c20459fd27e78f21dde3c787ade6944d7b13d27ac2a67781dc03e3a",
+    "telemetry.js": "bb8f0fec384abeda5a56533fe8498b5d7890ad3a85f8bd6f84fea9988cc60765",
+    "quest-scene.js": "cb7feaa18e07fb352799288c1f732366e74b4c62fe856e0f6eededa1bd71ff28",
+    "sky.js": "9ec4bf8c3bf92bf51e3e578e9347d89fd25c994fc9cd822370fde40d21976769"
+  },
+  "assertionChecks": 0
+}

@@ -17,10 +17,41 @@
   <div id="loading" role="status">Открываем обсерваторию<span></span></div>
   <main id="game" class="game-shell"></main>
   <noscript>Для запуска игры включите JavaScript. Игра работает без сети.</noscript>
+  <script>
+  (function () {
+    function fail(message) {
+      if (document.body.dataset.coreResourceFailure) return;
+      document.body.dataset.coreResourceFailure = 'true';
+      document.querySelector('#loading')?.remove();
+      const root = document.querySelector('#game');
+      if (!root) return;
+      document.querySelectorAll('.modal,.nika-dialogue,.sky-atlas').forEach(node => node.remove());
+      root.inert = false;
+      root.innerHTML = '<section class="workbench"><section class="station resource-failure"><h1 tabindex="-1">Не удалось открыть игру</h1><p>Не загрузилась основная часть материалов. Повтори загрузку; если игра открыта из ZIP, распакуй архив целиком.</p><div class="navigation"><button class="primary" data-core-retry>Повторить загрузку</button></div></section></section>';
+      if (typeof message === 'string') root.querySelector('p').textContent = message;
+      root.querySelector('[data-core-retry]').addEventListener('click', () => location.reload());
+      root.querySelector('h1').focus();
+    }
+    globalThis.galaxyCoreFailure = fail;
+    document.addEventListener('error', event => {
+      const script = event.target;
+      if (script?.tagName === 'SCRIPT' && !script.async) fail();
+      if (script?.tagName === 'IMG' && /\/assets\/galaxies\//.test(script.src)) {
+        fail('Не удалось загрузить научный снимок. Повтори загрузку; если игра открыта из ZIP, распакуй архив целиком.');
+      }
+    }, true);
+  })();
+  </script>
+  <script src="version.js"></script>
+  <script src="lesson-storage.js"></script>
+  <script src="telemetry.js"></script>
   <script src="data.js"></script>
   <script src="archive-data.js"></script>
   <script src="discovery-data.js"></script>
+  <script src="cnn-architectures.js"></script>
+  <script src="cnn-results-loader.js"></script>
   <script src="cnn-experiments.js"></script>
+  <script src="metrics.js"></script>
   <script src="cnn-session.js"></script>
   <script src="world.js"></script>
   <script src="astronomy.js"></script>

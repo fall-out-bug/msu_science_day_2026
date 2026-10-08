@@ -9,6 +9,11 @@
     }
 
     const protocol = table.protocol;
+    if (typeof protocol.protocolVersion !== 'string' || protocol.datasetVersion !== data.datasetVersion) throw new Error('Версия учебного опыта не совпадает с данными.');
+    const registry = root.GalaxyArchitectures;
+    if (!registry?.configurations?.length) throw new Error('Не удалось открыть схемы нейронной сети.');
+    const architectureInfo = id => registry.get(String(id));
+    const phases = ['intro', 'tutorial', 'labels', 'review', 'repair', 'final'];
     const classes = (protocol.classes || data.classes || []).map(item =>
       typeof item === 'string' ? item : item.id
     );
@@ -46,8 +51,17 @@
       const experiment = key && table.experiments[key];
       const run = experiment?.architectures?.[architecture];
 
-      if (!run || run.key !== key || run.blocks !== Number(architecture)) {
-        throw new Error('Для этих меток и устройства модели нет подготовленного опыта.');
+      if (!run || run.key !== key || run.architectureId !== String(architecture) || run.blocks !== architectureInfo(architecture)?.depth) {
+        throw new Error('Для этих меток и архитектуры модели нет подготовленного опыта.');
+      }
+      for (const scope of ['review','final']) {
+        const result = run[scope], ids = protocol[scope + 'Ids'];
+        if (!result || !Array.isArray(result.predictions) || result.total !== ids.length || result.predictions.length !== ids.length ||
+            result.predictions.some((item,i) => item.id !== ids[i] || !classes.includes(item.predicted) ||
+              item.expected !== data.images.find(image => image.id === item.id)?.label) ||
+            result.correct !== result.predictions.filter(item => item.expected === item.predicted).length) {
+          throw new Error('Результат опыта повреждён. Нужна полная версия материалов.');
+        }
       }
       return { key, architecture: String(architecture), run };
     }
@@ -60,7 +74,7 @@
           ...initial,
           ...Object.fromEntries(childIds.map(id => [id, null]))
         },
-        architecture: '1',
+        architecture: 'd1-r',
         labelKey: null,
         current: null,
         baseline: null,
@@ -141,14 +155,14 @@
         case 'SET_ARCHITECTURE': {
           requirePhase('review');
           const architecture = String(action.architecture);
-          if (!['1', '2'].includes(architecture)) {
-            throw new Error('Можно сравнить только один или два свёрточных блока.');
+          if (!architectureInfo(architecture)) {
+            throw new Error('Такая схема не входит в подготовленный опыт.');
           }
           if (!state.repairCheckedLabelKey || state.repairCheckedLabelKey !== signature(state.labels)) {
             throw new Error('Сначала проверь старые метки и повтори проверку.');
           }
           if (state.architecture === architecture) {
-            state = { ...state, notice: 'Устройство модели не изменилось.' };
+            state = { ...state, notice: 'Архитектура модели не изменилась.' };
             break;
           }
 
@@ -158,7 +172,7 @@
             architectureBaseline: state.current || state.architectureBaseline,
             current: null,
             modelSettings: true,
-            notice: 'Устройство модели изменилось. Проверь её на тех же снимках.'
+            notice: 'Архитектура модели изменилась. Проверь её на тех же снимках.'
           };
           break;
         }
@@ -171,7 +185,7 @@
           state = {
             ...state,
             modelSettings: true,
-            notice: 'Выбери устройство модели и повтори проверку.'
+            notice: 'Выбери архитектуру модели и повтори проверку.'
           };
           break;
 
@@ -187,7 +201,7 @@
             architecture: found.architecture,
             result: found.run
           };
-          const unchanged = state.current && state.current.resultKey === current.resultKey;
+          const unchanged = state.current && state.current.resultKey === current.resultKey && state.current.architecture === current.architecture;
           const repaired = state.phase === 'repair';
 
           state = {
@@ -199,7 +213,7 @@
             baseline: state.baseline || current,
             correctedReview: repaired ? current : state.correctedReview,
             repairCheckedLabelKey: repaired ? found.key : state.repairCheckedLabelKey,
-            notice: unchanged ? 'Метки и устройство те же: показан тот же подготовленный опыт.' : ''
+            notice: unchanged ? 'Метки и архитектура те же: показан тот же подготовленный опыт.' : ''
           };
           break;
         }
@@ -247,11 +261,74 @@
       return snapshot();
     }
 
+    // Save inputs and result identities only. Restoring always resolves the
+    // scientific answers from the verified table, never from browser storage.
+    function serialize() {
+      const reference = run => run ? { labelKey: run.labelKey, architecture: run.architecture } : null;
+      return {
+        schemaVersion: 1,
+        datasetVersion: protocol.datasetVersion,
+        protocolVersion: protocol.protocolVersion,
+        state: {
+          phase: state.phase, resumePhase: state.resumePhase,
+          labels: { ...state.labels }, architecture: state.architecture,
+          baseline: reference(state.baseline), current: reference(state.current),
+          correctedReview: reference(state.correctedReview),
+          architectureBaseline: reference(state.architectureBaseline),
+          repairCheckedLabelKey: state.repairCheckedLabelKey,
+          reviewedOldIds: [...state.reviewedOldIds],
+          modelSettings: state.modelSettings, finalSeen: state.finalSeen
+        }
+      };
+    }
+
+    function restore(saved) {
+      const fail = () => { throw new Error('Сохранённая смена несовместима с этой версией опыта. Начни новую смену.'); };
+      if (!saved || saved.schemaVersion !== 1 || saved.datasetVersion !== protocol.datasetVersion ||
+          saved.protocolVersion !== protocol.protocolVersion) fail();
+      const input = saved.state;
+      if (!input || !phases.includes(input.phase) || !phases.includes(input.resumePhase) ||
+          input.resumePhase === 'intro' || !architectureInfo(input.architecture) ||
+          !input.labels || Object.keys(input.labels).length !== editable.length ||
+          editable.some(id => !Object.hasOwn(input.labels, id) ||
+            !(classes.includes(input.labels[id]) || childIds.includes(id) && input.labels[id] === null)) ||
+          !Array.isArray(input.reviewedOldIds) || input.reviewedOldIds.some(id => !oldIds.includes(id)) ||
+          new Set(input.reviewedOldIds).size !== input.reviewedOldIds.length ||
+          typeof input.modelSettings !== 'boolean' || typeof input.finalSeen !== 'boolean') fail();
+      const key = signature(input.labels);
+      const reference = ref => {
+        if (ref === null) return null;
+        if (!ref || typeof ref.labelKey !== 'string' || ref.labelKey.length !== editable.length ||
+            !architectureInfo(ref.architecture) || [...ref.labelKey].some(char => !/^[0-2]$/.test(char))) fail();
+        const labels = Object.fromEntries(editable.map((id, i) => [id, classes[Number(ref.labelKey[i])]]));
+        const selected = lookup(labels, ref.architecture);
+        return { labelKey: selected.key, resultKey: selected.key, architecture: selected.architecture, result: selected.run };
+      };
+      const current = reference(input.current), baseline = reference(input.baseline);
+      const correctedReview = reference(input.correctedReview), architectureBaseline = reference(input.architectureBaseline);
+      if (current && (current.labelKey !== key || current.architecture !== input.architecture)) fail();
+      if (input.repairCheckedLabelKey !== null &&
+          (input.repairCheckedLabelKey !== key || input.reviewedOldIds.length !== oldIds.length)) fail();
+      const effectivePhase = input.phase === 'intro' ? input.resumePhase : input.phase;
+      if (['review', 'repair', 'final'].includes(effectivePhase) && (!key || !baseline)) fail();
+      if (effectivePhase === 'final' && (!current || input.repairCheckedLabelKey !== key || !input.finalSeen)) fail();
+      if (input.modelSettings && (effectivePhase !== 'review' || input.repairCheckedLabelKey !== key)) fail();
+      if (correctedReview && correctedReview.labelKey !== key || architectureBaseline && architectureBaseline.labelKey !== key) fail();
+      state = {
+        ...fresh(), ...input, labels: { ...input.labels }, reviewedOldIds: [...input.reviewedOldIds],
+        labelKey: key, current, baseline, correctedReview, architectureBaseline,
+        phase: 'intro', resumePhase: effectivePhase, notice: 'Смена восстановлена. Можно продолжить.'
+      };
+      return snapshot();
+    }
+
     return {
       get state() {
         return snapshot();
       },
       dispatch,
+      serialize,
+      restore,
       protocol
     };
   }

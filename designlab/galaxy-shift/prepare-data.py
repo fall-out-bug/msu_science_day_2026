@@ -65,7 +65,7 @@ ITEMS = [
     ("review_ngc3982", "NGC 3982", "opo1036a", "spiral", "review", "review", "Спиральная галактика, на диск которой мы смотрим почти сверху: видны рукава.", "NASA, ESA, and the Hubble Heritage Team (STScI/AURA)."),
     ("review_ngc4762", "NGC 4762", "potw1443a", "edge_on", "review", "review", "ESA/Hubble описывает яркую полосу как вид с ребра; ответ повторно используется в сравнении.", "ESA/Hubble & NASA."),
     ("final_ngc2768", "NGC 2768", "potw1548a", "smooth", "final", "final", "Эллиптическая галактика с мягким овальным профилем.", "ESA/Hubble, NASA and S. Smartt (Queen's University Belfast)."),
-    ("final_ngc6814", "NGC 6814", "potw1619a", "spiral", "final", "final", "ESA/Hubble называет NGC 6814 фронтальной спиральной галактикой.", "ESA/Hubble & NASA. Acknowledgement: Judy Schmidt (Geckzilla)."),
+    ("final_ngc6814", "NGC 6814", "potw1619a", "spiral", "final", "final", "Спиральная галактика: мы смотрим на её диск почти сверху.", "ESA/Hubble & NASA. Acknowledgement: Judy Schmidt (Geckzilla)."),
     ("final_ngc5775", "NGC 5775", "potw1119a", "edge_on", "final", "final", "ESA/Hubble описывает тонкий профиль NGC 5775 как наблюдаемый с ребра.", "ESA/Hubble & NASA."),
 ]
 

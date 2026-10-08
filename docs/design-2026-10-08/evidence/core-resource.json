@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "environment": "temporary local HTTP server and headless Chromium",
+  "cases": [
+    {"case": "normal boot", "coreFallback": false, "pageErrors": 0},
+    {"case": "data.js aborted", "coreFallback": true, "pageErrors": 0},
+    {"case": "game.js aborted", "coreFallback": true, "pageErrors": 0},
+    {"case": "lesson-storage.js aborted", "coreFallback": true, "pageErrors": 0},
+    {"case": "metrics.js aborted", "coreFallback": true, "pageErrors": 0},
+    {"case": "retry after data.js failure", "coreFallback": false, "gameReady": true}
+  ],
+  "fallback": "A captured resource-error listener handles every non-async script during initial parsing and presents retry plus full-ZIP unpack guidance.",
+  "separation": "CNN result shards are appended with script.async=true in cnn-results-loader.js, so this handler does not replace their dedicated error path or the saved-session restore screen.",
+  "fileProtocol": "Normal file:// boot was previously observed with no HTTP(S) requests; this change adds no fetch."
+}

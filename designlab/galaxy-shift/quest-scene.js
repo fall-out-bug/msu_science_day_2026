@@ -4,9 +4,9 @@
   'use strict';
   const points = new Map();
   const observations = {
-    arms: 'Тебе бросились в глаза рукава. Теперь нажми на ту часть снимка, которую хочешь рассмотреть ближе.',
-    smooth: 'Ты заметил гладкое свечение. Нажми на участок снимка, который хочешь рассмотреть ближе.',
-    edge: 'Ты заметил галактику, видимую с ребра. Нажми на ту часть снимка, которую хочешь рассмотреть ближе.'
+    arms: 'Проверим, видны ли на снимке спиральные рукава. Нажми на участок, который хочешь рассмотреть ближе.',
+    smooth: 'Рассмотрим, насколько гладко распределён свет. Нажми на участок снимка, который хочешь увеличить.',
+    edge: 'Проверим, похожа ли галактика на узкий диск, видимый с ребра. Нажми на участок, который хочешь рассмотреть ближе.'
   };
 
   function esc(value) {
@@ -50,7 +50,7 @@
       const labels = isTutorial ? '' : `<section class="quest-scene__labels" aria-label="Выбор метки">
         <div class="quest-scene__label-heading"><span>ТВОЯ МЕТКА</span><b>${old ? 'Подтверди старую метку или выбери другую' : 'Выбери одну метку для снимка'}</b></div>
         ${old ? `<p class="quest-scene__old">В архиве было: <b>${esc(old)}</b></p>` : ''}
-        <div class="quest-scene__label-list">${classes.map(item => `<button type="button" class="quest-scene__label ${esc(item.id)} ${options.selected === item.id ? 'is-selected' : ''}" data-quest-label="${esc(item.id)}" data-label-id="${esc(image.id)}" data-label="${esc(item.id)}" aria-pressed="${options.selected === item.id}"><i aria-hidden="true"></i><span><b>${esc(item.label)}</b><small>${esc(item.hint || '')}</small></span><em aria-hidden="true">${options.selected === item.id ? '✓' : '+'}</em></button>`).join('')}</div>
+        <div class="quest-scene__label-list">${classes.map(item => `<button type="button" class="quest-scene__label ${esc(item.id)} ${options.selected === item.id ? 'is-selected' : ''}" data-quest-label="${esc(item.id)}" data-label-id="${esc(image.id)}" data-label="${esc(item.id)}" aria-pressed="${options.selected === item.id}"><i class="morphology-symbol ${esc(item.id)}" aria-hidden="true"></i><span><b>${esc(item.label)}</b><small>${esc(item.hint || '')}</small></span><em aria-hidden="true">${options.selected === item.id ? '✓' : '+'}</em></button>`).join('')}</div>
       </section>`;
       host.innerHTML = `<section class="quest-scene" data-quest-phase="${esc(options.phase || '')}">
         <div class="quest-scene__main">

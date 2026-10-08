@@ -31,6 +31,6 @@
   }
   addEventListener('resize',resize);
   addEventListener('pointermove',event=>{if(reduce.matches||target!==0)return;mouseX=event.clientX/innerWidth-.5;mouseY=event.clientY/innerHeight-.5;},{passive:true});
-  resize();ready.then(()=>{document.querySelector('#loading')?.remove();if(!ctx)document.body.classList.add('canvas-fallback');requestAnimationFrame(draw);}).catch(error=>{const loading=document.querySelector('#loading');if(!loading)return;loading.textContent=error.message+'. Распакуйте игру целиком.';loading.classList.add('failed');});
+  resize();ready.then(()=>{if(!document.body.dataset.coreResourceFailure)document.querySelector('#loading')?.remove();if(!ctx)document.body.classList.add('canvas-fallback');requestAnimationFrame(draw);}).catch(error=>{if(document.body.dataset.coreResourceFailure)return;const loading=document.querySelector('#loading');if(!loading)return;loading.textContent=error.message+'. Перезагрузи страницу. Если игра открыта из ZIP, распакуй архив целиком.';loading.classList.add('failed');});
   globalThis.galaxyWorld={ready,setPhase(next){phase=next;dirty=true;target=next==='intro'||next==='final'?0:1;mouseX=0;mouseY=0;canvas.setAttribute('aria-label','Обсерватория ночью: Ника за рабочим столом, за дверью звёздное небо');},stats(){return {frames,draws,width,height,phase,elapsed:performance.now()-started,canvas:!!ctx,sceneBounds};}};
 })();

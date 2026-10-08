@@ -1,0 +1,13 @@
+# Root integrates this service and a POST-only nginx location into the public compose stack.
+services:
+  telemetry:
+    build: ./tools/galaxy-telemetry
+    image: ${GALAXY_TELEMETRY_IMAGE:-sd2026-telemetry:complete-20261008-1}
+    read_only: true
+    restart: unless-stopped
+    volumes:
+      - ${GALAXY_TELEMETRY_DATA_DIR:?Set the persistent telemetry directory}:/data
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+    cpus: 0.5

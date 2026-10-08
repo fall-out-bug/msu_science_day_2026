@@ -17,3 +17,7 @@ RUN cp /usr/share/nginx/html/legacy/night-shift.zip /usr/share/nginx/html/night-
 # The build folder is an offline-ready, hash-manifested game release.
 COPY designlab/galaxy-shift/releases/web/ /usr/share/nginx/html/
 COPY designlab/galaxy-shift/releases/galaxy-shift.zip /usr/share/nginx/html/galaxy-shift.zip
+
+# Updated design pages coexist with the unchanged historical comment anchors.
+COPY designlab/comparison/docs/ /usr/share/nginx/html/docs/
+COPY tools/galaxy-release/nginx.conf /etc/nginx/conf.d/default.conf

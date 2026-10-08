@@ -1,0 +1,88 @@
+{
+  "criterion": "A14 missing scientific JPEG recovery",
+  "failure": {
+    "core_failure": true,
+    "heading": "Не удалось открыть игру",
+    "message": "Не удалось загрузить научный снимок. Повтори загрузку; если игра открыта из ZIP, распакуй архив целиком.",
+    "label_buttons": 0,
+    "run_buttons": 0,
+    "modal_count": 0,
+    "root_inert": false,
+    "saved_labels": {
+      "old_ngc3610": "smooth",
+      "old_ngc7090": "edge_on",
+      "fixed_ngc691": "spiral",
+      "child_m85": "smooth",
+      "child_ic5332": "spiral",
+      "child_ngc5023": "edge_on",
+      "fixed_ngc3318": "spiral"
+    }
+  },
+  "recovery": {
+    "phase": "labels",
+    "naturalWidth": 1280,
+    "label_buttons": 3,
+    "labels_preserved": true
+  },
+  "normal_control": {
+    "core_failure": false,
+    "image_width": 1280,
+    "label_buttons": 3,
+    "meaning": "Normal path after retry: no core-failure screen, the image decoded and all three label controls are rendered."
+  },
+  "failed_requests": [
+    {
+      "url": "http://127.0.0.1:41881/assets/galaxies/potw1905a.jpg",
+      "failure": "net::ERR_FAILED"
+    }
+  ],
+  "archive_scope": "Archive records use the same assets/galaxies/ URL family (including assets/galaxies/archive/...); the document-level IMG error handler matches that family, so the same failure screen applies before archive controls can be used.",
+  "after_preview": "a14-missing-current-label-image-after.jpg",
+  "visual_note": "Independent visual review: high contrast, readable text and visible Retry at 1280×720 and 853×480; no game controls remain.",
+  "contrast_recheck": [
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "resource_failure": true,
+      "panel_box": {
+        "x": 240,
+        "y": 106,
+        "width": 800,
+        "height": 217.578125
+      },
+      "retry_visible": true,
+      "labels": 0,
+      "screenshot": "m85-1280.png"
+    },
+    {
+      "viewport": {
+        "width": 853,
+        "height": 480
+      },
+      "resource_failure": true,
+      "panel_box": {
+        "x": 26.5,
+        "y": 106,
+        "width": 800,
+        "height": 209.890625
+      },
+      "retry_visible": true,
+      "labels": 0,
+      "screenshot": "m85-853.png"
+    }
+  ],
+  "archive_e2e": {
+    "method": "Reached free sky map after final through the normal UI, aborted assets/galaxies/archive/heic1602a.jpg (NGC 4889), then clicked its actual map marker at the current map projection.",
+    "result": "PASS",
+    "core_failure": true,
+    "message": "Не удалось загрузить научный снимок. Повтори загрузку; если игра открыта из ZIP, распакуй архив целиком.",
+    "modal_or_map_controls_remaining": false
+  },
+  "after_preview_853": "a14-missing-current-label-image-853.jpg",
+  "restore_failure": {
+    "status": "STATIC_CHECK",
+    "evidence": "game.js renders the restore-resource catch branch with class station resource-failure; galaxy.css applies the same light panel, dark text, wrapping and no animation. Browser reproduction needs a saved state with an unavailable calculated-result shard and was not rerun in this bounded pass."
+  }
+}

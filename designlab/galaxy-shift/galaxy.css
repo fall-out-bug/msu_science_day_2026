@@ -67,6 +67,10 @@ body{background:#08141e}.sr-only{position:absolute;width:1px;height:1px;margin:-
 @media(max-height:550px) and (min-width:701px){.room .welcome{bottom:20px;width:330px}.room-dialogue{font-size:.78rem;padding:11px}.welcome>.primary{padding:9px 14px;min-height:40px}.science-hotspot{top:29%}.sky-hotspot{top:29%;left:40%}.hotspot small{display:none}}
 @media(prefers-reduced-motion:reduce){.photo-stage,.stamp-feedback,.result-grid .result{animation:none}}
 
+/* A shared visual key keeps the first guided example and later labels comparable. */
+.class-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0;padding:10px 12px;background:#f7f2e5e8;border-radius:10px}.class-legend>span{grid-column:1/-1;font-size:.62rem;font-weight:800;letter-spacing:.11em;color:var(--teal)}.class-legend__item{display:grid;grid-template-columns:30px 1fr;column-gap:7px;align-items:center;font-size:.76rem}.class-legend__item b{font-size:.76rem}.class-legend__item small{font-size:.64rem;color:var(--muted);line-height:1.2}.program-quiet{min-height:32px;border:0;border-radius:8px;background:#f7f1df;color:#174b4a;padding:7px 10px;font:700 .75rem/1.2 system-ui}
+.final-room{padding:86px max(24px,calc((100vw - 1040px)/2)) 24px;overflow:auto}.final-summary{max-width:760px;margin:0 auto;padding:20px 24px;background:#f7f2e5f5;border-radius:16px;box-shadow:var(--shadow)}.final-summary h1{font:400 clamp(1.65rem,3vw,2.25rem)/1.12 Georgia,serif;margin:7px 0 14px}.final-summary .mentor{max-width:none}.final-summary .navigation{justify-content:flex-end;margin-top:13px;flex-wrap:wrap}.research-board{display:block;max-width:960px;margin:14px auto 0;padding:18px;background:#f5f0dd;border:5px solid #a78051;border-radius:8px;box-shadow:var(--shadow);transform:none}.research-board>summary{cursor:pointer;display:flex;gap:12px;align-items:baseline}.research-board>summary>b{font-size:1rem}.research-board .result-grid{margin-top:14px}.metrics{margin-top:15px;font-size:.82rem;line-height:1.45}.metrics summary{font-weight:800;cursor:pointer}.metric-table{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;margin:10px 0;background:#d3d4c8}.metric-table>*{padding:5px;background:#fffdf3;font-size:.7rem}.architecture-editor .architecture-tail ol{display:flex;gap:8px;list-style:none;margin:12px 0;padding:0;flex-wrap:wrap}.architecture-tail li{display:flex;align-items:center;gap:6px;padding:8px;background:#e4eee3;border-radius:8px}.architecture-tail .text-button{min-height:28px;font-size:.68rem}.architecture-add,.architecture-depth{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}.architecture-add button,.architecture-depth button{min-height:36px;border:1px solid #9ab1ae;border-radius:8px;background:#f7f1df;padding:7px 10px;color:#174b4a;font-weight:700}.architecture-depth button.selected{background:#176c68;color:#fff}
+
 /* The room art is contained by world.js; keep controls away from Nika's face. */
 @media(max-width:700px){.room .welcome{bottom:18px;left:10px;right:10px}.room .room-dialogue{background:#f7efdff2}.science-hotspot{left:2%;top:46%}.sky-hotspot{left:2%;top:14%}.room .desk-hotspot{right:2%;top:72%}.room-footnote{display:none}}
 @media(min-width:701px) and (max-height:550px){.room .welcome{left:2%;bottom:12px}.science-hotspot{left:2%;top:36%}.sky-hotspot{left:28%;top:27%}.room .desk-hotspot{right:2%;top:68%}}
@@ -158,3 +162,31 @@ body{background:#08141e}.sr-only{position:absolute;width:1px;height:1px;margin:-
 .review-next h2{margin:0 0 8px;font-size:1.05rem}
 .review-next p{margin:0 0 10px;font-size:.9rem;line-height:1.45;max-width:78ch}
 .review-next .navigation{margin-top:8px;padding-top:0;justify-content:flex-start;flex-wrap:wrap}
+
+/* The editable tail is visually distinct from the fixed input/output. */
+.architecture-tail{padding:14px 16px;border:1px solid #b8c9bc;border-radius:12px;background:#fffaf0}
+.architecture-fixed{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:.85rem;line-height:1.6}
+.architecture-fixed small{color:var(--muted)}
+.architecture-tail li{flex:1;min-width:180px;max-width:310px;flex-direction:column;align-items:flex-start;border:1px solid #a4beb0;cursor:grab}
+.architecture-tail li>div{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.architecture-tail li small{font-size:.65rem;color:var(--muted)}
+.architecture-add button:disabled{opacity:.45;cursor:not-allowed}
+.architecture-tail :focus-visible{outline:3px solid #ae7200;outline-offset:3px}
+.metrics table.metric-table{display:table;width:100%;border-collapse:collapse;table-layout:fixed;background:#fffdf3}
+.metrics .metric-table th,.metrics .metric-table td{padding:8px;border:1px solid #bacabd;text-align:center;overflow-wrap:anywhere;font-size:.78rem}
+.metrics dt{font-weight:700;margin-top:12px}.metrics dd{margin:3px 0 8px;max-width:78ch}.metrics li{margin:8px 0}
+#experience-loading{padding:14px;background:#e3eee1;border-radius:8px;color:#103b40}
+
+/* One visual key for the example and all label choices. */
+.morphology-symbol{display:inline-block;width:30px;height:30px;flex:none;position:relative;border-radius:50%;background:#102f38;grid-row:span 2}
+.morphology-symbol.smooth:after{content:'';position:absolute;inset:8px 4px;border-radius:50%;background:radial-gradient(ellipse,#ffefd0,#e2c18b55 62%,transparent 67%);transform:rotate(-25deg)}
+.morphology-symbol.spiral:after{content:'✺';position:absolute;inset:0;display:grid;place-items:center;color:#e9c487;font:25px Georgia,serif}
+.morphology-symbol.edge_on:after{content:'';position:absolute;inset:13px 3px;border-radius:50%;background:linear-gradient(transparent,#f3d291,transparent);transform:rotate(-30deg)}
+
+.final-result{font-size:.95rem;line-height:1.45;margin:0 0 12px;color:#254f49}
+
+/* Resource errors remain legible before a room or desk can be loaded. */
+.workbench .station.resource-failure{background:#f7f3e7;color:#203d40;border-radius:14px;padding:24px 28px;box-shadow:0 12px 40px #0005;animation:none;max-width:800px;align-self:center;width:100%}
+.resource-failure h1{font-size:clamp(1.4rem,3vw,2rem);line-height:1.2;margin:0 0 16px}
+.resource-failure p{line-height:1.6;margin:0 0 20px}
+.resource-failure .navigation{flex-wrap:wrap;gap:12px}
