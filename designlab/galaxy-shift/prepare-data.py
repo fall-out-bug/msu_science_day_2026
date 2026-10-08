@@ -3,9 +3,9 @@
 
 The input files are the unmodified ESA/Hubble screensize JPEGs listed below.
 This program deliberately has no network access: source pages and image files must
-already have been admitted to assets/galaxies.  It uses a deterministic 24x24
-grayscale centre-crop feature and 1-nearest-neighbour classification.  The
-features are pixels, not a hand-authored morphology score.
+already have been admitted to assets/galaxies.  The historical model uses 14 deterministic brightness-moment features
+from a grayscale centre crop resized to 64x64 and 1-nearest-neighbour
+classification. These features are computed from pixels, not authored labels.
 """
 
 from __future__ import annotations
@@ -43,8 +43,8 @@ EXPECTED_SOURCE_SHA256 = {
     "potw1119a.jpg": "cd2e0fdd8670c22c2ea31e790648ae956e4fe36555a81858064dcafb27f08c0d",
 }
 CLASSES = [
-    {"id": "smooth", "label": "Гладкая", "hint": "Ровное светящееся пятно без заметных рукавов."},
-    {"id": "spiral", "label": "Видна спираль", "hint": "От центра расходятся закрученные рукава."},
+    {"id": "smooth", "label": "Гладкая", "hint": "Плавное свечение без заметных спиральных рукавов."},
+    {"id": "spiral", "label": "Видна спираль", "hint": "Видны изогнутые спиральные рукава."},
     {"id": "edge_on", "label": "Вид с ребра", "hint": "Мы смотрим на диск сбоку: он выглядит как тонкая полоса."},
 ]
 
@@ -54,15 +54,15 @@ CLASSES = [
 ITEMS = [
     ("tutorial_ic2006", "IC 2006", "heic1508a", "smooth", "train", "tutorial", "Эллиптическая галактика: ровное овальное свечение.", "ESA/Hubble & NASA. Image acknowledgement: Judy Schmidt and J. Blakeslee (Dominion Astrophysical Observatory). Science acknowledgement: M. Carollo (ETH, Switzerland)."),
     ("child_m85", "Messier 85", "potw1905a", "smooth", "train", "child", "Видно ровное овальное свечение. Спиральных рукавов на этом снимке не видно.", "ESA/Hubble & NASA, R. O'Connell."),
-    ("child_ic5332", "IC 5332", "potw2342a", "spiral", "train", "child", "На почти фронтальном диске хорошо видны закрученные рукава.", "ESA/Hubble & NASA, R. Chandar, J. Lee and the PHANGS-HST team."),
+    ("child_ic5332", "IC 5332", "potw2342a", "spiral", "train", "child", "Мы смотрим на диск почти сверху; хорошо видны спиральные рукава.", "ESA/Hubble & NASA, R. Chandar, J. Lee and the PHANGS-HST team."),
     ("child_ngc5023", "NGC 5023", "potw1512a", "edge_on", "train", "child", "Диск виден сбоку: он выглядит как длинная тонкая полоска.", "ESA/Hubble & NASA."),
     ("old_ngc3610", "NGC 3610", "potw1546a", "smooth", "train", "old", "Вокруг яркого центра — ровное овальное свечение. Отчётливых спиральных рукавов не видно.", "ESA/Hubble & NASA; acknowledgement: Judy Schmidt (Geckzilla)."),
     ("old_ngc7090", "NGC 7090", "potw1237a", "edge_on", "train", "old", "Мы видим диск сбоку. Через него проходит тёмная полоса пыли.", "ESA/Hubble & NASA. Acknowledgement: R. Tugral."),
     ("fixed_ngc3318", "NGC 3318", "potw2203a", "spiral", "train", "fixed", "На снимке видны спиральные рукава NGC 3318.", "ESA/Hubble & NASA, ESO, R. J. Foley; acknowledgement: R. Colombari."),
     ("fixed_ngc691", "NGC 691", "potw2008a", "spiral", "train", "fixed", "ESA/Hubble описывает NGC 691 как характерную спиральную галактику.", "ESA/Hubble & NASA, A. Riess et al."),
     ("fixed_ic755", "IC 755", "potw1129a", "edge_on", "train", "fixed", "ESA/Hubble описывает IC 755 как спиральную галактику, которую мы видим с ребра.", "ESA/Hubble & NASA."),
-    ("review_m49", "Messier 49", "potw1911a", "smooth", "review", "review", "Гладкая эллиптическая галактика; ответ хранится для повторной учебной проверки.", "ESA/Hubble & NASA, J. Blakenslee, P Cote et al."),
-    ("review_ngc3982", "NGC 3982", "opo1036a", "spiral", "review", "review", "Фронтальная спиральная галактика с заметными рукавами.", "NASA, ESA, and the Hubble Heritage Team (STScI/AURA)."),
+    ("review_m49", "Messier 49", "potw1911a", "smooth", "review", "review", "Эллиптическая галактика с плавным свечением. Её справочная метка используется для повторной проверки модели.", "ESA/Hubble & NASA, J. Blakenslee, P Cote et al."),
+    ("review_ngc3982", "NGC 3982", "opo1036a", "spiral", "review", "review", "Спиральная галактика, на диск которой мы смотрим почти сверху: видны рукава.", "NASA, ESA, and the Hubble Heritage Team (STScI/AURA)."),
     ("review_ngc4762", "NGC 4762", "potw1443a", "edge_on", "review", "review", "ESA/Hubble описывает яркую полосу как вид с ребра; ответ повторно используется в сравнении.", "ESA/Hubble & NASA."),
     ("final_ngc2768", "NGC 2768", "potw1548a", "smooth", "final", "final", "Эллиптическая галактика с мягким овальным профилем.", "ESA/Hubble, NASA and S. Smartt (Queen's University Belfast)."),
     ("final_ngc6814", "NGC 6814", "potw1619a", "spiral", "final", "final", "ESA/Hubble называет NGC 6814 фронтальной спиральной галактикой.", "ESA/Hubble & NASA. Acknowledgement: Judy Schmidt (Geckzilla)."),

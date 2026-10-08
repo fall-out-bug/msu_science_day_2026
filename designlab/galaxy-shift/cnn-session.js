@@ -5,7 +5,7 @@
 
   function create(data, table) {
     if (!data || !table || !table.experiments || !table.protocol) {
-      throw new Error('Не удалось открыть подготовленный CNN-опыт.');
+      throw new Error('Не удалось открыть подготовленный опыт с нейросетью.');
     }
 
     const protocol = table.protocol;
@@ -31,7 +31,7 @@
       oldIds.length !== 2 ||
       !classes.length
     ) {
-      throw new Error('Неверный контракт CNN-опыта.');
+      throw new Error('Данные учебного опыта не согласованы.');
     }
 
     function signature(labels) {
@@ -116,7 +116,7 @@
             architectureBaseline: null,
             correctedReview: null,
             modelSettings: false,
-            notice: state.baseline ? 'Метки изменились. Обучи и проверь модель ещё раз.' : ''
+            notice: state.baseline ? 'Метки изменились. Повтори проверку модели.' : ''
           };
           break;
         }
@@ -128,7 +128,7 @@
             throw new Error('Можно сравнить только один или два свёрточных блока.');
           }
           if (!state.repairCheckedLabelKey || state.repairCheckedLabelKey !== signature(state.labels)) {
-            throw new Error('Сначала исправь старые метки и повтори проверку.');
+            throw new Error('Сначала проверь старые метки и повтори проверку.');
           }
           if (state.architecture === architecture) {
             state = { ...state, notice: 'Устройство модели не изменилось.' };
@@ -141,7 +141,7 @@
             architectureBaseline: state.current || state.architectureBaseline,
             current: null,
             modelSettings: true,
-            notice: 'Устройство модели изменилось. Обучи и проверь её на тех же снимках.'
+            notice: 'Устройство модели изменилось. Проверь её на тех же снимках.'
           };
           break;
         }
@@ -149,7 +149,7 @@
         case 'MODEL_SETTINGS':
           requirePhase('review');
           if (!state.repairCheckedLabelKey || state.repairCheckedLabelKey !== signature(state.labels)) {
-            throw new Error('Сначала исправь старые метки и повтори проверку.');
+            throw new Error('Сначала проверь старые метки и повтори проверку.');
           }
           state = {
             ...state,
@@ -186,7 +186,7 @@
 
         case 'REPAIR':
           requirePhase('review', 'labels', 'repair');
-          if (!state.baseline) throw new Error('Сначала обучи и проверь модель.');
+          if (!state.baseline) throw new Error('Сначала проверь модель.');
           // The comparison snapshot survives opening old labels.
           state = { ...state, phase: 'repair', modelSettings: false, notice: '' };
           break;

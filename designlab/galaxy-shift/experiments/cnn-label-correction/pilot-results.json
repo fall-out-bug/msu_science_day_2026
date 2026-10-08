@@ -3,7 +3,7 @@
   "protocolFile": "protocol.json",
   "source": {
     "datasetVersion": "2026-10-06-hubble-15-v3",
-    "prepareDataSha256": "9a60026fcbd185a921f09ad371f099cf4b9216b6d920c700be83e63d658b7292",
+    "prepareDataSha256": "efd88e314351a25151de766eeb1b541947a63aadcb4969f2f7e61a9eb2461180",
     "cnnPrepareSha256": "0cc3a7edddf0ed86d1c2719b954d1b710b962622d772c8b3e8cccf61e719b21c",
     "admission": "prepare.build() and cnn.load_image() verified every source image hash used here"
   },

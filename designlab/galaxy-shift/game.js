@@ -110,7 +110,7 @@
       "Как ИИ помогает астрономам?",
       "02 / РАЗБИРАЕМ ПРИМЕР ВМЕСТЕ",
       "tutorial",
-      `<div id="quest-scene" data-image-id="${image.id}"></div><p class="tutorial-next">Ника помогает с первым примером. Затем разметим три снимка, которые ты собрал на карте.</p><div class="navigation"><button class="secondary" data-action="zoom" data-image-id="${image.id}">Открыть снимок</button><button class="primary" data-action="labels">К моей подборке →</button></div><details class="credits"><summary>Источник снимка</summary>${source(image)}</details>`,
+      `<div id="quest-scene" data-image-id="${image.id}"></div><p class="tutorial-next">Метка — подпись с выбранной категорией. Разметить снимок — выбрать для него метку. Разберём пример вместе с Никой.</p><div class="navigation"><button class="secondary" data-action="zoom" data-image-id="${image.id}">Открыть снимок</button><button class="primary" data-action="labels">К моей подборке →</button></div><details class="credits"><summary>Источник снимка</summary>${source(image)}</details>`,
     );
   }
   function labels() {
@@ -122,7 +122,7 @@
       "Разметим учебные примеры",
       "03 / РАЗМЕЧАЕМ · " + (cardIndex + 1) + " ИЗ 3",
       "labels",
-      `${programBar()}<div id="quest-scene" data-image-id="${image.id}"></div><div class="film-footer">${samples(ids)}<div class="navigation"><button class="secondary" data-action="previous" ${cardIndex === 0 ? "disabled" : ""}>←</button><button class="secondary" data-action="next" ${cardIndex === 2 ? "disabled" : ""}>Следующий →</button><button class="primary" data-action="run" ${missing ? "disabled" : ""}>${missing ? "Поставь все 3 метки" : "Обучить и проверить"} →</button></div></div><details class="credits"><summary>О метках</summary>${source(image)}<p>Это подготовленный учебный опыт: браузер показывает точный результат CNN для выбранных меток.</p></details>`,
+      `${programBar()}<div id="quest-scene" data-image-id="${image.id}"></div><div class="film-footer">${samples(ids)}<div class="navigation"><button class="secondary" data-action="previous" ${cardIndex === 0 ? "disabled" : ""}>←</button><button class="secondary" data-action="next" ${cardIndex === 2 ? "disabled" : ""}>Следующий →</button><button class="primary" data-action="run" ${missing ? "disabled" : ""}>${missing ? "Поставь все 3 метки" : "Проверить модель"} →</button></div></div><details class="credits"><summary>О метках</summary>${source(image)}<p>Снимки с метками составляют обучающую выборку — примеры, на которых учится модель. Для всех вариантов меток обучение выполнено заранее; здесь открывается соответствующий результат.</p></details>`,
     );
   }
   function samples(ids) {
@@ -133,12 +133,12 @@
       canChange =
         state.phase === "review" &&
         state.repairCheckedLabelKey === state.labelKey;
-    return `<section class="cnn-programs" aria-label="Программы рабочего стола"><button data-action="labels" class="${state.phase === "labels" ? "selected" : ""}">Разметить снимки</button><button data-action="run" ${state.phase === "labels" && data.childIds.some((id) => !state.labels[id]) ? "disabled" : ""}>Обучить и проверить</button><button data-action="model-settings" title="${canChange ? "Сравнить один и два свёрточных блока" : "Сначала проверь старые метки и повтори опыт"}" ${canChange ? "" : "disabled"}>Изменить модель</button><button data-action="folder">Папка: 9 примеров</button></section>`;
+    return `<section class="cnn-programs" aria-label="Программы рабочего стола"><button data-action="labels" class="${state.phase === "labels" ? "selected" : ""}">Разметить снимки</button><button data-action="run" ${state.phase === "labels" && data.childIds.some((id) => !state.labels[id]) ? "disabled" : ""}>Обучение и проверка</button><button data-action="model-settings" title="${canChange ? "Сравнить один и два свёрточных блока" : "Сначала проверь старые метки и повтори опыт"}" ${canChange ? "" : "disabled"}>Изменить модель</button><button data-action="folder">Папка: 9 примеров</button></section>`;
   }
   function resultCard(prediction) {
     const image = byId[prediction.id],
       ok = prediction.predicted === prediction.expected;
-    return `<article class="result ${ok ? "correct" : "incorrect"}">${photo(image)}<div class="result-info"><div class="result-name"><b>${esc(image.name)}</b><span>${ok ? "Совпало ✓" : "Проверим ?"}</span></div><p>Модель: <strong>${esc(classLabel(prediction.predicted))}</strong></p><p class="reference">Метка для проверки: ${esc(classLabel(prediction.expected))}</p><button class="text-button" data-action="talk" data-image-id="${esc(image.id)}">Обсудить с Никой →</button></div></article>`;
+    return `<article class="result ${ok ? "correct" : "incorrect"}">${photo(image)}<div class="result-info"><div class="result-name"><b>${esc(image.name)}</b><span>${ok ? "Совпало ✓" : "Проверим ?"}</span></div><p>Модель: <strong>${esc(classLabel(prediction.predicted))}</strong></p><p class="reference">Справочная метка: ${esc(classLabel(prediction.expected))}</p><button class="text-button" data-action="talk" data-image-id="${esc(image.id)}">Обсудить с Никой →</button></div></article>`;
   }
   function review() {
     const state = model.state,
@@ -147,13 +147,13 @@
     if (state.modelSettings || !state.current) {
       const blocks =
         state.architecture === "2"
-          ? "<article><b>Conv + ReLU</b><span>Ищет сочетания признаков</span></article>"
+          ? "<article><b>Свёртка + ReLU</b><span>Обрабатывает карты признаков</span></article>"
           : "";
       return station(
         "Изменить модель",
-        "04 / НАСТРОЙКИ CNN",
+        "04 / УСТРОЙСТВО МОДЕЛИ",
         "review",
-        `${programBar()}<section class="cnn-model"><h2>Сколько свёрточных блоков?</h2><p>Блок ищет повторяющиеся детали на снимке. Больше блоков не обещают лучший ответ: сравним результат на тех же проверочных снимках.</p><div class="architecture-choice">${["1", "2"].map((blocks) => `<button data-action="architecture" data-architecture="${blocks}" class="${state.architecture === blocks ? "selected" : ""}">${blocks} ${blocks === "1" ? "свёрточный блок" : "свёрточных блока"}</button>`).join("")}</div><div class="cnn-layers"><article><b>Снимок</b><span>32 × 32 пикселя · оттенки серого</span></article><article><b>Conv + ReLU</b><span>Ищет простые признаки</span></article>${blocks}<article><b>Собрать признаки</b><span>Сводим карту признаков</span></article><article><b>Выбрать класс</b><span>Гладкая, спиральная, с ребра</span></article></div><button class="primary" data-action="run">Обучить и проверить →</button></section>`,
+        `${programBar()}<section class="cnn-model"><h2>Сколько свёрточных блоков?</h2><p>Это свёрточная нейронная сеть (CNN). В нашей модели каждый блок содержит свёрточный слой и функцию активации ReLU. Больше блоков не обязательно дают лучший результат.</p><div class="architecture-choice">${["1", "2"].map((blocks) => `<button data-action="architecture" data-architecture="${blocks}" class="${state.architecture === blocks ? "selected" : ""}">${blocks} ${blocks === "1" ? "свёрточный блок" : "свёрточных блока"}</button>`).join("")}</div><div class="cnn-layers"><article><b>Снимок</b><span>32 × 32 пикселя · оттенки серого</span></article><article><b>Свёртка + ReLU</b><span>Обрабатывает участки снимка</span></article>${blocks}<article><b>Усреднение</b><span>Среднее по каждой карте признаков</span></article><article><b>Классификатор</b><span>Выбирает одну из трёх меток</span></article></div><button class="primary" data-action="run">Проверить модель →</button><details class="credits"><summary>Что делают слои?</summary><p>Свёрточный слой обрабатывает небольшие участки изображения с помощью фильтров. Их числовые параметры подбираются при обучении. Результат каждого фильтра — карта признаков: таблица чисел, расположенных как участки изображения.</p><p>ReLU — функция активации: она заменяет отрицательные числа нулями, а остальные оставляет. Второй свёрточный слой получает карты признаков первого блока.</p><p>Затем сеть вычисляет среднее по каждой карте. По этим числам классификатор получает оценки трёх категорий. Функция softmax преобразует их в числа от 0 до 1 с суммой 1. Сеть выбирает категорию с наибольшим числом; это не гарантирует правильный ответ.</p></details></section>`,
       );
     }
     const run = state.current.result;
@@ -168,9 +168,9 @@
         : "";
     return station(
       "Проверим ответы модели",
-      "04 / ОБУЧИТЬ И ПРОВЕРИТЬ",
+      "04 / ОБУЧЕНИЕ И ПРОВЕРКА",
       "review",
-      `${programBar()}<div class="score-strip"><span>На трёх других снимках <b>${run.review.correct}<small> / ${run.review.total}</small></b></span><p>Свёрточная модель: ${state.architecture} ${state.architecture === "1" ? "блок" : "блока"}.<br>Обучение выполнено заранее. Это результат для твоих меток.</p></div>${state.notice ? `<p class="callout">${esc(state.notice)}</p>` : ""}${compare}<div class="result-grid">${run.review.predictions.map(resultCard).join("")}</div>${architectureChoice}<div class="navigation result-nav"><button class="secondary" data-action="labels">← Разметить снимки</button><div><button class="secondary" data-action="repair">Проверить старые метки →</button>${state.repairCheckedLabelKey === state.labelKey ? '<button class="primary" data-action="finish">К итогу →</button>' : ""}</div></div>`,
+      `${programBar()}<div class="score-strip"><span>Совпало со справочными метками <b>${run.review.correct}<small> / ${run.review.total}</small></b></span><p>Свёрточная нейросеть: ${state.architecture} ${state.architecture === "1" ? "блок" : "блока"}.<br>Обучение выполнено заранее. Это результат для твоих меток.</p></div>${state.notice ? `<p class="callout">${esc(state.notice)}</p>` : ""}${compare}<div class="result-grid">${run.review.predictions.map(resultCard).join("")}</div>${architectureChoice}<div class="navigation result-nav"><button class="secondary" data-action="labels">← Разметить снимки</button><div><button class="secondary" data-action="repair">Проверить старые метки →</button>${state.repairCheckedLabelKey === state.labelKey ? '<button class="primary" data-action="finish">К итогу →</button>' : ""}</div></div>`,
     );
   }
   function repair() {
@@ -181,7 +181,7 @@
       "Проверим старые метки",
       "05 / ПРОВЕРИТЬ СТАРЫЕ МЕТКИ · " + (cardIndex + 1) + " ИЗ 2",
       "repair",
-      `${programBar()}<div id="quest-scene" data-image-id="${image.id}"></div><div class="film-footer">${samples(ids)}<div class="navigation"><button class="secondary" data-action="previous" ${cardIndex === 0 ? "disabled" : ""}>←</button><button class="secondary" data-action="next" ${cardIndex === 1 ? "disabled" : ""}>Следующий →</button><button class="primary" data-action="run">Обучить и проверить снова →</button></div></div>`,
+      `${programBar()}<div id="quest-scene" data-image-id="${image.id}"></div><div class="film-footer">${samples(ids)}<div class="navigation"><button class="secondary" data-action="previous" ${cardIndex === 0 ? "disabled" : ""}>←</button><button class="secondary" data-action="next" ${cardIndex === 1 ? "disabled" : ""}>Следующий →</button><button class="primary" data-action="run">Повторить проверку →</button></div></div>`,
     );
   }
   function final() {
@@ -193,7 +193,7 @@
   function folder() {
     const state = model.state,
       editable = new Set(model.protocol.editableIds);
-    return `<section class="folder-panel"><h2>Папка обучения: 9 снимков</h2><p>Все эти архивные снимки входят в обучение. Редактировать в опыте можно пять: три новых и две старые метки.</p><div class="folder-grid">${model.protocol.trainingIds
+    return `<section class="folder-panel"><h2>Обучающая выборка: 9 снимков</h2><p>Все девять снимков с метками используются при обучении. Пять меток можешь выбрать ты: три новые и две старые. Остальные четыре подготовлены авторами.</p><div class="folder-grid">${model.protocol.trainingIds
       .map((id) => {
         const image = byId[id],
           current = state.labels[id] ?? (editable.has(id) ? null : image.label);
@@ -263,7 +263,7 @@
     });
   }
   function about() {
-    return `<span class="eyebrow">О ПРОЕКТЕ</span><h2>ИИ в астрономии</h2><p>Галактики на снимках настоящие: архив NASA/ESA Hubble. Обсерватория и Ника — художественные иллюстрации. На карте показаны звёздный атлас NASA и координаты объектов. Мы открываем архивные снимки, а не делаем новые наблюдения.</p><p>В основном опыте девять учебных снимков. Три новые и две старые подписи можно менять. Для каждого сочетания меток и обеих CNN обучение выполнено заранее. Браузер открывает точный результат выбранного опыта; он не обучает модель заново.</p><p>«Гладкая», «Видна спираль» и «Вид с ребра» описывают видимый облик. Спиральная галактика тоже может быть видна с ребра.</p><p>Разметка человека, ответ модели и справочная метка — разные вещи. Повторная проверка показывает изменения на знакомых снимках. Итоговые снимки не входят в обучение, но уже изучались авторами: это учебный опыт, не новая независимая оценка качества.</p><p><a href="DATA-NOTES.md" target="_blank">Данные и метод ↗</a> · <a href="provenance.json" target="_blank">Источники ↗</a> · <a href="assets/art/ART-CREDITS.md" target="_blank">Иллюстрации ↗</a></p>`;
+    return `<span class="eyebrow">О ПРОЕКТЕ</span><h2>ИИ в астрономии</h2><p>Галактики на снимках настоящие: архив NASA/ESA Hubble. Обсерватория и Ника — художественные иллюстрации. На карте показаны звёздный атлас NASA и координаты объектов. Мы открываем архивные снимки, а не делаем новые наблюдения.</p><p>В основном опыте девять учебных снимков. Три новые и две старые подписи можно менять. Мы используем свёрточные нейронные сети (CNN). Для каждого сочетания меток и обоих вариантов сети обучение выполнено заранее. Браузер открывает точный результат выбранного опыта; он не обучает модель заново.</p><p>В этом задании мы классифицируем снимки — относим их к трём категориям по видимым признакам. «Гладкая» означает плавное свечение без заметных рукавов. «Видна спираль» — заметны спиральные рукава. «Вид с ребра» — мы смотрим на диск сбоку. Это ракурс, а не отдельный тип галактики.</p><p>Разметка человека, ответ модели и справочная метка — разные вещи. Повторная проверка показывает изменения на знакомых снимках. Итоговые снимки не входят в обучение, но уже изучались авторами: это учебный опыт, не новая независимая оценка качества.</p><p><a href="DATA-NOTES.md" target="_blank">Данные и метод ↗</a> · <a href="provenance.json" target="_blank">Источники ↗</a> · <a href="assets/art/ART-CREDITS.md" target="_blank">Иллюстрации ↗</a></p>`;
   }
   function openModal(content, isImage = false) {
     closeModal();

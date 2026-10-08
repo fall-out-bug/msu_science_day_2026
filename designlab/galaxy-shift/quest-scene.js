@@ -5,8 +5,8 @@
   const points = new Map();
   const observations = {
     arms: 'Тебе бросились в глаза рукава. Теперь нажми на ту часть снимка, которую хочешь рассмотреть ближе.',
-    smooth: 'Твоё наблюдение — ровный свет. Нажми на участок снимка, который хочешь рассмотреть ближе.',
-    edge: 'Тебе заметен диск с ребра. Нажми на ту часть снимка, которую хочешь рассмотреть ближе.'
+    smooth: 'Ты заметил гладкое свечение. Нажми на участок снимка, который хочешь рассмотреть ближе.',
+    edge: 'Ты заметил галактику, видимую с ребра. Нажми на ту часть снимка, которую хочешь рассмотреть ближе.'
   };
 
   function esc(value) {
@@ -75,7 +75,7 @@
           <div class="quest-scene__line"><span>НИКА</span><p role="status" aria-live="polite">${esc(dialogue())}</p></div>
           <div class="quest-scene__observation" aria-label="Наблюдение на снимке">
             <span>СНАЧАЛА НАБЛЮДЕНИЕ</span>
-            <div><button type="button" data-quest-observation="arms" aria-pressed="${observation === 'arms'}">Вижу рукава</button><button type="button" data-quest-observation="smooth" aria-pressed="${observation === 'smooth'}">Вижу ровный свет</button><button type="button" data-quest-observation="edge" aria-pressed="${observation === 'edge'}">Вижу диск с ребра</button><button type="button" data-quest="hint" class="quest-scene__quiet">Подсказка Ники</button></div>
+            <div><button type="button" data-quest-observation="arms" aria-pressed="${observation === 'arms'}">Вижу рукава</button><button type="button" data-quest-observation="smooth" aria-pressed="${observation === 'smooth'}">Вижу гладкое свечение</button><button type="button" data-quest-observation="edge" aria-pressed="${observation === 'edge'}">Вижу галактику с ребра</button><button type="button" data-quest="hint" class="quest-scene__quiet">Подсказка Ники</button></div>
           </div>
         </section>
         ${labels}
