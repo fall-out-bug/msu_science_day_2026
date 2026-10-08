@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "base": "https://sd2026.beetles.family/",
+  "transport": "HTTPS with default certificate verification from superduper",
+  "version": "2026.10.08-cnn.8",
+  "resources": 95,
+  "zip": "exact local SHA-256",
+  "legacy": "accessible"
+}

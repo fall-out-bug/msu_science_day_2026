@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "base": "http://192.168.50.12:8080",
+  "version": "2026.10.08-cnn.8",
+  "resources": 95,
+  "zip": "exact local SHA-256",
+  "flow": {
+    "first": 1,
+    "corrected": 2,
+    "final": 2,
+    "total": 3,
+    "stages": [
+      "intro",
+      "dialog-about",
+      "guided-story",
+      "sky-child_m85",
+      "sky-child_ic5332",
+      "sky-child_ngc5023",
+      "tutorial",
+      "dialog-zoom",
+      "training-folder",
+      "labels-1",
+      "labels-2",
+      "labels-3",
+      "first-result",
+      "repair",
+      "comparison",
+      "model-one-block",
+      "model-two-blocks",
+      "architecture-comparison",
+      "final"
+    ],
+    "errors": [],
+    "externalRequests": []
+  },
+  "preserved": {
+    "documents": "exact original hashes",
+    "originalComments": 12
+  }
+}
