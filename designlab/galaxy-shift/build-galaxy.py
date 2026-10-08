@@ -11,7 +11,7 @@ assets += ['assets/sky/licenses/'+name for name in ['CC-BY-SA-4.0.txt','FAL-1.3.
 files=runtime+assets
 for name in files:
  if not (HERE/name).is_file():raise SystemExit('Missing package resource: '+name)
-manifest={'title':'ИИ в астрономии','version':'2026.10.08-cnn.8','entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
+manifest={'title':'ИИ в астрономии','version':'2026.10.08-cnn.9','entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
 out=HERE/'releases';out.mkdir(exist_ok=True)
 web=out/'web'
 if web.exists():shutil.rmtree(web)
