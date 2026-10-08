@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "protocolFile": "protocol.json",
   "source": {
-    "datasetVersion": "2026-10-06-hubble-15-v3",
-    "prepareDataSha256": "efd88e314351a25151de766eeb1b541947a63aadcb4969f2f7e61a9eb2461180",
+    "datasetVersion": "2026-10-08-hubble-15-v4",
+    "prepareDataSha256": "03b39ad9487e540d70b3830b5c93f332a4d169111a0ca2997df7aaef16990e34",
     "cnnPrepareSha256": "0cc3a7edddf0ed86d1c2719b954d1b710b962622d772c8b3e8cccf61e719b21c",
     "admission": "prepare.build() and cnn.load_image() verified every source image hash used here"
   },
@@ -43,47 +43,47 @@
         "old_ngc3610": "spiral",
         "old_ngc7090": "smooth",
         "fixed_ngc3318": "spiral",
-        "fixed_ngc691": "spiral",
+        "fixed_ngc691": "smooth",
         "fixed_ic755": "edge_on"
       },
       "loss": {
-        "first": 2.01286358,
-        "last": 0.22077443
+        "first": 1.67810946,
+        "last": 0.05575758
       },
-      "trainingWallSeconds": 0.29624,
+      "trainingWallSeconds": 0.317925,
       "review": {
         "predictions": [
           {
             "id": "review_m49",
             "predicted": "smooth",
             "expected": "smooth",
-            "confidence": 0.70868893,
+            "confidence": 0.93849716,
             "probabilities": {
-              "smooth": 0.70868893,
-              "spiral": 0.27988634,
-              "edge_on": 0.01142474
+              "smooth": 0.93849716,
+              "spiral": 0.05996967,
+              "edge_on": 0.00153317
             }
           },
           {
             "id": "review_ngc3982",
             "predicted": "smooth",
             "expected": "spiral",
-            "confidence": 0.6661065,
+            "confidence": 0.65529473,
             "probabilities": {
-              "smooth": 0.6661065,
-              "spiral": 0.21156153,
-              "edge_on": 0.12233197
+              "smooth": 0.65529473,
+              "spiral": 0.32491354,
+              "edge_on": 0.01979174
             }
           },
           {
             "id": "review_ngc4762",
             "predicted": "smooth",
             "expected": "edge_on",
-            "confidence": 0.75571686,
+            "confidence": 0.37980488,
             "probabilities": {
-              "smooth": 0.75571686,
-              "spiral": 0.1225907,
-              "edge_on": 0.12169244
+              "smooth": 0.37980488,
+              "spiral": 0.29564077,
+              "edge_on": 0.32455435
             }
           }
         ],
@@ -96,33 +96,33 @@
             "id": "final_ngc2768",
             "predicted": "smooth",
             "expected": "smooth",
-            "confidence": 0.88384774,
+            "confidence": 0.94810275,
             "probabilities": {
-              "smooth": 0.88384774,
-              "spiral": 0.08455126,
-              "edge_on": 0.03160099
+              "smooth": 0.94810275,
+              "spiral": 0.04844208,
+              "edge_on": 0.00345517
             }
           },
           {
             "id": "final_ngc6814",
             "predicted": "spiral",
             "expected": "spiral",
-            "confidence": 0.92863142,
+            "confidence": 0.85569994,
             "probabilities": {
-              "smooth": 0.06111527,
-              "spiral": 0.92863142,
-              "edge_on": 0.01025331
+              "smooth": 0.13735465,
+              "spiral": 0.85569994,
+              "edge_on": 0.00694541
             }
           },
           {
             "id": "final_ngc5775",
             "predicted": "smooth",
             "expected": "edge_on",
-            "confidence": 0.9144072,
+            "confidence": 0.99105121,
             "probabilities": {
-              "smooth": 0.9144072,
-              "spiral": 0.0038902,
-              "edge_on": 0.0817026
+              "smooth": 0.99105121,
+              "spiral": 0.00010511,
+              "edge_on": 0.00884368
             }
           }
         ],
@@ -149,7 +149,7 @@
         "first": 1.93704157,
         "last": 0.04023633
       },
-      "trainingWallSeconds": 0.295006,
+      "trainingWallSeconds": 0.313475,
       "review": {
         "predictions": [
           {
@@ -248,7 +248,7 @@
         "first": 1.93704157,
         "last": 0.04023633
       },
-      "trainingWallSeconds": 0.294707,
+      "trainingWallSeconds": 0.311582,
       "review": {
         "predictions": [
           {
@@ -347,7 +347,7 @@
         "first": 2.61947632,
         "last": 0.00355781
       },
-      "trainingWallSeconds": 0.879521,
+      "trainingWallSeconds": 0.784184,
       "review": {
         "predictions": [
           {
@@ -429,10 +429,10 @@
     }
   ],
   "costEstimate": {
-    "observedOneBlockTrainingWallSeconds": 0.295006,
-    "observedTwoBlockTrainingWallSeconds": 0.879521,
-    "estimated243StatesTimesTwoArchitecturesWallSeconds": 285.41,
-    "verdict": "A separately reviewed finite 243-state × two-architecture table is now the accepted desktop artifact. Its generator validates source hashes and exact targeted replays; this pilot remains the small before/after explanation."
+    "observedOneBlockTrainingWallSeconds": 0.313475,
+    "observedTwoBlockTrainingWallSeconds": 0.784184,
+    "estimated2187StatesTimesTwoArchitecturesWallSeconds": 2400.58,
+    "verdict": "A separately reviewed finite 2187-state × two-architecture table is the accepted desktop artifact. Its generator validates source hashes and exact targeted replays; this pilot remains the small before/after explanation."
   },
   "limitations": [
     "Nine training objects and three objects per evaluation split are too small for a capability claim.",

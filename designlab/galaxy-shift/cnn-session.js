@@ -17,18 +17,20 @@
     const oldIds = protocol.oldIds || data.oldIds;
     const suppliedInitial = protocol.initialLabels || data.initialOldLabels || {};
 
-    // A generated table may contain all nine canonical training labels. At the
-    // start, a learner owns only the two existing labels; new images are blank.
+    // A generated table may contain all canonical training labels. At the
+    // start, a learner owns only the existing labels; new images are blank.
     const initial = Object.fromEntries(
       oldIds.map(id => [id, suppliedInitial[id] || data.initialOldLabels?.[id]])
     );
 
     if (
       !Array.isArray(editable) ||
-      editable.length !== 5 ||
+      !Array.isArray(childIds) ||
+      !Array.isArray(oldIds) ||
+      !editable.length ||
       editable.join('|') !== [...childIds, ...oldIds].join('|') ||
-      childIds.length !== 3 ||
-      oldIds.length !== 2 ||
+      !childIds.length ||
+      !oldIds.length ||
       !classes.length
     ) {
       throw new Error('Данные учебного опыта не согласованы.');
@@ -65,6 +67,7 @@
         correctedReview: null,
         architectureBaseline: null,
         repairCheckedLabelKey: null,
+        reviewedOldIds: [],
         modelSettings: false,
         finalSeen: false,
         notice: ''
@@ -74,7 +77,13 @@
     let state = fresh();
 
     function snapshot() {
-      return { ...state, labels: { ...state.labels } };
+      const reviewedOldIds = [...state.reviewedOldIds];
+      const repairReady = oldIds.every(id => reviewedOldIds.includes(id));
+      const exactReview = state.current && state.current.labelKey === state.repairCheckedLabelKey;
+      let nextAction = null;
+      if (state.phase === 'repair') nextAction = repairReady ? 'run_repair' : 'confirm_old_labels';
+      if (state.phase === 'review') nextAction = exactReview ? 'compare_architecture_or_finish' : 'review_old_labels';
+      return { ...state, labels: { ...state.labels }, reviewedOldIds, repairReady, nextAction };
     }
 
     function requirePhase(...allowed) {
@@ -101,8 +110,15 @@
           if (!allowed.includes(action.id) || !classes.includes(action.label)) {
             throw new Error('Выбери одну из трёх меток к текущему снимку.');
           }
+          const reviewedOldIds = state.phase === 'repair' && !state.reviewedOldIds.includes(action.id)
+            ? [...state.reviewedOldIds, action.id]
+            : state.reviewedOldIds;
           if (state.labels[action.id] === action.label) {
-            state = { ...state, notice: 'Метка не изменилась.' };
+            state = {
+              ...state,
+              reviewedOldIds,
+              notice: state.phase === 'repair' ? 'Метка подтверждена.' : 'Метка не изменилась.'
+            };
             break;
           }
 
@@ -116,6 +132,7 @@
             architectureBaseline: null,
             correctedReview: null,
             modelSettings: false,
+            reviewedOldIds: state.phase === 'labels' ? [] : reviewedOldIds,
             notice: state.baseline ? 'Метки изменились. Повтори проверку модели.' : ''
           };
           break;
@@ -160,6 +177,9 @@
 
         case 'RUN': {
           requirePhase('labels', 'review', 'repair');
+          if (state.phase === 'repair' && !oldIds.every(id => state.reviewedOldIds.includes(id))) {
+            throw new Error('Сначала подтверди метку на каждом старом снимке.');
+          }
           const found = lookup(state.labels, state.architecture);
           const current = {
             labelKey: found.key,

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit five exact CNN table states without regenerating all 486 trainings."""
+"""Audit five exact CNN table states without regenerating the whole table."""
 from __future__ import annotations
 
 import hashlib
@@ -10,9 +10,6 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 PILOT = HERE / "cnn-label-correction"
 GAME = HERE.parent
-KEYS = ("01210", "01202", "11202", "00000", "22222")
-
-
 def load(name, filename):
     spec = importlib.util.spec_from_file_location(name, filename)
     assert spec and spec.loader
@@ -42,8 +39,8 @@ def main():
     assert scientific == runtime_table(), "runtime data diverges from scientific artifact"
     context = generator.experiment_context()
     editable, classes = context["editable_ids"], context["class_ids"]
-    expected_keys = {f"{a}{b}{c}{d}{e}" for a in range(3) for b in range(3) for c in range(3) for d in range(3) for e in range(3)}
-    assert len(editable) == 5 and set(scientific["experiments"]) == expected_keys
+    expected_keys = set(generator.state_keys(context))
+    assert set(scientific["experiments"]) == expected_keys
     protocol = scientific["protocol"]
     assert protocol["historicallyKnownFinal"] is True
     assert protocol["noFallback"] is True
@@ -82,7 +79,7 @@ def main():
                     assert abs(sum(probabilities.values()) - 1.0) < 2e-7
                     assert probabilities[prediction["predicted"]] >= max(probabilities.values()) - 2e-8
     checked = {}
-    for key in KEYS:
+    for key in generator.replay_keys(context):
         state_labels = generator.labels_for_key(context, key)
         entry = scientific["experiments"][key]
         assert entry["key"] == key
@@ -103,10 +100,11 @@ def main():
         assert entry["architectures"]["1"]["weightsHash"] != entry["architectures"]["2"]["weightsHash"]
         checked[key] = {architecture: entry["architectures"][architecture]["review"]["correct"] for architecture in ("1", "2")}
 
-    wrong_child_labels = scientific["experiments"]["11202"]["trainLabels"]
-    changed_children = [item_id for item_id in protocol["editableIds"][:3] if wrong_child_labels[item_id] != canonical[item_id]]
+    wrong_key = list(generator.replay_keys(context))[2]
+    wrong_child_labels = scientific["experiments"][wrong_key]["trainLabels"]
+    changed_children = [item_id for item_id in protocol["editableIds"][:len(context["records"]["childIds"])] if wrong_child_labels[item_id] != canonical[item_id]]
     assert changed_children == [protocol["editableIds"][0]], "wrong-child key must be represented literally"
-    print(json.dumps({"status": "PASS", "states": len(expected_keys), "replayed": list(KEYS),
+    print(json.dumps({"status": "PASS", "states": len(expected_keys), "replayed": list(generator.replay_keys(context)),
                       "wrongChild": changed_children[0], "review": checked,
                       "finalBoundary": "historically known, not scientific independent"}, ensure_ascii=False))
 

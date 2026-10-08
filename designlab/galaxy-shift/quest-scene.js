@@ -30,27 +30,25 @@
     const classes = Array.isArray(options.classes) ? options.classes : [];
     const isTutorial = options.phase === 'tutorial';
     const old = options.initialOldLabel;
-    const selectedClass = classes.find(item => item.id === (options.initialSelected || options.selected));
+    const selectedClass = () => classes.find(item => item.id === options.selected);
     function portraitMood() {
       if (options.phase === 'repair' || stage === 'hint') return 'thinking';
-      return stage === 'inspected' || options.initialSelected ? 'warm' : 'thinking';
+      return stage === 'inspected' || options.selected ? 'warm' : 'thinking';
     }
 
     function dialogue() {
       if (stage === 'observed') return observations[observation];
       if (stage === 'inspected') return 'Это выбранный тобой участок. Увеличение помогает рассмотреть изображение, но метку выбираешь ты.';
       if (stage === 'hint') return image.explanation || 'Посмотри на форму света, а затем выбери метку сам.';
+      if (options.selected) return `Твоя метка «${selectedClass()?.label || options.selected}» сохранена. Можно перейти к следующему снимку или изменить выбор.`;
       if (options.opening) return options.opening;
-      if (options.initialSelected) return typeof options.initialSelected === 'string' && !selectedClass
-        ? options.initialSelected
-        : `Твоя метка «${selectedClass?.label || options.initialSelected}» сохранена. Можно ещё раз посмотреть на снимок или перейти к следующему примеру.`;
-      return 'Что первым бросается в глаза на этом снимке?';
+      return 'Рассмотри снимок и выбери одну метку. Если сомневаешься, попроси подсказку.';
     }
     function render() {
       if (destroyed) return;
-      resizeObserver?.disconnect();
+      if (host.firstElementChild) { update(); return; }
       const labels = isTutorial ? '' : `<section class="quest-scene__labels" aria-label="Выбор метки">
-        <div class="quest-scene__label-heading"><span>ТВОЯ МЕТКА</span><b>${old ? 'Старая подпись — только повод проверить снимок' : 'Выбери метку после наблюдения'}</b></div>
+        <div class="quest-scene__label-heading"><span>ТВОЯ МЕТКА</span><b>${old ? 'Подтверди старую метку или выбери другую' : 'Выбери одну метку для снимка'}</b></div>
         ${old ? `<p class="quest-scene__old">В архиве было: <b>${esc(old)}</b></p>` : ''}
         <div class="quest-scene__label-list">${classes.map(item => `<button type="button" class="quest-scene__label ${esc(item.id)} ${options.selected === item.id ? 'is-selected' : ''}" data-quest-label="${esc(item.id)}" data-label-id="${esc(image.id)}" data-label="${esc(item.id)}" aria-pressed="${options.selected === item.id}"><i aria-hidden="true"></i><span><b>${esc(item.label)}</b><small>${esc(item.hint || '')}</small></span><em aria-hidden="true">${options.selected === item.id ? '✓' : '+'}</em></button>`).join('')}</div>
       </section>`;
@@ -59,9 +57,9 @@
           <section class="quest-scene__photo-area" aria-label="Снимок ${esc(imageName(image))}">
             <div class="quest-scene__photo-shell ${zoomed ? 'is-zoomed' : ''}" ${pointStyle(point)}>
             <img class="quest-scene__photo" src="${esc(imageSrc(image))}" alt="${esc(imageName(image))}" data-quest-photo>
-              ${point ? '<span class="quest-scene__ring" aria-hidden="true"></span>' : ''}
+              <span class="quest-scene__ring" aria-hidden="true" ${point ? '' : 'hidden'}></span>
             </div>
-            <div class="quest-scene__photo-caption"><span>HUBBLE · ${esc(imageName(image))}</span><span>${point ? 'Выбранный участок отмечен' : 'Нажми на изображение, чтобы рассмотреть деталь'}</span></div>
+            <div class="quest-scene__photo-caption"><span>HUBBLE · ${esc(imageName(image))}</span><span data-quest-caption>${point ? 'Выбранный участок отмечен' : 'Нажми на изображение, чтобы рассмотреть деталь'}</span></div>
             <div class="quest-scene__inspect-controls">
               <button type="button" data-quest="center">Отметить центр снимка</button>
               <button type="button" data-quest="zoom" ${point ? '' : 'disabled'}>${zoomed ? 'Вернуться к снимку целиком' : 'Увеличить выбранный участок'}</button>
@@ -73,22 +71,50 @@
         </div>
         <section class="quest-scene__conversation" aria-label="Разговор с Никой">
           <div class="quest-scene__line"><span>НИКА</span><p role="status" aria-live="polite">${esc(dialogue())}</p></div>
-          <div class="quest-scene__observation" aria-label="Наблюдение на снимке">
-            <span>СНАЧАЛА НАБЛЮДЕНИЕ</span>
-            <div><button type="button" data-quest-observation="arms" aria-pressed="${observation === 'arms'}">Вижу рукава</button><button type="button" data-quest-observation="smooth" aria-pressed="${observation === 'smooth'}">Вижу гладкое свечение</button><button type="button" data-quest-observation="edge" aria-pressed="${observation === 'edge'}">Вижу галактику с ребра</button><button type="button" data-quest="hint" class="quest-scene__quiet">Подсказка Ники</button></div>
+          <div class="quest-scene__observation" aria-label="${isTutorial ? 'Наблюдение на снимке' : 'Помощь Ники'}">
+            ${isTutorial ? '<span>СНАЧАЛА НАБЛЮДЕНИЕ</span>' : ''}
+            <div>${isTutorial ? '<button type="button" data-quest-observation="arms" aria-pressed="false">Вижу рукава</button><button type="button" data-quest-observation="smooth" aria-pressed="false">Вижу гладкое свечение</button><button type="button" data-quest-observation="edge" aria-pressed="false">Вижу галактику с ребра</button>' : ''}<button type="button" data-quest="hint" class="quest-scene__quiet">Подсказка Ники</button></div>
           </div>
         </section>
         ${labels}
       </section>`;
       installGeometry();
     }
+    function update() {
+      if (destroyed) return;
+      host.querySelector('[role="status"]').textContent = dialogue();
+      const portrait = host.querySelector('[data-quest-mood]');
+      const mood = portraitMood();
+      if (portrait.dataset.questMood !== mood) {
+        portrait.dataset.questMood = mood;
+        portrait.src = `assets/art/nika-${mood}-v1.png`;
+      }
+      host.querySelectorAll('[data-quest-observation]').forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.questObservation === observation));
+      });
+      host.querySelectorAll('[data-quest-label]').forEach(button => {
+        const selected = button.dataset.questLabel === options.selected;
+        button.setAttribute('aria-pressed', String(selected));
+        button.classList.toggle('is-selected', selected);
+        button.querySelector('em').textContent = selected ? '✓' : '+';
+      });
+      host.querySelector('.quest-scene__photo-shell').classList.toggle('is-zoomed', zoomed);
+      host.querySelector('.quest-scene__ring').hidden = !point;
+      host.querySelector('[data-quest-caption]').textContent = point ? 'Выбранный участок отмечен' : 'Нажми на изображение, чтобы рассмотреть деталь';
+      const zoom = host.querySelector('[data-quest="zoom"]');
+      zoom.disabled = !point;
+      zoom.textContent = zoomed ? 'Вернуться к снимку целиком' : 'Увеличить выбранный участок';
+      syncGeometry?.();
+    }
+    let syncGeometry = null;
     function focus(selector) { host.querySelector(selector)?.focus({ preventScroll: true }); }
     function installGeometry() {
       const shell = host.querySelector('.quest-scene__photo-shell');
       const photo = host.querySelector('[data-quest-photo]');
       const ring = host.querySelector('.quest-scene__ring');
-      if (!shell || !photo || !ring || !point) return;
+      if (!shell || !photo || !ring) return;
       const sync = () => {
+        if (!point) return;
         const width = photo.clientWidth, height = photo.clientHeight;
         const naturalWidth = photo.naturalWidth || width, naturalHeight = photo.naturalHeight || height;
         const scale = Math.min(width / naturalWidth, height / naturalHeight);
@@ -102,6 +128,7 @@
         // pixel, rather than a percentage of that wider element, as its anchor.
         photo.style.transformOrigin = `${imageX}px ${imageY}px`;
       };
+      syncGeometry = sync;
       photo.addEventListener('load', sync, { once: true });
       resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(sync) : null;
       resizeObserver?.observe(shell);
@@ -144,6 +171,7 @@
     host.addEventListener('click', onClick);
     render();
     return {
+      updateSelection(value) { options.selected = value; stage = 'selected'; update(); },
       destroy() { if (!destroyed) { destroyed = true; resizeObserver?.disconnect(); host.removeEventListener('click', onClick); host.replaceChildren(); } },
       startConversation() { if (!destroyed) { stage = 'question'; observation = null; render(); focus('[data-quest-observation="arms"]'); } },
       hint() { if (!destroyed) { stage = 'hint'; render(); focus('[data-quest="hint"]'); } },

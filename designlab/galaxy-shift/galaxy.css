@@ -153,3 +153,8 @@ body{background:#08141e}.sr-only{position:absolute;width:1px;height:1px;margin:-
   .workbench--quest .station{position:relative}
   .workbench--quest .cnn-programs{position:absolute;right:0;top:8px;margin:0}
 }
+
+.review-next{margin:16px 0;padding:16px;background:#e5eddf;border:1px solid #b4cbbb;border-radius:12px}
+.review-next h2{margin:0 0 8px;font-size:1.05rem}
+.review-next p{margin:0 0 10px;font-size:.9rem;line-height:1.45;max-width:78ch}
+.review-next .navigation{margin-top:8px;padding-top:0;justify-content:flex-start;flex-wrap:wrap}

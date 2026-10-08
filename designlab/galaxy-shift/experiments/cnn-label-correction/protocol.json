@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "purpose": "Fixed CPU table for future desktop Nika: every one of the 3^5 editable-label states, with one and two convolution blocks.",
+  "purpose": "Fixed CPU table for desktop Nika: every one of the 3^7 editable-label states, with one and two convolution blocks.",
   "dataset": {
     "source": "../../prepare-data.py",
-    "datasetVersion": "2026-10-06-hubble-15-v3",
-    "training": "The admitted nine train objects only. The three child labels use their canonical classroom labels in the four pilot runs; the exhaustive table varies all five editable labels, including the three child labels.",
+    "datasetVersion": "2026-10-08-hubble-15-v4",
+    "training": "The admitted nine train objects only. The four child labels use their canonical classroom labels in the pilot runs; the exhaustive table varies all seven editable labels, including the four child labels.",
     "review": "The three established review objects are evaluated after training and never supplied to the optimizer.",
     "final": "The three established final objects are evaluated after training and never supplied to the optimizer. This split was inspected in earlier work, so this artifact calls it a historically known holdout, not a new independent estimate."
   },
   "labelConditions": {
-    "corrupt_old": {"old_ngc3610": "spiral", "old_ngc7090": "smooth"},
-    "corrected_old": {"old_ngc3610": "smooth", "old_ngc7090": "edge_on"}
+    "corrupt_old": {"old_ngc3610": "spiral", "old_ngc7090": "smooth", "fixed_ngc691": "smooth"},
+    "corrected_old": {"old_ngc3610": "smooth", "old_ngc7090": "edge_on", "fixed_ngc691": "spiral"}
   },
   "frozenTraining": {
     "seed": 20261006,
@@ -22,8 +22,8 @@
     "hardware": "NumPy CPU only; no GPU, endpoint, or new dependency"
   },
   "stateTable": {
-    "keys": "All 243 base-3 strings in the editableIds order from prepare-data.py. The three child object IDs stay fixed, but their labels, like both old labels, vary across the table.",
-    "fixedTrainingLabels": "The remaining four training IDs retain their canonical labels.",
+    "keys": "All 2187 base-3 strings in the editableIds order from prepare-data.py. The four child object IDs stay fixed, but their labels, like the three old labels, vary across the table.",
+    "fixedTrainingLabels": "The remaining two training IDs retain their canonical labels.",
     "architectures": [1, 2],
     "runtimeLookup": "Exact key only. Missing or malformed table data is an error; no fallback model or invented result is allowed."
   },

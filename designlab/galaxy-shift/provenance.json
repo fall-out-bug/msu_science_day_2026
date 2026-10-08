@@ -1,5 +1,5 @@
 {
-  "datasetVersion": "2026-10-06-hubble-15-v3",
+  "datasetVersion": "2026-10-08-hubble-15-v4",
   "license": {
     "name": "CC BY 4.0",
     "url": "https://esahubble.org/copyright/"
@@ -87,7 +87,11 @@
       "license": "CC BY 4.0",
       "split": "train",
       "classroomLabel": "spiral",
-      "sourceCaption": "The spiral arms of the galaxy NGC 3318 are lazily draped across this image from the NASA/ESA Hubble Space Telescope."
+      "sourceCaption": "The spiral arms of the galaxy NGC 3318 are lazily draped across this image from the NASA/ESA Hubble Space Telescope.",
+      "ra": 159.317625,
+      "dec": -41.6275278,
+      "coordinateKind": "published image position (ESA/Hubble metadata)",
+      "coordinateSource": "https://esahubble.org/images/potw2203a/"
     },
     {
       "id": "fixed_ngc691",

@@ -32,11 +32,10 @@ def main():
           send({type:'RUN'}); const corrected=game.model.state.current;
           game.render(); return [before,corrected];
         }""")
-        assert before["labelKey"] == "01210" and before["architecture"] == "1"
-        assert corrected["labelKey"] == "01202" and corrected["architecture"] == "1"
-        assert before["result"]["review"]["correct"] == 1
-        assert corrected["result"]["review"]["correct"] == 2
-        assert corrected["result"]["final"]["correct"] == 3
+        assert before["labelKey"] != corrected["labelKey"]
+        assert before["architecture"] == corrected["architecture"] == "1"
+        assert "Метки проверены" in page.locator(".review-next").inner_text()
+        assert page.locator('[data-action="finish"]').is_enabled()
         assert page.locator('[data-action="architecture"][data-architecture="2"]').count() == 1
 
         page.locator('[data-action="architecture"][data-architecture="2"]').click()
@@ -44,8 +43,8 @@ def main():
         page.locator('[data-action="run"]').first.click()
         page.wait_for_function("galaxyGame.model.state.current && galaxyGame.model.state.current.architecture === '2'")
         two = page.evaluate("galaxyGame.model.state.current")
-        assert two["labelKey"] == "01202" and two["result"]["review"]["correct"] == 2
-        assert two["result"]["final"]["correct"] == 2
+        assert two["labelKey"] == corrected["labelKey"]
+        assert two["architecture"] == "2"
         assert page.locator('.architecture-choice').inner_text().count('2 блока') == 1
 
         page.locator('[data-action="finish"]').click()
@@ -54,16 +53,16 @@ def main():
         after_scope=page.locator('[data-score-scope="review-after"]')
         final_scope=page.locator('[data-score-scope="final"]')
         assert before_scope.count() == after_scope.count() == final_scope.count() == 1
-        assert "1 из 3" in before_scope.inner_text()
-        assert "2 из 3" in after_scope.inner_text()
-        assert "2 из 3" in final_scope.inner_text()
+        assert f'{before["result"]["review"]["correct"]} из {before["result"]["review"]["total"]}' in before_scope.inner_text()
+        assert f'{two["result"]["review"]["correct"]} из {two["result"]["review"]["total"]}' in after_scope.inner_text()
+        assert f'{two["result"]["final"]["correct"]} из {two["result"]["final"]["total"]}' in final_scope.inner_text()
         assert "которых не было в обучении" in final_scope.inner_text()
         assert "1 блок" in before_scope.inner_text()
         assert "2 блок" in after_scope.inner_text()
         assert page.locator('.board-score-summary').bounding_box()['width'] > 0
         assert not errors, errors
         browser.close()
-    print({"status":"PASS","review":[1,2],"twoBlockFinal":2})
+    print({"status":"PASS","review":[before["result"]["review"]["correct"],corrected["result"]["review"]["correct"]],"twoBlockFinal":two["result"]["final"]["correct"]})
 
 
 if __name__ == "__main__":

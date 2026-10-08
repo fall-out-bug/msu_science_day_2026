@@ -22,7 +22,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / "assets" / "galaxies"
-DATA_VERSION = "2026-10-06-hubble-15-v3"
+DATA_VERSION = "2026-10-08-hubble-15-v4"
 # Admission locks for the exact ESA/Hubble screensize files.  These are
 # independent of generated provenance, so rebuilding cannot bless a changed JPEG.
 EXPECTED_SOURCE_SHA256 = {
@@ -58,8 +58,8 @@ ITEMS = [
     ("child_ngc5023", "NGC 5023", "potw1512a", "edge_on", "train", "child", "Диск виден сбоку: он выглядит как длинная тонкая полоска.", "ESA/Hubble & NASA."),
     ("old_ngc3610", "NGC 3610", "potw1546a", "smooth", "train", "old", "Вокруг яркого центра — ровное овальное свечение. Отчётливых спиральных рукавов не видно.", "ESA/Hubble & NASA; acknowledgement: Judy Schmidt (Geckzilla)."),
     ("old_ngc7090", "NGC 7090", "potw1237a", "edge_on", "train", "old", "Мы видим диск сбоку. Через него проходит тёмная полоса пыли.", "ESA/Hubble & NASA. Acknowledgement: R. Tugral."),
-    ("fixed_ngc3318", "NGC 3318", "potw2203a", "spiral", "train", "fixed", "На снимке видны спиральные рукава NGC 3318.", "ESA/Hubble & NASA, ESO, R. J. Foley; acknowledgement: R. Colombari."),
-    ("fixed_ngc691", "NGC 691", "potw2008a", "spiral", "train", "fixed", "ESA/Hubble описывает NGC 691 как характерную спиральную галактику.", "ESA/Hubble & NASA, A. Riess et al."),
+    ("fixed_ngc3318", "NGC 3318", "potw2203a", "spiral", "train", "child", "На снимке видны спиральные рукава NGC 3318.", "ESA/Hubble & NASA, ESO, R. J. Foley; acknowledgement: R. Colombari."),
+    ("fixed_ngc691", "NGC 691", "potw2008a", "spiral", "train", "old", "ESA/Hubble описывает NGC 691 как характерную спиральную галактику.", "ESA/Hubble & NASA, A. Riess et al."),
     ("fixed_ic755", "IC 755", "potw1129a", "edge_on", "train", "fixed", "ESA/Hubble описывает IC 755 как спиральную галактику, которую мы видим с ребра.", "ESA/Hubble & NASA."),
     ("review_m49", "Messier 49", "potw1911a", "smooth", "review", "review", "Эллиптическая галактика с плавным свечением. Её справочная метка используется для повторной проверки модели.", "ESA/Hubble & NASA, J. Blakenslee, P Cote et al."),
     ("review_ngc3982", "NGC 3982", "opo1036a", "spiral", "review", "review", "Спиральная галактика, на диск которой мы смотрим почти сверху: видны рукава.", "NASA, ESA, and the Hubble Heritage Team (STScI/AURA)."),
@@ -69,10 +69,23 @@ ITEMS = [
     ("final_ngc5775", "NGC 5775", "potw1119a", "edge_on", "final", "final", "ESA/Hubble описывает тонкий профиль NGC 5775 как наблюдаемый с ребра.", "ESA/Hubble & NASA."),
 ]
 
-EDITABLE_IDS = ["child_m85", "child_ic5332", "child_ngc5023", "old_ngc3610", "old_ngc7090"]
-CHILD_IDS = EDITABLE_IDS[:3]
-OLD_IDS = EDITABLE_IDS[3:]
-INITIAL_OLD_LABELS = {"old_ngc3610": "spiral", "old_ngc7090": "smooth"}
+CHILD_IDS = ["child_m85", "child_ic5332", "child_ngc5023", "fixed_ngc3318"]
+OLD_IDS = ["old_ngc3610", "old_ngc7090", "fixed_ngc691"]
+EDITABLE_IDS = CHILD_IDS + OLD_IDS
+INITIAL_OLD_LABELS = {"old_ngc3610": "spiral", "old_ngc7090": "smooth", "fixed_ngc691": "smooth"}
+
+# Coordinates are only used to hand the fourth child card back to the sky scene.
+# ESA/Hubble potw2203a gives NGC 3318 as RA 10:37:16.23, Dec -41:37:39.10.
+# They reproduce the Position fields published by ESA/Hubble. The source page
+# does not state a reference frame, so the data deliberately does not infer one.
+COORDINATES = {
+    "fixed_ngc3318": {
+        "ra": 159.317625,
+        "dec": -41.6275278,
+        "coordinateKind": "published image position (ESA/Hubble metadata)",
+        "coordinateSource": "https://esahubble.org/images/potw2203a/",
+    }
+}
 
 # Short verbatim source captions/lead sentences captured from the linked primary
 # pages at admission.  They identify the object and avoid inferring a label from
@@ -155,10 +168,13 @@ def build() -> tuple[dict, dict]:
         record = {"id": item_id, "name": name, "src": f"assets/galaxies/{filename}", "label": label,
                   "explanation": explanation, "credit": credit, "source": source, "split": split,
                   "role": role, "sourceId": source_id, "sourceCaption": SOURCE_CAPTIONS[item_id]}
+        if item_id in COORDINATES:
+            record.update(COORDINATES[item_id])
         records.append(record)
         provenance["images"].append({"id": item_id, "name": name, "file": filename, "sha256": sha256(path),
                                       "source": source, "credit": credit, "license": "CC BY 4.0", "split": split,
-                                      "classroomLabel": label, "sourceCaption": SOURCE_CAPTIONS[item_id]})
+                                      "classroomLabel": label, "sourceCaption": SOURCE_CAPTIONS[item_id],
+                                      **COORDINATES.get(item_id, {})})
 
     by_id = {record["id"]: record for record in records}
     train = [record["id"] for record in records if record["split"] == "train"]
@@ -215,13 +231,13 @@ def main() -> None:
         mismatches = [str(path.name) for path, expected in ((ROOT / "data.js", data_text), (ROOT / "provenance.json", provenance_text)) if not path.is_file() or checked_text(path) != expected]
         if mismatches:
             raise SystemExit("generated files differ: " + ", ".join(mismatches))
-        if len(data["images"]) != 15 or len(data["experiments"]) != 243:
+        if len(data["images"]) != 15 or len(data["experiments"]) != 3 ** len(EDITABLE_IDS):
             raise SystemExit("unexpected package dimensions")
-        print("check passed: 15 images, 9 train / 3 review / 3 final, 243 states, admission hashes verified")
+        print(f"check passed: 15 images, 9 train / 3 review / 3 final, {len(data['experiments'])} states, admission hashes verified")
         return
     (ROOT / "data.js").write_text(data_text, encoding="utf-8")
     (ROOT / "provenance.json").write_text(provenance_text, encoding="utf-8")
-    print(f"wrote 243 states for {len(data['images'])} images")
+    print(f"wrote {len(data['experiments'])} states for {len(data['images'])} images")
 
 
 if __name__ == "__main__":

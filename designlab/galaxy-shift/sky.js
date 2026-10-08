@@ -5,7 +5,9 @@
   const TARGETS = {
     child_m85: {name: 'Messier 85', ra: 186.35, dec: 18.18793, source: 'ESA/Hubble · potw1905a'},
     child_ic5332: {name: 'IC 5332', ra: 353.61058, dec: -36.10005, source: 'ESA/Hubble · potw2342a'},
-    child_ngc5023: {name: 'NGC 5023', ra: 198.05117, dec: 44.04015, source: 'ESA/Hubble · potw1512a'}
+    child_ngc5023: {name: 'NGC 5023', ra: 198.05117, dec: 44.04015, source: 'ESA/Hubble · potw1512a'},
+    // Centre published for the admitted Hubble image, not an inferred position.
+    fixed_ngc3318: {name: 'NGC 3318', ra: 159.317625, dec: -41.6275278, source: 'ESA/Hubble · potw2203a'}
   };
   const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
   const wrap = n => (n % 360 + 360) % 360;
@@ -83,7 +85,7 @@
       if (mode === 'task') for (const id of ids) drawTarget(id);
       if (mode === 'task') { const [ax, ay] = aim(); ctx.strokeStyle = aligned ? '#b9ecd9' : 'rgba(230,244,255,.88)'; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.arc(ax, ay, 25, 0, Math.PI * 2); ctx.stroke(); ctx.beginPath(); ctx.moveTo(ax - 42, ay); ctx.lineTo(ax - 16, ay); ctx.moveTo(ax + 16, ay); ctx.lineTo(ax + 42, ay); ctx.moveTo(ax, ay - 42); ctx.lineTo(ax, ay - 16); ctx.moveTo(ax, ay + 16); ctx.lineTo(ax, ay + 42); ctx.stroke(); }
       ctx.font = '600 12px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(229,241,255,.72)';
-      ctx.fillText(`RA ${formatRa(wrap(camera.ra))} · Dec ${formatDec(camera.dec)}`, width / 2, height - 22);
+      ctx.fillText(`RA ${formatRa(wrap(camera.ra))} · Dec ${formatDec(camera.dec)}`, width / 2, height - 42);
     }
     function visible(marker) { if (guided) return marker.type === 'task'; if (filter === 'all') return true; if (filter === 'task') return marker.type === 'task'; if (filter === 'image') return marker.type === 'archive' || marker.category === 'image' || marker.category === 'object'; if (filter === 'research') return marker.category === 'research' || marker.kind === 'research'; return marker.type === 'discovery' && (marker.category==='discovery'|| /ии|ai|machine|нейросет/i.test([marker.category, marker.kind, marker.title, marker.text].join(' '))); }
     function drawConstellations() { if (camera.zoom > 7) return; for (const c of constellations) { ctx.globalAlpha = .62; ctx.strokeStyle = '#72a8d8'; ctx.lineWidth = 1; for (const line of c.lines) for (let i = 1; i < line.length; i++) { const a=project(...line[i-1]),b=project(...line[i]); if (Math.abs(a[0]-b[0]) > 180*camera.zoom) continue; ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke(); } const p=project(c.ra,c.dec); if(p[0]>38&&p[0]<width-38&&p[1]>76&&p[1]<height-25){ctx.globalAlpha=.9;ctx.font='600 12px system-ui';ctx.textAlign='center';ctx.fillStyle='#b7d9f2';ctx.fillText(c.name,p[0],p[1]);} } ctx.globalAlpha=1; }
@@ -108,7 +110,7 @@
         return;
       }
       const remaining=ids.filter(id=>!collected.has(id));
-      taskHost.innerHTML=`<p class="sky-atlas__truth">${guided?'Собери три уже существующих архивных снимка Hubble для учебной подборки.':'Найдём положение галактики на карте и откроем её архивный снимок Hubble.'}</p><div class="sky-atlas__targets">${ids.map(id=>{const done=collected.has(id),image=imageById[id];return `<button type="button" data-target="${id}" class="${done?'is-collected':''}" ${done?'disabled':''}>${done&&image?`<img src="${image.src}" alt="">`:''}<span>${TARGETS[id].name}<small>${done?'Добавлено в подборку ✓':`RA ${formatRa(TARGETS[id].ra)} · Dec ${formatDec(TARGETS[id].dec)}`}</small></span></button>`;}).join('')}</div><p class="sky-atlas__hint" aria-live="polite">${remaining.length?`Собрано ${collected.size} из ${ids.length}. Выбери объект в списке или найди его на карте.`:'Подборка собрана: три снимка готовы к разметке.'}</p>${remaining.length?'<button type="button" class="sky-atlas__open" disabled>Добавить архивный снимок</button>':'<button type="button" class="sky-atlas__complete">К рабочему столу →</button>'}`;
+      taskHost.innerHTML=`<p class="sky-atlas__truth">${guided?'Собери отмеченные архивные снимки Hubble для учебной подборки.':'Найдём положение галактики на карте и откроем её архивный снимок Hubble.'}</p><div class="sky-atlas__targets">${ids.map(id=>{const done=collected.has(id),image=imageById[id];return `<button type="button" data-target="${id}" class="${done?'is-collected':''}" ${done?'disabled':''}>${done&&image?`<img src="${image.src}" alt="">`:''}<span>${TARGETS[id].name}<small>${done?'Добавлено в подборку ✓':`RA ${formatRa(TARGETS[id].ra)} · Dec ${formatDec(TARGETS[id].dec)}`}</small></span></button>`;}).join('')}</div><p class="sky-atlas__hint" aria-live="polite">${remaining.length?`Собрано ${collected.size} из ${ids.length}. Выбери объект в списке или найди его на карте.`:'Подборка собрана: три снимка готовы к разметке.'}</p>${remaining.length?'<button type="button" class="sky-atlas__open" disabled>Добавить архивный снимок</button>':'<button type="button" class="sky-atlas__complete">К рабочему столу →</button>'}`;
       hint=taskHost.querySelector('.sky-atlas__hint'); openButton=taskHost.querySelector('.sky-atlas__open'); completeButton=taskHost.querySelector('.sky-atlas__complete'); targetButtons=[...taskHost.querySelectorAll('[data-target]')];
       targetButtons.forEach(button=>button.addEventListener('click',()=>select(button.dataset.target,true)));
       openButton?.addEventListener('click',collectActive);

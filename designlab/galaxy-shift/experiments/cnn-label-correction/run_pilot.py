@@ -130,8 +130,8 @@ def build():
         "costEstimate": {
             "observedOneBlockTrainingWallSeconds": base_seconds,
             "observedTwoBlockTrainingWallSeconds": two_seconds,
-            "estimated243StatesTimesTwoArchitecturesWallSeconds": round(243 * (base_seconds + two_seconds), 3),
-            "verdict": "A separately reviewed finite 243-state × two-architecture table is now the accepted desktop artifact. Its generator validates source hashes and exact targeted replays; this pilot remains the small before/after explanation."
+            "estimated2187StatesTimesTwoArchitecturesWallSeconds": round(2187 * (base_seconds + two_seconds), 3),
+            "verdict": "A separately reviewed finite 2187-state × two-architecture table is the accepted desktop artifact. Its generator validates source hashes and exact targeted replays; this pilot remains the small before/after explanation."
         },
         "limitations": [
             "Nine training objects and three objects per evaluation split are too small for a capability claim.",
