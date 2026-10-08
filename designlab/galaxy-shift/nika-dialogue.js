@@ -1,6 +1,6 @@
 /* Contextual, non-grading conversation with Nika. It is independent from the
    game state machine: callers supply the current image and, after a run, the
-   actual prediction and nearest example. */
+   actual CNN prediction. */
 (function (root) {
   'use strict';
   let active = null;
@@ -91,28 +91,22 @@
     }
     function why() {
       const prediction = options.prediction || {};
-      const neighbor = options.neighbor;
-      const neighborText = neighbor ? `Ближайшим учебным примером оказался ${esc(neighbor.name)}. Его метка — «${esc(label(prediction.predicted || neighbor.label))}».` : 'Ближайший учебный пример не передан в этот разговор.';
-      return `${header('thinking', 'ОТКУДА ОТВЕТ', neighborText)}
-        ${neighbor ? `<div class="nika-dialogue__pair">${imagePanel(image, `Проверяемый снимок · ${image.name}`)}${imagePanel(neighbor, `Ближайший учебный пример · ${neighbor.name}`)}</div>` : imagePanel(image, `Проверяемый снимок · ${image.name}`)}
-        <p>Программа сравнила заранее измеренные признаки яркости, а не прочитала название объекта и не увидела смысл снимка как человек. Похожие числа могут встретиться у галактик разного вида.</p>
+      return `${header('thinking', 'ОТКУДА ОТВЕТ', `Модель выбрала метку «${esc(label(prediction.predicted))}».`)}
+        ${imagePanel(image, `Проверяемый снимок · ${image.name}`)}
+        <p>Свёрточная сеть училась на девяти снимках с метками. Её фильтры обрабатывают небольшие участки изображения, а последний слой выбирает метку по полученным признакам.</p>
+        <p>Мы видим ответ, но этот экран не показывает, какие именно детали стали причиной выбора. Проверим его по снимку и справочной метке.</p>
         ${actions([{ id: 'change', text: 'Поможет другая метка?' }, { id: 'limits', text: 'Насколько модель уверена?' }, { id: 'result-back', text: 'К вопросам', primary: true }])}`;
     }
     function change() {
-      const neighbor = options.neighbor;
-      const editable = ['child', 'old'].includes(neighbor?.role);
-      const text = !neighbor ? 'Сначала нужно увидеть ближайший учебный пример.' : editable
-        ? `Да, если изменить метку у ${esc(neighbor.name)}, этот ответ изменится: программа повторяет метку ближайшего примера. Но сначала проверь снимок и причину исправления.`
-        : `Не в этом случае. Ближайший пример — ${esc(neighbor.name)}, а его метку в задании не меняют. Другая метка у далёкого примера на этот ответ не повлияет.`;
-      return `${header(editable ? 'warm' : 'warm', 'ПРОВЕРЯЕМ ПРИЧИНУ', text)}
+      return `${header('warm', 'ПРОВЕРЯЕМ ПРИЧИНУ', 'Исправленная учебная метка может изменить ответы после нового обучения. Проверим это опытом.')}
         ${imagePanel(image, `Проверяемый снимок · ${image.name}`)}
-        <p>Изменение метки не меняет сами признаки и не делает изображение ближе или дальше. Оно меняет только подпись, которую модель может повторить.</p>
-        ${actions([{ id: 'why', text: 'Почему это ближайший пример?' }, { id: 'limits', text: 'Насколько модель уверена?' }, { id: 'result-back', text: 'К вопросам', primary: true }])}`;
+        <p>Меняй подпись, если она не соответствует снимку. Затем сравни ответы на тех же проверочных изображениях при том же устройстве модели. Исправление не обязано устранить каждую ошибку.</p>
+        ${actions([{ id: 'why', text: 'Как получен ответ?' }, { id: 'limits', text: 'Насколько модель уверена?' }, { id: 'result-back', text: 'К вопросам', primary: true }])}`;
     }
     function limits() {
       return `${header('warm', 'ЧЕСТНЫЙ ОТВЕТ', 'У этой модели нет числа уверенности, которому можно просто поверить.')}
         ${imagePanel(image, `Проверяемый снимок · ${image.name}`)}
-        <p>Она сравнивает только девять учебных примеров текущей смены и несколько чисел из яркости изображения. Маленькое расстояние не доказывает, что ответ верный. Поэтому мы смотрим на справочную метку и проверяем ошибки.</p>
+        <p>Модель обучалась всего на девяти примерах. Даже большой вес одного ответа не доказывает, что он верный. Поэтому мы сравниваем ответы со справочными метками. Три проверочных снимка помогают разобрать этот опыт, но не показывают, насколько хорошо модель работает во всём космосе.</p>
         ${actions([{ id: 'why', text: 'Почему такой ответ?' }, { id: 'change', text: 'Поможет другая метка?' }, { id: 'result-back', text: 'К вопросам', primary: true }])}`;
     }
     function storyStart() {

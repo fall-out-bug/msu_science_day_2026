@@ -1,0 +1,443 @@
+{
+  "schemaVersion": 1,
+  "protocolFile": "protocol.json",
+  "source": {
+    "datasetVersion": "2026-10-06-hubble-15-v3",
+    "prepareDataSha256": "9a60026fcbd185a921f09ad371f099cf4b9216b6d920c700be83e63d658b7292",
+    "cnnPrepareSha256": "0cc3a7edddf0ed86d1c2719b954d1b710b962622d772c8b3e8cccf61e719b21c",
+    "admission": "prepare.build() and cnn.load_image() verified every source image hash used here"
+  },
+  "split": {
+    "trainingIds": [
+      "tutorial_ic2006",
+      "child_m85",
+      "child_ic5332",
+      "child_ngc5023",
+      "old_ngc3610",
+      "old_ngc7090",
+      "fixed_ngc3318",
+      "fixed_ngc691",
+      "fixed_ic755"
+    ],
+    "reviewIds": [
+      "review_m49",
+      "review_ngc3982",
+      "review_ngc4762"
+    ],
+    "historicallyKnownHoldoutIds": [
+      "final_ngc2768",
+      "final_ngc6814",
+      "final_ngc5775"
+    ]
+  },
+  "cases": [
+    {
+      "id": "one_block_corrupt_old",
+      "blocks": 1,
+      "parameterCount": 55,
+      "trainingLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "spiral",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "spiral",
+        "old_ngc7090": "smooth",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "spiral",
+        "fixed_ic755": "edge_on"
+      },
+      "loss": {
+        "first": 2.01286358,
+        "last": 0.22077443
+      },
+      "trainingWallSeconds": 0.29624,
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "confidence": 0.70868893,
+            "probabilities": {
+              "smooth": 0.70868893,
+              "spiral": 0.27988634,
+              "edge_on": 0.01142474
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "confidence": 0.6661065,
+            "probabilities": {
+              "smooth": 0.6661065,
+              "spiral": 0.21156153,
+              "edge_on": 0.12233197
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "smooth",
+            "expected": "edge_on",
+            "confidence": 0.75571686,
+            "probabilities": {
+              "smooth": 0.75571686,
+              "spiral": 0.1225907,
+              "edge_on": 0.12169244
+            }
+          }
+        ],
+        "correct": 1,
+        "total": 3
+      },
+      "historicallyKnownHoldout": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "confidence": 0.88384774,
+            "probabilities": {
+              "smooth": 0.88384774,
+              "spiral": 0.08455126,
+              "edge_on": 0.03160099
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "confidence": 0.92863142,
+            "probabilities": {
+              "smooth": 0.06111527,
+              "spiral": 0.92863142,
+              "edge_on": 0.01025331
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "smooth",
+            "expected": "edge_on",
+            "confidence": 0.9144072,
+            "probabilities": {
+              "smooth": 0.9144072,
+              "spiral": 0.0038902,
+              "edge_on": 0.0817026
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      }
+    },
+    {
+      "id": "one_block_corrected_old",
+      "blocks": 1,
+      "parameterCount": 55,
+      "trainingLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "spiral",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "smooth",
+        "old_ngc7090": "edge_on",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "spiral",
+        "fixed_ic755": "edge_on"
+      },
+      "loss": {
+        "first": 1.93704157,
+        "last": 0.04023633
+      },
+      "trainingWallSeconds": 0.295006,
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "confidence": 0.93784069,
+            "probabilities": {
+              "smooth": 0.93784069,
+              "spiral": 0.0469947,
+              "edge_on": 0.01516461
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "confidence": 0.9291228,
+            "probabilities": {
+              "smooth": 0.9291228,
+              "spiral": 0.01022464,
+              "edge_on": 0.06065256
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "confidence": 0.99915891,
+            "probabilities": {
+              "smooth": 7.693e-05,
+              "spiral": 0.00076416,
+              "edge_on": 0.99915891
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      },
+      "historicallyKnownHoldout": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "confidence": 0.99004927,
+            "probabilities": {
+              "smooth": 0.99004927,
+              "spiral": 0.00398064,
+              "edge_on": 0.00597009
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "confidence": 0.8878666,
+            "probabilities": {
+              "smooth": 0.06178747,
+              "spiral": 0.8878666,
+              "edge_on": 0.05034593
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "confidence": 0.99997343,
+            "probabilities": {
+              "smooth": 6.64e-06,
+              "spiral": 1.992e-05,
+              "edge_on": 0.99997343
+            }
+          }
+        ],
+        "correct": 3,
+        "total": 3
+      }
+    },
+    {
+      "id": "one_block_corrected_repeat",
+      "blocks": 1,
+      "parameterCount": 55,
+      "trainingLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "spiral",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "smooth",
+        "old_ngc7090": "edge_on",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "spiral",
+        "fixed_ic755": "edge_on"
+      },
+      "loss": {
+        "first": 1.93704157,
+        "last": 0.04023633
+      },
+      "trainingWallSeconds": 0.294707,
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "confidence": 0.93784069,
+            "probabilities": {
+              "smooth": 0.93784069,
+              "spiral": 0.0469947,
+              "edge_on": 0.01516461
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "confidence": 0.9291228,
+            "probabilities": {
+              "smooth": 0.9291228,
+              "spiral": 0.01022464,
+              "edge_on": 0.06065256
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "confidence": 0.99915891,
+            "probabilities": {
+              "smooth": 7.693e-05,
+              "spiral": 0.00076416,
+              "edge_on": 0.99915891
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      },
+      "historicallyKnownHoldout": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "confidence": 0.99004927,
+            "probabilities": {
+              "smooth": 0.99004927,
+              "spiral": 0.00398064,
+              "edge_on": 0.00597009
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "confidence": 0.8878666,
+            "probabilities": {
+              "smooth": 0.06178747,
+              "spiral": 0.8878666,
+              "edge_on": 0.05034593
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "confidence": 0.99997343,
+            "probabilities": {
+              "smooth": 6.64e-06,
+              "spiral": 1.992e-05,
+              "edge_on": 0.99997343
+            }
+          }
+        ],
+        "correct": 3,
+        "total": 3
+      }
+    },
+    {
+      "id": "two_block_corrected_old",
+      "blocks": 2,
+      "parameterCount": 203,
+      "trainingLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "spiral",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "smooth",
+        "old_ngc7090": "edge_on",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "spiral",
+        "fixed_ic755": "edge_on"
+      },
+      "loss": {
+        "first": 2.61947632,
+        "last": 0.00355781
+      },
+      "trainingWallSeconds": 0.879521,
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "confidence": 0.99048392,
+            "probabilities": {
+              "smooth": 0.99048392,
+              "spiral": 0.00940994,
+              "edge_on": 0.00010614
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "confidence": 0.99452932,
+            "probabilities": {
+              "smooth": 0.99452932,
+              "spiral": 0.00292828,
+              "edge_on": 0.00254239
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "confidence": 0.99708426,
+            "probabilities": {
+              "smooth": 0.0029156,
+              "spiral": 1.4e-07,
+              "edge_on": 0.99708426
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      },
+      "historicallyKnownHoldout": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "edge_on",
+            "expected": "smooth",
+            "confidence": 0.59819648,
+            "probabilities": {
+              "smooth": 0.40170097,
+              "spiral": 0.00010255,
+              "edge_on": 0.59819648
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "confidence": 0.99940868,
+            "probabilities": {
+              "smooth": 0.00059132,
+              "spiral": 0.99940868,
+              "edge_on": 0.0
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "confidence": 0.95776971,
+            "probabilities": {
+              "smooth": 0.04222496,
+              "spiral": 5.33e-06,
+              "edge_on": 0.95776971
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      }
+    }
+  ],
+  "costEstimate": {
+    "observedOneBlockTrainingWallSeconds": 0.295006,
+    "observedTwoBlockTrainingWallSeconds": 0.879521,
+    "estimated243StatesTimesTwoArchitecturesWallSeconds": 285.41,
+    "verdict": "A separately reviewed finite 243-state × two-architecture table is now the accepted desktop artifact. Its generator validates source hashes and exact targeted replays; this pilot remains the small before/after explanation."
+  },
+  "limitations": [
+    "Nine training objects and three objects per evaluation split are too small for a capability claim.",
+    "Review is a known teaching check, not an independent model-selection score.",
+    "The final split was historically inspected before this pilot; it is reported as a historically known holdout, not a new independent test.",
+    "One fixed seed demonstrates reproducibility, not uncertainty across initializations."
+  ]
+}

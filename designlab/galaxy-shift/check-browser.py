@@ -9,7 +9,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
-EVIDENCE = HERE / 'evidence'
+EVIDENCE = Path(os.environ.get('GALAXY_EVIDENCE_DIR', HERE / 'evidence'))
 
 
 def run(page, entry, capture=False, offline=True):
@@ -27,7 +27,7 @@ def run(page, entry, capture=False, offline=True):
     def action(name):
         page.locator(f'[data-action="{name}"]').first.click()
         if name == 'run':
-            page.wait_for_function('!galaxyGame.busy && galaxyGame.model.state.phase === "results"')
+            page.wait_for_function('galaxyGame.model.state.phase === "review"')
 
     def state():
         return page.evaluate('galaxyGame.model.state')
@@ -151,7 +151,7 @@ def run(page, entry, capture=False, offline=True):
         if complete:
             assert page.locator('.sky-atlas__complete').is_visible()
             page.locator('.sky-atlas__complete').click()
-            page.wait_for_function("galaxyGame.model.state.phase === 'labels'")
+            page.wait_for_function("galaxyGame.model.state.phase === 'tutorial'")
             assert not page.evaluate('document.querySelector("#game").inert')
         else:
             assert page.locator('.sky-atlas').is_visible()
@@ -198,24 +198,30 @@ def run(page, entry, capture=False, offline=True):
     collect_sky(data['childIds'][2])
     assert page.locator('.sky-atlas__complete').is_visible()
     page.locator('.sky-atlas__close').click()
-    assert 'Все три снимка уже в подборке' in page.locator('.route-story__card').inner_text()
+    assert 'Все три снимка в подборке' in page.locator('.route-story__card').inner_text()
     action('complete-collection')
     assert state()['phase'] == 'tutorial'
     before_quest_labels = state()['labels'].copy()
     quest('tutorial', before_quest_labels)
     assert page.locator('.quest-scene [data-action="talk"]').count() == 0
     stage('tutorial')
-    tutorial_zoom = page.locator('.workbench .film-footer [data-action="zoom"]').first
+    tutorial_zoom = page.locator('.workbench [data-action="zoom"]').first
     assert tutorial_zoom.count() == 1
     dialog('zoom')
     assert state()['labels'] == before_quest_labels
     action('labels')
     assert state()['phase'] == 'labels'
-    assert page.locator('[data-action="run"]').is_disabled()
+    assert all(control.is_disabled() for control in page.locator('[data-action="run"]').all())
+    action('folder')
+    assert page.locator('.folder-grid article').count() == 9
+    assert page.locator('.folder-grid [data-action="zoom"]:visible').count() == 9
+    assert page.locator('.folder-grid').inner_text().count('Без метки') == 3
+    stage('training-folder')
+    action('close-modal')
     first_id = data['childIds'][0]
     before_class = state()['labels'].copy()
     quest('labels', before_class)
-    run_box = page.locator('[data-action="run"]').bounding_box()
+    run_box = page.locator('[data-action="run"]').last.bounding_box()
     assert run_box['y'] + run_box['height'] <= page.viewport_size['height'], ('labels', run_box)
     assert page.locator('.quest-scene [data-action="help"]').count() == 0
     # Only an explicit class button writes a label; pointing or hints must not.
@@ -234,35 +240,21 @@ def run(page, entry, capture=False, offline=True):
     assert state()['phase'] == 'labels'
     assert all(state()['labels'][i] == objects[i]['label'] for i in data['childIds'])
     action('run')
-    assert state()['phase'] == 'results'
+    assert state()['phase'] == 'review'
     baseline = state()['current']
     assert page.locator('[data-action="finish"]').count() == 0
     stage('first-result')
     action('talk')
     page.locator('[data-nika="why"]').click()
-    assert page.locator('.nika-dialogue__pair img').count() == 2
-    assert objects[baseline['review']['predictions'][0]['neighborId']]['name'] in page.locator('.nika-dialogue').inner_text()
-    stage('nika-reason')
-    page.locator('[data-nika="change"]').click()
-    page.locator('[data-nika="limits"]').click()
+    assert 'Свёрточная сеть' in page.locator('.nika-dialogue').inner_text()
+    assert 'Ближайший' not in page.locator('.nika-dialogue').inner_text()
     page.keyboard.press('Escape')
-    assert state()['current'] == baseline
-    dialog('explain')
-    old_trace = next((p for p in baseline['review']['predictions'] if p['neighborId'] in data['oldIds']), None)
-    if old_trace:
-        page.locator(f'[data-action="explain"][data-image-id="{old_trace["id"]}"]').click()
-        action('inspect-old')
-        assert page.locator(f'[data-label-id="{old_trace["neighborId"]}"]').count() == 3
-    else:
-        action('repair')
-    assert state()['phase'] == 'repair'
-    action('run')
-    assert state()['current']['key'] == baseline['key']
-    assert 'тот же опыт' in state()['notice']
+    assert page.locator('.nika-dialogue').count() == 0
+    assert baseline['result']['review']['total'] == 3
     action('repair')
     assert state()['phase'] == 'repair'
     quest('repair', state()['labels'].copy())
-    run_box = page.locator('[data-action="run"]').bounding_box()
+    run_box = page.locator('[data-action="run"]').last.bounding_box()
     assert run_box['y'] + run_box['height'] <= page.viewport_size['height'], ('repair', run_box)
     for index, item_id in enumerate(data['oldIds']):
         choose(item_id, objects[item_id]['label'])
@@ -272,9 +264,22 @@ def run(page, entry, capture=False, offline=True):
     stage('repair')
     action('run')
     corrected = state()['current']
-    assert state()['baseline']['key'] == baseline['key']
+    assert state()['baseline']['labelKey'] == baseline['labelKey']
     stage('comparison')
-    assert page.locator('.before-answer').count() == 3
+    assert page.locator('[data-action="architecture"]').count() == 2
+    action('model-settings')
+    assert state()['current'] == corrected
+    assert page.locator('.cnn-layers article').count() == 4
+    stage('model-one-block')
+    page.locator('[data-architecture="2"]').click()
+    assert state()['current'] is None
+    assert page.locator('.cnn-layers article').count() == 5
+    stage('model-two-blocks')
+    action('run')
+    assert state()['current']['architecture'] == '2'
+    assert 'На тех же метках' in page.locator('.callout').last.inner_text()
+    corrected = state()['current']
+    stage('architecture-comparison')
     action('finish')
     assert state()['phase'] == 'final' and state()['finalSeen']
     stage('final')
@@ -304,39 +309,18 @@ def run(page, entry, capture=False, offline=True):
         assert not page.locator('.sky-atlas').evaluate('(el)=>el.inert')
     page.locator('.sky-atlas__close').click()
     action('astronomy')
-    assert page.locator('.library-card').count() >= 16
-    page.locator('.library-card').first.click()
-    assert page.locator('.modal img').count() > 0
-    page.locator('.modal [data-action="talk"]').click()
-    assert page.locator('.modal').evaluate('(el)=>el.inert')
-    page.locator('[data-nika="story-ai"]').click()
-    assert page.locator('.nika-dialogue__head img').get_attribute('data-mood') == 'thinking'
-    page.keyboard.press('Escape')
-    assert page.locator('.modal').count() == 1 and not page.locator('.modal').evaluate('(el)=>el.inert')
+    assert page.locator('.modal h2').inner_text() == 'Открытия и исследования'
+    assert page.locator('.discovery-grid [data-action="discovery"]').count() == 19
+    action('archive')
+    assert page.locator('.discovery-grid [data-action="archive-image"]').count() == 24
     action('close-modal')
-    action('astronomy'); action('archive')
-    assert page.locator('.library-card').count() >= 24
-    page.locator('.library-card').first.click()
-    assert page.locator('.modal img').count() > 0
-    action('close-modal')
-    if page.locator('[data-action="cnn"]').count():
-        action('cnn')
-        assert page.locator('.cnn-model').count() == 1
-        action('cnn-two')
-        assert page.locator('.cnn-model').count() == 2
-        action('cnn-one')
-        assert page.locator('.cnn-model').count() == 1
-        action('cnn-two')
-        stage('cnn')
-        action('close-cnn')
-        assert state()['phase'] == 'final'
     action('home'); action('resume')
     assert state()['phase'] == 'final'
     action('labels')
     item_id = data['childIds'][0]
     other = next(c['id'] for c in data['classes'] if c['id'] != objects[item_id]['label'])
     choose(item_id, other)
-    assert state()['current'] is None and state()['repairCheckedKey'] is None
+    assert state()['current'] is None and state()['repairCheckedLabelKey'] is None
     action('run')
     assert page.locator('[data-action="finish"]').count() == 0
     action('repair'); action('run'); action('finish')
@@ -345,7 +329,6 @@ def run(page, entry, capture=False, offline=True):
     assert 'повторный просмотр' in state()['notice']
     page.once('dialog', lambda dialog: dialog.accept())
     action('reset')
-    assert set(page.evaluate('GALAXY_DATA.childIds')) != set(data['childIds'])
     assert page.evaluate('galaxyGame.found.length') == 0
     assert state()['phase'] == 'intro' and not state()['finalSeen'] and state()['baseline'] is None
     page.reload()
@@ -353,8 +336,8 @@ def run(page, entry, capture=False, offline=True):
     assert state()['phase'] == 'intro'
     assert not errors, errors
     assert not external, external
-    return {'first': baseline['review']['correct'], 'corrected': corrected['review']['correct'],
-            'final': corrected['final']['correct'], 'total': corrected['review']['total'],
+    return {'first': baseline['result']['review']['correct'], 'corrected': corrected['result']['review']['correct'],
+            'final': corrected['result']['final']['correct'], 'total': corrected['result']['review']['total'],
             'stages': stages, 'errors': errors, 'externalRequests': external}
 
 
