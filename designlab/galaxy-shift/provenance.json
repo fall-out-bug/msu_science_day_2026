@@ -1,0 +1,189 @@
+{
+  "datasetVersion": "2026-10-06-hubble-15-v3",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://esahubble.org/copyright/"
+  },
+  "images": [
+    {
+      "id": "tutorial_ic2006",
+      "name": "IC 2006",
+      "file": "heic1508a.jpg",
+      "sha256": "407c0906cd5a81a1c5c7ca09aa06906e3190f44ad0126818bb0adaa63cdcc205",
+      "source": "https://esahubble.org/images/heic1508a/",
+      "credit": "ESA/Hubble & NASA. Image acknowledgement: Judy Schmidt and J. Blakeslee (Dominion Astrophysical Observatory). Science acknowledgement: M. Carollo (ETH, Switzerland).",
+      "license": "CC BY 4.0",
+      "split": "train",
+      "classroomLabel": "smooth",
+      "sourceCaption": "This NASA/ESA Hubble Space Telescope image shows an elliptical galaxy known as IC 2006."
+    },
+    {
+      "id": "child_m85",
+      "name": "Messier 85",
+      "file": "potw1905a.jpg",
+      "sha256": "28270014f69d5e5b7cb262ffb6dbfd35c468de8ee78c3f361ac8fa5e78c27951",
+      "source": "https://esahubble.org/images/potw1905a/",
+      "credit": "ESA/Hubble & NASA, R. O'Connell.",
+      "license": "CC BY 4.0",
+      "split": "train",
+      "classroomLabel": "smooth",
+      "sourceCaption": "This atmospheric image shows a galaxy named Messier 85, captured in all its delicate, hazy glory by the NASA/ESA Hubble Space Telescope."
+    },
+    {
+      "id": "child_ic5332",
+      "name": "IC 5332",
+      "file": "potw2342a.jpg",
+      "sha256": "841cd27ceedba7b2f60c07cab115dd22a8f8a7464f91ac1c154ab511473ed620",
+      "source": "https://esahubble.org/images/potw2342a/",
+      "credit": "ESA/Hubble & NASA, R. Chandar, J. Lee and the PHANGS-HST team.",
+      "license": "CC BY 4.0",
+      "split": "train",
+      "classroomLabel": "spiral",
+      "sourceCaption": "This glittering image shows the spiral galaxy IC 5332, which has an almost face-on orientation to Earth."
+    },
+    {
+      "id": "child_ngc5023",
+      "name": "NGC 5023",
+      "file": "potw1512a.jpg",
+      "sha256": "7ca8e569ecf6c8052d8a2c8f25bebfc6027a79369e495e872f075dcdfd5a905c",
+      "source": "https://esahubble.org/images/potw1512a/",
+      "credit": "ESA/Hubble & NASA.",
+      "license": "CC BY 4.0",
+      "split": "train",
+      "classroomLabel": "edge_on",
+      "sourceCaption": "This NASA/ESA Hubble Space Telescope image shows an edge-on view of the spiral galaxy NGC 5023."
+    },
+    {
+      "id": "old_ngc3610",
+      "name": "NGC 3610",
+      "file": "potw1546a.jpg",
+      "sha256": "3f8af226a2a3cb65afb003d706c45efd9b138b6e0a3ab7ab58bbe5f33d1126b0",
+      "source": "https://esahubble.org/images/potw1546a/",
+      "credit": "ESA/Hubble & NASA; acknowledgement: Judy Schmidt (Geckzilla).",
+      "license": "CC BY 4.0",
+      "split": "train",
+      "classroomLabel": "smooth",
+      "sourceCaption": "At the centre of this amazing image is the elliptical galaxy NGC 3610."
+    },
+    {
+      "id": "old_ngc7090",
+      "name": "NGC 7090",
+      "file": "potw1237a.jpg",
+      "sha256": "89f8bdfcdccf70ff4802f3d123438417b8988c5de8095e4855460babc44a122d",
+      "source": "https://esahubble.org/images/potw1237a/",
+      "credit": "ESA/Hubble & NASA. Acknowledgement: R. Tugral.",
+      "license": "CC BY 4.0",
+      "split": "train",
+      "classroomLabel": "edge_on",
+      "sourceCaption": "This image portrays a beautiful view of the galaxy NGC 7090; the galaxy is viewed edge-on from the Earth."
+    },
+    {
+      "id": "fixed_ngc3318",
+      "name": "NGC 3318",
+      "file": "potw2203a.jpg",
+      "sha256": "851cc045558852ef22dd0769df01dddc391de55fc97d520ad4acb2b2a51279f4",
+      "source": "https://esahubble.org/images/potw2203a/",
+      "credit": "ESA/Hubble & NASA, ESO, R. J. Foley; acknowledgement: R. Colombari.",
+      "license": "CC BY 4.0",
+      "split": "train",
+      "classroomLabel": "spiral",
+      "sourceCaption": "The spiral arms of the galaxy NGC 3318 are lazily draped across this image from the NASA/ESA Hubble Space Telescope."
+    },
+    {
+      "id": "fixed_ngc691",
+      "name": "NGC 691",
+      "file": "potw2008a.jpg",
+      "sha256": "2d6885f3cdbc397610745e6e4364e93b25ddcf546d97403a5954430e10b25ea8",
+      "source": "https://esahubble.org/images/potw2008a/",
+      "credit": "ESA/Hubble & NASA, A. Riess et al.",
+      "license": "CC BY 4.0",
+      "split": "train",
+      "classroomLabel": "spiral",
+      "sourceCaption": "This image of an archetypal spiral galaxy was captured by the NASA/ESA Hubble Space Telescope; the galaxy is known as NGC 691."
+    },
+    {
+      "id": "fixed_ic755",
+      "name": "IC 755",
+      "file": "potw1129a.jpg",
+      "sha256": "9a3793256c8f24fd8db5b4ccf5ea126e5721fb251ab51e10092842c48742490c",
+      "source": "https://esahubble.org/images/potw1129a/",
+      "credit": "ESA/Hubble & NASA.",
+      "license": "CC BY 4.0",
+      "split": "train",
+      "classroomLabel": "edge_on",
+      "sourceCaption": "IC 755 is actually a spiral galaxy that we are seeing edge-on."
+    },
+    {
+      "id": "review_m49",
+      "name": "Messier 49",
+      "file": "potw1911a.jpg",
+      "sha256": "c284ff3261d06ef9f3fa7417bcf98d37c656e06a3355cec97067689a781005f4",
+      "source": "https://esahubble.org/images/potw1911a/",
+      "credit": "ESA/Hubble & NASA, J. Blakenslee, P Cote et al.",
+      "license": "CC BY 4.0",
+      "split": "review",
+      "classroomLabel": "smooth",
+      "sourceCaption": "This fuzzy orb of light is a giant elliptical galaxy filled with an incredible 200 billion stars."
+    },
+    {
+      "id": "review_ngc3982",
+      "name": "NGC 3982",
+      "file": "opo1036a.jpg",
+      "sha256": "f4d9a89eae758ca3ff1a9a2c2c7c6ddcf77d204314c9740b743c83715a641429",
+      "source": "https://esahubble.org/images/opo1036a/",
+      "credit": "NASA, ESA, and the Hubble Heritage Team (STScI/AURA).",
+      "license": "CC BY 4.0",
+      "split": "review",
+      "classroomLabel": "spiral",
+      "sourceCaption": "This face-on spiral galaxy, called NGC 3982, is striking for its rich tapestry of star birth, along with its winding arms."
+    },
+    {
+      "id": "review_ngc4762",
+      "name": "NGC 4762",
+      "file": "potw1443a.jpg",
+      "sha256": "945a118afbf0b43edae7c69e8996e567ca7d12274bbba00fd1c0babc72d9137a",
+      "source": "https://esahubble.org/images/potw1443a/",
+      "credit": "ESA/Hubble & NASA.",
+      "license": "CC BY 4.0",
+      "split": "review",
+      "classroomLabel": "edge_on",
+      "sourceCaption": "The bright streak slicing across the frame is an edge-on view of galaxy NGC 4762."
+    },
+    {
+      "id": "final_ngc2768",
+      "name": "NGC 2768",
+      "file": "potw1548a.jpg",
+      "sha256": "c12cb61bf31f67a3a33051f5a2ffb5814a202aabb87a6a7dac37b6ff76cf6f29",
+      "source": "https://esahubble.org/images/potw1548a/",
+      "credit": "ESA/Hubble, NASA and S. Smartt (Queen's University Belfast).",
+      "license": "CC BY 4.0",
+      "split": "final",
+      "classroomLabel": "smooth",
+      "sourceCaption": "NGC 2768 is an elliptical galaxy in the constellation of Ursa Major."
+    },
+    {
+      "id": "final_ngc6814",
+      "name": "NGC 6814",
+      "file": "potw1619a.jpg",
+      "sha256": "3aae7e8611a8e8218aac1c175b31e7bdabc22401479b27ec2c1bd0f73a59baf2",
+      "source": "https://esahubble.org/images/potw1619a/",
+      "credit": "ESA/Hubble & NASA. Acknowledgement: Judy Schmidt (Geckzilla).",
+      "license": "CC BY 4.0",
+      "split": "final",
+      "classroomLabel": "spiral",
+      "sourceCaption": "This is demonstrated by the striking face-on spiral galaxy NGC 6814."
+    },
+    {
+      "id": "final_ngc5775",
+      "name": "NGC 5775",
+      "file": "potw1119a.jpg",
+      "sha256": "cd2e0fdd8670c22c2ea31e790648ae956e4fe36555a81858064dcafb27f08c0d",
+      "source": "https://esahubble.org/images/potw1119a/",
+      "credit": "ESA/Hubble & NASA.",
+      "license": "CC BY 4.0",
+      "split": "final",
+      "classroomLabel": "edge_on",
+      "sourceCaption": "This NASA/ESA Hubble Space Telescope image shows the edge-on profile of the slender spiral galaxy NGC 5775."
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+*
+!designlab/
+!designlab/galaxy-shift/
+!designlab/galaxy-shift/releases/
+!designlab/galaxy-shift/releases/web/
+!designlab/galaxy-shift/releases/web/**
+!designlab/galaxy-shift/releases/galaxy-shift.zip

@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "base": "http://192.168.50.12:8080",
+  "version": "2026.10.07-quest.6",
+  "resources": 96,
+  "zip": "exact local SHA-256",
+  "flow": {
+    "first": 1,
+    "corrected": 2,
+    "final": 2,
+    "total": 3,
+    "stages": [
+      "intro",
+      "sky-explore",
+      "sky-discovery",
+      "illustrated-discovery",
+      "nika-story",
+      "archive",
+      "dialog-about",
+      "dialog-astronomy",
+      "tutorial",
+      "dialog-zoom",
+      "sky-child_m85",
+      "labels-1",
+      "sky-archive_m101",
+      "labels-2",
+      "sky-archive_ngc4631",
+      "labels-3",
+      "first-result",
+      "nika-reason",
+      "dialog-explain",
+      "repair",
+      "comparison",
+      "final",
+      "cnn"
+    ],
+    "errors": [],
+    "externalRequests": []
+  },
+  "preserved": {
+    "documents": "exact original hashes",
+    "originalComments": 12
+  }
+}

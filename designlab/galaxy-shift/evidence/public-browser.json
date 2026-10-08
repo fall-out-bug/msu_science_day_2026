@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "base": "https://sd2026.beetles.family/",
+  "version": "2026.10.07-quest.6",
+  "transport": "Chromium through temporary SSH SOCKS via superduper; default TLS verification",
+  "flow": {
+    "first": 0,
+    "corrected": 1,
+    "final": 1,
+    "total": 3,
+    "stages": [
+      "intro",
+      "sky-explore",
+      "sky-discovery",
+      "illustrated-discovery",
+      "nika-story",
+      "archive",
+      "dialog-about",
+      "dialog-astronomy",
+      "tutorial",
+      "dialog-zoom",
+      "sky-archive_ngc4452",
+      "labels-1",
+      "sky-archive_m77",
+      "labels-2",
+      "sky-archive_m105",
+      "labels-3",
+      "first-result",
+      "nika-reason",
+      "dialog-explain",
+      "repair",
+      "comparison",
+      "final",
+      "cnn"
+    ],
+    "errors": [],
+    "externalRequests": []
+  }
+}

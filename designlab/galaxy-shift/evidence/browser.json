@@ -1,0 +1,134 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "first": 0,
+      "corrected": 1,
+      "final": 1,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "guided-story",
+        "sky-archive_m77",
+        "sky-archive_m105",
+        "sky-archive_ngc4631",
+        "tutorial",
+        "dialog-zoom",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "nika-reason",
+        "dialog-explain",
+        "repair",
+        "comparison",
+        "final",
+        "cnn"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 2,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "guided-story",
+        "sky-archive_ngc3156",
+        "sky-archive_m101",
+        "sky-archive_ngc4631",
+        "tutorial",
+        "dialog-zoom",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "nika-reason",
+        "dialog-explain",
+        "repair",
+        "comparison",
+        "final",
+        "cnn"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 1,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "guided-story",
+        "sky-archive_m106",
+        "sky-archive_ngc4634",
+        "sky-child_m85",
+        "tutorial",
+        "dialog-zoom",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "nika-reason",
+        "dialog-explain",
+        "repair",
+        "comparison",
+        "final",
+        "cnn"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 1,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "guided-story",
+        "sky-child_ic5332",
+        "sky-archive_ngc3156",
+        "sky-archive_ngc4631",
+        "tutorial",
+        "dialog-zoom",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "nika-reason",
+        "dialog-explain",
+        "repair",
+        "comparison",
+        "final",
+        "cnn"
+      ],
+      "errors": [],
+      "externalRequests": []
+    }
+  ],
+  "offlineZip": "verified exact resource set, hashes, images and full flow"
+}

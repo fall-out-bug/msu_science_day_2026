@@ -1,0 +1,5 @@
+# Use only together with compose.public.yaml. It replaces the web image while
+# keeping the existing sd2026 project, network, comments service and its volume.
+services:
+  web:
+    image: ${GALAXY_PUBLIC_IMAGE:?Set the exact, locally built release image tag}

@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "textPercent": 100,
+      "status": "PASS",
+      "buttonGap": 8
+    },
+    {
+      "viewport": [
+        754,
+        684
+      ],
+      "textPercent": 100,
+      "status": "PASS",
+      "buttonGap": 10.0
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "textPercent": 100,
+      "status": "PASS",
+      "buttonGap": 8
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "textPercent": 100,
+      "status": "PASS",
+      "buttonGap": 10
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "textPercent": 200,
+      "status": "PASS",
+      "buttonGap": 10
+    }
+  ]
+}

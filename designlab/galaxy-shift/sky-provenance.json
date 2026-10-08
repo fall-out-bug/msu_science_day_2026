@@ -1,0 +1,117 @@
+{
+  "input": "app/sky-data.js",
+  "input_sha256": "b8354ed8a06564bf54333876b1d6a257c4f1a97b916b4d3da25171f222a0d32d",
+  "output": "designlab/galaxy-shift/sky-data.js",
+  "output_bytes": 2085905,
+  "output_sha256": "450cb9b6f69ffd09e2dcfa8ac00968cba6eff70ed9dbcac674009edf02bb3463",
+  "reused": {
+    "texture": "Unmodified data URI from existing prepared asset",
+    "dimensions": [
+      8192,
+      4096
+    ],
+    "stars": 2058,
+    "star_fields": [
+      "ra_degrees",
+      "dec_degrees",
+      "visual_magnitude"
+    ],
+    "coordinates": "ICRF/J2000; all numeric star values copied without adjustment"
+  },
+  "sources": [
+    {
+      "file": "assets/sky/src/starmap_2020_8k.exr",
+      "url": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+      "bytes": 130530278,
+      "sha256": "dc6c4f413e85707a29a25a9451148154554ecca2c996f84fa8f47b65ef9ff7c4",
+      "license": "NASA SVS, согласно NASA Media Usage Guidelines: контент NASA не защищён авторским правом, указание источника приветствуется"
+    },
+    {
+      "file": "assets/sky/src/hygdata_v41.csv",
+      "url": "https://raw.githubusercontent.com/astronexus/hyg-database/main/hyg/CURRENT/hygdata_v41.csv",
+      "bytes": 33932548,
+      "sha256": "d9f69fd86bbf90a4e4d52b4c5c53eacfa6dfc0bfdef85bfd94f095e0bebe4ebd",
+      "license": "HYG v4.1, CC BY-SA 4.0 (astronexus)"
+    }
+  ],
+  "license_files": [
+    "assets/sky/licenses/CC-BY-SA-4.0.txt"
+  ],
+  "limits": [
+    "Catalog visualization, not a telescope photograph or live observing simulation.",
+    "Plate carree projection distorts angular separations near the celestial poles.",
+    "Target coordinates are supplied by the integration; this module does not infer coordinates from screen pixels."
+  ],
+  "copied_from": "designlab/comparison/sky-navigation-data.js",
+  "targets": [
+    {
+      "id": "child_m85",
+      "ra_degrees": 186.35,
+      "dec_degrees": 18.18793,
+      "source": "https://esahubble.org/images/potw1905a/"
+    },
+    {
+      "id": "child_ic5332",
+      "ra_degrees": 353.61058,
+      "dec_degrees": -36.10005,
+      "source": "https://esahubble.org/images/potw2342a/"
+    },
+    {
+      "id": "child_ngc5023",
+      "ra_degrees": 198.05117,
+      "dec_degrees": 44.04015,
+      "source": "https://esahubble.org/images/potw1512a/"
+    }
+  ],
+  "integration": "Текстура и звёзды перенесены без изменений. x = aimX - delta(RA - cameraRA) * zoom. Наведение требует расстояния <=22 CSS px и углового расстояния <=1.2 градуса.",
+  "constellations": {
+    "input": "designlab/comparison/constellation-data.js",
+    "input_sha256": "1be0faf34a68be5ccb01bf76d0e3e71d549fc6b988c36fb01c81b8e984ab94b5",
+    "names": [
+      "Кассиопея",
+      "Орион",
+      "Скульптор",
+      "Лебедь",
+      "Лира",
+      "Большая Медведица",
+      "Волосы Вероники",
+      "Гончие Псы"
+    ],
+    "method": "Exact numeric subset, without coordinate or line changes. Source and license copied from the admitted exploration provenance.",
+    "upstream": [
+      {
+        "file": "assets/sky/src/constellationship.fab",
+        "url": "https://raw.githubusercontent.com/Stellarium/stellarium/release/skycultures/western/constellationship.fab",
+        "bytes": 8851,
+        "sha256": "878d514ebf8974c8c82d78620a4e1edcd77a3c43e241db89841d6c2e92701872",
+        "license": "Stellarium western (CC BY-SA 4.0 + Free Art License, info.ini)"
+      },
+      {
+        "file": "assets/sky/src/constellation_names.eng.fab",
+        "url": "https://raw.githubusercontent.com/Stellarium/stellarium/release/skycultures/western/constellation_names.eng.fab",
+        "bytes": 2491,
+        "sha256": "282f913ca5dc79f4d61efde2d0366f8385a3282a25c635d09026504cd5ccd4d5",
+        "license": "Stellarium western (CC BY-SA 4.0 + Free Art License, info.ini)"
+      },
+      {
+        "file": "assets/sky/src/skycultures_ru.po",
+        "url": "https://raw.githubusercontent.com/Stellarium/stellarium/release/po/stellarium-skycultures/ru.po",
+        "bytes": 2126244,
+        "sha256": "1cc890aa2b2d7c9e098f03977e5469ba2af3162de7bb0ad59ab255d1f8f8ff9f",
+        "license": "Stellarium translations (GPL-2.0+)"
+      },
+      {
+        "file": "assets/sky/src/info.ini",
+        "url": "https://raw.githubusercontent.com/Stellarium/stellarium/release/skycultures/western/info.ini",
+        "bytes": 166,
+        "sha256": "46445f05abd7793278a8edf88dd181004b699836051bfd207215d6000d78479d",
+        "license": "Исходное заявление лицензии Stellarium western"
+      }
+    ],
+    "license_files": [
+      "assets/sky/licenses/CC-BY-SA-4.0.txt",
+      "assets/sky/licenses/FAL-1.3.txt",
+      "assets/sky/licenses/GPL-2.0.txt"
+    ]
+  }
+}
