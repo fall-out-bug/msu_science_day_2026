@@ -47,3 +47,8 @@
 .workbench--quest:has(.quest-scene__labels) .quest-scene__main{height:clamp(290px,calc(100svh - 455px),620px)}
 
 .workbench--quest .tutorial-next{margin:6px 0 0;padding:7px 12px;border-radius:8px;background:#f7f2e5;color:#173d40;font-size:.8rem;line-height:1.4}
+
+/* Keep the next lesson step visible before the example on narrow screens. */
+.workbench--quest .station-head:has(.tutorial-continue){flex-wrap:wrap;align-items:center}
+.tutorial-continue{flex-shrink:0}
+@media(max-width:600px){.tutorial-continue{width:100%;white-space:normal}}

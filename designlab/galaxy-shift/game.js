@@ -102,7 +102,7 @@
     return `<section class="room route-story">${nav()}<article class="route-story__card"><span class="eyebrow">01 / ИИ В АСТРОНОМИИ</span><h1 tabindex="-1">${esc(astronomy.title)}</h1><p>${esc(astronomy.text)}</p><p class="route-story__question">${esc(astronomy.question)}</p><p class="source">${esc(astronomy.sourceLabel)} · <a href="${esc(astronomy.sourceURL)}" target="_blank" rel="noreferrer">Источник ↗</a></p>${mentor(ready ? "Все три снимка в подборке. Теперь разметим один пример вместе." : found.size ? `В подборке ${found.size} из 3 снимков. Вернёмся к карте и закончим.` : "Люди отмечают признаки на готовых архивных снимках. Соберём маленькую подборку?", "curious")}<button class="primary" data-action="${ready ? "complete-collection" : "collect-map"}">${ready ? "К рабочему столу" : "Найти галактики на карте"} <span>→</span></button></article></section>`;
   }
   function station(title, kicker, phase, body, footer = "") {
-    return `<section class="workbench${body.includes('id="quest-scene"') ? " workbench--quest" : ""}">${nav()}${progress(phase)}<div class="station"><div class="station-head"><div><span class="eyebrow">${kicker}</span><h1 tabindex="-1">${title}</h1></div></div>${body}${footer}</div></section>`;
+    return `<section class="workbench${body.includes('id="quest-scene"') ? " workbench--quest" : ""}">${nav()}${progress(phase)}<div class="station"><div class="station-head"><div><span class="eyebrow">${kicker}</span><h1 tabindex="-1">${title}</h1></div>${phase === "tutorial" ? '<button class="primary tutorial-continue" data-action="labels">Дальше: разметить снимки →</button>' : ""}</div>${body}${footer}</div></section>`;
   }
   function tutorial() {
     const image = byId[data.tutorialId];
@@ -110,7 +110,7 @@
       "Как ИИ помогает астрономам?",
       "02 / РАЗБИРАЕМ ПРИМЕР ВМЕСТЕ",
       "tutorial",
-      `<div id="quest-scene" data-image-id="${image.id}"></div><p class="tutorial-next">Метка — подпись с выбранной категорией. Разметить снимок — выбрать для него метку. Разберём пример вместе с Никой.</p><div class="navigation"><button class="secondary" data-action="zoom" data-image-id="${image.id}">Открыть снимок</button><button class="primary" data-action="labels">К моей подборке →</button></div><details class="credits"><summary>Источник снимка</summary>${source(image)}</details>`,
+      `<div id="quest-scene" data-image-id="${image.id}"></div><p class="tutorial-next">Метка — подпись с выбранной категорией. Разметить снимок — выбрать для него метку. Разберём пример вместе с Никой.</p><div class="navigation"><button class="secondary" data-action="zoom" data-image-id="${image.id}">Открыть снимок</button><button class="primary" data-action="labels">Дальше: разметить снимки →</button></div><details class="credits"><summary>Источник снимка</summary>${source(image)}</details>`,
     );
   }
   function labels() {
