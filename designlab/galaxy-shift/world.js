@@ -5,7 +5,7 @@
   const reduce=matchMedia('(prefers-reduced-motion: reduce)'),images={};
   let width=0,height=0,phase='intro',target=0,camera=0,mouseX=0,mouseY=0,panX=0,panY=0;
   let last=0,frames=0,draws=0,dirty=true,started=performance.now(),sceneBounds=null;
-  const ready=Promise.all(Object.entries({room:'observatory-night-v2.png',portrait:'observatory-night-portrait-v3.png',table:'worktop-night-v2.png'}).map(([key,file])=>new Promise((resolve,reject)=>{
+  const ready=Promise.all(Object.entries({room:'observatory-night-v4.png',portrait:'observatory-night-portrait-v4.png',table:'worktop-night-v2.png'}).map(([key,file])=>new Promise((resolve,reject)=>{
     const img=new Image();images[key]=img;img.onload=resolve;img.onerror=()=>reject(new Error('Не загрузилась сцена: '+file));img.src='assets/art/'+file;
   })));
   function resize(){width=innerWidth;height=innerHeight;dirty=true;const ratio=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);canvas.style.width=width+'px';canvas.style.height=height+'px';ctx?.setTransform(ratio,0,0,ratio,0,0);}
