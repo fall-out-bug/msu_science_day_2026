@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "scope": "published synthetic HTTPS/LAN E2E session only; no other event bodies were read or emitted",
+  "publishedVersion": "2026.10.09-complete.1",
+  "httpsReceipts": 33,
+  "session": {
+    "events": 46,
+    "sequence": "1..46",
+    "duplicateRows": 0,
+    "eventTypeCounts": {
+      "architecture_selected": 7,
+      "explanation_opened": 1,
+      "final_opened": 2,
+      "label_set": 7,
+      "map_target_collected": 4,
+      "phase_entered": 14,
+      "result_opened": 6,
+      "run_opened": 4,
+      "session_started": 1
+    },
+    "allowedFieldContract": true
+  },
+  "publicRead": {
+    "method": "GET",
+    "route": "/telemetry/v1/events",
+    "status": 403,
+    "transport": "Synology local TLS listener with SNI host"
+  },
+  "restart": {
+    "container": "sd2026-telemetry-1",
+    "before": {
+      "syntheticEvents": 46,
+      "totalEvents": 46
+    },
+    "after": {
+      "syntheticEvents": 46,
+      "totalEvents": 46
+    },
+    "health": "healthy",
+    "persistence": "PASS"
+  },
+  "retentionSeconds": 2592000,
+  "notes": [
+    "SQLite primary key session_id,seq and scoped query show no duplicate sequence rows.",
+    "No collector/app log content was read; local and external proxy logging configuration is recorded separately."
+  ]
+}

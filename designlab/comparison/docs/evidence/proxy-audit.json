@@ -1,0 +1,35 @@
+{
+  "hostAlias": "synology",
+  "publicHost": "sd2026.beetles.family",
+  "tlsPort": 443,
+  "upstream": "http://192.168.50.12:8080",
+  "accessLog": "off (inherited)",
+  "errorLog": "syslog unix:/dev/log, facility local7, tag nginx_error, level error (inherited)",
+  "targetOverrides": false,
+  "activeGeneratedConfigMatches": true,
+  "configSha256": {
+    "/etc/nginx/nginx.conf": "b588fe2180d21395fc4ce1180acc5f6b801c06a2f17c4bb840718b47c63d2a68",
+    "/etc/nginx/nginx.conf.run": "b588fe2180d21395fc4ce1180acc5f6b801c06a2f17c4bb840718b47c63d2a68",
+    "/etc/nginx/sites-enabled/server.ReverseProxy.conf": "0e3f7f401b5c5135eec6afc45cc3c5b0ae1c098cb191e4a2cbd918d66348a6cc"
+  },
+  "status": "PASS_CONFIG_AUDIT",
+  "checkedAt": "2026-10-09T05:42:40.171697+00:00",
+  "scope": "Configuration inspection; existing general transport error syslog remains enabled and is not application event analytics. Contents of protected NAS logs were not read. No claim that all infrastructure logging is disabled.",
+  "localTelemetryRoute": {
+    "path": "/telemetry/v1/events",
+    "accessLog": "off",
+    "errorLog": "/dev/null crit",
+    "strippedHeaders": [
+      "X-Real-IP",
+      "X-Forwarded-For",
+      "User-Agent",
+      "Referer",
+      "Cookie"
+    ]
+  },
+  "infrastructureChanged": false,
+  "references": [
+    "https://nginx.org/en/docs/http/ngx_http_log_module.html#access_log",
+    "https://nginx.org/en/docs/ngx_core_module.html#error_log"
+  ]
+}
