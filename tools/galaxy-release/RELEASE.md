@@ -1,15 +1,15 @@
 # Публикация «Ночи открытий»
 
-Подготовленный выпуск игры: `2026.10.09-night.5`.
-Предыдущий опубликованный образ: `sd2026-public:galaxy-20261009-night-7`.
+Выпуск игры: `2026.10.09-night.5`.
+Итоговый образ игры и отчётов: `sd2026-public:galaxy-20261009-night-9`.
 Идентификатор образа, исходный коммит и последняя проверка публичного HTTPS
 сохранены в [night-publication.json](night-publication.json).
 
 Локальные проверки и состояние поставки записаны в
 `docs/design-2026-10-09/night-release.md`. Проверка публичного HTTPS и точного
 образа сохраняется в отдельном отчёте; локальный PASS её не заменяет.
-Предыдущий опубликованный выпуск: `2026.10.09-night.3`, образ
-`sd2026-public:galaxy-20261009-night-5`.
+Предыдущий опубликованный выпуск: `2026.10.09-night.4`, образ
+`sd2026-public:galaxy-20261009-night-7`.
 
 ## Подготовка и проверка
 
@@ -40,7 +40,7 @@ SQLite, срок хранения 30 дней и локальную админи
 
 ```bash
 docker build --builder default --pull=false -t sd2026-telemetry:complete-20261008-1 tools/galaxy-telemetry
-tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-7
+tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-9
 ```
 
 Базовый образ `sd2026-public:scenario-comments` закреплён точным SHA-256 в
@@ -51,7 +51,7 @@ tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-7
 ## Переключение и приёмка
 
 ```bash
-tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-7
+tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-9
 ```
 
 Команда создаёт отдельный каталог БД телеметрии, запускает её контейнер и
@@ -69,8 +69,8 @@ tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-7
 снятого до публикации; содержание чужих комментариев в отчёт не включается.
 
 ```bash
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base http://192.168.50.12:8080 --preservation /tmp/science-day-lesson-preservation.json --evidence docs/design-2026-10-09/evidence/lesson-published-upstream.json
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base https://sd2026.beetles.family --ssh-host superduper --preservation /tmp/science-day-lesson-preservation.json --evidence docs/design-2026-10-09/evidence/lesson-published-https.json
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base http://192.168.50.12:8080 --preservation /tmp/science-day-dialogue-preservation.json --evidence docs/design-2026-10-09/evidence/dialogue-published-upstream.json
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base https://sd2026.beetles.family --ssh-host superduper --preservation /tmp/science-day-dialogue-preservation.json --evidence docs/design-2026-10-09/evidence/dialogue-published-https.json
 ```
 
 HTTPS проверяется с обычной проверкой сертификата через временный SSH SOCKS
@@ -84,7 +84,7 @@ VPN или службы хоста. Локальный PASS не считает�
 При неуспешной приёмке вернуть предыдущий web:
 
 ```bash
-tools/galaxy-release/rollback.sh sd2026-public:galaxy-20261009-night-5
+tools/galaxy-release/rollback.sh sd2026-public:galaxy-20261009-night-7
 ```
 
 Откат сохраняет данные комментариев, архивы и отдельную SQLite телеметрии.
