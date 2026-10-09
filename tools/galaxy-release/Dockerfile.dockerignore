@@ -5,3 +5,10 @@
 !designlab/galaxy-shift/releases/web/
 !designlab/galaxy-shift/releases/web/**
 !designlab/galaxy-shift/releases/galaxy-shift.zip
+
+!designlab/comparison/
+!designlab/comparison/docs/
+!designlab/comparison/docs/**
+!tools/
+!tools/galaxy-release/
+!tools/galaxy-release/nginx.conf

@@ -1,3 +1,8 @@
 artifacts/
 __pycache__/
 .venv/
+/var/
+
+# Restartable scientific work files; release outputs carry their own provenance.
+designlab/galaxy-shift/experiments/cnn-label-correction/checkpoints/
+designlab/galaxy-shift/experiments/cnn-label-correction/stale-artifacts/

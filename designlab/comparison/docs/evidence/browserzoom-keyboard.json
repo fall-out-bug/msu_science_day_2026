@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "method": "browser-zoom layout equivalent: 853x480 CSS viewport at DPR 1.5; no CSS zoom",
+  "flow": "keyboard-only introduction, collection, labels, old labels, final",
+  "geometry": {
+    "width": 853,
+    "scrollWidth": 853,
+    "height": 480,
+    "dpr": 1.5
+  },
+  "errors": []
+}

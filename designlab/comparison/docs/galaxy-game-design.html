@@ -1,303 +1,348 @@
-<!DOCTYPE html><html lang="ru" data-review-document="galaxy-gdd-v1" data-review-title="Обсуждение редакции: Ника и модель"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Первая смена: атлас галактик</title><link rel="stylesheet" href="galaxy-design.css?v=nika1"><link rel="stylesheet" href="scenario-comments.css?v=5"></head><body><main><header><p class="eyebrow">Science Day · 6 октября 2026 · актуальная редакция</p><div class="asset-links"><a href="galaxy-game-design.html">Дизайн</a><a href="first-shift-scenario.html">Реплики и стендист</a><a href="galaxy-game-design-before-nika.html">История и прежние комментарии</a><a href="galaxy-game-design.md">Markdown</a><a href="galaxy-design-offline.zip">Офлайн-копия</a></div><p class="build-note">Документ и макеты обновлены. Новая игра и рассчитанные опыты ещё не собраны.</p></header><nav aria-label="Оглавление"><div class="toc">
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Дизайн: Ночь открытий · Science Day</title>
+  <link rel="stylesheet" href="galaxy-design.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Science Day · 9 октября 2026 · Ночь открытий</p>
+      <div class="asset-links"><a href="release.html">Проверки и поставка</a><a href="goal.html">Текущая цель</a><a href="programme.html">Описание для программы</a><a href="learning-review.html">Вычитка учебного маршрута</a><a href="game-design-foundation.html">Исходный дизайн 8 октября</a><a href="technical-plan.html">Технический план</a><a href="acceptance.html">Исходная матрица A/V</a><a href="goal-20261008.html">Цель предыдущего выпуска</a><a href="baseline.html">Исходное состояние</a><a href="text-review.html">Вычитка 8 октября</a><a href="release-20261008.html">Проверки предыдущего выпуска</a><a href="galaxy-game-design-20261006.html">Историческая редакция с комментариями</a><a href="galaxy-design-offline.zip">Офлайн-документы</a></div>
+      <p class="build-note">Дизайн и матрица задают требования. Фактические проверки и состояние публикации записаны в <a href="release.html">отчёте о поставке</a>.</p>
+    </header>
+    <nav aria-label="Оглавление"><div class="toc">
 <ul>
-<li><a href="#_1">Первая смена: атлас галактик</a><ul>
-<li><a href="#1">1. Задача и легенда</a></li>
-<li><a href="#2">2. Участники и слова</a></li>
-<li><a href="#3">3. Один короткий маршрут</a></li>
-<li><a href="#4">4. Разметка и помощь</a></li>
-<li><a href="#5">5. Ошибка как повод исследовать данные</a></li>
-<li><a href="#6-cnn">6. Два варианта CNN</a></li>
-<li><a href="#7">7. Лаборатория и навигация</a></li>
-<li><a href="#8">8. Данные и научное происхождение</a><ul>
-<li><a href="#ic-2006">IC 2006 · справочное изображение</a></li>
-<li><a href="#ic-5332">IC 5332 · справочное изображение</a></li>
-<li><a href="#ngc-5023">NGC 5023 · справочное изображение</a></li>
-<li><a href="#messier-85">Messier 85 · справочное изображение</a></li>
-</ul>
-</li>
-<li><a href="#9">9. Сборка первого эпизода</a><ul>
-<li><a href="#1_1">1. Что уже есть и что отсутствует</a></li>
-<li><a href="#2_1">2. Минимальная реализация</a></li>
-<li><a href="#3_1">3. Контракт подготовленных опытов</a></li>
-<li><a href="#4_1">4. Состояния и инвалидация</a></li>
-<li><a href="#5_1">5. Очерёдность сборки</a></li>
-<li><a href="#6">6. Проверки перед показом</a></li>
-</ul>
-</li>
-<li><a href="#10">10. Памятка стендиста и приёмка</a></li>
-<li><a href="#11">11. Решения по комментариям</a></li>
+<li><a href="#ночь-открытий-приключение-в-обсерватории">Ночь открытий: приключение в обсерватории</a><ul>
+<li><a href="#цель-и-результат">Цель и результат</a></li>
+<li><a href="#согласованные-изменения">Согласованные изменения</a></li>
+<li><a href="#приёмка">Приёмка</a></li>
+<li><a href="#исполнение-и-границы">Исполнение и границы</a></li>
+<li><a href="#история-исправления-экран-после-помочь-нике">История исправления: экран после «Помочь Нике»</a></li>
+<li><a href="#перекомпоновка-после-проверки-владельцем">Перекомпоновка после проверки владельцем</a></li>
+<li><a href="#причины-действий-и-самостоятельный-опыт-согласовано-9-октября">Причины действий и самостоятельный опыт — согласовано 9 октября</a></li>
+<li><a href="#ника-и-понятия-на-снимках-уточнение-после-night4">Ника и понятия на снимках — уточнение после night.4</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</nav><h1 id="_1">Первая смена: атлас галактик</h1>
-<p data-review-id="n4d001">Дизайн-документ · редакция «Ника и модель», 6 октября 2026. Согласованный сценарий и план первого игрового эпизода.</p>
-<p data-review-id="n4d002">Эта редакция заменяет прежний обязательный маршрут. Ника возвращается как исследователь; ребёнок работает с моделью классификации изображений. Microduck отложен: концепты сохранены, персонаж не входит в текущие экраны, реплики и обязательные работы. Дневная лаборатория, Кавказ, современная техника, архив и ковёр остаются художественным направлением.</p>
-<p data-review-id="n4d003">Документ и кликабельные экраны — проект будущей игры. Рассчитанного пакета экспериментов и новой игровой сборки пока нет. Действующая игра про наблюдения остаётся отдельной поставкой.</p>
-<h2 id="1" data-review-id="n4d004">1. Задача и легенда</h2>
-<p data-review-id="n4d005">Ника — астроном, которая готовится к большому потоку изображений нового орбитального телескопа Nancy Grace Roman. Рассмотреть каждый снимок вручную будет трудно. Она приглашает ребёнка подготовить модель, которая предварительно рассортирует галактики по видимым признакам. В старой учебной подборке есть неверные подписи: команда обнаружит их через проверку, исправит и сравнит ответы модели.</p>
-<p data-review-id="n4d006"><strong>Обещание ребёнку:</strong> «Помоги Нике научить модель различать галактики и проверь, как она справляется с другими снимками».</p>
-<p data-review-id="n4d007">Ника занята, но не находится в панике. Нет таймера, угрозы провала дедлайна и обязанности спасать взрослого. Видимая польза работы — следующая подборка получает предварительные категории; человек видит, какие ответы проверены.</p>
-<p data-review-id="n4d008"><strong>Сноска рядом со снимками:</strong> «В игре используются архивные снимки других телескопов, а не изображения Roman. Мы готовимся к будущему потоку данных, когда снимков станет на порядки больше».</p>
-<p data-review-id="n4d009">NASA сообщает о запуске Roman 30 августа 2026 года, ожидаемых первых изображениях к началу 2027 года и скорости обзора до тысячи раз выше Hubble. Это мотивация автоматизации, а не обещание результатов нашей модели. <a href="https://www.nasa.gov/news-release/nasas-dark-universe-seeking-nancy-grace-roman-space-telescope-launches/">Источник NASA</a>. Лаборатория в горах работает с доступными архивами; она не управляет орбитальным телескопом. Финал не требует заявки местному телескопу.</p>
-<h2 id="2" data-review-id="n4d010">2. Участники и слова</h2>
-<table>
-<thead>
-<tr>
-<th>Участник</th>
-<th>Роль</th>
-</tr>
-</thead>
-<tbody>
-<tr data-review-id="n4d011">
-<td>Ника</td>
-<td>Ставит задачу, показывает первый пример, вместе с ребёнком разбирает результат. Короткие заранее написанные реплики; свободного чата нет.</td>
-</tr>
-<tr data-review-id="n4d012">
-<td>Ребёнок</td>
-<td>Рассматривает снимки, выбирает метки, проверяет ответы, исправляет данные и пробует другой вариант модели.</td>
-</tr>
-<tr data-review-id="n4d013">
-<td>Стендист</td>
-<td>Помогает читать и замечать признаки; объясняет сложные случаи и глубину материала по интересу ребёнка.</td>
-</tr>
-<tr data-review-id="n4d014">
-<td>Модель на рабочем экране</td>
-<td>Предлагает категории для изображений. Не является отдельным говорящим персонажем.</td>
-</tr>
-</tbody>
-</table>
-<p data-review-id="n4d015">Основное слово интерфейса — <strong>модель</strong>. Разметка — подписи к учебным снимкам; обучение — поиск закономерностей по примерам; проверка — сравнение ответов на других снимках со справочными ответами.</p>
-<p data-review-id="n4d016">Связь с ИИ объясняем один раз: «Сегодня мы учим ИИ различать галактики на изображениях». Не предполагаем заранее, что ребёнок считает любой ИИ разговорным сервисом. Если вопрос возник, стендист поясняет отличие задач. CNN — свёрточная нейронная сеть; термин появляется в дополнительном эксперименте.</p>
-<p data-review-id="n4d017"><strong>Честное объяснение формата:</strong> «Мы заранее провели опыты с разными данными. Ты выбираешь подписи и видишь результат подходящего опыта». Нет живого обучения, внешнего API, случайных процентов или декоративной долгой загрузки.</p>
-<h2 id="3" data-review-id="n4d018">3. Один короткий маршрут</h2>
-<p data-review-id="n4d019">Ориентир основного прохода — 5–10 минут со стендистом. Это цель для проверки, а не измеренная длительность. Один маршрут для разных возрастов; число объяснений регулирует стендист. Нет экрана выбора возраста.</p>
-<figure class="diagram"><svg id="galaxy-game-design0" width="100%" xmlns="http://www.w3.org/2000/svg" class="flowchart" style="max-width: 285.125px;" viewBox="0 0 285.125 1504" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#galaxy-game-design0{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#galaxy-game-design0 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#galaxy-game-design0 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#galaxy-game-design0 .error-icon{fill:#552222;}#galaxy-game-design0 .error-text{fill:#552222;stroke:#552222;}#galaxy-game-design0 .edge-thickness-normal{stroke-width:1px;}#galaxy-game-design0 .edge-thickness-thick{stroke-width:3.5px;}#galaxy-game-design0 .edge-pattern-solid{stroke-dasharray:0;}#galaxy-game-design0 .edge-thickness-invisible{stroke-width:0;fill:none;}#galaxy-game-design0 .edge-pattern-dashed{stroke-dasharray:3;}#galaxy-game-design0 .edge-pattern-dotted{stroke-dasharray:2;}#galaxy-game-design0 .marker{fill:#666;stroke:#666;}#galaxy-game-design0 .marker.cross{stroke:#666;}#galaxy-game-design0 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#galaxy-game-design0 p{margin:0;}#galaxy-game-design0 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#000000;}#galaxy-game-design0 .cluster-label text{fill:#333;}#galaxy-game-design0 .cluster-label span{color:#333;}#galaxy-game-design0 .cluster-label span p{background-color:transparent;}#galaxy-game-design0 .label text,#galaxy-game-design0 span{fill:#000000;color:#000000;}#galaxy-game-design0 .node rect,#galaxy-game-design0 .node circle,#galaxy-game-design0 .node ellipse,#galaxy-game-design0 .node polygon,#galaxy-game-design0 .node path{fill:#eee;stroke:#999;stroke-width:1px;}#galaxy-game-design0 .rough-node .label text,#galaxy-game-design0 .node .label text,#galaxy-game-design0 .image-shape .label,#galaxy-game-design0 .icon-shape .label{text-anchor:middle;}#galaxy-game-design0 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#galaxy-game-design0 .rough-node .label,#galaxy-game-design0 .node .label,#galaxy-game-design0 .image-shape .label,#galaxy-game-design0 .icon-shape .label{text-align:center;}#galaxy-game-design0 .node.clickable{cursor:pointer;}#galaxy-game-design0 .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}#galaxy-game-design0 .arrowheadPath{fill:#333333;}#galaxy-game-design0 .edgePaths .path{stroke:#666;stroke-width:1px;}#galaxy-game-design0 .flowchart-link{stroke:#666;fill:none;}#galaxy-game-design0 .edgeLabel{background-color:white;text-align:center;}#galaxy-game-design0 .edgeLabel p{background-color:white;}#galaxy-game-design0 .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}#galaxy-game-design0 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#galaxy-game-design0 .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}#galaxy-game-design0 .cluster text{fill:#333;}#galaxy-game-design0 .cluster span{color:#333;}#galaxy-game-design0 .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}#galaxy-game-design0 .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}#galaxy-game-design0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}#galaxy-game-design0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}#galaxy-game-design0 rect.text{fill:none;stroke-width:0;}#galaxy-game-design0 .icon-shape,#galaxy-game-design0 .image-shape{background-color:white;text-align:center;}#galaxy-game-design0 .icon-shape p,#galaxy-game-design0 .image-shape p{background-color:white;padding:2px;}#galaxy-game-design0 .icon-shape .label rect,#galaxy-game-design0 .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}#galaxy-game-design0 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#galaxy-game-design0 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#galaxy-game-design0 .node .neo-node{stroke:#999;}#galaxy-game-design0 [data-look="neo"].node rect,#galaxy-game-design0 [data-look="neo"].cluster rect,#galaxy-game-design0 [data-look="neo"].node polygon{stroke:url(#galaxy-game-design0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design0 [data-look="neo"].swimlane.cluster rect{filter:none;}#galaxy-game-design0 [data-look="neo"].node path{stroke:url(#galaxy-game-design0-gradient);stroke-width:1px;}#galaxy-game-design0 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design0 [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}#galaxy-game-design0 [data-look="neo"].node circle{stroke:url(#galaxy-game-design0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design0 [data-look="neo"].node circle .state-start{fill:#000000;}#galaxy-game-design0 [data-look="neo"].icon-shape .icon{fill:url(#galaxy-game-design0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design0 [data-look="neo"].icon-shape .icon-neo path{stroke:url(#galaxy-game-design0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design0 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker id="galaxy-game-design0_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="galaxy-game-design0_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="galaxy-game-design0_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="galaxy-game-design0_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="galaxy-game-design0_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="galaxy-game-design0_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="galaxy-game-design0_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="galaxy-game-design0_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="galaxy-game-design0_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="galaxy-game-design0_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="galaxy-game-design0_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="galaxy-game-design0_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M125.094,104L125.094,108.167C125.094,112.333,125.094,120.667,125.094,128.333C125.094,136,125.094,143,125.094,146.5L125.094,150" id="galaxy-game-design0-L_A_B_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_A_B_0" data-points="W3sieCI6MTI1LjA5Mzc1LCJ5IjoxMDR9LHsieCI6MTI1LjA5Mzc1LCJ5IjoxMjl9LHsieCI6MTI1LjA5Mzc1LCJ5IjoxNTR9XQ==" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path><path d="M125.094,250L125.094,254.167C125.094,258.333,125.094,266.667,125.094,274.333C125.094,282,125.094,289,125.094,292.5L125.094,296" id="galaxy-game-design0-L_B_C_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_B_C_0" data-points="W3sieCI6MTI1LjA5Mzc1LCJ5IjoyNTB9LHsieCI6MTI1LjA5Mzc1LCJ5IjoyNzV9LHsieCI6MTI1LjA5Mzc1LCJ5IjozMDB9XQ==" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path><path d="M125.094,396L125.094,400.167C125.094,404.333,125.094,412.667,125.094,420.333C125.094,428,125.094,435,125.094,438.5L125.094,442" id="galaxy-game-design0-L_C_D_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_C_D_0" data-points="W3sieCI6MTI1LjA5Mzc1LCJ5IjozOTZ9LHsieCI6MTI1LjA5Mzc1LCJ5Ijo0MjF9LHsieCI6MTI1LjA5Mzc1LCJ5Ijo0NDZ9XQ==" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path><path d="M125.094,542L125.094,546.167C125.094,550.333,125.094,558.667,125.094,566.333C125.094,574,125.094,581,125.094,584.5L125.094,588" id="galaxy-game-design0-L_D_E_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_D_E_0" data-points="W3sieCI6MTI1LjA5Mzc1LCJ5Ijo1NDJ9LHsieCI6MTI1LjA5Mzc1LCJ5Ijo1Njd9LHsieCI6MTI1LjA5Mzc1LCJ5Ijo1OTJ9XQ==" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path><path d="M125.094,664L125.094,668.167C125.094,672.333,125.094,680.667,125.094,688.333C125.094,696,125.094,703,125.094,706.5L125.094,710" id="galaxy-game-design0-L_E_F_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_E_F_0" data-points="W3sieCI6MTI1LjA5Mzc1LCJ5Ijo2NjR9LHsieCI6MTI1LjA5Mzc1LCJ5Ijo2ODl9LHsieCI6MTI1LjA5Mzc1LCJ5Ijo3MTR9XQ==" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path><path d="M125.094,810L125.094,814.167C125.094,818.333,125.094,826.667,125.094,834.333C125.094,842,125.094,849,125.094,852.5L125.094,856" id="galaxy-game-design0-L_F_G_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F_G_0" data-points="W3sieCI6MTI1LjA5Mzc1LCJ5Ijo4MTB9LHsieCI6MTI1LjA5Mzc1LCJ5Ijo4MzV9LHsieCI6MTI1LjA5Mzc1LCJ5Ijo4NjB9XQ==" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path><path d="M125.094,980L125.094,984.167C125.094,988.333,125.094,996.667,125.094,1004.333C125.094,1012,125.094,1019,125.094,1022.5L125.094,1026" id="galaxy-game-design0-L_G_H_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 42 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_G_H_0" data-points="W3sieCI6MTI1LjA5Mzc1LCJ5Ijo5ODB9LHsieCI6MTI1LjA5Mzc1LCJ5IjoxMDA1fSx7IngiOjEyNS4wOTM3NSwieSI6MTAzMH1d" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path><path d="M92.025,1170.932L84.865,1182.61C77.704,1194.288,63.383,1217.644,56.223,1241.489C49.063,1265.333,49.063,1289.667,49.063,1312C49.063,1334.333,49.063,1354.667,52.921,1368.538C56.78,1382.41,64.498,1389.82,68.356,1393.525L72.215,1397.23" id="galaxy-game-design0-L_H_J_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 238.4427032470703 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_H_J_0" data-points="W3sieCI6OTIuMDI1MzIzMTkxNjg4OCwieSI6MTE3MC45MzE1NzMxOTE2ODg4fSx7IngiOjQ5LjA2MjUsInkiOjEyNDF9LHsieCI6NDkuMDYyNSwieSI6MTMxNH0seyJ4Ijo0OS4wNjI1LCJ5IjoxMzc1fSx7IngiOjc1LjEwMDU5OTMxNTA2ODUsInkiOjE0MDB9XQ==" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path><path d="M158.162,1170.932L165.323,1182.61C172.483,1194.288,186.804,1217.644,193.965,1234.822C201.125,1252,201.125,1263,201.125,1268.5L201.125,1274" id="galaxy-game-design0-L_H_I_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 109.48564910888672 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_H_I_0" data-points="W3sieCI6MTU4LjE2MjE3NjgwODMxMTIsInkiOjExNzAuOTMxNTczMTkxNjg4OH0seyJ4IjoyMDEuMTI1LCJ5IjoxMjQxfSx7IngiOjIwMS4xMjUsInkiOjEyNzh9XQ==" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path><path d="M201.125,1350L201.125,1354.167C201.125,1358.333,201.125,1366.667,197.266,1374.538C193.407,1382.41,185.69,1389.82,181.831,1393.525L177.972,1397.23" id="galaxy-game-design0-L_I_J_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 51.034420013427734 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_I_J_0" data-points="W3sieCI6MjAxLjEyNSwieSI6MTM1MH0seyJ4IjoyMDEuMTI1LCJ5IjoxMzc1fSx7IngiOjE3NS4wODY5MDA2ODQ5MzE1LCJ5IjoxNDAwfV0=" data-look="neo" marker-end="url(#galaxy-game-design0_flowchart-v2-pointEnd-margin)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="L_A_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_B_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_C_D_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_D_E_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_E_F_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_F_G_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_G_H_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(49.0625, 1314)"><g class="label" data-id="L_H_J_0" transform="translate(-41.0625, -12)"><foreignObject width="82.125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Завершить</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(201.125, 1241)"><g class="label" data-id="L_H_I_0" transform="translate(-49.109375, -12)"><foreignObject width="98.21875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Есть интерес</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_I_J_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="galaxy-game-design0-flowchart-A-0" data-look="neo" transform="translate(125.09375, 56)"><rect class="basic label-container" style="" x="-76" y="-48" width="152" height="96"></rect><g class="label" style="" transform="translate(-60, -36)"><rect></rect><foreignObject width="120" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Ника объясняет задачу</p></span></div></foreignObject></g></g><g class="node default" id="galaxy-game-design0-flowchart-B-1" data-look="neo" transform="translate(125.09375, 202)"><rect class="basic label-container" style="" x="-76" y="-48" width="152" height="96"></rect><g class="label" style="" transform="translate(-60, -36)"><rect></rect><foreignObject width="120" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Один совместный пример</p></span></div></foreignObject></g></g><g class="node default" id="galaxy-game-design0-flowchart-C-3" data-look="neo" transform="translate(125.09375, 348)"><rect class="basic label-container" style="" x="-84.1875" y="-48" width="168.375" height="96"></rect><g class="label" style="" transform="translate(-68.1875, -36)"><rect></rect><foreignObject width="136.375" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Три самостоятельные метки</p></span></div></foreignObject></g></g><g class="node default" id="galaxy-game-design0-flowchart-D-5" data-look="neo" transform="translate(125.09375, 494)"><rect class="basic label-container" style="" x="-80.1953125" y="-48" width="160.390625" height="96"></rect><g class="label" style="" transform="translate(-64.1953125, -36)"><rect></rect><foreignObject width="128.390625" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Подготовленный опыт и другие снимки</p></span></div></foreignObject></g></g><g class="node default" id="galaxy-game-design0-flowchart-E-7" data-look="neo" transform="translate(125.09375, 628)"><rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72"></rect><g class="label" style="" transform="translate(-60, -24)"><rect></rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Разобрать ошибку модели</p></span></div></foreignObject></g></g><g class="node default" id="galaxy-game-design0-flowchart-F-9" data-look="neo" transform="translate(125.09375, 762)"><rect class="basic label-container" style="" x="-76" y="-48" width="152" height="96"></rect><g class="label" style="" transform="translate(-60, -36)"><rect></rect><foreignObject width="120" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Проверить две подписи старого набора</p></span></div></foreignObject></g></g><g class="node default" id="galaxy-game-design0-flowchart-G-11" data-look="neo" transform="translate(125.09375, 920)"><rect class="basic label-container" style="" x="-76" y="-60" width="152" height="120"></rect><g class="label" style="" transform="translate(-60, -48)"><rect></rect><foreignObject width="120" height="96"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Повторить опыт и сравнить ответы</p></span></div></foreignObject></g></g><g class="node default" id="galaxy-game-design0-flowchart-H-13" data-look="neo" transform="translate(125.09375, 1117)"><polygon points="87,0 174,-87 87,-174 0,-87" class="label-container" transform="translate(-86.5, 87)"></polygon><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Продолжить?</p></span></div></foreignObject></g></g><g class="node default" id="galaxy-game-design0-flowchart-J-15" data-look="neo" transform="translate(125.09375, 1448)"><rect class="basic label-container" style="" x="-76" y="-48" width="152" height="96"></rect><g class="label" style="" transform="translate(-60, -36)"><rect></rect><foreignObject width="120" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Новая подборка и итог Ники</p></span></div></foreignObject></g></g><g class="node default" id="galaxy-game-design0-flowchart-I-17" data-look="neo" transform="translate(201.125, 1314)"><rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72"></rect><g class="label" style="" transform="translate(-60, -24)"><rect></rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel"><p>Сравнить два варианта CNN</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="galaxy-game-design0-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="galaxy-game-design0-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><linearGradient id="galaxy-game-design0-gradient" gradientUnits="objectBoundingBox" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="hsl(0, 0%, 83.3333333333%)" stop-opacity="1"></stop><stop offset="100%" stop-color="hsl(0, 0%, 88.9215686275%)" stop-opacity="1"></stop></linearGradient></svg></figure>
-<p data-review-id="n4d020">Для первого среза выбираем три самостоятельных снимка. Четвёртый возможен после проверки длительности и пересчёта пакета вариантов. Первый совместный пример имеет явно подготовленную подпись.</p>
-<table>
-<thead>
-<tr>
-<th>Этап</th>
-<th>Действие и экран</th>
-<th>Что ребёнок понимает</th>
-</tr>
-</thead>
-<tbody>
-<tr data-review-id="n4d021">
-<td>Завязка</td>
-<td>Общий план дневной лаборатории; Ника приглашает к столу</td>
-<td>Зачем автоматизировать обработку снимков</td>
-</tr>
-<tr data-review-id="n4d022">
-<td>Знакомство</td>
-<td>Один крупный снимок и три образца признаков</td>
-<td>Что различаем и что такое метка</td>
-</tr>
-<tr data-review-id="n4d023">
-<td>Разметка</td>
-<td>Три снимка по одному; приблизить, выбрать подпись, получить помощь</td>
-<td>Модель получает примеры с ответами</td>
-</tr>
-<tr data-review-id="n4d024">
-<td>Первая проверка</td>
-<td>Другие снимки, ответ модели и справочный ответ</td>
-<td>Верная разметка ребёнка не гарантирует хорошую модель при ошибках в старом наборе</td>
-</tr>
-<tr data-review-id="n4d025">
-<td>Исправление</td>
-<td>Несколько старых примеров, относящихся к разбираемой проблеме</td>
-<td>Подписи в данных тоже надо проверять</td>
-</tr>
-<tr data-review-id="n4d026">
-<td>Повторная проверка</td>
-<td>Те же проверочные снимки рядом «до / после»</td>
-<td>Что изменилось именно после правки</td>
-</tr>
-<tr data-review-id="n4d027">
-<td>Дополнительно</td>
-<td>Два подготовленных варианта CNN на одинаковых данных</td>
-<td>Устройство модели тоже влияет на ответы</td>
-</tr>
-<tr data-review-id="n4d028">
-<td>Финал</td>
-<td>Ещё не показанная итоговая подборка и краткое резюме Ники</td>
-<td>Автоматизация полезна, но ответы требуют проверки</td>
-</tr>
-</tbody>
-</table>
-<h2 id="4" data-review-id="n4d029">4. Разметка и помощь</h2>
-<p data-review-id="n4d030">Три учебные категории описывают видимый облик: <strong>«Гладкая», «Видна спираль», «Диск с ребра»</strong>. Это не полная физическая классификация. На обязательных снимках признаки должны быть ясными и категории не должны конкурировать. Ника показывает признак на одном общем примере, затем ребёнок действует сам.</p>
-<p data-review-id="n4d031">На экране — крупное изображение, источник, три подписанные кнопки, приближение и <strong>«Помоги разобраться»</strong>. Помощь показывает, куда смотреть, либо приглашает стендиста; она не записывает случайную метку. В обязательной игре нет отдельного класса сомнения и обязательной очереди сложных объектов.</p>
-<p data-review-id="n4d032">Научный просмотр изображений — работа авторов до сборки. Трудные случаи, ракурс и различие физического типа и видимого облика — в памятке стендиста. Ребёнок не обязан читать эти ограничения, чтобы продолжить.</p>
-<h2 id="5" data-review-id="n4d033">5. Ошибка как повод исследовать данные</h2>
-<p data-review-id="n4d034">Не объявляем самостоятельную работу ребёнка неверной ради сюжета. Проблему готовим в старой подборке: даже при правильных новых метках в ней могут оставаться ошибочные подписи. Показываем только ошибки, которые действительно есть в выбранном рассчитанном опыте.</p>
-<p data-review-id="n4d035">Сначала ребёнок видит расхождение на проверочном снимке. Затем вместе с Никой рассматривает два старых учебных примера. Не подсвечиваем заранее все неверные карточки. Подсказка указывает наблюдаемый признак; после выбора можно открыть справочное объяснение.</p>
-<p data-review-id="n4d036">Реплика Ники: «На этом снимке видны рукава, а подпись говорит “гладкая”. Какую подпись оставим?» Проверочные ответы сами по себе не устанавливают причину ошибки; связь с разметкой проверяем повторным опытом на той же модели.</p>
-<p data-review-id="n4d037">Если подписи не изменены, сохраняем текущий результат с подписью «Данные не изменены»: можно вернуться к карточкам либо завершить, но не показываем выдуманное «после».</p>
-<p data-review-id="n4d038">После правки прежний результат помечается как предыдущий. Для нового состояния нужен соответствующий подготовленный опыт. Улучшение каждого ответа не гарантировано. Если ошибок нет, Ника отмечает это и предлагает сравнить с подготовленным примером плохой разметки как с <strong>отдельным опытом</strong>, не подменяя результат ребёнка.</p>
-<p data-review-id="n4d039">Основной показатель — «Верно определено X из N снимков», рядом конкретные ответы. X и N поступают из расчёта. Accuracy можно раскрыть как название доли верных ответов; F1 не входит в обязательный экран.</p>
-<h2 id="6-cnn" data-review-id="n4d040">6. Два варианта CNN</h2>
-<p data-review-id="n4d041">Пробуем короткое сравнение вместо свободного конструктора. Предлагаемый первый фактор — один либо два свёрточных блока. На схеме ребёнок добавляет или убирает второй блок; первый ищет локальные признаки, второй может сочетать их в более сложные. Это объяснение принципа, не гарантия улучшения.</p>
-<p data-review-id="n4d042">Остальные условия опыта фиксируем: данные и метки, разбиение, подготовка изображений и протокол обучения. Больший вариант имеет больше параметров; это явно записывается в описании опыта. До расчёта не утверждаем, что он лучше. Показываем ответы обоих вариантов, включая неизменившиеся и ухудшившиеся; не рисуем оценку до проверки.</p>
-<p data-review-id="n4d043">Варианты считаются заранее. Для первого среза сравнение доступно на одном явно обозначенном подготовленном исправленном наборе. Если метки ребёнка отличаются, предлагаем отдельно открыть этот набор; его результат не выдаётся за обучение на текущих метках. После расчётов можно расширить покрытие вариантов.</p>
-<p data-review-id="n4d044">Экран можно пропустить и закончить смену после работы с данными. Научная и техническая пригодность пары CNN ещё не подтверждена: сначала подготовить опыты, затем зафиксировать её в поставке.</p>
-<h2 id="7" data-review-id="n4d045">7. Лаборатория и навигация</h2>
-<p data-review-id="n4d046">Современная дневная лаборатория в горах Кавказа: крупные экраны, архив, ковёр, за окном верхняя площадка обсерватории. Ника присутствует в сцене и коротких репликах. Утка и латунный помощник отсутствуют в задании на новую графику. Старые изображения с ними остаются только в истории.</p>
-<p data-review-id="n4d047">Утро — знакомство; день — работа с данными; вечер — завершение. Свет меняется по этапам, без таймера. Один ракурс и несколько приближений; WebGL допустим, но рабочие изображения и кнопки остаются фронтальным HTML-слоем. Мозаика возможна после появления достоверного референса.</p>
-<p data-review-id="n4d048">Общий план → архив → рабочий стол → проверка → исправление → повторная проверка → дополнительный опыт или финал. Между снимками камера не возвращается в комнату. «Лаборатория» сохраняет текущую работу; «Продолжить» возвращает к ней. «Назад» не отменяет метки. Изменение метки делает зависимый результат устаревшим.</p>
-<p data-review-id="n4d049">В макетах этой редакции показана схема интерфейса на нейтральном фоне и существующий образ Ники. Это не новый художественный концепт комнаты и не WebGL. Прежние утренние, дневные и вечерние иллюстрации с уткой доступны в истории как снятые с текущего задания.</p>
-<section id="navigation-design" class="navigation-design">
-<h2 data-review-id="n4d050">Экраны актуального маршрута</h2>
-<p data-review-id="n4d051">Восемь макетов: утро с Никой, работа днём и вечерний итог. Это схема интерфейса на нейтральном фоне, не художественная версия лаборатории. Ответы модели пока не рассчитаны. Нажмите миниатюру для Full HD.</p>
-<p data-review-id="n4d052"><a class="prototype-link" href="gdd-assets/navigation-nika/preview.html" target="_blank">Пройти кликабельный маршрут ↗</a></p>
-<div class="screen-flow"><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation-nika/morning.png" data-screen-title="01 · Утро. Задача Ники" aria-label="Открыть 01 · Утро. Задача Ники в Full HD"><img loading="lazy" src="gdd-assets/navigation-nika/morning.png" alt="01 · Утро. Задача Ники"></button><h4>01 · Утро. Задача Ники</h4><p>Новый поток данных → архив</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation-nika/archive.png" data-screen-title="02 · Один пример вместе" aria-label="Открыть 02 · Один пример вместе в Full HD"><img loading="lazy" src="gdd-assets/navigation-nika/archive.png" alt="02 · Один пример вместе"></button><h4>02 · Один пример вместе</h4><p>Разобрать признак → свои метки</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation-nika/label.png" data-screen-title="03 · Разметка" aria-label="Открыть 03 · Разметка в Full HD"><img loading="lazy" src="gdd-assets/navigation-nika/label.png" alt="03 · Разметка"></button><h4>03 · Разметка</h4><p>Три подписи → первая проверка</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation-nika/experiment.png" data-screen-title="04 · Первая проверка" aria-label="Открыть 04 · Первая проверка в Full HD"><img loading="lazy" src="gdd-assets/navigation-nika/experiment.png" alt="04 · Первая проверка"></button><h4>04 · Первая проверка</h4><p>Ошибка на другом снимке → старые подписи</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation-nika/review.png" data-screen-title="05 · Исправление данных" aria-label="Открыть 05 · Исправление данных в Full HD"><img loading="lazy" src="gdd-assets/navigation-nika/review.png" alt="05 · Исправление данных"></button><h4>05 · Исправление данных</h4><p>Изменение подписи → повторный опыт</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation-nika/compare.png" data-screen-title="06 · До и после" aria-label="Открыть 06 · До и после в Full HD"><img loading="lazy" src="gdd-assets/navigation-nika/compare.png" alt="06 · До и после"></button><h4>06 · До и после</h4><p>Завершить / попробовать CNN</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation-nika/cnn.png" data-screen-title="07 · Два варианта CNN" aria-label="Открыть 07 · Два варианта CNN в Full HD"><img loading="lazy" src="gdd-assets/navigation-nika/cnn.png" alt="07 · Два варианта CNN"></button><h4>07 · Два варианта CNN</h4><p>Отдельный подготовленный опыт → итог</p><small>1920 × 1080 · нажмите для увеличения</small></article><article class="screen-node"><button type="button" data-screen-image="gdd-assets/navigation-nika/evening.png" data-screen-title="08 · Вечер. Итог" aria-label="Открыть 08 · Вечер. Итог в Full HD"><img loading="lazy" src="gdd-assets/navigation-nika/evening.png" alt="08 · Вечер. Итог"></button><h4>08 · Вечер. Итог</h4><p>Новая подборка → польза для Ники</p><small>1920 × 1080 · нажмите для увеличения</small></article></div>
-<p class="return-route" data-review-id="n4d053">Основной путь: 01 → 02 → 03 → 04 → 05 → 06 → 08. Дополнительный: 06 → 07 → 08. Исправление: 06 → 05 → 06. «Лаборатория» сохраняет выбор и позволяет продолжить текущее действие.</p>
-<p data-review-id="n4d054">Макет показывает переходы и выбор, но не обучает и не проверяет модель. В будущей игре результат после правки требует подходящего рассчитанного опыта. Схема CNN относится к отдельному подготовленному набору.</p>
-<dialog id="screen-lightbox"><div class="lightbox-bar"><strong id="screen-lightbox-title"></strong><button class="lightbox-close" type="button">Закрыть</button></div><img alt=""><div class="lightbox-bar"><button class="lightbox-prev" type="button">← Предыдущий</button><a class="lightbox-original" target="_blank">Открыть PNG Full HD</a><button class="lightbox-next" type="button">Следующий →</button></div></dialog>
-</section>
-
-
-<h2 id="8" data-review-id="n4d055">8. Данные и научное происхождение</h2>
-<p data-review-id="n4d056">Четыре изображения ESA/Hubble в материалах документа — справочные иллюстрации, не готовая обучающая выборка. Их оригиналы, авторство и SHA-256 сохранены. Не выдаём их за Roman и не рассчитываем качество на нескольких красивых демонстрационных снимках.</p>
-<p data-review-id="n4d057">Для сборки нужны отдельные учебные, проверочные и итоговые галактики. Разные кадры и вырезки одной галактики не должны попадать в разные группы. Справочные метки с основаниями проверяются при подготовке. Непригодный пример заменяется с записью происхождения, а не переименованием категории под ожидаемый ответ.</p>
-<p data-review-id="n4d058">Для сравнения «до / после» используем одну проверочную подборку и прямо называем её повторной. После подбора данных или архитектуры она уже не является независимым итоговым испытанием. Итоговая подборка не используется при выборе категорий, сюжетной ошибки, данных, базовой модели и пары CNN; эти решения фиксируются до её открытия. Финал относится к текущему базовому опыту с метками ребёнка; отдельное сравнение CNN его не заменяет. Финальная подборка открывается отдельно; повторное открытие не превращает её в новую.</p>
-<h3 id="ic-2006" data-review-id="n4d059">IC 2006 · справочное изображение</h3>
-<p data-review-id="n4d060"><img alt="IC 2006" src="gdd-assets/galaxies/heic1508a.jpg"></p>
-<p data-review-id="n4d061">Credit: ESA/Hubble &amp; NASA; Image acknowledgement: Judy Schmidt and J. Blakeslee (Dominion Astrophysical Observatory); Science acknowledgement: M. Carollo (ETH, Switzerland). <a href="https://esahubble.org/images/heic1508a/">Источник</a> · <a href="https://esahubble.org/copyright/">CC BY 4.0</a>. Без изменений; не обучающий или проверочный набор.</p>
-<h3 id="ic-5332" data-review-id="n4d062">IC 5332 · справочное изображение</h3>
-<p data-review-id="n4d063"><img alt="IC 5332" src="gdd-assets/galaxies/potw2342a.jpg"></p>
-<p data-review-id="n4d064">Credit: ESA/Hubble &amp; NASA, R. Chandar, J. Lee and the PHANGS-HST team. <a href="https://esahubble.org/images/potw2342a/">Источник</a> · <a href="https://esahubble.org/copyright/">CC BY 4.0</a>. Без изменений; не обучающий или проверочный набор.</p>
-<h3 id="ngc-5023" data-review-id="n4d065">NGC 5023 · справочное изображение</h3>
-<p data-review-id="n4d066"><img alt="NGC 5023" src="gdd-assets/galaxies/potw1512a.jpg"></p>
-<p data-review-id="n4d067">Credit: ESA/Hubble &amp; NASA. <a href="https://esahubble.org/images/potw1512a/">Источник</a> · <a href="https://esahubble.org/copyright/">CC BY 4.0</a>. Без изменений; не обучающий или проверочный набор.</p>
-<h3 id="messier-85" data-review-id="n4d068">Messier 85 · справочное изображение</h3>
-<p data-review-id="n4d069"><img alt="Messier 85" src="gdd-assets/galaxies/potw1905a.jpg"></p>
-<p data-review-id="n4d070">Credit: ESA/Hubble &amp; NASA, R. O'Connell. <a href="https://esahubble.org/images/potw1905a/">Источник</a> · <a href="https://esahubble.org/copyright/">CC BY 4.0</a>. Без изменений; не обучающий или проверочный набор.</p>
-<h2 id="9" data-review-id="n4d071">9. Сборка первого эпизода</h2>
-<h3 id="1_1" data-review-id="n4d072">1. Что уже есть и что отсутствует</h3>
-<p data-review-id="n4d073">Проверено в исходниках 6 октября 2026: действующая игра <code>designlab/comparison/night.html</code> и <code>night-model.js</code> посвящена наблюдениям и движущимся объектам. Её состояние, двоичные метки и мастерская <code>training-workshop.js</code> не реализуют новый сценарий. Переносим принцип разделения состояния и интерфейса, не подменяем в старой модели названия объектов.</p>
-<p data-review-id="n4d074"><code>assets/nightshift/nika-v1.png</code> — существующий художественный образ Ники; происхождение в соседнем <code>CREDITS.md</code>. Для макета он пригоден, для дневной сцены нужно проверить свет и масштаб. Фоны <code>laboratory-*-v*.png</code> содержат утку и остаются историческими концептами до отдельной переработки графики.</p>
-<p data-review-id="n4d075">В <code>assets/galaxies/sources.json</code> находятся четыре справочных снимка. Они не образуют готовый набор для обучения и проверки. Нет допущенного манифеста новой игры, рассчитанных опытов, результатов двух CNN и измерения длительности детского прохода.</p>
-<h3 id="2_1" data-review-id="n4d076">2. Минимальная реализация</h3>
-<p data-review-id="n4d077">Предлагаем отдельный каталог <code>designlab/galaxy-shift/</code>, обычные HTML/CSS/JavaScript и локальные ресурсы. Это решение для первого среза. WebGL для комнаты остаётся следующим визуальным слоем: он не управляет данными и результатами. Новая игра не заменяет действующий сайт автоматически.</p>
-<table>
-<thead>
-<tr>
-<th>Файл</th>
-<th>Ответственность</th>
-</tr>
-</thead>
-<tbody>
-<tr data-review-id="n4d078">
-<td><code>index.html</code>, <code>galaxy.css</code></td>
-<td>Рабочее место, Ника, крупные снимки, доступные кнопки и смена этапов</td>
-</tr>
-<tr data-review-id="n4d079">
-<td><code>data.js</code></td>
-<td>Версия набора, изображения, подписи и источники, подготовленные опыты</td>
-</tr>
-<tr data-review-id="n4d080">
-<td><code>model.js</code></td>
-<td>Чистые переходы, выбранные метки, ключ опыта, актуальность результатов</td>
-</tr>
-<tr data-review-id="n4d081">
-<td><code>game.js</code></td>
-<td>Отрисовка состояния и обработка действий</td>
-</tr>
-<tr data-review-id="n4d082">
-<td><code>check-model.mjs</code></td>
-<td>Достижимые состояния, точное соответствие данных и результатов</td>
-</tr>
-<tr data-review-id="n4d083">
-<td><code>check-browser.py</code></td>
-<td>Проход по UI, возвраты, помощь, отсутствие сетевых зависимостей</td>
-</tr>
-<tr data-review-id="n4d084">
-<td><code>build-galaxy.py</code></td>
-<td>Упаковка после рабочего среза: ресурсы, атрибуция, контрольные суммы</td>
-</tr>
-</tbody>
-</table>
-<p data-review-id="n4d085">В первом срезе состояние живёт в памяти вкладки; возврат в лабораторию его сохраняет. Перезагрузка начинает новую смену с ясным предупреждением. localStorage, миграции и экспорт журнала добавляются только при подтверждённой потребности. Общий сервер комментариев относится к документам, не к игре.</p>
-<h3 id="3_1" data-review-id="n4d086">3. Контракт подготовленных опытов</h3>
-<p data-review-id="n4d087">Свободная разметка должна влиять на показанный опыт. Двух записей «до / после» недостаточно, если три собственные метки ребёнка тоже входят в обучение: они имеют 27 сочетаний. При двух исправляемых старых метках с тремя доступными категориями верхняя граница — 3^5 = 243 состояния одного базового метода. Первый совместный пример и остальная подготовленная выборка фиксированы.</p>
-<p data-review-id="n4d088">Это проектный предел, не существующий пакет. Перед реализацией генератора подтверждаем число редактируемых карточек. Не возвращаемся автоматически к прежним шести меткам и 729 вариантам. Если расчёт слишком дорог, сокращаем число редактируемых примеров явно, а не игнорируем действия ребёнка.</p>
-<p data-review-id="n4d089">Ключ опыта включает <code>datasetVersion</code>, все эффективные метки в стабильном порядке, <code>modelVariant</code> и версию протокола. Запись результата содержит ключ, идентификаторы учебных и проверочных объектов, предсказания, справочные ответы, показатели и происхождение расчёта. Нет подходящей записи — нет результата: интерфейс сообщает, что этот опыт не подготовлен, а выпуск блокируется до покрытия всех разрешённых состояний.</p>
-<p data-review-id="n4d090">Для CNN-сравнения первого среза готовим ровно два опыта на одном явно обозначенном исправленном наборе. Это отдельная ветка с собственными ключами; нельзя переносить её показатели на текущие пользовательские метки. Покрытие всех 243 состояний двумя архитектурами не является обязательством первой поставки.</p>
-<p data-review-id="n4d091">Каждый опыт воспроизводим: версии кода и данных, подготовка изображений, разбиение по объектам, seed и условия обучения записаны. Базовую модель и пару CNN выбираем после малого расчётного эксперимента. Если модель не показывает подходящего объяснимого изменения, меняем постановку опыта с документированием, а не сочиняем предсказания. Сценарная ошибка должна наблюдаться в рассчитанном результате, в том числе проверяется ветка без ошибок.</p>
-<h3 id="4_1" data-review-id="n4d092">4. Состояния и инвалидация</h3>
-<figure class="diagram"><svg id="galaxy-game-design1" width="100%" xmlns="http://www.w3.org/2000/svg" class="statediagram" style="max-width: 619.953125px;" viewBox="0 0 619.953125 852" role="graphics-document document" aria-roledescription="stateDiagram"><style>#galaxy-game-design1{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#galaxy-game-design1 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#galaxy-game-design1 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#galaxy-game-design1 .error-icon{fill:#552222;}#galaxy-game-design1 .error-text{fill:#552222;stroke:#552222;}#galaxy-game-design1 .edge-thickness-normal{stroke-width:1px;}#galaxy-game-design1 .edge-thickness-thick{stroke-width:3.5px;}#galaxy-game-design1 .edge-pattern-solid{stroke-dasharray:0;}#galaxy-game-design1 .edge-thickness-invisible{stroke-width:0;fill:none;}#galaxy-game-design1 .edge-pattern-dashed{stroke-dasharray:3;}#galaxy-game-design1 .edge-pattern-dotted{stroke-dasharray:2;}#galaxy-game-design1 .marker{fill:#666;stroke:#666;}#galaxy-game-design1 .marker.cross{stroke:#666;}#galaxy-game-design1 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#galaxy-game-design1 p{margin:0;}#galaxy-game-design1 defs [id$="-barbEnd"]{fill:#000;stroke:#000;}#galaxy-game-design1 g.stateGroup text{fill:#999;stroke:none;font-size:10px;}#galaxy-game-design1 g.stateGroup text{fill:#000000;stroke:none;font-size:10px;}#galaxy-game-design1 g.stateGroup .state-title{font-weight:bolder;fill:#111111;}#galaxy-game-design1 g.stateGroup rect{fill:#eee;stroke:#999;}#galaxy-game-design1 g.stateGroup line{stroke:#666;stroke-width:1;}#galaxy-game-design1 .transition{stroke:#000;stroke-width:1;fill:none;}#galaxy-game-design1 .stateGroup .composit{fill:#ffffff;border-bottom:1px;}#galaxy-game-design1 .stateGroup .alt-composit{fill:#e0e0e0;border-bottom:1px;}#galaxy-game-design1 .state-note{stroke:#999;fill:#666;}#galaxy-game-design1 .state-note text{fill:#fff;stroke:none;font-size:10px;}#galaxy-game-design1 .stateLabel .box{stroke:none;stroke-width:0;fill:#eee;opacity:0.5;}#galaxy-game-design1 .edgeLabel .label rect{fill:#eee;opacity:0.5;}#galaxy-game-design1 .edgeLabel{background-color:white;text-align:center;}#galaxy-game-design1 .edgeLabel p{background-color:white;}#galaxy-game-design1 .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}#galaxy-game-design1 .edgeLabel .label text{fill:#000000;}#galaxy-game-design1 .label div .edgeLabel{color:#000000;}#galaxy-game-design1 .stateLabel text{fill:#111111;font-size:10px;font-weight:bold;}#galaxy-game-design1 .node circle.state-start{fill:#222;stroke:#222;}#galaxy-game-design1 .node .fork-join{fill:#222;stroke:#222;}#galaxy-game-design1 .node circle.state-end{fill:hsl(0, 0%, 83.3333333333%);stroke:#ffffff;stroke-width:1.5;}#galaxy-game-design1 .end-state-inner{fill:#ffffff;stroke-width:1.5;}#galaxy-game-design1 .node rect{fill:#eee;stroke:#000;stroke-width:1px;}#galaxy-game-design1 .node polygon{fill:#eee;stroke:#000;stroke-width:1px;}#galaxy-game-design1 [id$="-barbEnd"]{fill:#666;}#galaxy-game-design1 .statediagram-cluster rect{fill:#eee;stroke:#000;stroke-width:1px;}#galaxy-game-design1 .cluster-label,#galaxy-game-design1 .nodeLabel{color:#111111;}#galaxy-game-design1 .statediagram-cluster rect.outer{rx:5px;ry:5px;}#galaxy-game-design1 .statediagram-state .divider{stroke:#000;}#galaxy-game-design1 .statediagram-state .title-state{rx:5px;ry:5px;}#galaxy-game-design1 .statediagram-cluster.statediagram-cluster .inner{fill:#ffffff;}#galaxy-game-design1 .statediagram-cluster.statediagram-cluster-alt .inner{fill:#f4f4f4;}#galaxy-game-design1 .statediagram-cluster .inner{rx:0;ry:0;}#galaxy-game-design1 .statediagram-state rect.basic{rx:5px;ry:5px;}#galaxy-game-design1 .statediagram-state rect.divider{stroke-dasharray:10,10;fill:#f4f4f4;}#galaxy-game-design1 .note-edge{stroke-dasharray:5;}#galaxy-game-design1 .statediagram-note rect{fill:#666;stroke:#999;stroke-width:1px;rx:0;ry:0;}#galaxy-game-design1 .statediagram-note rect{fill:#666;stroke:#999;stroke-width:1px;rx:0;ry:0;}#galaxy-game-design1 .statediagram-note text{fill:#fff;}#galaxy-game-design1 .statediagram-note .nodeLabel{color:#fff;}#galaxy-game-design1 .statediagram .edgeLabel{color:red;}#galaxy-game-design1 [id$="-dependencyStart"],#galaxy-game-design1 [id$="-dependencyEnd"]{fill:#666;stroke:#666;stroke-width:1;}#galaxy-game-design1 .statediagramTitleText{text-anchor:middle;font-size:18px;fill:#000000;}#galaxy-game-design1 [data-look="neo"].statediagram-cluster rect{fill:#eee;stroke:url(#galaxy-game-design1-gradient);stroke-width:1;}#galaxy-game-design1 [data-look="neo"].statediagram-cluster rect.outer{rx:5px;ry:5px;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design1 .node .neo-node{stroke:#999;}#galaxy-game-design1 [data-look="neo"].node rect,#galaxy-game-design1 [data-look="neo"].cluster rect,#galaxy-game-design1 [data-look="neo"].node polygon{stroke:url(#galaxy-game-design1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design1 [data-look="neo"].swimlane.cluster rect{filter:none;}#galaxy-game-design1 [data-look="neo"].node path{stroke:url(#galaxy-game-design1-gradient);stroke-width:1px;}#galaxy-game-design1 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design1 [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}#galaxy-game-design1 [data-look="neo"].node circle{stroke:url(#galaxy-game-design1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design1 [data-look="neo"].node circle .state-start{fill:#000000;}#galaxy-game-design1 [data-look="neo"].icon-shape .icon{fill:url(#galaxy-game-design1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design1 [data-look="neo"].icon-shape .icon-neo path{stroke:url(#galaxy-game-design1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#galaxy-game-design1 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker id="galaxy-game-design1_stateDiagram-barbEnd" refX="19" refY="7" markerWidth="20" markerHeight="14" markerUnits="strokeWidth" orient="auto"><path d="M 19,7 L11,14 L13,7 L11,0 Z"></path></marker></defs><defs><marker id="galaxy-game-design1_stateDiagram-barbEnd-margin" refX="17" refY="7" markerWidth="20" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M 19,7 L11,14 L13,7 L11,0 Z" fill="#000"></path></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M331.953,22L331.953,26.167C331.953,30.333,331.953,38.667,331.953,46.083C331.953,53.5,331.953,60,331.953,63.25L331.953,66.5" id="galaxy-game-design1-edge0" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 44.5 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge0" data-points="W3sieCI6MzMxLjk1MzEyNSwieSI6MjJ9LHsieCI6MzMxLjk1MzEyNSwieSI6NDd9LHsieCI6MzMxLjk1MzEyNSwieSI6NzJ9XQ==" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M331.953,112L331.953,116.167C331.953,120.333,331.953,128.667,331.953,136.083C331.953,143.5,331.953,150,331.953,153.25L331.953,156.5" id="galaxy-game-design1-edge1" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 44.5 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge1" data-points="W3sieCI6MzMxLjk1MzEyNSwieSI6MTEyfSx7IngiOjMzMS45NTMxMjUsInkiOjEzN30seyJ4IjozMzEuOTUzMTI1LCJ5IjoxNjJ9XQ==" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M301.822,202L289.518,210.167C277.215,218.333,252.607,234.667,240.304,250.083C228,265.5,228,280,228,287.25L228,294.5" id="galaxy-game-design1-edge2" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 125.62142944335938 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge2" data-points="W3sieCI6MzAxLjgyMTc4NDQyMDI4OTksInkiOjIwMn0seyJ4IjoyMjgsInkiOjI1MX0seyJ4IjoyMjgsInkiOjMwMH1d" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M198.796,340L186.871,348.167C174.946,356.333,151.096,372.667,150.34,388.482C149.583,404.297,171.921,419.595,183.089,427.244L194.258,434.892" id="galaxy-game-design1-edge3" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 136.62973022460938 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge3" data-points="W3sieCI6MTk4Ljc5NTk2OTIwMjg5ODU2LCJ5IjozNDB9LHsieCI6MTI3LjI0NjA5Mzc1LCJ5IjozODl9LHsieCI6MTk4Ljc5NTk2OTIwMjg5ODU2LCJ5Ijo0Mzh9XQ==" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M262.783,438L276.986,429.833C291.188,421.667,319.594,405.333,320.389,389.457C321.184,373.581,294.367,358.161,280.959,350.451L267.551,342.742" id="galaxy-game-design1-edge4" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 150.66212463378906 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge4" data-points="W3sieCI6MjYyLjc4MjYwODY5NTY1MjIsInkiOjQzOH0seyJ4IjozNDgsInkiOjM4OX0seyJ4IjoyNjIuNzgyNjA4Njk1NjUyMiwieSI6MzQwfV0=" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M245.391,478L252.493,486.167C259.594,494.333,273.797,510.667,280.899,526.083C288,541.5,288,556,288,563.25L288,570.5" id="galaxy-game-design1-edge5" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 105.38430786132812 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge5" data-points="W3sieCI6MjQ1LjM5MTMwNDM0NzgyNjEsInkiOjQ3OH0seyJ4IjoyODgsInkiOjUyN30seyJ4IjoyODgsInkiOjU3Nn1d" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M193.217,478L179.014,486.167C164.812,494.333,136.406,510.667,122.203,530.333C108,550,108,573,108,596C108,619,108,642,108,665C108,688,108,711,108,730C108,749,108,764,125.777,775.944C143.555,787.889,179.109,796.777,196.887,801.222L214.664,805.666" id="galaxy-game-design1-edge6" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 437.34356689453125 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge6" data-points="W3sieCI6MTkzLjIxNzM5MTMwNDM0NzgsInkiOjQ3OH0seyJ4IjoxMDgsInkiOjUyN30seyJ4IjoxMDgsInkiOjU5Nn0seyJ4IjoxMDgsInkiOjY2NX0seyJ4IjoxMDgsInkiOjczNH0seyJ4IjoxMDgsInkiOjc3OX0seyJ4IjoyMjAsInkiOjgwN31d" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M305.391,616L312.493,624.167C319.594,632.333,333.797,648.667,340.899,664.083C348,679.5,348,694,348,701.25L348,708.5" id="galaxy-game-design1-edge7" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 105.38431549072266 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge7" data-points="W3sieCI6MzA1LjM5MTMwNDM0NzgyNjA2LCJ5Ijo2MTZ9LHsieCI6MzQ4LCJ5Ijo2NjV9LHsieCI6MzQ4LCJ5Ijo3MTR9XQ==" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M270.609,616L263.507,624.167C256.406,632.333,242.203,648.667,235.101,668.333C228,688,228,711,228,730C228,749,228,764,232.822,775.117C237.644,786.233,247.289,793.467,252.111,797.083L256.933,800.7" id="galaxy-game-design1-edge8" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 207.3218994140625 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge8" data-points="W3sieCI6MjcwLjYwODY5NTY1MjE3Mzk0LCJ5Ijo2MTZ9LHsieCI6MjI4LCJ5Ijo2NjV9LHsieCI6MjI4LCJ5Ijo3MzR9LHsieCI6MjI4LCJ5Ijo3Nzl9LHsieCI6MjYxLjMzMzMzMzMzMzMzMzMsInkiOjgwNH1d" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M348,754L348,758.167C348,762.333,348,770.667,343.178,778.45C338.356,786.233,328.711,793.467,323.889,797.083L319.067,800.7" id="galaxy-game-design1-edge9" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 58.303096771240234 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge9" data-points="W3sieCI6MzQ4LCJ5Ijo3NTR9LHsieCI6MzQ4LCJ5Ijo3Nzl9LHsieCI6MzE0LjY2NjY2NjY2NjY2NjcsInkiOjgwNH1d" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path><path d="M356,810.336L381.992,805.114C407.984,799.891,459.969,789.445,485.961,776.723C511.953,764,511.953,749,511.953,730C511.953,711,511.953,688,511.953,665C511.953,642,511.953,619,511.953,596C511.953,573,511.953,550,511.953,527C511.953,504,511.953,481,511.953,458C511.953,435,511.953,412,511.953,389C511.953,366,511.953,343,511.953,320C511.953,297,511.953,274,491.505,254.661C471.056,235.323,430.159,219.646,409.711,211.807L389.263,203.969" id="galaxy-game-design1-edge10" class="edge-thickness-normal edge-pattern-solid transition" style="stroke-dasharray: 0 0 787.8493041992188 0; stroke-dashoffset: 0;fill:none;;;fill:none" data-edge="true" data-et="edge" data-id="edge10" data-points="W3sieCI6MzU2LCJ5Ijo4MTAuMzM2NDI2NDI4NTIxNn0seyJ4Ijo1MTEuOTUzMTI1LCJ5Ijo3Nzl9LHsieCI6NTExLjk1MzEyNSwieSI6NzM0fSx7IngiOjUxMS45NTMxMjUsInkiOjY2NX0seyJ4Ijo1MTEuOTUzMTI1LCJ5Ijo1OTZ9LHsieCI6NTExLjk1MzEyNSwieSI6NTI3fSx7IngiOjUxMS45NTMxMjUsInkiOjQ1OH0seyJ4Ijo1MTEuOTUzMTI1LCJ5IjozODl9LHsieCI6NTExLjk1MzEyNSwieSI6MzIwfSx7IngiOjUxMS45NTMxMjUsInkiOjI1MX0seyJ4IjozODQuMTI3MDM4MDQzNDc4MjUsInkiOjIwMn1d" data-look="neo" marker-end="url(#galaxy-game-design1_stateDiagram-barbEnd-margin)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="edge0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="edge1" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(228, 251)"><g class="label" data-id="edge2" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>все обязательные метки выбраны</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(127.24609375, 389)"><g class="label" data-id="edge3" transform="translate(-81.5078125, -12)"><foreignObject width="163.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>опыт найден и открыт</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(348, 389)"><g class="label" data-id="edge4" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>метка изменена, результат устарел</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(288, 527)"><g class="label" data-id="edge5" transform="translate(-87.90625, -12)"><foreignObject width="175.8125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>повторный опыт открыт</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(108, 665)"><g class="label" data-id="edge6" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>данные не изменены, текущий опыт сохраняется</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(348, 665)"><g class="label" data-id="edge7" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>отдельный подготовленный набор</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="edge8" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="edge9" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(511.953125, 527)"><g class="label" data-id="edge10" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>вернуться к данным, итог устаревает при правке</p></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="galaxy-game-design1-state-root_start-0" data-look="neo" transform="translate(331.953125, 15)"><circle class="state-start" r="7" width="14" height="14"></circle></g><g class="node  statediagram-state" id="galaxy-game-design1-state-Intro-1" data-look="neo" transform="translate(331.953125, 92)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>Intro</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="galaxy-game-design1-state-Label-10" data-look="neo" transform="translate(331.953125, 182)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>Label</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="galaxy-game-design1-state-Evaluate-4" data-look="neo" transform="translate(228, 320)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>Evaluate</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="galaxy-game-design1-state-Review-6" data-look="neo" transform="translate(228, 458)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>Review</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="galaxy-game-design1-state-Compare-8" data-look="neo" transform="translate(288, 596)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>Compare</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="galaxy-game-design1-state-Finish-10" data-look="neo" transform="translate(288, 824)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>Finish</p></span></div></foreignObject></g></g><g class="node  statediagram-state" id="galaxy-game-design1-state-CNN-9" data-look="neo" transform="translate(348, 734)"><rect class="basic label-container" style="" rx="5" ry="5" x="-68" y="-20" width="136" height="40"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"><span class="nodeLabel markdown-node-label"><p>CNN</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="galaxy-game-design1-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="galaxy-game-design1-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><linearGradient id="galaxy-game-design1-gradient" gradientUnits="objectBoundingBox" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="hsl(0, 0%, 83.3333333333%)" stop-opacity="1"></stop><stop offset="100%" stop-color="hsl(0, 0%, 88.9215686275%)" stop-opacity="1"></stop></linearGradient></svg></figure>
-<p data-review-id="n4d093">Храним текущие метки и ключ, отдельно снимок первого результата для сравнения. Кнопка сравнения требует нового рассчитанного опыта после изменения. Переход назад не меняет метки. Правка аннулирует актуальность зависимых проверки и финала, но прежние ответы можно видеть с подписью «до изменения».</p>
-<p data-review-id="n4d094">Если эффективные метки не изменились, ключ и текущий результат сохраняются; показываем «Данные не изменены», предлагаем вернуться к карточкам или закончить. Не создаём фиктивный результат «после». Финал использует актуальный базовый опыт с метками ребёнка; отдельная CNN-ветка не выбирает модель основной смены. Итоговая подборка не участвует в выборе данных, категорий, сюжетной ошибки, модели или пары CNN.</p>
-<p data-review-id="n4d095">Проверочная подборка повторно используется для сравнения «до / после». Итоговые объекты отделены по галактикам и впервые открываются в финале. Флаг просмотра финальной подборки сохраняется до сброса всей смены; после возврата она не называется невиданной.</p>
-<h3 id="5_1" data-review-id="n4d096">5. Очерёдность сборки</h3>
+</nav>
+    <h1 id="ночь-открытий-приключение-в-обсерватории">Ночь открытий: приключение в обсерватории</h1>
+<p>Редакция согласована владельцем 9 октября 2026. Название выбрано явно;
+поручение «собирай цель, агентов и начинай работу» разрешает реализацию,
+проверки и поставку на существующий сайт и в ZIP. Поручением
+«Причесываем и сливаем в мастер» владелец 9 октября также разрешил
+финальное ревью и слияние PR #4 в основную ветку <code>main</code>.</p>
+<p>Этот документ задаёт изменения поверх <a href="technical-plan.html">научного и технического контракта
+предыдущей редакции</a>. При противоречии
+в игровом маршруте, интерфейсе или тексте действует эта редакция. Прежние
+отчёты относятся к своим сборкам и не доказывают выполнение новых требований.</p>
+<h2 id="цель-и-результат">Цель и результат</h2>
+<p>Поставить самостоятельный учебный маршрут для ребёнка около 12 лет под
+названием «Ночь открытий: приключение в обсерватории». Ребёнок знакомится с
+Никой, собирает снимки, пробует разметку на примере, размечает выборку,
+проверяет модель и старые метки, проходит один объяснённый опыт с готовой CNN,
+сравнивает ответы, проводит один самостоятельный опыт в конструкторе всех
+22 архитектур и завершает смену. После финала — исследование неба.</p>
+<p>Понятия вводятся до действия, для которого они нужны. Текст сохраняет
+научные термины и поясняет их на текущем примере. Длительность вторична;
+стендист помогает по желанию. Честное совпадение или ухудшение результата
+разбирается так же, как улучшение; 3/3 не требуется.</p>
+<h2 id="согласованные-изменения">Согласованные изменения</h2>
 <ol>
-<li data-review-id="n4d097"><strong>Подготовить данные и один причинный опыт.</strong> Допустить ясные изображения и справочные метки, разделить объекты, получить реальную ошибку старой разметки и результат исправления. Выход: воспроизводимый маленький пакет, а не экран с ожидаемыми процентами.</li>
-<li data-review-id="n4d098"><strong>Собрать основной путь на рабочем столе.</strong> Ника → три метки → проверка → исправление → повторная проверка → финал. Сначала проверить конечное число вариантов и ключи, затем подключить интерфейс. Изображения уже настоящие; декор комнаты может быть временным.</li>
-<li data-review-id="n4d099"><strong>Добавить сравнение двух CNN.</strong> Рассчитать фиксированную пару, показать схему одного изменения и конкретные ответы. Сохранить возможность закончить основной путь раньше.</li>
-<li data-review-id="n4d100"><strong>Проверить со стендистом и детьми.</strong> Измерить время, затруднения и понимание; сократить шаги при необходимости.</li>
-<li data-review-id="n4d101"><strong>Довести пространство и упаковать.</strong> Единая дневная лаборатория без утки, Ника, утро/день/вечер, фиксированная камера и доступный слой управления. Выбор WebGL-библиотеки — после пробы на стендовом устройстве, не обязательное условие расчёта данных.</li>
+<li>Во вступлении видна одна Ника — на изображении лаборатории. Реплика
+   привязана к Нике, а «Помочь Нике» — к компьютеру; второй портрет убран. На рабочих
+   экранах отдельный портрет остаётся, когда персонажа нет в изображении.</li>
+<li>В примере и самостоятельной разметке один и тот же ряд активных карточек
+   классов с образцами и названиями. В примере пробный выбор вызывает
+   объяснение Ники и не меняет обучающие метки. Верхнего ряда «Вижу…» нет.
+   Подсказка остаётся отдельным необязательным действием. Следующий шаг
+   сохраняет положение и значение элементов.</li>
+<li>Объяснённый опыт с готовой CNN входит в обязательный маршрут перед
+   финалом. Сначала видны цель, исходная схема и объяснение обработки снимка.
+   Затем игрок меняет одно свойство — добавляет второй свёрточный слой — и
+   проверяет модель на тех же данных. Сравниваются конкретные предсказания
+   до и после. Опыт и свободное редактирование происходят на одном рабочем
+   экране. Затем ребёнок сам меняет схему, проверяет и сравнивает ответы;
+   после этого доступны завершение смены и дальнейшие свободные опыты.
+   Конструктор не заменяется пресетами. Прогресс опыта переживает возвращение и перезагрузку вкладки.</li>
+<li>До разметки объясняются класс, метка и разметка; до проверки — обучающая
+   и проверочная выборки, обучение и предсказание; до изменения CNN — слой,
+   свёртка, признаки и архитектура. ИИ, машинное обучение и наука о данных
+   связываются с действиями игрока. Определения доступны повторно из контекста.
+   ReLU, BatchNorm, Dropout, усреднение, классификатор, softmax и подробные
+   метрики раскрываются после введения базовых понятий. Иллюстрация работы
+   фильтра подписана как учебная, если она не показывает активации данной
+   рассчитанной сети. Готовые результаты не выдаются за обучение в браузере.</li>
+<li>Свободное небо действует по правилу «увидел → нажал → рассмотрел».
+   Фильтров категорий и отдельных каталогов для доступа к материалам нет.
+   Все 19 научных карточек и 24 архивных галактики доступны в одном
+   пространстве; совпадающие объекты могут объединять связанные материалы
+   внутри одной карточки. Проверенные координаты сохраняются. Девять
+   карточек без единственной координаты объединены в блок
+   «Открытия по всему небу» с кнопками-названиями.
+   Подписи не перекрывают соседние цели; близкие объекты доступны при
+   приближении или раскрытии группы. Закрытие карточки возвращает к тому же
+   месту и масштабу. В учебной части выделены четыре снимка задания и ясно
+   показано, как добавить снимок в обучающую выборку и продолжить маршрут.</li>
+<li>«О проекте» начинается с фразы: «Игра „Ночь открытий: приключение в
+   обсерватории“ создана на Факультете искусственного интеллекта МГУ имени
+   М. В. Ломоносова». Далее коротко о факультете и ссылка https://ai.msu.ru/.
+   Анастасия Колесникова — магистрант факультета ИИ; научное содержание и
+   проверка фактов. Андрей Жуков — преподаватель факультета ИИ; техника и
+   игровые механики. GPT-6 Astra — генеративный ИИ; код, тексты и сборка:
+   «Работает без кофе, но под присмотром». Роли людей не переставлять.</li>
+<li>Полное название используется на первом экране, в заголовке страницы,
+   памятке, документах, ZIP и описании для программы. Короткое название —
+   «Ночь открытий». Старые названия сохраняются только в явно исторических
+   материалах. В тексте для программы ясны астрономия, ИИ и игровой формат.</li>
 </ol>
-<p data-review-id="n4d102">Этапы 1–3 — ближайший план, ещё не выполненная сборка. Публикация и замена действующей игры являются отдельным решением после проверенного среза.</p>
-<h3 id="6" data-review-id="n4d103">6. Проверки перед показом</h3>
-<ul>
-<li data-review-id="n4d104">Источники, атрибуция, разрешённые преобразования и SHA-256 каждой картинки; отсутствие одной галактики в разных группах.</li>
-<li data-review-id="n4d105">Покрытие всех разрешённых ключей, показатели пересчитаны из ответов; результат не улучшается только от клика «повторить».</li>
-<li data-review-id="n4d106">Верные и неверные метки ребёнка, помощь, изменение старой подписи, ветка без ошибки, возврат из финала и корректная инвалидация.</li>
-<li data-review-id="n4d107">Раздельный набор CNN явно обозначен; сравнение не меняет метки основной смены и не выдаётся за её результат.</li>
-<li data-review-id="n4d108">Весь путь после распаковки через <code>file://</code> без HTTP-запросов, без <code>fetch</code> локального JSON, CDN и обязательного сервера; данные подключаются обычным локальным script.</li>
-<li data-review-id="n4d109">Клавиатура, видимый фокус, reduced motion, 1280×720, 390 px и масштаб 150%; изображение не обрезает диагностический признак.</li>
-<li data-review-id="n4d110">Научные и детские проверки фиксируются отдельно от автоматических тестов. Проверки старой ночной игры не доказывают готовность новой.</li>
-</ul>
-<h2 id="10" data-review-id="n4d111">10. Памятка стендиста и приёмка</h2>
-<p data-review-id="n4d112">Полные реплики и помощь вынесены в <a href="first-shift-scenario.html">сценарий</a>. Стендист поясняет признаки, помогает при сомнении и спрашивает: «Что мы изменили? На каких снимках проверили? Почему Нике теперь легче работать?»</p>
-<p data-review-id="n4d113">Техническая готовность: весь путь проходит без сети, одинаковые действия показывают один результат, изменение данных сбрасывает актуальность проверки, финал не восстанавливается для чужой версии набора, источники включены в ZIP.</p>
-<p data-review-id="n4d114">Педагогическая проверка отдельно: ребёнок отличает свои подписи от ответа модели, замечает изменение после правки и может объяснить пользу автоматизации. Цель 5–10 минут подтверждается наблюдением, не числом экранов. Взрослый пробный проход не заменяет детский.</p>
-<h2 id="11" data-review-id="n4d115">11. Решения по комментариям</h2>
+<h2 id="приёмка">Приёмка</h2>
+<p>Сценарии выполняются видимыми элементами и клавиатурой; чтение состояния
+допустимо для проверки. Основные разрешения: 1280×720, 1366×768, 1440×900,
+1920×1080; дополнительно компоновка 150%. Изображения смотрят только
+сабагенты через image_preview.py: JPEG до 1024 px / 200 КБ, по одному.</p>
 <table>
 <thead>
 <tr>
-<th>Предложение</th>
-<th>Принятое решение</th>
+<th>ID</th>
+<th>Доказательство готовности</th>
 </tr>
 </thead>
 <tbody>
-<tr data-review-id="n4d116">
-<td>Вернуть Нику и мотивировать большим потоком данных</td>
-<td>Принято; завязка про Roman и подготовку на архивных снимках</td>
+<tr>
+<td>N01</td>
+<td>На кадрах вступления одна Ника; реплика, название и начало видны и не перекрывают персонажа и обсерваторию.</td>
 </tr>
-<tr data-review-id="n4d117">
-<td>Убрать ИИ-помощника</td>
-<td>Утка отложена, модель на экране; ИИ не приравниваем к LLM</td>
+<tr>
+<td>N02</td>
+<td>В примере и разметке один ряд одинаковых активных классов; пробный выбор даёт объяснение, сохраняет кадр и не записывает обучающую метку; самостоятельный выбор записывает её.</td>
 </tr>
-<tr data-review-id="n4d118">
-<td>Исправить старую разметку</td>
-<td>Принято; сначала конкретная ошибка, затем исследование примеров</td>
+<tr>
+<td>N03</td>
+<td>Полный маршрут от начала до финала включает объяснённый опыт CNN; цель, изменение и сравнение понятны из видимого текста. Финал доступен при любом счёте после опыта.</td>
 </tr>
-<tr data-review-id="n4d119">
-<td>Автоматически подсветить все ошибки</td>
-<td>Не используем: подсказка раскрывает признак, а не список ответов</td>
+<tr>
+<td>N04</td>
+<td>Определения появляются до соответствующего действия; независимый агент проходит маршрут без внутреннего dispatch и отмечает конкретные пробелы инструкции. Реальный детский проход не имитируется и указывается отдельно.</td>
 </tr>
-<tr data-review-id="n4d120">
-<td>Упростить сомнения и научные оговорки</td>
-<td>Помощь ребёнку и памятка стендиста; проверка исходных данных остаётся</td>
+<tr>
+<td>N05</td>
+<td>Свободный конструктор позволяет собрать все 22 схемы, менять порядок, возвращаться и повторять опыт; сравнение фиксирует те же данные и соответствующую схему.</td>
 </tr>
-<tr data-review-id="n4d121">
-<td>Добавить понятие модели</td>
-<td>Принято, объяснение через примеры и новые снимки</td>
+<tr>
+<td>N06</td>
+<td>Все 19 научных материалов и 24 галактики доступны из неба без фильтров/каталогов; координаты не выдуманы, заметки отличимы от объектов, закрытие сохраняет камеру, группы раскрываются.</td>
 </tr>
-<tr data-review-id="n4d122">
-<td>Эксперименты с CNN</td>
-<td>Пробуем два рассчитанных варианта, отдельный необязательный шаг</td>
+<tr>
+<td>N07</td>
+<td>Название, факультет, роли и источники верны в UI, памятке и поставке; все новые тексты вычитаны на терминологию, повторы и пустые обещания.</td>
 </tr>
-<tr data-review-id="n4d123">
-<td>Метрики обязательно растут</td>
-<td>Не обещаем: ответы и показатели следуют рассчитанному опыту</td>
+<tr>
+<td>N08</td>
+<td>В CNN и связанных переходах нет мерцания: вспышек фона, промежуточного пустого экрана, краткой подмены состояния, скачков схемы, прокрутки и фокуса. Проверены вход/выход, глубина, добавление/удаление/перестановка, drag/клавиатура, справки, метрики, проверка и повторные действия.</td>
 </tr>
-<tr data-review-id="n4d124">
-<td>Вернуть старое оформление</td>
-<td>Кавказ и современная дневная лаборатория сохранены; возврат оформления не требуется</td>
+<tr>
+<td>N09</td>
+<td>Сохранение и восстановление нового учебного прогресса, отказ ресурса, повторная загрузка, телеметрия/экспорт и границы научного опыта сохраняют прежние контракты. Старый совместимый прогресс мигрирует явно либо предлагается понятное восстановление без молчаливой потери меток.</td>
+</tr>
+<tr>
+<td>N10</td>
+<td>Одна версия пройдена через file:// без сети и публичный HTTPS; ресурсы/ZIP/документы сверены по хэшам, прежняя игра и комментарии сохранены, события HTTPS дошли в отдельную БД; исходники и отчёт отправлены в существующий PR без merge.</td>
 </tr>
 </tbody>
 </table>
-<p data-review-id="n4d125"><a href="galaxy-game-design-before-nika.html">Предыдущий дизайн и его комментарии</a> · <a href="first-shift-scenario-before-nika.html">Прежний сценарий с комментариями коллеги</a>. Привязки прежних комментариев сохранены; эта редакция получает новые идентификаторы фрагментов.</p></main><script src="galaxy-design-nika.js"></script><script src="scenario-comments.js?v=5"></script></body></html>
+<p>Мерцание проверяется во времени: повторяемая последовательность действий,
+запись переходов и последовательность кадров с просмотром сабагентом,
+контроль DOM/геометрии/фокуса. Проверки идут с обычной анимацией и уменьшенной,
+на первой и повторной загрузке ресурсов; медленная загрузка не показывает
+устаревший результат как текущий. До исправления сохраняется воспроизведение
+хотя бы одного дефекта; после — тот же сценарий. Один конечный скриншот или
+успешный e2e сам по себе не закрывает N08.</p>
+<h2 id="исполнение-и-границы">Исполнение и границы</h2>
+<p>Основной агент интегрирует изменения и проверяет доказательства. Независимые
+потоки: учебная модель/понятия; Ника и разметка; небо. Владение файлами
+согласуется до параллельных правок. После интеграции — отдельное ревью
+сценария, кадров и мерцания. Научные таблицы и происхождение снимков
+сохраняются; новые расчёты нужны только при реальном изменении модели.</p>
+<p>Поставка продолжает существующий сайт через Synology → Sparky:8080.
+Настройки прокси и отдельной телеметрии уже проверены; повторное разрешение
+на предусмотренную публикацию не требуется. Условия воспроизведения и
+поставки берутся из действующих README. Не менять чужие сервисы и основное
+рабочее дерево с пользовательскими правками.</p>
+<p>Исходное состояние перед редакцией 9 октября: <code>2026.10.09-complete.1</code>, исходный
+коммит ветки <code>458b5aa</code>. Эта сборка не проходит N01–N04 и N08 по замечаниям
+владельца; прежний PASS не переносится на новые критерии. Фактическое
+выполнение этой редакции записывается в отдельный отчёт рядом с документом.</p>
+<h2 id="история-исправления-экран-после-помочь-нике">История исправления: экран после «Помочь Нике»</h2>
+<p>9 октября владелец обнаружил внутреннюю прокрутку первой карточки. На
+1280×720 кнопка карты уходила за нижний край; e2e автоматически прокручивал
+её перед нажатием и потому пропускал дефект.</p>
+<p>Требование сохранилось: следующее действие видно без прокрутки страницы
+или карточки на четырёх целевых разрешениях и при 150%. Геометрию проверяют
+до нажатия или перевода фокуса к следующей кнопке.
+В промежуточной night.2 карточка сочетала пример Euclid и определения ИИ,
+машинного обучения и Data Science. После следующего обсуждения вводный
+словарь убран; актуальная последовательность понятий задана в разделе
+«Причины действий и самостоятельный опыт» ниже.</p>
+<h2 id="перекомпоновка-после-проверки-владельцем">Перекомпоновка после проверки владельцем</h2>
+<p>Принята 9 октября после проверки опубликованной <code>2026.10.09-night.1</code>.
+Исправление первой карточки подготовлено отдельно, но публикация включает
+весь этот набор изменений. Прежние проверки прохождения не подтверждают
+удобство компоновки и не заменяют новую визуальную проверку.</p>
+<ul>
+<li>Во вступлении речь располагается возле Ники на фоне, а начало работы —
+  на компьютере. Привязки рассчитываются относительно видимой иллюстрации,
+  учитывая её масштаб и поля. Название сохраняет отдельное место.</li>
+<li>На рабочем столе снимок занимает левую часть; Ника, её реплика и выбор
+  класса — правую. Определения класса, метки, разметки и выборок исходят от
+  Ники в той же читаемой реплике, что подсказки и ответы на действия.
+  Внизу остаются миниатюры и переходы. Текст не лежит прямо на рисунке стола.</li>
+<li>«Увеличить снимок» сразу открывает увеличенный участок; щелчок по снимку
+  выбирает участок. Предварительное «Отметить центр» исключено: отметка
+  служила только увеличению и не была разметкой класса.</li>
+<li>CNN — постоянное рабочее место: один крупный снимок, три переключаемые
+  миниатюры, схема сети и сводка ответов на всех трёх снимках. Этот вариант
+  явно выбран владельцем. Добавление свёртки, проверка и свободный
+  конструктор меняют элементы на месте; отдельные страницы инструкций
+  «добавь слой» исключены. Ника объясняет текущий опыт рядом со схемой.</li>
+<li>В готовой сети доступно одно изменение — вторая свёртка. После проверки
+  видны ответы до и после на неизменных данных; после сравнения та же схема
+  допускает все 22 архитектуры. До повторной проверки прежний результат
+  явно помечен как прежний. Счёт не служит условием завершения.</li>
+<li>Термины вводятся в контексте действия; подробности слоёв и метрики
+  раскрываются рядом. Иллюстрация фильтра остаётся учебной, без имитации
+  активаций рассчитанной модели. Научные результаты и источники сохранены.</li>
+</ul>
+<p>Приёмка этой правки: на четырёх основных разрешениях и при масштабе 150%
+проверить доступность основных действий до автоматической прокрутки,
+отсутствие наложений, читаемый фон реплик и связь речи с персонажем.
+Независимый агент просматривает кадры вступления, примера, разметки и всех
+состояний CNN. E2E проходит видимый маршрут и все 22 схемы; временная
+проверка контролирует сохранность схемы, снимка, фокуса и прокрутки при
+изменениях. Совместимое сохранение старых промежуточных шагов восстанавливает
+тот же опыт на едином экране. После этого проверяются публичная версия и ZIP.</p>
+<h2 id="причины-действий-и-самостоятельный-опыт-согласовано-9-октября">Причины действий и самостоятельный опыт — согласовано 9 октября</h2>
+<p>Эта редакция уточняет маршрут после проверки владельцем night.3. Реализация
+разрешена сообщением «погнали делать». Сначала ребёнок видит результат своего
+действия, затем вопрос Ники, затем нужный для ответа термин или инструмент.
+Предыдущие описания вводной карточки и необязательного конструктора ниже по
+приоритету; результаты старых проверок относятся к прежним сборкам.</p>
+<ol>
+<li>После «Помочь Нике» Ника ставит задачу найти снимки галактик. Краткий
+   пример Euclid связывает её с настоящей астрономией. Словарного блока ИИ,
+   машинного обучения и Data Science здесь нет. Машинное обучение поясняется
+   при подготовке первого запуска по размеченным примерам, ИИ — при первом
+   предсказании, Data Science — в финале как название проделанной работы.
+   Браузер открывает заранее рассчитанные результаты обучения.</li>
+<li>В разметке и на столе CNN снимок занимает большую, близкую к квадрату
+   область. Изображение показывается целиком; края не обрезаются ради формы.
+   Ника говорит рядом с текущей задачей; миниатюры остаются под крупным снимком.</li>
+<li>Повторная проверка после старых меток сначала показывает эффект изменения
+   данных на тех же трёх снимках. Реплика Ники соответствует реальному
+   результату, включая отсутствие изменений или ухудшение. По её приглашению
+   «Посмотреть готовую сеть» на том же столе раскрывается схема CNN.</li>
+<li>Первый опыт с готовой сетью ведёт Ника. После него обязателен один
+   самостоятельный опыт: выбрать другое устройство сети, проверить его на
+   тех же данных и сравнить ответы. Перед выбором Ника предлагает вопрос:
+   проверить число свёрток, дополнительный слой или порядок слоёв. Другого
+   количества правильных ответов не требуется. После собственного сравнения
+   можно перейти к итоговым снимкам или продолжить свободные опыты. Повтор
+   той же схемы без изменения не засчитывается как самостоятельный опыт.</li>
+<li>Названия фиксированных этапов схемы сохраняют научную терминологию и
+   получают короткое объяснение рядом: глобальное усреднение вычисляет
+   среднее каждой карты признаков; линейный слой вычисляет оценки классов;
+   softmax преобразует оценки в числа от 0 до 1 с суммой 1; класс с наибольшим
+   значением становится ответом модели. Подробности раскрываются по желанию.</li>
+<li>После сравнения Ника приглашает разобраться в ошибках и метриках. Сначала
+   видны доля правильных ответов и матрица ошибок на этих же трёх снимках;
+   precision, recall и F1 раскрываются дальше. Метрики не являются отдельным
+   условием допуска к финалу, и три снимка не дают надёжной оценки обобщения.</li>
+<li>Истории без одной подтверждённой координаты объединены на карте в блок
+   «Открытия по всему небу» с кнопками-названиями. Истории с координатами
+   открываются через объекты. Все 19 историй и 24 архивные галактики сохранены.</li>
+<li>У карточки на небе одна кнопка «Вернуться к небу»; дублирующей кнопки
+   «Закрыть» нет, Escape работает. Возврат сохраняет положение карты.
+   «Рассмотреть» и «Поговорить с Никой» выглядят как равнозначные действия:
+   одинаковые размеры, форма, типографика и оформление.</li>
+</ol>
+<p>Приёмка редакции: видимый полный маршрут на четырёх настольных размерах;
+кнопки измеряются до автопрокрутки; вводная без прокрутки также при 150%;
+переход данные → сеть → собственный опыт сохраняет снимок и положение стола;
+собственный опыт и его сравнение переживают перезагрузку. Проверить все
+22 схемы, ухудшившийся и неизменный результат, мерцание, ошибки загрузки,
+все материалы неба, возврат из карточки и Escape. Изображения оценивают
+сабагенты через лёгкие превью. Завершение поставки: проверенные сайт и ZIP,
+обновлённые документы и PR с доказательствами приёмки. Слияние в <code>main</code>
+отдельно разрешено владельцем 9 октября после финального ревью.</p>
+<p>Связь Ники с созвездием: в первой задаче она раскрывает имя Вероника и
+шутит о причёске перед поиском M85. Имя и реплика — художественная часть
+игры. Принадлежность M85 созвездию Волосы Вероники подтверждена
+<a href="https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-85/">каталогом NASA</a>.
+Научные данные, координаты, изображения и их происхождение не меняются.</p>
+<h2 id="ника-и-понятия-на-снимках-уточнение-после-night4">Ника и понятия на снимках — уточнение после night.4</h2>
+<p>Владелец отметил, что полнофигурная Ника снова выглядит висящей в воздухе,
+а одна длинная реплика повторяется у каждого снимка. Правка сохраняет
+нынешний маршрут и самостоятельный опыт CNN.</p>
+<p>В примере, разметке и проверке старых меток Ника становится крупнее.
+Нижняя часть фигуры уходит за панель выбора класса: панель находится перед
+персонажем и создаёт видимую опору. Лицо, речь и все действия остаются
+открытыми; наложение декоративной фигуры не перехватывает нажатия.
+На экране CNN уже используется портрет внутри реплики; он не требует
+такой переделки. Новые иллюстрации не нужны.</p>
+<p>Вместо общей повторяющейся реплики каждый снимок получает одно основное
+понятие, связанное с текущим действием:</p>
+<table>
+<thead>
+<tr>
+<th>Снимок</th>
+<th>Понятие</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M85</td>
+<td>Обучающая выборка</td>
+</tr>
+<tr>
+<td>IC 5332</td>
+<td>Признаки</td>
+</tr>
+<tr>
+<td>NGC 5023</td>
+<td>Ракурс</td>
+</tr>
+<tr>
+<td>NGC 3318</td>
+<td>Машинное обучение</td>
+</tr>
+<tr>
+<td>NGC 3610</td>
+<td>Качество данных</td>
+</tr>
+<tr>
+<td>NGC 7090</td>
+<td>Шум в метках</td>
+</tr>
+<tr>
+<td>NGC 691</td>
+<td>Контролируемый эксперимент</td>
+</tr>
+</tbody>
+</table>
+<p>Реплика привязана к снимку, а не к числу посещений. Она сохраняется после
+выбора метки, при возвращении и после перезагрузки. Подсказка отдельно
+обсуждает форму конкретной галактики; возврат из подсказки восстанавливает
+пояснение понятия. Реплика не выдаёт правильный класс. При первой проверке
+Ника объясняет проверочную выборку и предсказание, когда они появляются
+перед ребёнком. Источники снимков и научные расчёты остаются прежними.</p>
+<p>Приёмка: проверить все семь реплик, переходы в обе стороны, выбор метки,
+подсказку и восстановление. На четырёх настольных размерах лицо Ники и
+действия видны; низ фигуры действительно перекрыт панелью, а не обрезан
+прозрачной границей. Проверить 150%, полный маршрут, мерцание и ZIP.
+Визуальный просмотр выполняет сабагент через лёгкие превью.</p>
+  </main>
+</body>
+</html>

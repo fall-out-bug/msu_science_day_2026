@@ -1,0 +1,11 @@
+{
+  "scope": "Seven image-specific Nika briefings; tutorial, learner labeling and old-label repair",
+  "desktop": {
+    "1280x720": {"documentHeight": 720, "scrollWidth": 1280, "repairNika": [427,145,217.3,92], "repairPanel": [427,214,829,211]},
+    "1366x768": {"documentHeight": 768, "scrollWidth": 1366, "repairNika": [475,145,227.4,105], "repairPanel": [475,234,867,214]},
+    "1440x900": {"documentHeight": 900, "scrollWidth": 1440, "repairNika": [602,177,213.3,193], "repairPanel": [602,366,814,214]},
+    "1920x1080": {"documentHeight": 1080, "scrollWidth": 1920, "repairNika": [758,231,257.8,205], "repairPanel": [758,430.8,982,214]}
+  },
+  "zoom150": {"viewport": [853,480], "scrollWidth": 853, "verticalScrollMayOccur": true, "portraitOverlapIsDesktopOnly": true},
+  "assertions": ["Both thinking and warm portraits rendered during visible label selection.", "The solid panel covers the portrait lower edge on each desktop viewport.", "Face, dialogue and all class buttons remain visible; the figure has no pointer events."]
+}

@@ -1,0 +1,133 @@
+{
+  "version": "2026.10.09-complete.1",
+  "time": "2026-10-08T21:54:56.263857+00:00",
+  "status": "PASS",
+  "scope": "focused current source checks; full table, final e2e, offline ZIP and publication require separate evidence",
+  "sourceSha256": {
+    "designlab/galaxy-shift/lesson-storage.js": "c28107873631164108314b02f576ab3ac4207890295439ee56982376c03f0cf9",
+    "designlab/galaxy-shift/sky-data.js": "450cb9b6f69ffd09e2dcfa8ac00968cba6eff70ed9dbcac674009edf02bb3463",
+    "designlab/galaxy-shift/world.js": "02a78bfb3a7a522202b01baaadec1d99c713f76c669f700ad5bb152009064b2a",
+    "designlab/galaxy-shift/telemetry.js": "bb8f0fec384abeda5a56533fe8498b5d7890ad3a85f8bd6f84fea9988cc60765",
+    "designlab/galaxy-shift/cnn-session.js": "0a32f8a9ebdf96e04e58fc0c5b32f109e3bd84f5545a87708f360d8fc525e983",
+    "designlab/galaxy-shift/cnn-data.js": "b14c395ec1fbec5167bb5cafd82b5517af82cb9695673d168ca4b2fc331bc555",
+    "designlab/galaxy-shift/astronomy.js": "b60cec42181354427a18fa288d838381e7c7133eb634ec8f3fa89e90d15e077e",
+    "designlab/galaxy-shift/version.js": "9c0af964bac5cec7afbb5936f627588a9874a4f9a0f6c10a2b4e478206dc5f47",
+    "designlab/galaxy-shift/cnn-architectures.js": "3b66d05d1cab7eb51e2d0f2d85b1878a4e39b7ef1b891a8889b0cdb28c4dda6b",
+    "designlab/galaxy-shift/game.js": "b53a3fa9583872e2262d0cdddcf52d9d16254ddfc826b618a0cfa8db257ad208",
+    "designlab/galaxy-shift/data.js": "e68fff4e51223f07f360c6a0b648d45f50af4ba801776962233e62b3587cb788",
+    "designlab/galaxy-shift/sky.js": "9ec4bf8c3bf92bf51e3e578e9347d89fd25c994fc9cd822370fde40d21976769",
+    "designlab/galaxy-shift/discovery-data.js": "e87e1c2c573f8886c7f28ec187d68589501970231a980198368a7d8fcecbea5c",
+    "designlab/galaxy-shift/metrics.js": "4e9f1df77c20459fd27e78f21dde3c787ade6944d7b13d27ac2a67781dc03e3a",
+    "designlab/galaxy-shift/nika-dialogue.js": "1222df3b39ad393f0842c51ff61a05357de4d12b7d4b99789569f37bb47bd577",
+    "designlab/galaxy-shift/quest-scene.js": "cb7feaa18e07fb352799288c1f732366e74b4c62fe856e0f6eededa1bd71ff28",
+    "designlab/galaxy-shift/model.js": "05fa2c6af6a10d0a8baf60a8775e350956cc9cc9f42917d030e0139a1be11d02",
+    "designlab/galaxy-shift/session.js": "6c8385d3416e3e4db6193f8d02c46658b8e46f6ec617bb7ca2dd74c5576a6d2b",
+    "designlab/galaxy-shift/cnn-results-loader.js": "95642d5fe21b0de310f4f97a013285a1c0e0d1e1569fff62cd87616469b5db88",
+    "designlab/galaxy-shift/archive-data.js": "661f4c66c9ece67e06bc2e173caeba2ee405a24d7824586835c5057db3f59d01",
+    "designlab/galaxy-shift/index.html": "7e4b1d8092ca05d2552cd86f152272f9d14d5bbe2d8fca00d6f846922a2b2d76"
+  },
+  "checks": [
+    {
+      "name": "data-admission",
+      "command": [
+        "/home/zhuckoff/projects/msu/science_day/.venv/bin/python",
+        "designlab/galaxy-shift/prepare-data.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "check passed: 15 images, 9 train / 3 review / 3 final, 2187 states, admission hashes verified"
+    },
+    {
+      "name": "archive-admission",
+      "command": [
+        "/home/zhuckoff/projects/msu/science_day/.venv/bin/python",
+        "designlab/galaxy-shift/prepare-archive.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "check passed: 24 archive images (8 per class), 36 finite 14-dimensional features, admission hashes verified"
+    },
+    {
+      "name": "cnn-math",
+      "command": [
+        "/home/zhuckoff/projects/msu/science_day/.venv/bin/python",
+        "designlab/galaxy-shift/experiments/check_constructor_math.py"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "PASS: primitive convolution FD (input/weight/bias); independent BN/dropout invariants and label-independent masks; all 22 architectures and every parameter family FD"
+    },
+    {
+      "name": "session",
+      "command": [
+        "bun",
+        "designlab/galaxy-shift/check-cnn-session.mjs"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "{\"status\":\"PASS\",\"scope\":\"two-architectures\",\"checks\":[\"fresh child labels\",\"exact lookup\",\"label invalidation\",\"architecture state\",\"wrong child state\",\"no fallback\"]}"
+    },
+    {
+      "name": "restoration",
+      "command": [
+        "bun",
+        "designlab/galaxy-shift/check-restoration.mjs"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "{\"status\":\"PASS\",\"checks\":22,\"coverage\":[\"partial labels\",\"partial repair\",\"model draft\",\"final\",\"home\",\"stale version\",\"invalid refs\",\"malformed result\",\"no fallback\"]}"
+    },
+    {
+      "name": "result-loader",
+      "command": [
+        "bun",
+        "designlab/galaxy-shift/check-results-loader.mjs"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "{\"status\":\"PASS\",\"checks\":13,\"coverage\":[\"inline baseline\",\"shared request\",\"unknown configuration\",\"network retry\",\"empty file retry\",\"timeout retry\",\"atomic admission\",\"stale protocol\",\"incomplete table\",\"invalid row\"]}"
+    },
+    {
+      "name": "metrics",
+      "command": [
+        "bun",
+        "designlab/galaxy-shift/check-metrics.mjs"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "{\"status\":\"PASS\",\"checks\":[\"perfect\",\"all-wrong\",\"no-predicted-class\",\"absent-class\",\"empty\",\"invalid-class\"]}"
+    },
+    {
+      "name": "telemetry-client",
+      "command": [
+        "bun",
+        "tools/galaxy-telemetry/check-client.mjs"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "{\"status\":\"PASS\",\"checks\":16,\"coverage\":[\"unique ids without secure context\",\"ZIP no network\",\"bounded journal\",\"reload\",\"malformed storage\",\"storage refusal\",\"session rollover\",\"batching\",\"4xx losses\",\"429/500 retry\",\"timeout\",\"bounded backoff\",\"inflight prune\",\"reject arbitrary fields\"]}"
+    },
+    {
+      "name": "telemetry-server",
+      "command": [
+        "/home/zhuckoff/projects/msu/science_day/.venv/bin/python",
+        "tools/galaxy-telemetry/test_server.py"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "......\n----------------------------------------------------------------------\nRan 6 tests in 3.123s\n\nOK"
+    },
+    {
+      "name": "telemetry-admin",
+      "command": [
+        "/home/zhuckoff/projects/msu/science_day/.venv/bin/python",
+        "tools/galaxy-telemetry/test_admin_export.py"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.873s\n\nOK"
+    }
+  ]
+}

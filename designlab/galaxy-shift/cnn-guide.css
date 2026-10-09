@@ -1,0 +1,101 @@
+.cnn-workbench{display:grid;grid-template-columns:minmax(210px,.72fr) minmax(330px,1.25fr) minmax(230px,.78fr);grid-template-areas:"photo centre results" "actions actions actions";gap:14px;align-items:stretch;padding:14px;border:1px solid #c8b782;background:linear-gradient(135deg,#163b40 0%,#214d4c 56%,#17343d 100%);border-radius:18px;box-shadow:inset 0 1px #fff3,0 12px 28px #15302c24;color:#eef4ed}.cnn-workbench__photo{grid-area:photo;min-width:0;display:flex;flex-direction:column;gap:9px}.cnn-workbench__frame{margin:0;min-height:0;overflow:hidden;border:3px solid #d5b568;border-radius:12px;background:#071d25;box-shadow:0 6px 14px #0007}.cnn-workbench__frame img{display:block;width:100%;height:230px;object-fit:contain}.cnn-workbench__frame figcaption{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;background:#0a2932;color:#f6e5b5;font-size:.66rem}.cnn-workbench__frame small{color:#bad5c8}.cnn-workbench__thumbs{display:flex;gap:7px}.cnn-workbench__thumbs button{position:relative;flex:1;min-width:0;height:52px;padding:0;overflow:hidden;border:2px solid #6c9c92;border-radius:7px;background:#081f2b}.cnn-workbench__thumbs img{width:100%;height:100%;object-fit:cover;opacity:.66}.cnn-workbench__thumbs button.selected{border-color:#f1c86d;outline:2px solid #f1c86d55}.cnn-workbench__thumbs button.selected img{opacity:1}.cnn-workbench__thumbs span{position:absolute;left:5px;bottom:3px;padding:1px 4px;border-radius:4px;background:#071c25d9;color:#fff;font-size:.62rem}.cnn-workbench__centre{grid-area:centre;min-width:0}.cnn-workbench__guide{display:grid;gap:10px}.cnn-workbench__nika{display:grid;grid-template-columns:72px 1fr;gap:9px;align-items:center;min-height:88px;padding:8px 11px;border-radius:12px;background:#f1ead7;color:#193b40;box-shadow:0 4px 12px #0003}.cnn-workbench__nika img{width:72px;height:82px;object-fit:contain;object-position:bottom}.cnn-workbench__nika span,.cnn-workbench__network header span{display:block;font-size:.58rem;font-weight:800;letter-spacing:.13em;color:#26716d}.cnn-workbench__nika p{margin:4px 0 0;font-size:.8rem;line-height:1.34}.cnn-workbench__network,.architecture-editor{padding:13px;border:1px solid #98bcb1;border-radius:12px;background:#e8eee4;color:#183b40;min-width:0}.cnn-workbench__network header{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:10px}.cnn-workbench__network header b{font-size:1rem}.cnn-workbench__network p{margin:10px 0 0;font-size:.75rem;line-height:1.38}.architecture-fixed{display:flex;gap:7px;align-items:center;flex-wrap:wrap;padding:9px 10px;border-radius:8px;background:#f9f7ea;font-size:.76rem;font-weight:700}.architecture-fixed small{font-size:.59rem;font-weight:500;color:#647873}.architecture-fixed i{font-style:normal;color:#4c8074}.architecture-fixed b{padding:4px 7px;border-radius:5px;background:#b7d6c5}.architecture-fixed--end{margin-top:8px;font-size:.66rem;font-weight:600}.cnn-workbench__details{margin-top:10px;font-size:.72rem;line-height:1.36}.cnn-workbench__details summary{cursor:pointer;font-weight:800;color:#176a65}.cnn-workbench__details p{margin:8px 0}.cnn-workbench__grid{padding:7px;border-radius:7px;background:#faf8ec;font:600 .67rem/1.35 ui-monospace,monospace;white-space:pre-wrap}.cnn-workbench__results{grid-area:results;min-width:0;padding:10px;border:1px solid #7fac9e;border-radius:12px;background:#112f37;color:#edf6ed}.cnn-workbench__results>header{display:flex;justify-content:space-between;gap:6px;margin-bottom:8px;font-size:.74rem}.cnn-workbench__results>header small{font-size:.57rem;color:#b7d2c5}.cnn-workbench__results>div{display:grid;gap:7px}.cnn-workbench__results article{display:grid;grid-template-columns:46px 1fr;column-gap:7px;align-items:center;padding:5px;border-radius:7px;background:#20474c}.cnn-workbench__results img{grid-row:span 3;width:46px;height:38px;object-fit:cover;border-radius:4px;background:#071c25}.cnn-workbench__results p{margin:0;font-size:.64rem;font-weight:700;line-height:1.15}.cnn-workbench__results small{display:block;font-size:.56rem;line-height:1.25;color:#c4ddd0}.cnn-workbench__results small b{color:#f3d789}.cnn-workbench__actions{grid-area:actions;display:flex;justify-content:flex-end;align-items:center;gap:10px;padding-top:2px}.cnn-workbench__actions .primary,.cnn-workbench__actions .secondary{min-height:42px;font-size:.78rem}.architecture-editor{display:grid;gap:10px}.architecture-depth,.architecture-add{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.architecture-depth span{font-size:.73rem;font-weight:800}.architecture-depth button,.architecture-add button{min-height:34px;padding:6px 9px;border:1px solid #7da59a;border-radius:7px;background:#f7f0db;color:#175552;font:700 .68rem inherit}.architecture-depth button.selected{background:#176c68;color:#fff}.architecture-tail ol{display:flex;gap:7px;list-style:none;margin:8px 0;padding:0;flex-wrap:wrap}.architecture-tail li{display:flex;align-items:center;gap:5px;padding:6px 7px;border-radius:7px;background:#cfe0d4;font-size:.68rem}.architecture-tail li>div{display:flex;gap:4px}.architecture-tail .text-button{min-height:26px;padding:3px;font-size:.57rem}.architecture-tail small{font-size:.55rem;color:#55746d}.architecture-current{margin:0;font-size:.7rem;line-height:1.35}@media(max-width:900px){.cnn-workbench{grid-template-columns:minmax(190px,.75fr) minmax(300px,1.25fr);grid-template-areas:"photo centre" "results results" "actions actions"}.cnn-workbench__results>div{grid-template-columns:repeat(3,1fr)}.cnn-workbench__results article{grid-template-columns:38px 1fr}.cnn-workbench__results img{width:38px;height:34px}}@media(max-height:760px) and (min-width:701px){.cnn-workbench{gap:9px;padding:10px}.cnn-workbench__frame img{height:176px}.cnn-workbench__nika{min-height:72px}.cnn-workbench__nika img{height:64px}.cnn-workbench__network,.architecture-editor{padding:9px}.cnn-workbench__results{padding:8px}.cnn-workbench__results article{padding:4px}.cnn-workbench__actions .primary,.cnn-workbench__actions .secondary{min-height:36px;padding:8px 12px}}@media(max-width:700px){.cnn-workbench{grid-template-columns:1fr;grid-template-areas:"photo" "centre" "results" "actions"}.cnn-workbench__frame img{height:230px}.cnn-workbench__results>div{grid-template-columns:1fr}.cnn-workbench__actions{justify-content:stretch}.cnn-workbench__actions .primary{flex:1}.architecture-tail li{align-items:flex-start;flex-wrap:wrap}}
+/* The network itself is a persistent sibling: only its controls change by stage. */
+.cnn-workbench{grid-template-columns:minmax(200px,.72fr) minmax(320px,1.25fr) minmax(220px,.78fr);grid-template-areas:"photo centre results" "photo network results" "actions actions actions"}.cnn-workbench>.architecture-editor{grid-area:network}.cnn-workbench--compare .architecture-add .primary,.cnn-workbench--observe .architecture-add .primary{display:none}.architecture-editor--intro .architecture-tail,.architecture-editor--goal .architecture-tail,.architecture-editor--change .architecture-tail,.architecture-editor--compare .architecture-tail,.architecture-editor--observe .architecture-tail{margin-top:3px}@media(max-width:900px){.cnn-workbench{grid-template-areas:"photo centre" "network results" "actions actions"}.cnn-workbench>.architecture-editor{grid-area:network}}@media(max-width:700px){.cnn-workbench{grid-template-areas:"photo" "centre" "network" "results" "actions"}.cnn-workbench>.architecture-editor{grid-area:network}}
+/* Lesson text stays readable: body 16px, labels 13px, controls 14px. */
+.cnn-workbench__nika p,.cnn-workbench__network p{font-size:1rem;line-height:1.42}.cnn-workbench__nika span,.cnn-workbench__network header span,.cnn-workbench__frame figcaption,.cnn-workbench__results>header small,.cnn-workbench__results small,.cnn-workbench__results p,.architecture-current,.architecture-depth span{font-size:.8125rem}.cnn-workbench__network header b{font-size:1.08rem}.cnn-workbench__details{font-size:.9rem}.cnn-workbench__grid{font-size:.8rem}.cnn-workbench__actions .primary,.cnn-workbench__actions .secondary,.architecture-depth button,.architecture-add button{font-size:.875rem}.architecture-tail li{font-size:.84rem}.architecture-tail .text-button{font-size:.75rem}.architecture-fixed{font-size:.9rem}.architecture-fixed small,.architecture-tail small{font-size:.78rem}.cnn-workbench__comparison{margin:8px 0 0;font-size:.82rem;line-height:1.35;color:#d9ebdc}@media(max-height:760px) and (min-width:701px){.cnn-workbench__nika p,.cnn-workbench__network p{font-size:1rem}.cnn-workbench__results small,.cnn-workbench__results p{font-size:.8125rem}.architecture-depth button,.architecture-add button{font-size:.875rem}}
+
+/* One desk, read left-to-right: Nika first, then photograph, network and answers. */
+.workbench--cnn .cnn-workbench{grid-template-columns:minmax(180px,.78fr) minmax(420px,1.82fr) minmax(190px,.86fr);grid-template-areas:"centre centre centre" "photo network results" "actions actions actions";align-items:start}
+.cnn-workbench__open{display:block;width:100%;padding:0;border:0;background:transparent;color:inherit;cursor:zoom-in}
+.cnn-workbench__open:focus-visible{outline:3px solid #f1c86d;outline-offset:-5px}
+.workbench--cnn{padding-top:72px;padding-bottom:0;gap:9px}.workbench--cnn .station{padding:7px 0 0}.workbench--cnn .station-head{padding:8px 12px;margin-bottom:10px}.workbench--cnn .station-head h1{margin-top:3px;font-size:1.4rem}.workbench--cnn .eyebrow{font-size:.62rem}
+.cnn-workbench__centre{min-width:0}.cnn-workbench__guide{display:grid;min-height:126px;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px}.cnn-workbench__nika{min-width:0}.cnn-workbench__guide>.text-button{min-height:34px;padding:6px 9px;border:1px solid #a9d2c2;border-radius:7px;background:#f7edcf;color:#154c4b;white-space:nowrap;font-size:.875rem;font-weight:800;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}.cnn-workbench__guide>.text-button:hover{background:#fff8dd;color:#0e3d3d}.cnn-workbench__guide>.text-button:focus-visible{outline:3px solid #f1c86d;outline-offset:2px}
+.cnn-workbench>.architecture-editor{min-width:0}.architecture-tail ol{flex-wrap:nowrap}.architecture-tail li{min-width:0;flex:1;justify-content:center}.architecture-tail li>div{flex-wrap:wrap;justify-content:center}.architecture-fixed{justify-content:center}.architecture-fixed--end{justify-content:center;text-align:center}
+.cnn-workbench__results>div{gap:6px}.cnn-workbench__results article{display:block;position:relative;min-height:42px;padding-left:50px}.cnn-workbench__results img{position:absolute;left:5px;top:5px;width:38px;height:32px}.cnn-workbench__results p{overflow-wrap:anywhere}.cnn-workbench__results article small{display:inline;line-height:1.25}.cnn-workbench__results article small+small::before{content:" · "}.cnn-workbench__actions{justify-content:flex-end;flex-wrap:wrap}.cnn-workbench__actions .primary{order:2}
+.architecture-editor:not(.architecture-editor--complete) .architecture-add>button:not(.primary){display:none}
+.architecture-editor:not(.architecture-editor--complete) .architecture-depth button,.architecture-editor:not(.architecture-editor--complete) .architecture-tail li>div button:not([data-action="layer-info"]){display:none}
+@media(max-width:900px) and (min-width:701px){
+ .workbench--cnn .cnn-workbench{grid-template-columns:minmax(150px,.68fr) minmax(0,1.32fr);grid-template-areas:"centre centre" "photo network" "results actions"}
+ .cnn-workbench__guide{grid-template-columns:minmax(0,1fr) auto auto}.cnn-workbench__nika{grid-template-columns:58px 1fr;min-height:68px;padding:7px 9px}.cnn-workbench__nika img{width:58px;height:62px}
+ .cnn-workbench__frame img{height:132px}.cnn-workbench__thumbs button{height:38px}.cnn-workbench__results>div{grid-template-columns:1fr}.cnn-workbench__results article{grid-template-columns:38px minmax(0,1fr)}.cnn-workbench__results img{width:38px;height:32px}
+ .cnn-workbench__actions{align-self:center;justify-content:flex-end;padding:0}.cnn-workbench__actions .secondary,.cnn-workbench__actions .primary{min-height:36px}
+}
+@media(max-width:900px) and (min-width:701px) and (max-height:600px){
+ .cnn-workbench__guide{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 10px}.cnn-workbench__nika{grid-column:1/-1;grid-template-columns:52px 1fr;min-height:0}.cnn-workbench__nika img{width:52px;height:58px}.cnn-workbench__guide>.text-button{justify-self:start;min-height:32px;padding:3px 0;font-size:.8125rem}
+ .architecture-editor--intro .architecture-add{order:-1}.architecture-editor--intro .architecture-add .primary{width:100%;justify-content:center}
+ .cnn-workbench__actions .primary{position:fixed;right:16px;bottom:12px;z-index:12;box-shadow:0 4px 0 #074f50,0 5px 18px #061b21aa}
+}
+@media(max-height:860px) and (min-width:901px){
+ .workbench--cnn .cnn-workbench{grid-template-rows:auto 302px 34px;gap:8px;padding:9px}.cnn-workbench__nika{grid-template-columns:58px 1fr;min-height:64px;padding:6px 9px}.cnn-workbench__nika img{width:58px;height:62px}.cnn-workbench__guide{gap:7px}.cnn-workbench__guide>.text-button{font-size:.8125rem}
+ .cnn-workbench__frame img{height:142px}.cnn-workbench__frame figcaption{padding:6px 8px}.cnn-workbench__thumbs{gap:5px}.cnn-workbench__thumbs button{height:37px}
+ .cnn-workbench>.architecture-editor{gap:6px;padding:8px}.architecture-depth,.architecture-add{margin:0;gap:5px}.architecture-tail{padding:7px 8px}.architecture-fixed{gap:5px;padding:5px 6px;line-height:1.28}.architecture-fixed--end{margin-top:4px}.architecture-tail ol{gap:5px;margin:4px 0}.architecture-tail li{padding:4px 5px}.architecture-tail .text-button{min-height:22px;padding:2px}.architecture-add button{min-height:31px;padding:5px 7px}
+ .cnn-workbench__results{min-height:343px;padding:7px}.cnn-workbench__results>header{margin-bottom:5px}.cnn-workbench__results article{padding:3px}.cnn-workbench__results>div{gap:4px}.cnn-workbench__comparison{margin-top:5px}.cnn-workbench__actions .primary,.cnn-workbench__actions .secondary{min-height:34px;padding:6px 10px}
+}
+@media(min-width:901px) and (min-height:861px){.workbench--cnn .cnn-workbench{grid-template-rows:auto 467px 40px}}
+
+/* The lesson is one desk: reserve the photograph and experiment slots while
+   the question changes, so a new explanation never pushes the controls away. */
+.workbench--cnn .cnn-workbench{
+  grid-template-columns:minmax(286px,.88fr) minmax(430px,1.5fr) minmax(232px,.72fr);
+  grid-template-rows:minmax(94px,auto) minmax(316px,1fr) auto;
+  grid-template-areas:"centre centre centre" "photo network results" "actions actions actions";
+  gap:10px;
+  align-items:stretch;
+}
+.cnn-workbench__photo{align-self:stretch;min-height:0}
+.cnn-workbench__frame{display:flex;flex:1 1 auto;flex-direction:column;aspect-ratio:1/1;max-height:390px;min-height:0}
+.cnn-workbench__open{display:block;flex:1 1 auto;min-height:0}
+.cnn-workbench__frame img{width:100%;height:100%;max-height:none;object-fit:contain}
+.cnn-workbench__thumbs{flex:none}
+.cnn-workbench__thumbs button{height:46px}
+.cnn-workbench>.architecture-editor,.cnn-workbench__results{height:100%;min-height:0}
+.cnn-workbench>.architecture-editor{align-content:start;padding:8px}
+.cnn-workbench .architecture-depth,.cnn-workbench .architecture-add{margin:0}
+.architecture-editor__scheme{display:grid;gap:6px;min-height:0}
+.architecture-editor__scheme .architecture-tail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.architecture-editor__scheme .architecture-tail>.architecture-fixed,.architecture-editor__scheme .architecture-tail>ol{grid-column:1/-1}
+.architecture-editor__scheme .architecture-tail ol{margin:0}
+.cnn-workbench__guide{min-height:94px}
+.cnn-workbench__results{display:flex;flex-direction:column}
+.cnn-workbench__results>div{flex:1 1 auto;align-content:start}
+.architecture-output-step{display:grid;grid-template-columns:1fr;gap:3px;margin-top:0;padding:6px;min-width:0;border:1px solid #c7d7ca;border-radius:8px;background:#f9f7ea;color:#294d4d}
+.architecture-output-step strong{display:block;font-size:.82rem;line-height:1.22}
+.architecture-output-step small{display:block;margin-top:3px;font-size:.75rem;line-height:1.25;color:#55746d}
+.architecture-editor--bridge{position:relative;display:grid;grid-template-rows:1fr;overflow:hidden}
+.architecture-editor--bridge .architecture-editor__scheme{position:absolute;inset:0;visibility:hidden;pointer-events:none}
+.cnn-workbench__bridge-question{display:grid;place-content:center;gap:10px;min-height:0;height:100%;padding:clamp(16px,2.1vw,28px);border-radius:9px;background:linear-gradient(135deg,#f8f1dd,#e4eee2);text-align:left}
+.cnn-workbench__bridge-question b{color:#164f4d;font-size:1.02rem}
+.cnn-workbench__bridge-question p{max-width:54ch;margin:0;font-size:1rem;line-height:1.42}
+.cnn-workbench__bridge-question .primary{justify-self:start;margin-top:2px}
+/* Only the guided change is locked.  The learner's own experiment is a real
+   constructor, including depth, optional layers and reordering. */
+.architecture-editor--independent .architecture-add>button,.architecture-editor--independent-observe .architecture-add>button,.architecture-editor--complete .architecture-add>button{display:inline-flex!important}
+.architecture-editor--independent .architecture-depth button,.architecture-editor--independent-observe .architecture-depth button,.architecture-editor--complete .architecture-depth button,.architecture-editor--independent .architecture-tail li>div button,.architecture-editor--independent-observe .architecture-tail li>div button,.architecture-editor--complete .architecture-tail li>div button{display:inline-flex!important}
+@media (min-width:901px) and (max-height:860px){
+  .workbench--cnn{padding-top:65px;padding-bottom:0}
+  .workbench--cnn .cnn-workbench{grid-template-columns:minmax(250px,.83fr) minmax(390px,1.43fr) minmax(205px,.68fr);grid-template-rows:99px 372px 36px;gap:8px;padding:9px}
+  .cnn-workbench__guide{height:99px;min-height:99px}
+  .cnn-workbench__nika{min-height:68px}
+  .cnn-workbench__frame{max-height:292px}
+  .cnn-workbench__thumbs button{height:38px}
+  .architecture-editor__scheme .architecture-tail{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .architecture-output-step{grid-template-columns:1fr;gap:2px;margin-top:0;padding:5px}
+  .architecture-output-step strong{font-size:.78rem}
+  .architecture-output-step small{font-size:.75rem}
+  .architecture-editor__scheme{gap:6px}
+  .architecture-editor__scheme .architecture-tail{gap:5px;padding:6px}
+  .cnn-workbench__bridge-question{padding:15px}
+  .cnn-workbench__bridge-question p{font-size:.9rem}
+}
+@media (min-width:901px) and (min-height:861px){
+  .workbench--cnn .cnn-workbench{grid-template-rows:118px 467px 40px}
+  .cnn-workbench__guide{height:118px;min-height:118px}
+}
+@media (max-width:900px) and (min-width:701px){
+  .workbench--cnn .cnn-workbench{grid-template-columns:minmax(220px,.85fr) minmax(0,1.35fr);grid-template-rows:auto minmax(280px,1fr) auto;grid-template-areas:"centre centre" "photo network" "results actions"}
+  .cnn-workbench__frame{max-height:300px}
+}
+@media (max-width:700px){
+  .workbench--cnn .cnn-workbench{grid-template-columns:1fr;grid-template-areas:"centre" "photo" "network" "results" "actions"}
+  .cnn-workbench__frame{max-height:none}
+}

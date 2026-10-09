@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "zip": "/home/zhuckoff/projects/msu/science_day-cnn/designlab/comparison/docs/galaxy-design-offline.zip",
+  "pageCount": 12,
+  "pages": [
+    "galaxy-game-design",
+    "release",
+    "goal",
+    "programme",
+    "learning-review",
+    "game-design-foundation",
+    "technical-plan",
+    "acceptance",
+    "goal-20261008",
+    "baseline",
+    "text-review",
+    "release-20261008"
+  ],
+  "localReferences": 316,
+  "zipSelfHrefExcluded": 0,
+  "externalRequests": [],
+  "browserErrors": [],
+  "failures": [],
+  "historicalSha256": "31e26ea7bb4f8ba3f1b656c9fb89a4b27078174ff14871a7358fcd0430a1ac10",
+  "historicalMatch": true
+}

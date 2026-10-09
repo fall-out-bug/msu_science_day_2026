@@ -1,0 +1,287 @@
+{
+  "status": "PASS",
+  "baseline": null,
+  "checks": [
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "pageHeight": 720,
+      "pageWidth": 1280,
+      "card": {
+        "left": 120,
+        "top": 200.015625,
+        "right": 1160,
+        "bottom": 583.96875,
+        "clientHeight": 382,
+        "scrollHeight": 382
+      },
+      "button": {
+        "left": 814.828125,
+        "top": 482.59375,
+        "right": 1131,
+        "bottom": 529.59375
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "pageHeight": 720,
+      "pageWidth": 1280,
+      "card": {
+        "left": 120,
+        "top": 200.015625,
+        "right": 1160,
+        "bottom": 583.96875,
+        "clientHeight": 382,
+        "scrollHeight": 382
+      },
+      "button": {
+        "left": 814.828125,
+        "top": 482.59375,
+        "right": 1131,
+        "bottom": 529.59375
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageHeight": 768,
+      "pageWidth": 1366,
+      "card": {
+        "left": 163,
+        "top": 222.734375,
+        "right": 1203,
+        "bottom": 609.265625,
+        "clientHeight": 385,
+        "scrollHeight": 385
+      },
+      "button": {
+        "left": 857.828125,
+        "top": 507.890625,
+        "right": 1174,
+        "bottom": 554.890625
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageHeight": 768,
+      "pageWidth": 1366,
+      "card": {
+        "left": 163,
+        "top": 222.734375,
+        "right": 1203,
+        "bottom": 609.265625,
+        "clientHeight": 385,
+        "scrollHeight": 385
+      },
+      "button": {
+        "left": 857.828125,
+        "top": 507.890625,
+        "right": 1174,
+        "bottom": 554.890625
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "pageHeight": 900,
+      "pageWidth": 1440,
+      "card": {
+        "left": 200,
+        "top": 288.734375,
+        "right": 1240,
+        "bottom": 675.265625,
+        "clientHeight": 385,
+        "scrollHeight": 385
+      },
+      "button": {
+        "left": 894.828125,
+        "top": 573.890625,
+        "right": 1211,
+        "bottom": 620.890625
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "pageHeight": 900,
+      "pageWidth": 1440,
+      "card": {
+        "left": 200,
+        "top": 288.734375,
+        "right": 1240,
+        "bottom": 675.265625,
+        "clientHeight": 385,
+        "scrollHeight": 385
+      },
+      "button": {
+        "left": 894.828125,
+        "top": 573.890625,
+        "right": 1211,
+        "bottom": 620.890625
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageHeight": 1080,
+      "pageWidth": 1920,
+      "card": {
+        "left": 440,
+        "top": 378.734375,
+        "right": 1480,
+        "bottom": 765.265625,
+        "clientHeight": 385,
+        "scrollHeight": 385
+      },
+      "button": {
+        "left": 1134.828125,
+        "top": 663.890625,
+        "right": 1451,
+        "bottom": 710.890625
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageHeight": 1080,
+      "pageWidth": 1920,
+      "card": {
+        "left": 440,
+        "top": 378.734375,
+        "right": 1480,
+        "bottom": 765.265625,
+        "clientHeight": 385,
+        "scrollHeight": 385
+      },
+      "button": {
+        "left": 1134.828125,
+        "top": 663.890625,
+        "right": 1451,
+        "bottom": 710.890625
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    },
+    {
+      "viewport": [
+        853,
+        480
+      ],
+      "pageHeight": 480,
+      "pageWidth": 853,
+      "card": {
+        "left": 16,
+        "top": 79.21875,
+        "right": 837,
+        "bottom": 462.765625,
+        "clientHeight": 382,
+        "scrollHeight": 382
+      },
+      "button": {
+        "left": 533.578125,
+        "top": 361.296875,
+        "right": 814,
+        "bottom": 405.296875
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        853,
+        480
+      ],
+      "pageHeight": 480,
+      "pageWidth": 853,
+      "card": {
+        "left": 16,
+        "top": 79.21875,
+        "right": 837,
+        "bottom": 462.765625,
+        "clientHeight": 382,
+        "scrollHeight": 382
+      },
+      "button": {
+        "left": 533.578125,
+        "top": 361.296875,
+        "right": 814,
+        "bottom": 405.296875
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    }
+  ],
+  "browserErrors": []
+}

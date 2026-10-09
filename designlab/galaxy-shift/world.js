@@ -5,7 +5,7 @@
   const reduce=matchMedia('(prefers-reduced-motion: reduce)'),images={};
   let width=0,height=0,phase='intro',target=0,camera=0,mouseX=0,mouseY=0,panX=0,panY=0;
   let last=0,frames=0,draws=0,dirty=true,started=performance.now(),sceneBounds=null;
-  const ready=Promise.all(Object.entries({room:'observatory-night-v2.png',portrait:'observatory-night-portrait-v3.png',table:'worktop-night-v2.png'}).map(([key,file])=>new Promise((resolve,reject)=>{
+  const ready=Promise.all(Object.entries({room:'observatory-night-v4.png',portrait:'observatory-night-portrait-v4.png',table:'worktop-night-v2.png'}).map(([key,file])=>new Promise((resolve,reject)=>{
     const img=new Image();images[key]=img;img.onload=resolve;img.onerror=()=>reject(new Error('Не загрузилась сцена: '+file));img.src='assets/art/'+file;
   })));
   function resize(){width=innerWidth;height=innerHeight;dirty=true;const ratio=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);canvas.style.width=width+'px';canvas.style.height=height+'px';ctx?.setTransform(ratio,0,0,ratio,0,0);}
@@ -14,6 +14,7 @@
     const slackX=(width-w)/2,slackY=(areaHeight-h)/2;
     const x=slackX+Math.max(-Math.abs(slackX),Math.min(Math.abs(slackX),panX));
     const y=top+slackY+Math.max(-Math.abs(slackY),Math.min(Math.abs(slackY),panY));
+    if(key==='room'||key==='portrait'){for(const [name,value] of Object.entries({x,y,w,h}))document.body.style.setProperty('--room-'+name,value+'px');}
     ctx.drawImage(img,x,y,w,h);sceneBounds={key,x,y,width:w,height:h,sourceWidth:img.width,sourceHeight:img.height,mode:'contain'};
   }
   function draw(time){
@@ -23,14 +24,14 @@
     const moving=Math.abs(previous-camera)>.0001||Math.abs(px-panX)>.01||Math.abs(py-panY)>.01;
     if(ctx&&(dirty||moving)){
       dirty=false;draws++;ctx.fillStyle='#08141e';ctx.fillRect(0,0,width,height);
-      const mobile=width<700,roomTop=mobile?55:0,roomHeight=mobile?Math.min(height*.58,500):height,roomImage=mobile?images.portrait:images.room;
-      contain(roomImage,roomHeight,mobile?'portrait':'room',roomTop);
+      const mobile=width<700,roomTop=mobile?55:0,roomHeight=mobile?Math.min(height*.58,500):height;
+      contain(mobile?images.portrait:images.room,roomHeight,mobile?'portrait':'room',roomTop);
       if(camera>.001){ctx.globalAlpha=camera;contain(images.table,height,'table');ctx.globalAlpha=1;}
     }
     frames++;requestAnimationFrame(draw);
   }
   addEventListener('resize',resize);
   addEventListener('pointermove',event=>{if(reduce.matches||target!==0)return;mouseX=event.clientX/innerWidth-.5;mouseY=event.clientY/innerHeight-.5;},{passive:true});
-  resize();ready.then(()=>{document.querySelector('#loading').remove();if(!ctx)document.body.classList.add('canvas-fallback');requestAnimationFrame(draw);}).catch(error=>{const loading=document.querySelector('#loading');loading.textContent=error.message+'. Распакуйте игру целиком.';loading.classList.add('failed');});
+  resize();ready.then(()=>{if(!document.body.dataset.coreResourceFailure)document.querySelector('#loading')?.remove();if(!ctx)document.body.classList.add('canvas-fallback');requestAnimationFrame(draw);}).catch(error=>{if(document.body.dataset.coreResourceFailure)return;const loading=document.querySelector('#loading');if(!loading)return;loading.textContent=error.message+'. Перезагрузи страницу. Если игра открыта из ZIP, распакуй архив целиком.';loading.classList.add('failed');});
   globalThis.galaxyWorld={ready,setPhase(next){phase=next;dirty=true;target=next==='intro'||next==='final'?0:1;mouseX=0;mouseY=0;canvas.setAttribute('aria-label','Обсерватория ночью: Ника за рабочим столом, за дверью звёздное небо');},stats(){return {frames,draws,width,height,phase,elapsed:performance.now()-started,canvas:!!ctx,sceneBounds};}};
 })();

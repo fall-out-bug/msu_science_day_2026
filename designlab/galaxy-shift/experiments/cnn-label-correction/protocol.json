@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 2,
+  "protocolVersion": "2026-10-08-cnn-constructor-v1",
+  "purpose": "Fixed CPU table for desktop Nika: every one of the 3^7 editable-label states and all 22 ordered CNN architectures.",
+  "dataset": {
+    "source": "../../prepare-data.py",
+    "datasetVersion": "2026-10-08-hubble-15-v4",
+    "training": "The admitted nine train objects only. The four child labels use their canonical classroom labels in the pilot runs; the exhaustive table varies all seven editable labels, including the four child labels.",
+    "review": "The three established review objects are evaluated after training and never supplied to the optimizer.",
+    "final": "The three established final objects are evaluated after training and never supplied to the optimizer. This split was inspected in earlier work, so this artifact calls it a historically known holdout, not a new independent estimate."
+  },
+  "labelConditions": {
+    "corrupt_old": {"old_ngc3610": "spiral", "old_ngc7090": "smooth", "fixed_ngc691": "smooth"},
+    "corrected_old": {"old_ngc3610": "smooth", "old_ngc7090": "edge_on", "fixed_ngc691": "spiral"}
+  },
+  "frozenTraining": {
+    "seed": 20261008,
+    "image": "75% centre crop; grayscale 32x32; per-image standardization",
+    "optimizer": "Adam, full batch",
+    "learningRate": 0.025,
+    "epochs": 420,
+    "augmentation": "none",
+    "randomness": "Dropout starts each fresh training run from the same fixed RNG sequence; its masks do not depend on editable labels or selected architecture when their tensor shapes are the same.",
+    "hardware": "NumPy CPU only; no GPU, endpoint, or new dependency"
+  },
+  "stateTable": {
+    "keys": "All 2187 base-3 strings in the editableIds order from prepare-data.py. The four child object IDs stay fixed, but their labels, like the three old labels, vary across the table.",
+    "fixedTrainingLabels": "The remaining two training IDs retain their canonical labels.",
+    "architectures": ["d1-r", "d1-bn-r", "d1-r-bn", "d1-d-r", "d1-r-d", "d1-bn-d-r", "d1-bn-r-d", "d1-d-bn-r", "d1-d-r-bn", "d1-r-bn-d", "d1-r-d-bn", "d2-r", "d2-bn-r", "d2-r-bn", "d2-d-r", "d2-r-d", "d2-bn-d-r", "d2-bn-r-d", "d2-d-bn-r", "d2-d-r-bn", "d2-r-bn-d", "d2-r-d-bn"],
+    "runtimeLookup": "Exact key only. Missing or malformed table data is an error; no fallback model or invented result is allowed."
+  },
+  "initialization": "Each one-block run starts from identical parameter arrays and fresh Adam moments. The two-block run copies the one-block initial w0, b0, head_w, and head_b; only its added w1 and b1 use the same fixed RNG stream. This isolates the added block from an accidental change to shared-layer initialization.",
+  "decisionRule": "No seed, hyperparameter, split, or model choice may be changed after seeing review/final results. The repeat must be byte-identical in its serialized scientific result. The table is finite precomputation, not live training and not a search for a favorable score."
+}

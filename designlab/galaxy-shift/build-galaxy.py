@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 """Build the offline astronomy package from an explicit runtime file list."""
-import hashlib,json,zipfile,shutil
+import hashlib,json,zipfile,shutil,re,subprocess,sys
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
-runtime=['index.html','galaxy.css','library.css','nika.css','companion.css','quest-scene.css','quest-scene.js','nika-dialogue.js','sky.css','sky.js','sky-data.js','sky-provenance.json','astronomy.js','game.js','world.js','model.js','session.js','data.js','archive-data.js','archive-catalog.json','archive-admission.json','cnn-data.js','discovery-data.js','discovery-provenance.json','provenance.json','DATA-NOTES.md','README.md','FACILITATOR.md']
+subprocess.run([sys.executable,str(HERE/'experiments/cnn-label-correction/check_constructor_table.py'),'--require-full'],check=True)
+runtime=['index.html','galaxy.css','library.css','nika.css','companion.css','quest-scene.css','quest-scene.js','nika-dialogue.js','sky.css','sky.js','sky-data.js','sky-provenance.json','astronomy.js','game.js','world.js','data.js','archive-data.js','archive-catalog.json','archive-admission.json','version.js','lesson-storage.js','telemetry.js','cnn-architectures.js','cnn-results-loader.js','cnn-experiments.js','cnn-session.js','cnn-guide.js','cnn-guide.css','metrics.js','discovery-data.js','discovery-provenance.json','provenance.json','DATA-NOTES.md','README.md','FACILITATOR.md']
+results=sorted(p.relative_to(HERE).as_posix() for p in (HERE/'cnn-results').glob('*.js'))
+if len(results)!=21: raise SystemExit('The release requires exactly 21 additional CNN architecture files')
+runtime += results
+version=re.search(r"GALAXY_BUILD_VERSION = '([^']+)'",(HERE/'version.js').read_text()).group(1)
 assets=sorted(p.relative_to(HERE).as_posix() for p in (HERE/'assets/galaxies').rglob('*.jpg'))
 assets += sorted(p.relative_to(HERE).as_posix() for p in (HERE/'assets/discoveries').rglob('*') if p.is_file())
-assets += ['assets/art/'+name for name in ['nika.png','observatory-night-v2.png','observatory-night-portrait-v3.png','worktop-night-v2.png','NIKA-CREDITS.md','ART-CREDITS.md','NIGHT-V2-PROMPTS.md','PORTRAIT-V3-PROMPT.md','NIKA-DIALOGUE-PROMPTS.md','nika-warm-v1.png','nika-curious-v1.png','nika-thinking-v1.png']]
+assets += ['assets/art/'+name for name in ['nika.png','observatory-night-v4.png','observatory-night-portrait-v4.png','worktop-night-v2.png','NIKA-CREDITS.md','ART-CREDITS.md','NIGHT-V2-PROMPTS.md','NIGHT-V4-PROMPTS.md','PORTRAIT-V3-PROMPT.md','NIKA-DIALOGUE-PROMPTS.md','nika-warm-v1.png','nika-curious-v1.png','nika-thinking-v1.png']]
 assets += ['assets/sky/licenses/'+name for name in ['CC-BY-SA-4.0.txt','FAL-1.3.txt','GPL-2.0.txt']]
 files=runtime+assets
 for name in files:
  if not (HERE/name).is_file():raise SystemExit('Missing package resource: '+name)
-manifest={'title':'ИИ в астрономии','version':'2026.10.07-quest.7','entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
+manifest={'title':'Ночь открытий: приключение в обсерватории','version':version,'entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
 out=HERE/'releases';out.mkdir(exist_ok=True)
 web=out/'web'
 if web.exists():shutil.rmtree(web)

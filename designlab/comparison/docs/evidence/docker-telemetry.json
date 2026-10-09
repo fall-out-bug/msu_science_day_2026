@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "date": "2026-10-09",
+  "scope": "isolated temporary Docker network, bind directory, telemetry, nginx and comments-stub containers",
+  "image": "sd2026-telemetry:complete-20261008-1",
+  "checks": {
+    "postAccepted": 202,
+    "duplicateAcceptedWithoutSecondRow": 202,
+    "conflictingDuplicateRejected": 409,
+    "publicGetDenied": 403,
+    "invalidBodyRejected": 400,
+    "privateHealth": 200,
+    "restartPreservesEventAndDuplicateReceipt": 202,
+    "eventsAfterRestart": 1,
+    "controlledThirtyDayRetentionLeavesCurrentEvent": 1,
+    "nginxTelemetryRouteLogsContainNoTestPayloadOrIp": true
+  },
+  "limits": [
+    "No production container, network, volume, database, port mapping or live collector was used.",
+    "This local nginx check does not verify the external HTTPS proxy; that remains a release acceptance check."
+  ],
+  "cleanup": "All temporary containers, network and bind directory were removed after the test."
+}

@@ -1,0 +1,230 @@
+{
+  "scope": "32 fresh final browser frames; preview-only visual inspection",
+  "limitations": "Expert agent review, not a child playtest. Geometry/browser assertions remain separate evidence.",
+  "frames": [
+    {
+      "resolution": "1280×720",
+      "scene": "architecture-reordered",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1280x720-architecture-reordered-12d10ba4b0.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1280×720",
+      "scene": "final",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1280x720-final-08e06688ce.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1280×720",
+      "scene": "first-result",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1280x720-first-result-e2f69c566f.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1280×720",
+      "scene": "intro",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1280x720-intro-d179b5bed2.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1280×720",
+      "scene": "labels",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1280x720-labels-7822e4c8b7.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1280×720",
+      "scene": "repair",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1280x720-repair-1ec0f34e81.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1280×720",
+      "scene": "review-after-repair",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1280x720-review-after-repair-3905d9d19f.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1280×720",
+      "scene": "tutorial",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1280x720-tutorial-d8ef9bb82a.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1366×768",
+      "scene": "architecture-reordered",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1366x768-architecture-reordered-e9f7efcc44.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1366×768",
+      "scene": "final",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1366x768-final-d938b7b028.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1366×768",
+      "scene": "first-result",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1366x768-first-result-68e468669a.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1366×768",
+      "scene": "intro",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1366x768-intro-404eac4b35.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1366×768",
+      "scene": "labels",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1366x768-labels-0f9130e8cd.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1366×768",
+      "scene": "repair",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1366x768-repair-38dc20e1c8.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1366×768",
+      "scene": "review-after-repair",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1366x768-review-after-repair-8c92ab15ef.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1366×768",
+      "scene": "tutorial",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1366x768-tutorial-6ee5b23324.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1440×900",
+      "scene": "architecture-reordered",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1440x900-architecture-reordered-cfadc951de.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1440×900",
+      "scene": "final",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1440x900-final-8d0910bbbd.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1440×900",
+      "scene": "first-result",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1440x900-first-result-046c452aae.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1440×900",
+      "scene": "intro",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1440x900-intro-00eee832ef.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1440×900",
+      "scene": "labels",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1440x900-labels-896c19516e.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1440×900",
+      "scene": "repair",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1440x900-repair-42445fd81b.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1440×900",
+      "scene": "review-after-repair",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1440x900-review-after-repair-d4f1a77d53.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1440×900",
+      "scene": "tutorial",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1440x900-tutorial-32a885523b.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1920×1080",
+      "scene": "architecture-reordered",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1920x1080-architecture-reordered-0f64416b6c.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1920×1080",
+      "scene": "final",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1920x1080-final-25f48174eb.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1920×1080",
+      "scene": "first-result",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1920x1080-first-result-f609e7a50e.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1920×1080",
+      "scene": "intro",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1920x1080-intro-aeb175b51a.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1920×1080",
+      "scene": "labels",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1920x1080-labels-acb448db3b.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1920×1080",
+      "scene": "repair",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1920x1080-repair-b6eae5319e.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1920×1080",
+      "scene": "review-after-repair",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1920x1080-review-after-repair-e363040a27.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    },
+    {
+      "resolution": "1920×1080",
+      "scene": "tutorial",
+      "status": "PASS",
+      "evidence": "final-frames/complete-1920x1080-tutorial-0a6c4455c8.jpg",
+      "review": "agent visual inspection of JPEG preview; no overlap, crop, hidden CTA, or illegible text"
+    }
+  ]
+}

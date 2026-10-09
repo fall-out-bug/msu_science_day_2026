@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "viewport": [
+    1280,
+    720
+  ],
+  "checks": [
+    {
+      "criterion": "A07 home/resume: labels",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A07 home/resume: repair",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A07 home/resume: architecture editor",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A07 home/resume: final",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A08 reload/continue: partial collection",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A08 reload/continue: partial labels",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A08 reload/continue: repair",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A08 reload/continue: architecture editor",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A08 reload/continue: final",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A08 new tab starts a new shift",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    },
+    {
+      "criterion": "A10 changed child label requires current repair and repeats final notice",
+      "status": "PASS",
+      "detail": "visible controls at 1280x720"
+    }
+  ]
+}

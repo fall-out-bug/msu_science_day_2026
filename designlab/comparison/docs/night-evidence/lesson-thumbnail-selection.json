@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "scenarios": [
+    {
+      "name": "ordinary-three-thumbnails",
+      "status": "PASS",
+      "selected": [
+        "review_m49",
+        "review_ngc3982",
+        "review_ngc4762"
+      ]
+    },
+    {
+      "name": "reordered-decode-completion",
+      "status": "PASS",
+      "latest": "review_ngc3982"
+    },
+    {
+      "name": "decode-failure-and-retry",
+      "status": "PASS",
+      "retained": "review_ngc3982",
+      "retried": "review_ngc4762"
+    }
+  ],
+  "browserErrors": []
+}

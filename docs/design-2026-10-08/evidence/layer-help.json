@@ -1,0 +1,76 @@
+[
+  {
+    "method": {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "device_scale_factor": 1
+    },
+    "tail": [
+      "bn",
+      "r",
+      "d"
+    ],
+    "previous": "Последняя проверка: Одна свёртка: ReLU — 2 из 3 ответов совпали со справочными метками.",
+    "layers": [
+      {
+        "layer": "bn",
+        "term": "BatchNorm"
+      },
+      {
+        "layer": "r",
+        "term": "ReLU"
+      },
+      {
+        "layer": "d",
+        "term": "Dropout"
+      }
+    ],
+    "geometry": {
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "scrollHeight": 1046,
+      "innerHeight": 720
+    },
+    "screenshot": "model-d2-bn-r-d-1280x720.jpg",
+    "status": "PASS"
+  },
+  {
+    "method": {
+      "viewport": {
+        "width": 853,
+        "height": 480
+      },
+      "device_scale_factor": 1.5
+    },
+    "tail": [
+      "bn",
+      "r",
+      "d"
+    ],
+    "previous": "Последняя проверка: Одна свёртка: ReLU — 2 из 3 ответов совпали со справочными метками.",
+    "layers": [
+      {
+        "layer": "bn",
+        "term": "BatchNorm"
+      },
+      {
+        "layer": "r",
+        "term": "ReLU"
+      },
+      {
+        "layer": "d",
+        "term": "Dropout"
+      }
+    ],
+    "geometry": {
+      "scrollWidth": 853,
+      "innerWidth": 853,
+      "scrollHeight": 1057,
+      "innerHeight": 480
+    },
+    "screenshot": "model-d2-bn-r-d-browserzoom-150.jpg",
+    "status": "PASS"
+  }
+]

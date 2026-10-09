@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-10-09T10:40:05.351437+00:00",
+  "version": "2026.10.09-night.4",
+  "image": {
+    "tag": "sd2026-public:galaxy-20261009-night-6",
+    "id": "sha256:80b3e21719ee91d2f75d2e26c1c56d1114f38fa52b4cb14a6b18290879db0b0c",
+    "sourceCommit": "66f1ea8fd1989edc35be12c6a3b92ce1cac42dbb",
+    "runningExactImage": true
+  },
+  "publicHttps": {
+    "status": "PASS",
+    "base": "https://sd2026.beetles.family/",
+    "version": "2026.10.09-night.4",
+    "transport": "HTTPS with normal certificate verification via superduper",
+    "assets": {
+      "status": "PASS",
+      "resources": 125,
+      "documents": 14,
+      "preservedComments": 12,
+      "telemetryReadStatus": 403,
+      "zipSha256": "09d2d7e54be1895fdf783441a0d57e4965f84a0d21eca420ae06f2baaf401505"
+    },
+    "flow": {
+      "baseline": "d1-r",
+      "guided": "d2-r",
+      "independent": "d1-r",
+      "constructor": "d2-d-bn-r",
+      "labelKey": "0121021",
+      "firstReview": 1,
+      "finalReview": 2,
+      "final": 3,
+      "errors": [],
+      "failedRequests": [],
+      "telemetryResponses": [
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202
+      ],
+      "telemetry": {
+        "sessionId": "dd335bc1-a9ac-44a4-8bd2-05d3db26d2d6",
+        "queued": 0,
+        "dropped": 0,
+        "sessions": 1,
+        "storage": "sessionStorage",
+        "warning": null
+      },
+      "consoleErrors": [],
+      "ingestionScope": "public HTTPS"
+    }
+  },
+  "containers": {
+    "sd2026-comments-1": "unchanged identity and start time",
+    "sd2026-telemetry-1": "unchanged identity and start time"
+  },
+  "finalSyntheticSession": {
+    "databaseEvents": 49,
+    "contiguousSequence": true,
+    "duplicates": 0,
+    "collectorHealth": "healthy"
+  },
+  "evidenceIndex": "../../docs/design-2026-10-09/night-release.md",
+  "scope": "Exact deployed image. Read-only database check scoped to synthetic acceptance session. Actual child playtest not performed. PR remains unmerged."
+}

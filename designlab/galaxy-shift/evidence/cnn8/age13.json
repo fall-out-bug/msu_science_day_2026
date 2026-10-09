@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 2,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "guided-story",
+        "sky-child_m85",
+        "sky-child_ic5332",
+        "sky-child_ngc5023",
+        "tutorial",
+        "dialog-zoom",
+        "training-folder",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "first-result",
+        "repair",
+        "comparison",
+        "model-one-block",
+        "layers-explanation",
+        "layers-explained",
+        "model-two-blocks",
+        "architecture-comparison",
+        "final"
+      ],
+      "errors": [],
+      "externalRequests": []
+    }
+  ],
+  "scope": "age-13 UI playthrough, including layers explanation"
+}

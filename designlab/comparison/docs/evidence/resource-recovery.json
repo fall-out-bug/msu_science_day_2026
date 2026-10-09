@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "criterion": "A14 missing shard and visible retry",
+      "status": "PASS",
+      "evidence": "intercepted then loaded cnn-results/d1-r-bn.js",
+      "detail": ""
+    },
+    {
+      "criterion": "A08/A14 reload resource failure preserves saved shift and retries",
+      "status": "PASS",
+      "evidence": "same persisted lesson before/after failed reload; visible retry/resume",
+      "detail": ""
+    },
+    {
+      "criterion": "A14 missing/retry",
+      "status": "PASS",
+      "evidence": "temporary localhost; telemetry intercepted 204",
+      "detail": ""
+    },
+    {
+      "criterion": "A14 corrupt shard",
+      "status": "PASS",
+      "evidence": "HTTP fulfilled invalid d1-r-bn shard",
+      "detail": ""
+    },
+    {
+      "criterion": "A14 corrupt",
+      "status": "PASS",
+      "evidence": "temporary localhost; telemetry intercepted 204",
+      "detail": ""
+    }
+  ]
+}

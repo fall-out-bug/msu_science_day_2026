@@ -1,0 +1,77 @@
+[
+  {
+    "viewport": [
+      1280,
+      720
+    ],
+    "controls": [
+      {
+        "text": "Вернуться к примерам",
+        "top": 765,
+        "bottom": 810
+      },
+      {
+        "text": "Исследовать звёздное небо →",
+        "top": 763,
+        "bottom": 808
+      },
+      {
+        "text": "Повторить опыт",
+        "top": 762,
+        "bottom": 807
+      }
+    ],
+    "allControlsVisible": false,
+    "documentHeight": 1019
+  },
+  {
+    "viewport": [
+      1440,
+      900
+    ],
+    "controls": [
+      {
+        "text": "Вернуться к примерам",
+        "top": 798,
+        "bottom": 844
+      },
+      {
+        "text": "Исследовать звёздное небо →",
+        "top": 797,
+        "bottom": 842
+      },
+      {
+        "text": "Повторить опыт",
+        "top": 796,
+        "bottom": 841
+      }
+    ],
+    "allControlsVisible": true,
+    "documentHeight": 1053
+  },
+  {
+    "viewport": [
+      1920,
+      1080
+    ],
+    "controls": [
+      {
+        "text": "Вернуться к примерам",
+        "top": 816,
+        "bottom": 861
+      },
+      {
+        "text": "Исследовать звёздное небо →",
+        "top": 814,
+        "bottom": 860
+      },
+      {
+        "text": "Повторить опыт",
+        "top": 813,
+        "bottom": 858
+      }
+    ],
+    "allControlsVisible": true,
+    "documentHeight": 1080
+  }
+]

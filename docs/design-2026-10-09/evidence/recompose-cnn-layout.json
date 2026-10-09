@@ -1,0 +1,17 @@
+{
+  "scope": "CNN N08 fixed-frame and CTA visual verification",
+  "method": "Visible Playwright route through labels, repair, all four CNN phases, and each of the three thumbnail buttons at every viewport. Coordinates are measured before scrolling.",
+  "fixedSurface": {
+    "1280x720": {"guide": [194, 126], "photo": [40, 328], "editor": [314.9, 328], "thumbnails": [[40, 527], [130.6, 527], [221.3, 527]], "scrollHeight": 720},
+    "1440x900": {"guide": [199, 126], "photo": [125, 339], "editor": [401, 339], "thumbnails": [[125, 630], [214.6, 630], [304.3, 630]], "scrollHeight": 900}
+  },
+  "ctaBeforeScroll": {
+    "1280x720": {"intro": [541, 572], "compare": [640, 674], "observe": [639, 673], "complete": [639, 673]},
+    "1366x768": {"intro": [541, 572], "compare": [640, 674], "observe": [640, 674], "complete": [639, 673]},
+    "1440x900": {"intro": [671, 705], "compare": [822, 866], "observe": [821, 865], "complete": [821, 865]},
+    "1920x1080": {"intro": [671, 705], "compare": [822, 866], "observe": [821, 865], "complete": [821, 865]},
+    "853x480": {"intro": [385, 419], "compare": [432, 468], "observe": [431, 467], "complete": [431, 467]}
+  },
+  "computedFontSizes": {"mentor": "16px", "controls": "14px", "resultLabels": "13px"},
+  "javascriptErrors": []
+}

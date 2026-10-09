@@ -6,3 +6,4 @@ reportlab==5.0.1
 astropy==8.0.1
 scipy==1.18.1
 requests==2.34.2
+Markdown==3.11

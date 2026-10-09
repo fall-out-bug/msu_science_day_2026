@@ -1,0 +1,146 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 2,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "guided-story",
+        "sky-child_m85",
+        "sky-child_ic5332",
+        "sky-child_ngc5023",
+        "sky-fixed_ngc3318",
+        "tutorial",
+        "dialog-zoom",
+        "training-folder",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "labels-4",
+        "first-result",
+        "repair",
+        "comparison",
+        "model-one-block",
+        "model-two-blocks",
+        "architecture-comparison",
+        "final"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 2,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "guided-story",
+        "sky-child_m85",
+        "sky-child_ic5332",
+        "sky-child_ngc5023",
+        "sky-fixed_ngc3318",
+        "tutorial",
+        "dialog-zoom",
+        "training-folder",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "labels-4",
+        "first-result",
+        "repair",
+        "comparison",
+        "model-one-block",
+        "model-two-blocks",
+        "architecture-comparison",
+        "final"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 2,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "guided-story",
+        "sky-child_m85",
+        "sky-child_ic5332",
+        "sky-child_ngc5023",
+        "sky-fixed_ngc3318",
+        "tutorial",
+        "dialog-zoom",
+        "training-folder",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "labels-4",
+        "first-result",
+        "repair",
+        "comparison",
+        "model-one-block",
+        "model-two-blocks",
+        "architecture-comparison",
+        "final"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "first": 1,
+      "corrected": 2,
+      "final": 2,
+      "total": 3,
+      "stages": [
+        "intro",
+        "dialog-about",
+        "guided-story",
+        "sky-child_m85",
+        "sky-child_ic5332",
+        "sky-child_ngc5023",
+        "sky-fixed_ngc3318",
+        "tutorial",
+        "dialog-zoom",
+        "training-folder",
+        "labels-1",
+        "labels-2",
+        "labels-3",
+        "labels-4",
+        "first-result",
+        "repair",
+        "comparison",
+        "model-one-block",
+        "model-two-blocks",
+        "architecture-comparison",
+        "final"
+      ],
+      "errors": [],
+      "externalRequests": []
+    }
+  ],
+  "offlineZip": "verified exact resource set, hashes, images and full flow"
+}

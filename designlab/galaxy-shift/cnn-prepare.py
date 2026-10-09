@@ -1,202 +1,84 @@
 #!/usr/bin/env python3
-"""Precompute two small, deterministic CPU CNN demonstrations.
-
-The game never trains in the browser.  This script reads the admitted JPEGs,
-checks their hashes through ``prepare-data.py``, trains on the nine correctly
-labelled training objects only, and writes the exact review predictions.
-"""
-
+"""Deterministic NumPy CNN primitives for the offline architecture editor."""
 from __future__ import annotations
-
-import argparse
-import hashlib
-import importlib.util
-import json
+import hashlib, importlib.util
+from dataclasses import dataclass
 from pathlib import Path
-
 import numpy as np
 from PIL import Image
-
-ROOT = Path(__file__).resolve().parent
-PREPARE_SPEC = importlib.util.spec_from_file_location("galaxy_prepare", ROOT / "prepare-data.py")
-assert PREPARE_SPEC and PREPARE_SPEC.loader
-prepare = importlib.util.module_from_spec(PREPARE_SPEC)
-PREPARE_SPEC.loader.exec_module(prepare)
-
-SEED = 20261006
-IMAGE_SIZE = 32
-EPOCHS = 420
-LEARNING_RATE = 0.025
-
-
-def load_image(filename: str) -> np.ndarray:
-    """Return the fixed centre crop as a one-channel, standardized image."""
-    path = prepare.ASSETS / filename
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    if digest != prepare.EXPECTED_SOURCE_SHA256[filename]:
-        raise RuntimeError(f"admission hash mismatch: {filename}")
-    with Image.open(path) as source:
-        image = source.convert("L")
-        width, height = image.size
-        side = int(min(width, height) * 0.75)
-        image = image.crop(((width - side) // 2, (height - side) // 2,
-                            (width + side) // 2, (height + side) // 2))
-        image = image.resize((IMAGE_SIZE, IMAGE_SIZE), Image.Resampling.LANCZOS)
-    values = np.asarray(image, dtype=np.float64) / 255.0
-    return (values - values.mean()) / (values.std() + 1e-8)
-
-
-def conv_forward(x: np.ndarray, weight: np.ndarray, bias: np.ndarray) -> tuple[np.ndarray, tuple]:
-    """Same-size 3x3 convolution, with a cache for its exact backward pass."""
-    _, _, _, _ = x.shape
-    padded = np.pad(x, ((0, 0), (0, 0), (1, 1), (1, 1)))
-    windows = np.lib.stride_tricks.sliding_window_view(padded, (3, 3), axis=(2, 3))
-    output = np.einsum("nchwkl,fckl->nfhw", windows, weight, optimize=True) + bias[None, :, None, None]
-    return output, (windows, weight, x.shape)
-
-
-def conv_backward(gradient: np.ndarray, cache: tuple) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    windows, weight, shape = cache
-    d_weight = np.einsum("nfhw,nchwkl->fckl", gradient, windows, optimize=True)
-    d_bias = gradient.sum(axis=(0, 2, 3))
-    n, channels, height, width = shape
-    padded = np.zeros((n, channels, height + 2, width + 2), dtype=np.float64)
-    for row in range(3):
-        for column in range(3):
-            padded[:, :, row:row + height, column:column + width] += np.einsum(
-                "nfhw,fc->nchw", gradient, weight[:, :, row, column], optimize=True)
-    return padded[:, :, 1:-1, 1:-1], d_weight, d_bias
-
-
+ROOT=Path(__file__).resolve().parent
+spec=importlib.util.spec_from_file_location("galaxy_prepare",ROOT/"prepare-data.py"); assert spec and spec.loader
+prepare=importlib.util.module_from_spec(spec); spec.loader.exec_module(prepare)
+SEED=20261008; IMAGE_SIZE=32; EPOCHS=420; LEARNING_RATE=.025; DROPOUT_RATE=.20; BN_MOMENTUM=.10; BN_EPSILON=1e-5
+TAILS=(("r",),("bn","r"),("r","bn"),("d","r"),("r","d"),("bn","d","r"),("bn","r","d"),("d","bn","r"),("d","r","bn"),("r","bn","d"),("r","d","bn"))
+@dataclass(frozen=True)
+class Architecture: id:str; depth:int; tail:tuple[str,...]
+def architectures(): return tuple(Architecture(f"d{d}-{'-'.join(t)}",d,t) for d in (1,2) for t in TAILS)
+def architecture_by_id(id):
+ for a in architectures():
+  if a.id==id:return a
+ raise ValueError(f"unsupported architecture: {id}")
+def stable_rng(*parts): return np.random.default_rng(int.from_bytes(hashlib.sha256("\0".join(map(str,(SEED,*parts))).encode()).digest()[:8],"little"))
+def load_image(filename):
+ path=prepare.ASSETS/filename
+ if hashlib.sha256(path.read_bytes()).hexdigest()!=prepare.EXPECTED_SOURCE_SHA256[filename]:raise RuntimeError(f"admission hash mismatch: {filename}")
+ with Image.open(path) as source:
+  image=source.convert("L"); w,h=image.size; side=int(min(w,h)*.75); image=image.crop(((w-side)//2,(h-side)//2,(w+side)//2,(h+side)//2)).resize((IMAGE_SIZE,IMAGE_SIZE),Image.Resampling.LANCZOS)
+ values=np.asarray(image,dtype=np.float64)/255.; return (values-values.mean())/(values.std()+1e-8)
+def conv_forward(x,w,b):
+ padded=np.pad(x,((0,0),(0,0),(1,1),(1,1))); windows=np.lib.stride_tricks.sliding_window_view(padded,(3,3),axis=(2,3)); return np.einsum("nchwkl,fckl->nfhw",windows,w,optimize=True)+b[None,:,None,None],(windows,w,x.shape)
+def conv_backward(g,cache):
+ windows,w,shape=cache; dw=np.einsum("nfhw,nchwkl->fckl",g,windows,optimize=True); db=g.sum((0,2,3)); n,c,h,ww=shape; padded=np.zeros((n,c,h+2,ww+2))
+ for r in range(3):
+  for col in range(3): padded[:,:,r:r+h,col:col+ww]+=np.einsum("nfhw,fc->nchw",g,w[:,:,r,col],optimize=True)
+ return padded[:,:,1:-1,1:-1],dw,db
+def bn_forward(x,gamma,beta,rmean,rvar,training,update):
+ if training:
+  mean=x.mean((0,2,3)); var=x.var((0,2,3))
+  if update:rmean[:]=(1-BN_MOMENTUM)*rmean+BN_MOMENTUM*mean; rvar[:]=(1-BN_MOMENTUM)*rvar+BN_MOMENTUM*var
+ else: mean,var=rmean,rvar
+ inv=1/np.sqrt(var+BN_EPSILON); norm=(x-mean[None,:,None,None])*inv[None,:,None,None]; out=gamma[None,:,None,None]*norm+beta[None,:,None,None]
+ return out,(norm,inv,gamma,x.shape) if training else None
+def bn_backward(grad,cache):
+ norm,inv,gamma,shape=cache; count=shape[0]*shape[2]*shape[3]; db=grad.sum((0,2,3)); dg=(grad*norm).sum((0,2,3)); scaled=grad*gamma[None,:,None,None]; dx=(scaled*count-scaled.sum((0,2,3),keepdims=True)-norm*(scaled*norm).sum((0,2,3),keepdims=True))*(inv[None,:,None,None]/count); return dx,dg,db
 class TinyCNN:
-    """A deliberately tiny CNN: convolution/ReLU blocks, average pool, softmax."""
-
-    def __init__(self, blocks: int, rng: np.random.Generator):
-        self.blocks = blocks
-        self.params: dict[str, np.ndarray] = {}
-        in_channels = 1
-        for layer in range(blocks):
-            self.params[f"w{layer}"] = rng.normal(0.0, np.sqrt(2 / (in_channels * 9)), (4, in_channels, 3, 3))
-            self.params[f"b{layer}"] = np.zeros(4)
-            in_channels = 4
-        self.params["head_w"] = rng.normal(0.0, np.sqrt(2 / in_channels), (in_channels, 3))
-        self.params["head_b"] = np.zeros(3)
-
-    @property
-    def parameter_count(self) -> int:
-        return sum(value.size for value in self.params.values())
-
-    def forward(self, x: np.ndarray) -> tuple[np.ndarray, tuple]:
-        activations = x
-        blocks = []
-        for layer in range(self.blocks):
-            conv, cache = conv_forward(activations, self.params[f"w{layer}"], self.params[f"b{layer}"])
-            activations = np.maximum(conv, 0.0)
-            blocks.append((cache, conv))
-        pooled = activations.mean(axis=(2, 3))
-        logits = pooled @ self.params["head_w"] + self.params["head_b"]
-        return logits, (blocks, activations.shape, pooled)
-
-    def gradients(self, x: np.ndarray, targets: np.ndarray) -> tuple[float, dict[str, np.ndarray]]:
-        logits, (blocks, activation_shape, pooled) = self.forward(x)
-        shifted = logits - logits.max(axis=1, keepdims=True)
-        probabilities = np.exp(shifted)
-        probabilities /= probabilities.sum(axis=1, keepdims=True)
-        loss = float(-np.log(probabilities[np.arange(len(targets)), targets] + 1e-12).mean())
-        d_logits = probabilities
-        d_logits[np.arange(len(targets)), targets] -= 1
-        d_logits /= len(targets)
-        gradients = {
-            "head_w": pooled.T @ d_logits,
-            "head_b": d_logits.sum(axis=0),
-        }
-        gradient = (d_logits @ self.params["head_w"].T)[:, :, None, None]
-        gradient = np.broadcast_to(gradient / (activation_shape[2] * activation_shape[3]), activation_shape).copy()
-        for layer in reversed(range(self.blocks)):
-            cache, pre_relu = blocks[layer]
-            gradient *= pre_relu > 0
-            gradient, d_weight, d_bias = conv_backward(gradient, cache)
-            gradients[f"w{layer}"] = d_weight
-            gradients[f"b{layer}"] = d_bias
-        return loss, gradients
-
-    def predict(self, x: np.ndarray) -> np.ndarray:
-        return self.forward(x)[0].argmax(axis=1)
-
-
-def train(model: TinyCNN, images: np.ndarray, targets: np.ndarray) -> list[float]:
-    """Full-batch Adam. The fixed seed and no augmentation make the run repeatable."""
-    first = {name: np.zeros_like(value) for name, value in model.params.items()}
-    second = {name: np.zeros_like(value) for name, value in model.params.items()}
-    losses = []
-    for step in range(1, EPOCHS + 1):
-        loss, gradients = model.gradients(images, targets)
-        if step in (1, EPOCHS):
-            losses.append(loss)
-        for name, value in model.params.items():
-            first[name] = 0.9 * first[name] + 0.1 * gradients[name]
-            second[name] = 0.999 * second[name] + 0.001 * gradients[name] ** 2
-            m_hat = first[name] / (1 - 0.9 ** step)
-            v_hat = second[name] / (1 - 0.999 ** step)
-            value -= LEARNING_RATE * m_hat / (np.sqrt(v_hat) + 1e-8)
-    return losses
-
-
-def build() -> dict:
-    records, _ = prepare.build()
-    items = {item["id"]: item for item in records["images"]}
-    class_ids = [item["id"] for item in records["classes"]]
-    label_index = {label: index for index, label in enumerate(class_ids)}
-    training_ids = records["protocol"]["trainingIds"]
-    review_ids = records["protocol"]["reviewIds"]
-    images = {item_id: load_image(Path(items[item_id]["src"]).name) for item_id in training_ids + review_ids}
-    train_x = np.asarray([images[item_id] for item_id in training_ids])[:, None, :, :]
-    train_y = np.asarray([label_index[items[item_id]["label"]] for item_id in training_ids])
-    review_x = np.asarray([images[item_id] for item_id in review_ids])[:, None, :, :]
-    models = []
-    for blocks in (1, 2):
-        model = TinyCNN(blocks, np.random.default_rng(SEED))
-        losses = train(model, train_x, train_y)
-        predicted = model.predict(review_x)
-        predictions = [{"id": item_id, "predicted": class_ids[int(label)], "expected": items[item_id]["label"]}
-                       for item_id, label in zip(review_ids, predicted)]
-        models.append({
-            "id": f"cnn-{blocks}-block",
-            "name": f"CNN: {blocks} {'свёрточный блок' if blocks == 1 else 'свёрточных блока'}",
-            "blocks": blocks,
-            "parameters": model.parameter_count,
-            "predictions": predictions,
-            "correct": sum(row["predicted"] == row["expected"] for row in predictions),
-            "total": len(predictions),
-            "loss": {"first": round(losses[0], 8), "last": round(losses[-1], 8)},
-        })
-    return {
-        "models": models,
-        "trainingIds": training_ids,
-        "reviewIds": review_ids,
-        "note": "Два заранее рассчитанных CPU-опыта на одном корректно подписанном наборе из 9 учебных объектов. Свёрточные веса и классификатор обучались полным набором 420 шагов Adam с фиксированным seed; аугментаций и проверочных ответов при обучении не было. Три review-объекта — знакомая демонстрационная проверка, поэтому её счёт не является независимой оценкой и не обещает преимущество двух блоков.",
-        "protocol": {"seed": SEED, "image": "75% centre crop, grayscale 32x32, per-image standardization", "epochs": EPOCHS, "optimizer": "Adam, full batch, lr=0.025", "implementation": "NumPy CPU backpropagation; no GPU and no model service"},
-    }
-
-
-def rendered(data: dict) -> str:
-    return "// Generated by cnn-prepare.py; do not edit by hand.\n" + "globalThis.GALAXY_CNN = " + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + ";\n"
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--check", action="store_true", help="rebuild and compare cnn-data.js without writing")
-    args = parser.parse_args()
-    output = rendered(build())
-    target = ROOT / "cnn-data.js"
-    if args.check:
-        if not target.is_file() or target.read_text(encoding="utf-8") != output:
-            raise SystemExit("generated file differs: cnn-data.js")
-        print("check passed: two trained CPU CNNs, 9 train / 3 review, admission hashes verified")
-        return
-    target.write_text(output, encoding="utf-8")
-    print("wrote cnn-data.js")
-
-
-if __name__ == "__main__":
-    main()
+ def __init__(self,architecture):
+  self.architecture=architecture; self.params={}; self.buffers={}; inc=1
+  for i in range(architecture.depth): self.params[f"w{i}"]=stable_rng("initial",f"w{i}").normal(0,np.sqrt(2/(inc*9)),(4,inc,3,3)); self.params[f"b{i}"]=np.zeros(4); inc=4
+  self.params["head_w"]=stable_rng("initial","head_w").normal(0,np.sqrt(2/inc),(inc,3)); self.params["head_b"]=np.zeros(3)
+  if "bn" in architecture.tail:self.params.update(bn_gamma=np.ones(4),bn_beta=np.zeros(4)); self.buffers.update(bn_mean=np.zeros(4),bn_var=np.ones(4))
+ @property
+ def parameter_count(self):return sum(v.size for v in self.params.values())
+ def forward(self,x,training=False,dropout_rng=None,update_bn=True):
+  a=x; caches=[]
+  for i in range(self.architecture.depth):
+   a,cc=conv_forward(a,self.params[f"w{i}"],self.params[f"b{i}"]); caches.append((f"conv{i}",cc)); tokens=("r",) if i<self.architecture.depth-1 else self.architecture.tail
+   for token in tokens:
+    if token=="r":caches.append(("relu",a)); a=np.maximum(a,0)
+    elif token=="bn":a,c=bn_forward(a,self.params["bn_gamma"],self.params["bn_beta"],self.buffers["bn_mean"],self.buffers["bn_var"],training,update_bn); caches.append(("bn",c))
+    elif token=="d":
+     mask=None
+     if training:
+      if dropout_rng is None:raise ValueError("training Dropout needs RNG")
+      mask=(dropout_rng.random(a.shape)>=DROPOUT_RATE)/(1-DROPOUT_RATE); a*=mask
+     caches.append(("dropout",mask))
+    else: raise AssertionError(token)
+  pool=a.mean((2,3)); logits=pool@self.params["head_w"]+self.params["head_b"]; return logits,(caches,a.shape,pool) if training else None
+ def gradients(self,x,y,rng,update_bn=True):
+  logits,cache=self.forward(x,True,rng,update_bn); layers,ashape,pool=cache; p=np.exp(logits-logits.max(1,keepdims=True));p/=p.sum(1,keepdims=True); loss=float(-np.log(p[np.arange(len(y)),y]+1e-12).mean()); p[np.arange(len(y)),y]-=1;p/=len(y); grads={"head_w":pool.T@p,"head_b":p.sum(0)}; g=np.broadcast_to((p@self.params["head_w"].T)[:,:,None,None]/(ashape[2]*ashape[3]),ashape).copy()
+  for name,c in reversed(layers):
+   if name=="relu":g*=c>0
+   elif name=="dropout":
+    if c is not None:g*=c
+   elif name=="bn":g,dg,db=bn_backward(g,c);grads["bn_gamma"]=dg;grads["bn_beta"]=db
+   else:
+    i=int(name[4:]);g,dw,db=conv_backward(g,c);grads[f"w{i}"]=dw;grads[f"b{i}"]=db
+  return loss,grads
+ def predict(self,x):return self.forward(x,False)[0].argmax(1)
+def train(model,images,targets,label_key):
+ first={k:np.zeros_like(v) for k,v in model.params.items()}; second={k:np.zeros_like(v) for k,v in model.params.items()}; rng=stable_rng("dropout");losses=[]
+ for step in range(1,EPOCHS+1):
+  loss,grads=model.gradients(images,targets,rng)
+  if step in (1,EPOCHS):losses.append(loss)
+  for k,v in model.params.items(): first[k]=.9*first[k]+.1*grads[k];second[k]=.999*second[k]+.001*grads[k]**2; v-=LEARNING_RATE*(first[k]/(1-.9**step))/(np.sqrt(second[k]/(1-.999**step))+1e-8)
+ return losses

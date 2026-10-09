@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-10-09T05:49:59.088653+00:00",
+  "version": "2026.10.09-complete.1",
+  "image": {
+    "tag": "sd2026-public:galaxy-20261009-2",
+    "id": "sha256:ad092914466872a271317166012ba531b876bcdc077e7595fe9e2544576b06eb",
+    "sourceCommit": "d4b2c0e3c3e71fd4a5dc4d4717cc0818a2befa41",
+    "runningExactImage": true
+  },
+  "publicHttps": {
+    "status": "PASS",
+    "base": "https://sd2026.beetles.family/",
+    "version": "2026.10.09-complete.1",
+    "transport": "HTTPS with normal certificate verification via superduper",
+    "assets": {
+      "status": "PASS",
+      "resources": 123,
+      "documents": 9,
+      "preservedComments": 12,
+      "zipSha256": "bc2ae46732065ea68e13ac134d542b9f6da54e73168aadec3c6a5b9c523e2e86"
+    },
+    "flow": {
+      "baseline": "d1-r",
+      "constructor": "d2-d-bn-r",
+      "labelKey": "0121021",
+      "firstReview": 2,
+      "finalReview": 2,
+      "final": 3,
+      "errors": [],
+      "failedRequests": [],
+      "telemetryResponses": [
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202,
+        202
+      ],
+      "telemetry": {
+        "queued": 0,
+        "dropped": 0,
+        "sessions": 1,
+        "storage": "sessionStorage",
+        "warning": null
+      },
+      "consoleErrors": [],
+      "ingestionScope": "public HTTPS"
+    }
+  },
+  "finalSyntheticSession": {
+    "databaseEvents": 46,
+    "contiguousSequence": true,
+    "duplicates": 0,
+    "collectorHealth": "healthy"
+  },
+  "documents": {
+    "status": "PASS",
+    "offlineHtmlPages": 7,
+    "offlineZipEntries": 137,
+    "historicalGddSha256": "31e26ea7bb4f8ba3f1b656c9fb89a4b27078174ff14871a7358fcd0430a1ac10",
+    "offlineZipSha256": "b80b729f4a083780bb60abd60cfc0611801cf0bd93a282bb7c60e02fbdd0cd44"
+  },
+  "evidenceIndex": "../../docs/design-2026-10-08/release.md",
+  "gameSourcesUnchangedSince": "d680739",
+  "scope": "Final image with updated documents. Read-only database check scoped to synthetic acceptance session. Actual child playtest was not performed. PR remains unmerged."
+}
