@@ -1,11 +1,11 @@
 {
   "status": "PASS",
-  "checkedAt": "2026-10-09T10:40:05.351437+00:00",
+  "checkedAt": "2026-10-09T10:42:22.425017+00:00",
   "version": "2026.10.09-night.4",
   "image": {
-    "tag": "sd2026-public:galaxy-20261009-night-6",
-    "id": "sha256:80b3e21719ee91d2f75d2e26c1c56d1114f38fa52b4cb14a6b18290879db0b0c",
-    "sourceCommit": "66f1ea8fd1989edc35be12c6a3b92ce1cac42dbb",
+    "tag": "sd2026-public:galaxy-20261009-night-7",
+    "id": "sha256:172b1875b2e52cf64c62a827f79a40e2b70956a2c2865e70634fdb80278cab5f",
+    "sourceCommit": "7ab9d99f86bf7afc8ddcb6aec9f1b9c9c9a5b7fd",
     "runningExactImage": true
   },
   "publicHttps": {
@@ -69,7 +69,7 @@
         202
       ],
       "telemetry": {
-        "sessionId": "dd335bc1-a9ac-44a4-8bd2-05d3db26d2d6",
+        "sessionId": "62d8e35e-cdad-4da5-93a2-8ea37c898333",
         "queued": 0,
         "dropped": 0,
         "sessions": 1,
