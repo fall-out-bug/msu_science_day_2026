@@ -1,0 +1,42 @@
+[
+  {
+    "id": "s02",
+    "frames": [
+      {
+        "epoch": 1,
+        "unchanged": true,
+        "sha256_data_uri": "475bea403945adad7cb92482fa6fb597394014362a251efc2f6a80eff395d27b"
+      },
+      {
+        "epoch": 2,
+        "unchanged": true,
+        "sha256_data_uri": "172ef2e58c41b652882a8d045c53fad005043d3ffd9c0f13e28cabd860c85253"
+      },
+      {
+        "epoch": 3,
+        "unchanged": true,
+        "sha256_data_uri": "7fff3333165c057bf3f2b832c8aa31b50fe975682b63b1091ee05f79142fd74e"
+      }
+    ]
+  },
+  {
+    "id": "s07",
+    "frames": [
+      {
+        "epoch": 1,
+        "unchanged": true,
+        "sha256_data_uri": "e7c2ba59f7afa590863618b8fb303fffc0301fcae8af34174d26fca98798679f"
+      },
+      {
+        "epoch": 2,
+        "unchanged": true,
+        "sha256_data_uri": "9b5514438722f0d218b87beec215d1c5301a199bc5f27ad9fefa19826ebf66fe"
+      },
+      {
+        "epoch": 3,
+        "unchanged": true,
+        "sha256_data_uri": "61e2e0e9877aba6910eab4653527199c9f52546f72044428736df6e8dec51ddb"
+      }
+    ]
+  }
+]

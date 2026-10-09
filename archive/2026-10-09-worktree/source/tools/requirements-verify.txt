@@ -1,0 +1,17 @@
+# Зависимости приёмочной проверки (tools/check_release.py и её группы).
+# Python 3.12+. Установка:
+#   python3 -m venv .venv
+#   .venv/bin/pip install -r tools/requirements-verify.txt
+#
+# playwright 1.62.0 — единственная линейка, чей драйвер соответствует
+# браузеру chromium-1234 из ~/.cache/ms-playwright (arm64-хост фестивального
+# стенда). Менять пин только вместе с браузером.
+# numpy/Pillow нужны группе данных: воспроизвести train_stats/контакт/демо
+# генератора и отрендерить PDF-страницы (pdftoppm) для проверки «не пустые».
+playwright==1.62.0
+numpy==2.5.3
+Pillow==12.3.0
+
+# Системные утилиты (не pip): poppler-utils (pdfinfo, pdftoppm, pdftotext), unzip, bash.
+# Браузер: ~/.cache/ms-playwright/chromium-1234/chrome-linux/chrome (уже в кэше стенда);
+# запасной вариант — Firefox из того же кэша.

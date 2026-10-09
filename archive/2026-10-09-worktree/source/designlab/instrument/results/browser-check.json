@@ -1,0 +1,7 @@
+{
+  "engine": "chromium",
+  "errors": [],
+  "image_panels": 6,
+  "scenario_rows": 6,
+  "narrow_page_overflow": false
+}

@@ -1,0 +1,10 @@
+{
+  "name": "science-day-preparation",
+  "private": true,
+  "devDependencies": {
+    "prettier": "3.6.2"
+  },
+  "scripts": {
+    "format": "prettier --write app/index.html app/game.js app/game.css app/model.js app/content.js app/sky-map.js app/sky-map.css"
+  }
+}

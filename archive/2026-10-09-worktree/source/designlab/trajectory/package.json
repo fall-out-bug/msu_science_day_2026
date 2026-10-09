@@ -1,0 +1,7 @@
+{
+  "name": "science-day-trajectory-probe",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": { "phaser": "4.2.1" },
+  "scripts": { "check": "node check-model.cjs" }
+}
