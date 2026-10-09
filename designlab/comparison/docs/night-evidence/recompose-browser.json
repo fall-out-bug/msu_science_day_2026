@@ -1,0 +1,106 @@
+{
+  "status": "PASS",
+  "versionSource": "globalThis.GALAXY_BUILD_VERSION = '2026.10.09-night.3';",
+  "runtimeSha256": {
+    "index.html": "ec6b7ffd40e7e3640add7725cc81fd8fa430171cd40100af50d3b6ae80b1254c",
+    "game.js": "d9c20303d3bac369d7d91c66015ee31c5484176fe83b0d3532f0ce483167d9e2",
+    "galaxy.css": "f4d31b67e690367e06c1c265ba9f4ffa8d9c5dde721687ea5e6840b5a182253f",
+    "cnn-session.js": "13732b300741147ff8a7a1c27860160d3adeb006dc6dfab089b3d5407df2fd53",
+    "cnn-architectures.js": "3b66d05d1cab7eb51e2d0f2d85b1878a4e39b7ef1b891a8889b0cdb28c4dda6b",
+    "cnn-results-loader.js": "95642d5fe21b0de310f4f97a013285a1c0e0d1e1569fff62cd87616469b5db88",
+    "metrics.js": "4e9f1df77c20459fd27e78f21dde3c787ade6944d7b13d27ac2a67781dc03e3a",
+    "telemetry.js": "bb8f0fec384abeda5a56533fe8498b5d7890ad3a85f8bd6f84fea9988cc60765",
+    "quest-scene.js": "f8fc11f99449559304e6fe4c1cf76c26ee9a5c49639d473144a2ef549f1c6e32",
+    "quest-scene.css": "a9a2617766efc723310a541b3c19764f67ec55bd5e832bb2c91a1ab516de3634",
+    "cnn-guide.js": "407f6b5720381e89b0e2d6224db68269e92f8a2c7ff04d50826d07304d075ac6",
+    "cnn-guide.css": "b4052a8dc8a1300e592c01e78e3325e3b1d957c9cdc049870d5e74f65a002318",
+    "world.js": "0faedbc3d60a488039f480748c570fae9156feb5863525e68acbdb9977b0b417",
+    "sky.js": "3cca52668e3cde8880a9c596622dcc946eeebf048a864d5b615dec93cfed335f"
+  },
+  "checks": [
+    {
+      "criterion": "A05 registry: 22 canonical architectures",
+      "status": "PASS",
+      "evidence": "cnn-architectures.js",
+      "detail": ""
+    },
+    {
+      "criterion": "A05 editor controls: depth/add/reorder/drag",
+      "status": "PASS",
+      "evidence": "cnn-guide.js",
+      "detail": ""
+    },
+    {
+      "criterion": "A05 editor control: remove layer",
+      "status": "PASS",
+      "evidence": "cnn-guide.js",
+      "detail": ""
+    },
+    {
+      "criterion": "V06 keyboard-only baseline route",
+      "status": "PASS",
+      "evidence": "1280x720",
+      "detail": ""
+    },
+    {
+      "criterion": "V06 150% zoom entry accessibility",
+      "status": "PASS",
+      "evidence": "853x480 CSS viewport",
+      "detail": ""
+    },
+    {
+      "criterion": "A01–A12 visible route",
+      "status": "PASS",
+      "evidence": "1280x720",
+      "detail": ""
+    },
+    {
+      "criterion": "A01–A12 visible route",
+      "status": "PASS",
+      "evidence": "1440x900",
+      "detail": ""
+    },
+    {
+      "criterion": "A01–A12 visible route",
+      "status": "PASS",
+      "evidence": "1920x1080",
+      "detail": ""
+    },
+    {
+      "criterion": "A01–A12 visible route",
+      "status": "PASS",
+      "evidence": "1366x768",
+      "detail": ""
+    },
+    {
+      "criterion": "A14 missing shard and visible retry",
+      "status": "PASS",
+      "evidence": "intercepted then loaded cnn-results/d1-r-bn.js",
+      "detail": ""
+    },
+    {
+      "criterion": "A08/A14 reload resource failure preserves saved shift and retries",
+      "status": "PASS",
+      "evidence": "same persisted lesson before/after failed reload; visible retry/resume",
+      "detail": ""
+    },
+    {
+      "criterion": "A14 missing shard and retry",
+      "status": "PASS",
+      "evidence": "localhost HTTP; telemetry intercepted with 204",
+      "detail": ""
+    },
+    {
+      "criterion": "A14 corrupt shard",
+      "status": "PASS",
+      "evidence": "HTTP fulfilled invalid d1-r-bn shard",
+      "detail": ""
+    },
+    {
+      "criterion": "A14 corrupt shard",
+      "status": "PASS",
+      "evidence": "localhost HTTP; telemetry intercepted with 204",
+      "detail": ""
+    }
+  ]
+}
