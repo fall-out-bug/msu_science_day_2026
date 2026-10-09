@@ -1,3 +1,6 @@
 designlab/galaxy-shift/cnn-experiments.js linguist-generated=true
 designlab/galaxy-shift/cnn-results/*.js linguist-generated=true
 designlab/galaxy-shift/experiments/cnn-label-correction/cnn-experiments.json linguist-generated=true
+archive/*/manifest.json linguist-generated=true
+archive/*/source/** linguist-vendored=true
+archive/*/payload/* -delta
