@@ -39,7 +39,7 @@ action('RUN');
 const canonicalKey = signature();
 assert.equal(lesson.state.current.labelKey, canonicalKey);
 assert.equal(lesson.state.current.result, table.experiments[canonicalKey].architectures['d1-r']);
-mustThrow('FINISH');
+mustThrow('FINISH'); mustThrow('GUIDE_OPEN'); mustThrow('GUIDE_NEXT'); mustThrow('GUIDE_ADD_CONVOLUTION');
 action('RUN');
 assert.equal(lesson.state.notice, 'Метки и архитектура те же: показан тот же подготовленный опыт.', 'unchanged run must not claim labels changed');
 mustThrow('SET_ARCHITECTURE', { architecture: secondary });
@@ -63,8 +63,13 @@ assert.deepEqual(Array.from(lesson.state.reviewedOldIds), Array.from(data.oldIds
 action('RUN');
 assert.equal(lesson.state.cnnGuide, 'intro');
 mustThrow('FINISH'); mustThrow('MODEL_SETTINGS');
-action('GUIDE_OPEN'); action('GUIDE_NEXT'); action('GUIDE_ADD_CONVOLUTION');
+action('GUIDE_ADD_CONVOLUTION');
 assert.equal(lesson.state.architecture, 'd2-r'); assert.equal(lesson.state.current, null);
+if (baselineOnly) {
+  assert.throws(() => action('RUN'), /нет подготовленного опыта/, 'baseline-only must expose a missing d2-r row, never fall back');
+  console.log(JSON.stringify({ status: 'PASS', scope: 'baseline-only', checks: ['fresh child labels', 'exact lookup', 'label invalidation', 'mandatory direct guide', 'no fallback'] }));
+  process.exit(0);
+}
 action('RUN'); assert.equal(lesson.state.cnnGuide, 'observe');
 mustThrow('FINISH'); action('GUIDE_CONFIRM_COMPARE'); assert.equal(lesson.state.cnnGuide, 'complete');
 
@@ -88,7 +93,7 @@ action('RUN');
 action('SET_ARCHITECTURE', { architecture: secondary });
 if (!baselineOnly) assert.equal(lesson.state.current, null, 'a changed architecture needs its own exact run');
 assert.equal(lesson.state.repairCheckedLabelKey, repairedKey, 'architecture switch must preserve repaired label approval');
-if (!baselineOnly) mustThrow('FINISH');
+if (!baselineOnly) mustThrow('FINISH'); mustThrow('GUIDE_ADD_CONVOLUTION');
 action('RUN');
 assert.equal(lesson.state.current.result, table.experiments[repairedKey].architectures[secondary]);
 action('FINISH'); assert.equal(lesson.state.phase, 'final');
@@ -119,7 +124,7 @@ for (const id of data.childIds) run('SET_LABEL', { id, label: id === changedChil
 run('RUN'); run('REPAIR');
 for (const id of data.oldIds) run('SET_LABEL', { id, label: canonical(id) });
 run('RUN');
-run('GUIDE_OPEN'); run('GUIDE_NEXT'); run('GUIDE_ADD_CONVOLUTION');
+run('GUIDE_ADD_CONVOLUTION');
 assert.throws(() => run('RUN'), /нет подготовленного опыта/, 'missing table row must never fall back');
 }
 console.log(JSON.stringify({ status: 'PASS', scope: baselineOnly ? 'baseline-only' : 'two-architectures', checks: ['fresh child labels', 'exact lookup', 'label invalidation', 'architecture state', 'wrong child state', 'no fallback'] }));

@@ -22,7 +22,7 @@ from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent / "designlab" / "galaxy-shift"
-EVIDENCE = HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "telemetry-integration.json"
+EVIDENCE = Path(os.environ.get("GALAXY_RECOMPOSE_TELEMETRY_EVIDENCE", HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "recompose-telemetry-integration.json"))
 SPEC = importlib.util.spec_from_file_location("galaxy_telemetry_server", HERE / "server.py")
 SERVER = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(SERVER)
@@ -111,8 +111,7 @@ def journey(page):
     label_all(page, data["oldIds"], images)
     click(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
-    click(page, "guide-open")
-    click(page, "guide-next")
+    page.wait_for_selector(".cnn-workbench .architecture-editor")
     click(page, "guide-add-convolution")
     click(page, "run")
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")

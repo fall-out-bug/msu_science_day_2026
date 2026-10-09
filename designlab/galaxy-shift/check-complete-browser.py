@@ -14,6 +14,7 @@ import contextlib
 import http.server
 import socketserver
 import threading
+import traceback
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
@@ -55,7 +56,7 @@ class Report:
         try:
             callback()
         except Exception as error:  # retain later independent checks
-            self.add(criterion, "FAIL", evidence, str(error))
+            self.add(criterion, "FAIL", evidence, str(error) or traceback.format_exc())
         else:
             self.add(criterion, "PASS", evidence)
 
@@ -63,7 +64,7 @@ class Report:
 def static_contract(report):
     """Checks the frozen registry and the public controls without running CNN."""
     registry = HERE / "cnn-architectures.js"
-    game = (HERE / "game.js").read_text()
+    guide = (HERE / "cnn-guide.js").read_text()
     html = (HERE / "index.html").read_text()
 
     def registry_is_complete():
@@ -75,20 +76,20 @@ def static_contract(report):
         assert "GalaxyArchitectures" in source and "function get(id)" in source
 
     def controls_are_current():
-        assert 'data-action="architecture-depth"' in game
-        assert 'data-action="layer-add"' in game
-        assert 'data-action="layer-earlier"' in game and 'data-action="layer-later"' in game
-        assert 'draggable="true"' in game and 'data-architecture-tail' in game
+        assert 'data-action="architecture-depth"' in guide
+        assert 'data-action="layer-add"' in guide
+        assert 'data-action="layer-earlier"' in guide and 'data-action="layer-later"' in guide
+        assert 'draggable=' in guide and 'data-architecture-tail' in guide
         assert 'architecture: \'d1-r\'' in (HERE / "cnn-session.js").read_text()
         assert 'cnn-architectures.js' in html and 'cnn-results-loader.js' in html
 
     def remove_control_is_present():
         # A05 requires all variants to be constructible through add/remove/reorder.
-        assert 'data-action="layer-remove"' in game, "В редакторе нет видимого удаления BatchNorm/Dropout"
+        assert 'data-action="layer-remove"' in guide, "В редакторе нет видимого удаления BatchNorm/Dropout"
 
     report.check("A05 registry: 22 canonical architectures", "cnn-architectures.js", registry_is_complete)
-    report.check("A05 editor controls: depth/add/reorder/drag", "game.js", controls_are_current)
-    report.check("A05 editor control: remove layer", "game.js", remove_control_is_present)
+    report.check("A05 editor controls: depth/add/reorder/drag", "cnn-guide.js", controls_are_current)
+    report.check("A05 editor control: remove layer", "cnn-guide.js", remove_control_is_present)
 
 
 def page_contract(page, label):
@@ -128,9 +129,15 @@ def story_frame_visible(page):
     }"""), 'Story text and next action must be visible before scrolling or clicking'
 
 
-def click_action(page, name):
+def click_action(page, name, *, require_visible_frame=False):
     if name == "collect-map": story_frame_visible(page)
-    page.locator(f'[data-action="{name}"]').first.click()
+    button = page.locator(f'[data-action="{name}"]').first
+    if require_visible_frame:
+        box = button.bounding_box()
+        assert box and box["x"] >= 0 and box["y"] >= 0 and box["x"] + box["width"] <= page.viewport_size["width"] and box["y"] + box["height"] <= page.viewport_size["height"], (name, box)
+        page.mouse.click(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
+    else:
+        button.click()
 
 
 def tab_to(page, selector, limit=80):
@@ -158,29 +165,59 @@ def collect(page, item_id):
 
 
 def complete_cnn_guide(page):
-    """Visible N03/N04 route: d1-r, one d2-r change, then observed comparison."""
+    """N03/N04: one persistent workbench, d1-r -> d2-r, then observation."""
     assert page.evaluate("galaxyGame.model.state.cnnGuide") == "intro"
-    intro = page.locator(".cnn-guide").inner_text().lower()
-    for term in ("обучающую выборку", "архитектур"):
+    page.wait_for_selector(".cnn-workbench .architecture-editor")
+    intro = page.locator(".cnn-workbench").inner_text().lower()
+    for term in ("слой", "свёртк", "фильтр", "архитектур"):
         assert term in intro, term
-    click_action(page, "guide-open")
-    goal = page.locator(".cnn-guide").inner_text().lower()
-    for term in ("слой", "признак", "свёртк", "фильтр", "архитектур"):
-        assert term in goal, term
-    page.locator(".cnn-guide details summary").click()
-    teaching_example = page.locator(".cnn-guide details").inner_text().lower()
-    for marker in ("поэлементного умножения", "суммы", "не показывает активации"):
+    click_action(page, "cnn-filter", require_visible_frame=True)
+    page.wait_for_selector(".modal")
+    teaching_example = page.locator(".modal").inner_text().lower()
+    for marker in ("поэлементно", "отклик", "не активация"):
         assert marker in teaching_example, marker
-    click_action(page, "guide-next")
-    assert "вторую свёртку" in page.locator(".cnn-guide").inner_text().lower()
-    click_action(page, "guide-add-convolution")
+    page.keyboard.press("Escape")
+    assert not page.locator(".modal").count()
+    # A thumbnail changes only the large selected source; it must retain the
+    # source description and never discard the three scientific result cards.
+    thumbs = page.locator('[data-action="cnn-image"]')
+    assert thumbs.count() == 3
+    cards_before = page.locator('.cnn-workbench__results article').count()
+    target = thumbs.nth(1)
+    image_id = target.get_attribute('data-image-id')
+    expected = page.evaluate("id => GALAXY_DATA.images.find(image => image.id === id)", image_id)
+    target.click()
+    expected_json = json.dumps(expected, ensure_ascii=False)
+    page.wait_for_function(f"""() => {{
+      const expected={expected_json};
+      const image=document.querySelector('.cnn-workbench__photo .cnn-workbench__frame img');
+      const thumb=document.querySelector(`[data-action="cnn-image"][data-image-id="${{expected.id}}"]`);
+      return image?.getAttribute('src')?.endsWith(expected.src) && thumb?.getAttribute('aria-pressed') === 'true';
+    }}""")
+    main = page.locator('.cnn-workbench__photo .cnn-workbench__frame img')
+    assert main.get_attribute('src').endswith(expected['src']), (main.get_attribute('src'), expected)
+    assert main.get_attribute('alt') == expected['name'], (main.get_attribute('alt'), expected)
+    assert page.locator('.cnn-workbench__results article').count() == cards_before == 3
+    assert page.evaluate("id => document.activeElement?.dataset.imageId === id", image_id)
+    # The guide contract starts after the independent thumbnail transition.
+    page.evaluate("""() => { window.__guideSurface = {
+      workbench: document.querySelector('.cnn-workbench'), editor: document.querySelector('.architecture-editor'),
+      photo: document.querySelector('[data-action="cnn-image"]'), tail: document.querySelector('[data-architecture-tail]'), scrollY
+    }; }""")
+    click_action(page, "guide-add-convolution", require_visible_frame=True)
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'compare'")
     assert page.evaluate("galaxyGame.model.state.architecture") == "d2-r"
     assert page.evaluate("galaxyGame.model.state.current") is None
-    click_action(page, "run")
+    click_action(page, "run", require_visible_frame=True)
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
-    assert "сравн" in page.locator(".cnn-guide").inner_text().lower()
-    click_action(page, "guide-confirm-compare")
+    assert "сравн" in page.locator(".cnn-workbench").inner_text().lower()
+    click_action(page, "guide-confirm-compare", require_visible_frame=True)
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
+    assert page.evaluate("""() => {
+      const before=window.__guideSurface;
+      return before.workbench===document.querySelector('.cnn-workbench') && before.editor===document.querySelector('.architecture-editor') &&
+        before.photo===document.querySelector('[data-action="cnn-image"]') && before.tail===document.querySelector('[data-architecture-tail]') && Math.abs(before.scrollY-scrollY)<2;
+    }"""), "guide transition replaced workbench/photo/editor/tail or scrolled the page"
 
 
 def keyboard_baseline(page, zoom=None):
@@ -243,7 +280,7 @@ def keyboard_baseline(page, zoom=None):
             enter_action(page, "next")
     enter_action(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
-    enter_action(page, "guide-open"); enter_action(page, "guide-next"); enter_action(page, "guide-add-convolution")
+    enter_action(page, "guide-add-convolution")
     enter_action(page, "run"); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
     enter_action(page, "guide-confirm-compare"); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
     enter_action(page, "finish")
@@ -251,10 +288,13 @@ def keyboard_baseline(page, zoom=None):
 
 
 def zoom_150(page):
-    keyboard_baseline(page, zoom=1.5)
+    # Browser zoom changes the CSS viewport (1280/1.5 by 720/1.5), unlike
+    # body.style.zoom which creates an artificial oversized document.
+    assert page.viewport_size == {"width": 853, "height": 480}, page.viewport_size
+    keyboard_baseline(page)
     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
     scenes = ["intro", "tutorial", "labels", "repair", "review-after-repair", "final"]
-    return {"status": "PASS", "viewport": [1280, 720], "zoom": "150%",
+    return {"status": "PASS", "viewport": [853, 480], "zoom": "150% CSS viewport",
             "scenes": scenes, "browserErrors": []}
 
 
@@ -301,7 +341,7 @@ def assert_metrics_from_predictions(page):
     matrix = [[0 for _ in classes] for _ in classes]
     for item in run["predictions"]:
         matrix[classes.index(item["expected"])][classes.index(item["predicted"])] += 1
-    shown = [int(value) for value in page.locator("details.metrics .metric-table td").all_text_contents()]
+    shown = [int(value) for value in page.locator(".modal details.metrics .metric-table td").all_text_contents()]
     assert shown == [cell for row in matrix for cell in row], (shown, matrix)
 
 
@@ -319,6 +359,10 @@ def inspect_scene(page, can_label=False):
     page.mouse.click(box['x'],box['y'])
     point = page.evaluate('galaxyGame.quest.point')
     assert abs(point['x']-.25)<.02 and abs(point['y']-.4)<.02, point
+    # Direct photo click opens zoom; the visible zoom control is a toggle.
+    assert page.locator('.quest-scene__photo-shell.is-zoomed').count()==1
+    page.locator('[data-quest="zoom"]').click()
+    assert page.locator('.quest-scene__photo-shell.is-zoomed').count()==0
     page.locator('[data-quest="zoom"]').click()
     assert page.locator('.quest-scene__photo-shell.is-zoomed').count()==1
     page.locator('[data-quest="hint"]').click()
@@ -432,11 +476,11 @@ def full_route(page, report, viewport, all_architectures=False, zoom=None):
     # configuration again; it must resolve the same prepared result rather than
     # inventing a new one.
     guide_result = page.evaluate("galaxyGame.model.state.current")
-    click_action(page, "model-settings")
-    click_action(page, "architecture-save")
+    click_action(page, "architecture-save", require_visible_frame=True)
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
     assert page.evaluate("galaxyGame.model.state.current.resultKey") == guide_result["resultKey"]
-    assert "тот же подготовленный опыт" in page.locator("body").inner_text().lower()
+    # Identity above proves the visible re-run reused the table result. The
+    # notice is transient and need not occupy the persistent workbench.
 
     # A07 — home and resume preserve the exact current state.
     before_home = page.evaluate("galaxyGame.model.serialize()")
@@ -448,16 +492,18 @@ def full_route(page, report, viewport, all_architectures=False, zoom=None):
         assert resumed["state"][key] == before_home["state"][key], key
 
     # A12 — metric disclosure presents matrix, per-class values and Macro-F1.
-    page.locator("details.metrics summary").click()
-    metrics = page.locator("details.metrics").inner_text().lower()
+    click_action(page, "metrics", require_visible_frame=True)
+    page.wait_for_selector(".modal details.metrics")
+    metrics = page.locator(".modal details.metrics").inner_text().lower()
     for term in ("precision", "recall", "macro-f1", "нулевом знаменател"):
         assert term in metrics, term
     assert_metrics_from_predictions(page)
+    page.keyboard.press("Escape")
+    assert not page.locator(".modal").count()
 
     if all_architectures:
         # A05 all configurations: interactions never set state directly.  The
         # test requires UI removal to reset a tail between configurations.
-        click_action(page, "model-settings")
         assert page.locator('[data-action="layer-remove"][data-layer="r"]').count() == 0
         for layer in ('bn', 'd'):
             page.locator(f'[data-action="layer-add"][data-layer="{layer}"]').click()
@@ -473,8 +519,6 @@ def full_route(page, report, viewport, all_architectures=False, zoom=None):
         for index, config in enumerate(configs):
             build_architecture(page, config)
             page_contract(page, config["id"])
-            if index < len(configs) - 1:
-                click_action(page, "model-settings")
 
     click_action(page, "finish")
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
@@ -516,7 +560,6 @@ def full_route(page, report, viewport, all_architectures=False, zoom=None):
         click_action(page, "labels")
         click_action(page, "run")
         page.wait_for_function("galaxyGame.model.state.phase === 'review'")
-        click_action(page, "model-settings")
         config = page.evaluate("GalaxyArchitectures.get('d1-r')")
         build_architecture(page, config)
         assert page.evaluate("galaxyGame.model.state.current.architecture") == "d1-r"
@@ -558,7 +601,6 @@ def missing_shard(page, report, entry=None):
     click_action(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
     complete_cnn_guide(page)
-    click_action(page, "model-settings")
     build = {"id": "d1-r-bn", "depth": 1, "tail": ["r", "bn"]}
     page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
     page.locator('[data-action="layer-add"][data-layer="bn"]').click()
@@ -603,7 +645,7 @@ def corrupt_shard(page, report, entry):
     page.locator(".sky-atlas__complete").click(); click_action(page, "labels"); assign_all(page, data, "labels")
     click_action(page, "run"); page.wait_for_function("galaxyGame.model.state.phase === 'review'")
     click_action(page, "repair"); assign_all(page, data, "repair"); click_action(page, "run")
-    page.wait_for_function("galaxyGame.model.state.phase === 'review'"); complete_cnn_guide(page); click_action(page, "model-settings")
+    page.wait_for_function("galaxyGame.model.state.phase === 'review'"); complete_cnn_guide(page)
     page.locator('[data-action="architecture-depth"][data-depth="1"]').click(); page.locator('[data-action="layer-add"][data-layer="bn"]').click(); page.locator('[data-action="architecture-save"]').click()
     page.wait_for_selector(".modal")
     assert "не удалось" in page.locator(".modal").inner_text().lower()
@@ -632,8 +674,8 @@ def main():
         context = browser.new_context(viewport={"width": 1280, "height": 720}, reduced_motion="reduce")
         report.check("V06 keyboard-only baseline route", "1280x720", lambda: keyboard_baseline(context.new_page()))
         context.close()
-        context = browser.new_context(viewport={"width": 1280, "height": 720}, reduced_motion="reduce")
-        report.check("V06 150% zoom entry accessibility", "1280x720", lambda: zoom_150(context.new_page()))
+        context = browser.new_context(viewport={"width": 853, "height": 480}, reduced_motion="reduce")
+        report.check("V06 150% zoom entry accessibility", "853x480 CSS viewport", lambda: zoom_150(context.new_page()))
         context.close()
         if baseline and not ready:
             for viewport in VIEWPORTS:
@@ -661,7 +703,7 @@ def main():
     report_path = EVIDENCE / "complete-browser.json"
     EVIDENCE.mkdir(parents=True, exist_ok=True)
     complete = not any(item["status"] != "PASS" for item in report.items)
-    runtime = ['index.html', 'game.js', 'galaxy.css', 'cnn-session.js', 'cnn-architectures.js', 'cnn-results-loader.js', 'metrics.js', 'telemetry.js', 'quest-scene.js', 'sky.js']
+    runtime = ['index.html', 'game.js', 'galaxy.css', 'cnn-session.js', 'cnn-architectures.js', 'cnn-results-loader.js', 'metrics.js', 'telemetry.js', 'quest-scene.js', 'quest-scene.css', 'cnn-guide.js', 'cnn-guide.css', 'world.js', 'sky.js']
     source_hashes = {name: hashlib.sha256((HERE / name).read_bytes()).hexdigest() for name in runtime}
     report_path.write_text(json.dumps({"status": "PASS" if complete else "INCOMPLETE" if not any(item["status"] == "FAIL" for item in report.items) else "FAIL", "versionSource": (HERE / 'version.js').read_text().strip(), "runtimeSha256": source_hashes, "checks": report.items}, ensure_ascii=False, indent=2) + "\n")
     print(report_path.read_text())

@@ -1,7 +1,7 @@
 # Публикация «Ночи открытий»
 
-Текущая версия: `2026.10.09-night.2`. Предыдущий выпуск указан ниже.
-Финальный образ игры и отчётов: `sd2026-public:galaxy-20261009-night-3`.
+Кандидат: `2026.10.09-night.3`; опубликована `2026.10.09-night.1`.
+Следующий образ игры и отчётов: `sd2026-public:galaxy-20261009-night-4`.
 Идентификатор образа, исходный коммит и последняя проверка публичного HTTPS
 сохранены в [night-publication.json](night-publication.json).
 
@@ -40,7 +40,7 @@ SQLite, срок хранения 30 дней и локальную админи
 
 ```bash
 docker build --builder default --pull=false -t sd2026-telemetry:complete-20261008-1 tools/galaxy-telemetry
-tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-3
+tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-4
 ```
 
 Базовый образ `sd2026-public:scenario-comments` закреплён точным SHA-256 в
@@ -51,7 +51,7 @@ tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-3
 ## Переключение и приёмка
 
 ```bash
-tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-3
+tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-4
 ```
 
 Команда создаёт отдельный каталог БД телеметрии, запускает её контейнер и
@@ -69,8 +69,8 @@ tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-3
 снятого до публикации; содержание чужих комментариев в отчёт не включается.
 
 ```bash
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base http://192.168.50.12:8080 --preservation /tmp/science-day-night-preservation.json --evidence docs/design-2026-10-09/evidence/published-upstream.json
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base https://sd2026.beetles.family --ssh-host superduper --preservation /tmp/science-day-night-preservation.json --evidence docs/design-2026-10-09/evidence/published-https.json
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base http://192.168.50.12:8080 --preservation /tmp/science-day-story-preservation.json --evidence docs/design-2026-10-09/evidence/recompose-published-upstream.json
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base https://sd2026.beetles.family --ssh-host superduper --preservation /tmp/science-day-story-preservation.json --evidence docs/design-2026-10-09/evidence/recompose-published-https.json
 ```
 
 HTTPS проверяется с обычной проверкой сертификата через временный SSH SOCKS

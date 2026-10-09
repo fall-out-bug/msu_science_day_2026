@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "case": "correction_without_prediction_change",
+      "status": "PASS",
+      "keys": [
+        "0121100",
+        "0121000"
+      ],
+      "review": [
+        1,
+        1
+      ],
+      "comparison": "Архитектура та же; изменены метки обучающих снимков. Предсказания не изменились. Число правильных ответов не изменилось: 1 из 3."
+    },
+    {
+      "case": "architecture_degrades",
+      "status": "PASS",
+      "key": "0001110",
+      "architectures": [
+        "d1-r",
+        "d1-r-bn"
+      ],
+      "review": [
+        1,
+        0
+      ],
+      "comparison": "Метки те же; изменена архитектура. Изменилось ответов: 2 из 3. Правильных ответов стало меньше: 1 → 0."
+    },
+    {
+      "case": "architectures_keep_predictions",
+      "status": "PASS",
+      "key": "0121021",
+      "architectures": [
+        "d1-r-d",
+        "d1-d-r"
+      ],
+      "review": [
+        2,
+        2
+      ],
+      "comparison": "Метки те же; изменена архитектура. Предсказания не изменились. Число правильных ответов не изменилось: 2 из 3."
+    },
+    {
+      "case": "final_has_error",
+      "status": "PASS",
+      "key": "0121021",
+      "architecture": "d1-bn-r-d",
+      "final": 2,
+      "errorImage": "final_ngc2768"
+    }
+  ],
+  "failures": []
+}

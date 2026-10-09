@@ -25,6 +25,7 @@
     modal = null,
     modalTrigger = null,
     sky = null;
+  let cnnImageId = null, cnnImageRequest = 0;
   let running = false, restoredJourney = null, lastScreen = null, restoreWarning = null;
   const telemetryMeta = {gameVersion: GALAXY_BUILD_VERSION, protocolVersion: model.protocol.protocolVersion};
   function eventRecord(type, detail = {}) { try { GalaxyTelemetry.record(type, detail); } catch (_) {} }
@@ -100,7 +101,7 @@
       model.state.resumePhase !== "tutorial" ||
       found.size ||
       model.state.baseline;
-    return `<section class="room">${nav()}<div class="welcome"><h1 tabindex="-1">Ночь открытий<span>Приключение в обсерватории</span></h1>${mentor(resumed ? "Снимки и твои метки остались на столе. Продолжим?" : "Привет, я Ника! Сегодня мы исследуем галактики вместе с искусственным интеллектом. Соберём архивные снимки, научим модель различать их и проверим, чему она научилась.", "warm", true)}<button class="primary" data-action="${resumed ? "resume" : "start-route"}">${resumed ? "Продолжить работу" : "Помочь Нике"} <span>→</span></button>${resumed ? '<button class="secondary" data-action="reset">Новая смена</button>' : ""}</div></section>`;
+    return `<section class="room opening-room">${nav()}<h1 class="opening-title" tabindex="-1">Ночь открытий<span>Приключение в обсерватории</span></h1><div class="opening-speech">${mentor(resumed ? "Снимки и твои метки остались на столе. Продолжим?" : "Привет, я Ника! Поможешь мне научить модель различать галактики? Начнём за компьютером.", "warm", true)}</div><div class="opening-computer"><button class="primary" data-action="${resumed ? "resume" : "start-route"}">${resumed ? "Продолжить" : "Помочь Нике"}</button>${resumed ? '<button class="secondary" data-action="reset">Новая смена</button>' : ""}</div></section>`;
   }
   function story() {
     const ready = found.size === data.childIds.length,
@@ -115,15 +116,15 @@
     </article></section>`;
   }
   function station(title, kicker, phase, body, footer = "") {
-    return `<section class="workbench${body.includes('id="quest-scene"') ? " workbench--quest" : ""}">${nav()}${progress(phase)}<div class="station"><div class="station-head"><div><span class="eyebrow">${kicker}</span><h1 tabindex="-1">${title}</h1></div></div>${body}${footer}</div></section>`;
+    return `<section class="workbench${body.includes('id="quest-scene"') ? " workbench--quest" : body.includes('class="cnn-workbench') ? " workbench--cnn" : ""}">${nav()}${progress(phase)}<div class="station"><div class="station-head"><div><span class="eyebrow">${kicker}</span><h1 tabindex="-1">${title}</h1></div></div>${body}${footer}</div></section>`;
   }
   function tutorial() {
     const image = byId[data.tutorialId];
     return station(
-      "Как ИИ помогает астрономам?",
-      "РАЗБИРАЕМ ПРИМЕР ВМЕСТЕ",
+      "Разберём один снимок",
+      "ПРОБУЕМ РАЗМЕТКУ",
       "tutorial",
-      `<p class="tutorial-next"><b>Класс</b> — категория снимков с общими признаками. <b>Метка класса</b> указывает, к какому классу мы отнесли снимок. <b>Разметка</b> — назначение таких меток. Попробуем на одном примере.</p><div id="quest-scene" data-image-id="${image.id}"></div><div class="navigation tutorial-navigation"><button class="secondary" data-action="zoom" data-image-id="${image.id}">Открыть снимок</button><button class="primary" data-action="labels">Перейти к разметке →</button></div><details class="credits"><summary>Источник снимка</summary>${source(image)}</details>`,
+      `<div id="quest-scene" data-image-id="${image.id}"></div><div class="navigation tutorial-navigation"><button class="secondary" data-action="zoom" data-image-id="${image.id}">Открыть снимок</button><button class="primary" data-action="labels">Перейти к разметке →</button></div><details class="credits"><summary>Источник снимка</summary>${source(image)}</details>`,
     );
   }
   function labels() {
@@ -135,7 +136,7 @@
       "Разметим учебные примеры",
       "РАЗМЕЧАЕМ · " + (cardIndex + 1) + " ИЗ " + ids.length,
       "labels",
-      `${programBar()}<p class="learning-note"><b>Обучающая выборка</b> — снимки с метками, на которых учится модель. При <b>обучении</b> она подбирает параметры по этим примерам. Затем выдаёт <b>предсказания</b> — предполагаемые классы других снимков. Проверочная выборка не участвует в обучении.</p><div id="quest-scene" data-image-id="${image.id}"></div><div class="film-footer">${samples(ids)}<div class="navigation"><button class="secondary" data-action="previous" ${cardIndex === 0 ? "disabled" : ""}>←</button><button class="secondary" data-action="next" ${cardIndex === ids.length - 1 ? "disabled" : ""}>Следующий →</button><button class="primary" data-action="run" ${missing ? "disabled" : ""}>${missing ? "Поставь все метки" : "Проверить на других снимках"} →</button></div></div><details class="credits"><summary>О метках</summary>${source(image)}<p>Снимки с метками составляют обучающую выборку — примеры, на которых учится модель. Для всех вариантов меток обучение выполнено заранее; здесь открывается соответствующий результат.</p></details>`,
+      `${programBar()}<div id="quest-scene" data-image-id="${image.id}"></div><div class="film-footer">${samples(ids)}<div class="navigation"><button class="secondary" data-action="previous" ${cardIndex === 0 ? "disabled" : ""}>←</button><button class="secondary" data-action="next" ${cardIndex === ids.length - 1 ? "disabled" : ""}>Следующий →</button><button class="primary" data-action="run" ${missing ? "disabled" : ""}>${missing ? "Поставь все метки" : "Проверить на других снимках"} →</button></div></div><details class="credits"><summary>О метках</summary>${source(image)}<p>Снимки с метками составляют обучающую выборку — примеры, на которых учится модель. Для всех вариантов меток обучение выполнено заранее; здесь открывается соответствующий результат.</p></details>`,
     );
   }
   function samples(ids) {
@@ -162,29 +163,57 @@
     d: ['Dropout', 'Dropout при обучении случайно обнуляет 20% значений и увеличивает оставшиеся в 1 / 0,8 раза. При проверке Dropout не изменяет значения. Его добавление не гарантирует улучшения результата.'],
   };
   function architectureEditor(state) {
-    const selected = architectureById(state.architecture);
-    if (!selected) throw new Error('Не удалось открыть схему модели.');
-    const lastRun = state.current || state.architectureBaseline;
-    const names = {r:'ReLU',bn:'BatchNorm',d:'Dropout'};
-    const chips = selected.tail.map((layer, index) => `<li draggable="true" tabindex="0" data-layer-index="${index}" data-layer="${layer}" aria-label="${names[layer]}, слой ${index + 1}. Alt и стрелки меняют порядок."><b>${names[layer]}</b><button class="text-button" data-action="layer-info" data-layer="${layer}" aria-label="Как работает ${names[layer]}">О слое</button><div><button class="text-button" data-action="layer-earlier" data-layer-index="${index}" aria-label="${names[layer]}: раньше" ${index ? '' : 'disabled'}>← Раньше</button><button class="text-button" data-action="layer-later" data-layer-index="${index}" aria-label="${names[layer]}: позже" ${index < selected.tail.length - 1 ? '' : 'disabled'}>Позже →</button>${layer !== 'r' ? `<button class="text-button" data-action="layer-remove" data-layer="${layer}" aria-label="Удалить ${names[layer]}">Удалить</button>` : '<small>Обязательный слой</small>'}</div></li>`).join('');
-    return station('Исследуем архитектуру', 'КОНСТРУКТОР CNN', 'review', `${programBar()}<section class="cnn-model architecture-editor"><p><b>Ника:</b> архитектура — устройство нейронной сети. Добавляй слои и меняй их порядок, затем сравни ответы на тех же снимках.</p><div class="architecture-depth"><span>Свёрточных слоёв:</span>${[1,2].map(depth => `<button data-action="architecture-depth" data-depth="${depth}" aria-pressed="${selected.depth === depth}" class="${selected.depth === depth ? 'selected' : ''}">${depth}</button>`).join('')}</div><div class="architecture-tail" aria-label="Схема нейронной сети"><div class="architecture-fixed">Снимок <small>32 × 32 · оттенки серого</small> → ${selected.depth === 2 ? '<b>Свёртка → ReLU →</b> ' : ''}<b>Свёртка</b> →</div><ol data-architecture-tail aria-label="Изменяемая часть схемы">${chips}</ol><div class="architecture-fixed">→ Глобальное усреднение → Линейный слой → Softmax → Класс</div></div><p class="architecture-layer-hints"><b>BatchNorm</b> нормализует значения в слое. <b>Dropout</b> случайно обнуляет часть значений при обучении. Оба слоя можно добавить ниже; объяснение каждого доступно по кнопке «О слое».</p><div class="architecture-add"><button data-action="layer-add" data-layer="bn" ${selected.tail.includes('bn') ? 'disabled' : ''}>Добавить BatchNorm</button><button data-action="layer-add" data-layer="d" ${selected.tail.includes('d') ? 'disabled' : ''}>Добавить Dropout</button></div><p class="architecture-current" aria-live="polite">Выбрана: <b>${esc(selected.label)}</b>. Для этой схемы есть рассчитанный опыт.</p>${lastRun ? `<p class="architecture-previous">Последняя проверка: <b>${esc(architectureLabel(lastRun.architecture))}</b> — ${lastRun.result.review.correct} из ${lastRun.result.review.total} ответов совпали со справочными метками.</p>` : ""}<button class="primary" data-action="architecture-save" data-architecture="${esc(selected.id)}">Сохранить и проверить →</button><details class="credits"><summary>Как работают слои и какие схемы доступны</summary><p>Свёрточный слой обрабатывает участки изображения обучаемыми фильтрами. Каждый фильтр создаёт карту признаков — таблицу чисел, расположенных как участки снимка.</p>${Object.values(layerNotes).map(([name, explanation]) => `<p>${esc(explanation)}</p>`).join('')}<p>Глобальное усреднение вычисляет среднее по каждой карте признаков. Линейный слой получает оценки классов, а softmax преобразует их в числа от 0 до 1 с суммой 1. Выбирается класс с наибольшим числом. Это число не гарантирует правильность ответа.</p><p>Доступны 22 схемы: одна или две свёртки; после последней — обязательная ReLU, до одного BatchNorm и до одного Dropout в любом порядке. При двух свёртках после первой всегда стоит ReLU. Остальная часть сети фиксирована. Добавить второй одинаковый слой или удалить обязательную ReLU нельзя. Допустимый порядок слоёв не обещает улучшения результата.</p></details></section>`);
+    return station('Как сеть различает галактики', 'СНИМОК → СЕТЬ → ПРЕДСКАЗАНИЕ', 'review',
+      GalaxyCNNGuide.render(state, {data, byId, activeImageId: cnnImageId}));
   }
-  function updateArchitectureView() {
-    // Keep the station and surviving layer controls mounted while editing.
-    const template = document.createElement('template');
-    template.innerHTML = architectureEditor(model.state);
-    const fresh = template.content.querySelector('.architecture-editor');
-    const editor = root.querySelector('.architecture-editor');
+  function updateArchitectureView(prepared = null, decodedPhoto = null) {
+    const nextSurface = prepared || document.createElement('div');
+    if (!prepared) nextSurface.innerHTML = architectureEditor(model.state);
+    const fresh = nextSurface.querySelector('.cnn-workbench');
+    if (decodedPhoto) {
+      const nextImage = fresh.querySelector('.cnn-workbench__frame img');
+      decodedPhoto.alt = nextImage.alt;
+      nextImage.replaceWith(decodedPhoto);
+    }
+    const workspace = root.querySelector('.cnn-workbench');
+    const editor = workspace.querySelector('.architecture-editor');
+    const nextEditor = fresh.querySelector('.architecture-editor');
+    workspace.className = fresh.className;
+    for (const [key, value] of Object.entries(fresh.dataset)) workspace.dataset[key] = value;
+    editor.className = nextEditor.className;
+    for (const [key, value] of Object.entries(nextEditor.dataset)) editor.dataset[key] = value;
+    // Reuse photographs and portraits when their surrounding explanation changes.
+    function syncRegion(current, next) {
+      if (!current || !next || current.innerHTML === next.innerHTML) return;
+      const images = [...current.querySelectorAll('img')];
+      for (const img of next.querySelectorAll('img')) {
+        const old = images.find(item => item.getAttribute('src') === img.getAttribute('src'));
+        if (old) {
+          images.splice(images.indexOf(old), 1);
+          for (const attribute of [...old.attributes]) {
+            if (!img.hasAttribute(attribute.name)) old.removeAttribute(attribute.name);
+          }
+          for (const attribute of img.attributes) {
+            if (old.getAttribute(attribute.name) !== attribute.value) old.setAttribute(attribute.name, attribute.value);
+          }
+          img.replaceWith(old);
+        }
+      }
+      const openDetails = new Set([...current.querySelectorAll('details[open]')].map(item => item.querySelector('summary')?.textContent));
+      for (const details of next.querySelectorAll('details')) {
+        if (openDetails.has(details.querySelector('summary')?.textContent)) details.open = true;
+      }
+      current.replaceChildren(...next.childNodes);
+    }
     for (const button of editor.querySelectorAll('[data-action="architecture-depth"]')) {
-      const next = fresh.querySelector(`[data-action="architecture-depth"][data-depth="${button.dataset.depth}"]`);
+      const next = nextEditor.querySelector(`[data-action="architecture-depth"][data-depth="${button.dataset.depth}"]`);
       button.className = next.className;
+      button.disabled = next.disabled;
       button.setAttribute('aria-pressed', next.getAttribute('aria-pressed'));
     }
-    const fixed = editor.querySelector('.architecture-fixed');
-    const nextFixed = fresh.querySelector('.architecture-fixed');
-    if (fixed.innerHTML !== nextFixed.innerHTML) fixed.innerHTML = nextFixed.innerHTML;
+    syncRegion(editor.querySelector('.architecture-fixed'), nextEditor.querySelector('.architecture-fixed'));
     const list = editor.querySelector('[data-architecture-tail]');
-    const nextList = fresh.querySelector('[data-architecture-tail]');
+    const nextList = nextEditor.querySelector('[data-architecture-tail]');
     for (const item of [...list.children]) {
       if (!nextList.querySelector(`[data-layer="${item.dataset.layer}"]`)) item.remove();
     }
@@ -194,6 +223,8 @@
       else {
         item.dataset.layerIndex = next.dataset.layerIndex;
         item.setAttribute('aria-label', next.getAttribute('aria-label'));
+        item.draggable = next.draggable;
+        item.tabIndex = next.tabIndex;
         for (const button of item.querySelectorAll('button')) {
           const nextButton = next.querySelector(`[data-action="${button.dataset.action}"]`);
           button.disabled = nextButton.disabled;
@@ -204,10 +235,31 @@
       if (list.children[index] !== item) list.insertBefore(item, list.children[index] || null);
     }
     for (const button of editor.querySelectorAll('[data-action="layer-add"]')) {
-      button.disabled = fresh.querySelector(`[data-action="layer-add"][data-layer="${button.dataset.layer}"]`).disabled;
+      button.disabled = nextEditor.querySelector(`[data-action="layer-add"][data-layer="${button.dataset.layer}"]`).disabled;
     }
-    editor.querySelector('.architecture-current').innerHTML = fresh.querySelector('.architecture-current').innerHTML;
-    editor.querySelector('[data-action="architecture-save"]').dataset.architecture = model.state.architecture;
+    syncRegion(editor.querySelector('.architecture-current'), nextEditor.querySelector('.architecture-current'));
+    const guideAction = editor.querySelector('[data-action="guide-add-convolution"]');
+    if (guideAction && !nextEditor.querySelector('[data-action="guide-add-convolution"]')) guideAction.remove();
+    for (const region of workspace.querySelectorAll('[data-cnn-region]:not(.architecture-editor)')) {
+      if (region.dataset.cnnRegion === 'photo') {
+        const next = fresh.querySelector('[data-cnn-region="photo"]');
+        const oldImage = region.querySelector('.cnn-workbench__frame img');
+        const nextImage = next.querySelector('.cnn-workbench__frame img');
+        if (oldImage.getAttribute('src') !== nextImage.getAttribute('src')) oldImage.replaceWith(nextImage);
+        else oldImage.alt = nextImage.alt;
+        syncRegion(region.querySelector('figcaption'), next.querySelector('figcaption'));
+        const open = region.querySelector('.cnn-workbench__open'), nextOpen = next.querySelector('.cnn-workbench__open');
+        open.dataset.imageId = nextOpen.dataset.imageId;
+        open.setAttribute('aria-label', nextOpen.getAttribute('aria-label'));
+        for (const button of region.querySelectorAll('[data-action="cnn-image"]')) {
+          const nextButton = next.querySelector(`[data-image-id="${button.dataset.imageId}"][data-action="cnn-image"]`);
+          button.className = nextButton.className;
+          button.setAttribute('aria-pressed', nextButton.getAttribute('aria-pressed'));
+        }
+        continue;
+      }
+      syncRegion(region, fresh.querySelector(`[data-cnn-region="${region.dataset.cnnRegion}"]`));
+    }
     persist();
   }
   function selectArchitecture(depth, tail) {
@@ -232,18 +284,10 @@
       baseline = state.baseline,
       corrected = state.correctedReview;
     const checked = state.repairCheckedLabelKey === state.labelKey && Boolean(state.labelKey);
-    const guided = checked && state.cnnGuide !== 'complete';
-    const guide = guided ? GalaxyCNNGuide.render(state) : '';
-    if (guided && ['goal','change','compare'].includes(state.cnnGuide)) {
-      return station('Как устроена нейронная сеть', 'ОПЫТ С ГОТОВОЙ CNN', 'review', guide);
-    }
-    if (state.modelSettings) return architectureEditor(state);
-    if (!state.current) return architectureEditor(state);
+    if (checked || state.modelSettings || !state.current) return architectureEditor(state);
     const run = state.current.result;
     const remaining = run.review.total - run.review.correct;
-    const nextStep = guided ? (state.cnnGuide === 'intro' ? guide : '') : checked
-      ? `<section class="review-next" aria-label="Следующий шаг"><h2>${remaining ? 'Метки проверены. Почему модель ещё ошибается?' : 'Метки проверены. Продолжим опыт'}</h2><p>${remaining ? `Не совпало ответов: ${remaining} из ${run.review.total}. Даже верные метки не гарантируют правильный ответ: у сети всего девять учебных снимков. Не нужно менять верные метки ради счёта.` : 'Ответы совпали на этих снимках. Это ещё не означает, что модель справится с другими галактиками.'} Можно перейти к итоговой выборке или продолжить опыты в конструкторе.</p><div class="navigation"><button class="secondary" data-action="model-settings">Исследовать архитектуру →</button><button class="primary" data-action="finish">К итоговым снимкам →</button></div></section>`
-      : `<section class="review-next" aria-label="Следующий шаг"><p>Сначала проверим старые метки в обучающей выборке: ошибки в них могут повлиять на ответы модели.</p><button class="primary" data-action="repair">Проверить старые метки →</button></section>`;
+    const nextStep = `<section class="review-next" aria-label="Следующий шаг"><p>Сначала проверим старые метки в обучающей выборке: ошибки в них могут повлиять на ответы модели.</p><button class="primary" data-action="repair">Проверить старые метки →</button></section>`;
     const previous = state.architectureBaseline?.labelKey === state.current.labelKey
       ? state.architectureBaseline : corrected && baseline ? baseline : null;
     let compare = '';
@@ -265,7 +309,7 @@
       "Проверим ответы модели",
       "ОБУЧЕНИЕ И ПРОВЕРКА",
       "review",
-      `${programBar()}<div class="score-strip"><span>На проверочной выборке верно классифицировано <b>${run.review.correct}<small> / ${run.review.total}</small></b></span><p>Это результат модели, а не оценка тебе.<br>Архитектура: ${esc(architectureLabel(state.architecture))}.<br>Обучение выполнено заранее для твоих меток.</p></div>${state.notice ? `<p class="callout">${esc(state.notice)}</p>` : ""}${compare}${nextStep}<div class="result-grid">${run.review.predictions.map(prediction => resultCard(prediction, previous?.result.review.predictions.find(item => item.id === prediction.id))).join("")}</div>${state.cnnGuide === "observe" ? guide : ""}${metricDetails(run)}<div class="navigation result-nav"><button class="secondary" data-action="labels">← Разметить снимки</button><div><button class="secondary" data-action="repair">Вернуться к старым меткам</button></div></div>`,
+      `${programBar()}<div class="score-strip"><span>На проверочной выборке верно классифицировано <b>${run.review.correct}<small> / ${run.review.total}</small></b></span><p>Это результат модели, а не оценка тебе.<br>Архитектура: ${esc(architectureLabel(state.architecture))}.<br>Обучение выполнено заранее для твоих меток.</p></div>${state.notice ? `<p class="callout">${esc(state.notice)}</p>` : ""}${compare}${nextStep}<div class="result-grid">${run.review.predictions.map(prediction => resultCard(prediction, previous?.result.review.predictions.find(item => item.id === prediction.id))).join("")}</div>${metricDetails(run)}<div class="navigation result-nav"><button class="secondary" data-action="labels">← Разметить снимки</button><div><button class="secondary" data-action="repair">Вернуться к старым меткам</button></div></div>`,
     );
   }
   function repair() {
@@ -422,15 +466,15 @@
             : null,
         opening:
           phase === "tutorial"
-            ? "У телескопов много готовых архивных снимков. Люди дают модели примеры с метками. Посмотрим один вместе."
+            ? "Класс — категория снимков с общими признаками. Метка класса указывает, к какому классу мы отнесли снимок. Разметка — назначение таких меток. Попробуем на одном примере: выбери класс по форме галактики."
             : phase === "repair"
               ? "В старой выборке тоже могут быть ошибки. Проверь подпись по снимку, затем повторим опыт."
-              : "Выбери метку класса. Обучение для твоих меток рассчитано заранее; проверим модель на трёх других снимках.",
+              : "Обучающая выборка — снимки с метками, на которых учится модель. При обучении она подбирает параметры по этим примерам. Предсказания — предполагаемые классы других снимков. Проверочная выборка не участвует в обучении. Выбери метку этого снимка.",
         onLabel: (value) => choose(image.id, value),
       });
     }
     persist();
-    const screen = journey === 'story' ? 'story' : phase === 'intro' ? 'intro' : (model.state.modelSettings || !['intro','complete'].includes(model.state.cnnGuide)) ? 'model' : phase;
+    const screen = journey === 'story' ? 'story' : phase === 'review' && root.querySelector('.cnn-workbench') ? 'model' : phase;
     if (screen !== lastScreen) { eventRecord('phase_entered', {phase:screen}); lastScreen = screen; }
     globalThis.galaxyGame = {
       model,
@@ -472,7 +516,8 @@
       if (type === 'RESET') { GalaxyTelemetry.reset(telemetryMeta); lastScreen = null; restoreWarning = null; }
       if (type === 'RESUME') journey = current.phase === 'final' ? 'free' : 'work';
       if (type === "LABELS" || type === "REPAIR") cardIndex = 0;
-      if (type === 'SET_ARCHITECTURE' && root.querySelector('.architecture-editor')) updateArchitectureView();
+      const sameWorkspace = root.querySelector('.cnn-workbench') && ['SET_ARCHITECTURE','GUIDE_ADD_CONVOLUTION','GUIDE_CONFIRM_COMPARE','MODEL_SETTINGS','RUN'].includes(type);
+      if (sameWorkspace && type !== 'RUN') updateArchitectureView();
       else if (type === 'RUN' || type === 'FINISH') {
         // Decode the actual next image nodes before swapping surfaces. Recreating
         // even a cached <img> can otherwise leave one empty animation frame.
@@ -482,7 +527,10 @@
         catch (_) { throw new Error('Не удалось загрузить снимок. Повтори действие; для автономной игры распакуй архив целиком.'); }
         const fragment = document.createDocumentFragment();
         fragment.append(...nextSurface.childNodes);
-        render(fragment);
+        if (sameWorkspace) {
+          const next = document.createElement('div'); next.append(fragment);
+          updateArchitectureView(next);
+        } else render(fragment);
       } else render();
       if (type === 'RUN') {
         eventRecord('run_opened', {experimentKey:current.labelKey, architecture:current.architecture, scope:'review'});
@@ -491,7 +539,10 @@
       if (type === 'FINISH') { eventRecord('final_opened'); eventRecord('result_opened',{scope:'final',correct:current.current.result.final.correct,total:current.current.result.final.total}); }
       root.inert = Boolean(modal || sky);
       chime();
-      if (!["SET_LABEL", "SET_ARCHITECTURE"].includes(type)) {
+      if (sameWorkspace) {
+        const action = root.querySelector('[data-cnn-region="actions"] .primary:not(:disabled)');
+        if (!["SET_ARCHITECTURE", "MODEL_SETTINGS"].includes(type)) action?.focus({preventScroll:true});
+      } else if (!["SET_LABEL", "SET_ARCHITECTURE"].includes(type)) {
         window.scrollTo({ top: 0, behavior: "instant" });
         focusHeading();
       }
@@ -559,7 +610,7 @@
     }
   }
   document.addEventListener("keydown", (event) => {
-    if (!modal && model.state.phase === "review" && model.state.modelSettings && event.target.matches?.("[data-layer-index]") && (event.altKey || event.ctrlKey) && ["ArrowLeft", "ArrowRight"].includes(event.key)) {
+    if (!modal && model.state.phase === "review" && model.state.cnnGuide === "complete" && event.target.matches?.("[data-layer-index]") && (event.altKey || event.ctrlKey) && ["ArrowLeft", "ArrowRight"].includes(event.key)) {
       event.preventDefault();
       const current = architectureById(model.state.architecture), index = Number(event.target.dataset.layerIndex), shift = event.key === "ArrowLeft" ? -1 : 1;
       if (current && index + shift >= 0 && index + shift < current.tail.length) {
@@ -615,7 +666,7 @@
     if (!target || !current || !Number.isInteger(from) || !Number.isInteger(to) || from < 0 || from >= current.tail.length || to < 0 || to >= current.tail.length || from === to) return;
     event.preventDefault(); const tail = [...current.tail], [layer] = tail.splice(from, 1); tail.splice(to, 0, layer); selectArchitecture(current.depth, tail);
   });
-  document.addEventListener("click", (event) => {
+  document.addEventListener("click", async (event) => {
     const button = event.target.closest("button");
     if (!button) return;
     const action = button.dataset.action;
@@ -725,6 +776,36 @@
       render();
       return;
     }
+    if (action === "cnn-image") {
+      const activeId = button.dataset.imageId;
+      if (!byId[activeId]) return;
+      const request = ++cnnImageRequest;
+      const image = new Image(); image.src = byId[activeId].src;
+      try { await image.decode(); } catch (_) { return; }
+      if (request !== cnnImageRequest || !button.isConnected || running || !root.querySelector('.cnn-workbench')) return;
+      cnnImageId = activeId;
+      updateArchitectureView(null, image);
+      root.querySelector(`[data-action="cnn-image"][data-image-id="${activeId}"]`)?.focus({preventScroll:true});
+      return;
+    }
+    if (action === "metrics") {
+      const run = model.state.current || model.state.architectureBaseline;
+      if (run) {
+        openModal(`<h2>Как оценивают классификацию</h2><p>Последняя проверенная схема: ${esc(architectureLabel(run.architecture))}.${model.state.current ? '' : ' Новая схема ещё не проверена.'}</p>${metricDetails(run.result)}`);
+        modal.querySelector('details.metrics').open = true;
+      }
+      return;
+    }
+    if (action === "cnn-filter") {
+      eventRecord("explanation_opened");
+      openModal(`<h2>Как работает свёртка</h2>${GalaxyCNNGuide.filterExample()}`);
+      return;
+    }
+    if (action === "cnn-layers") {
+      eventRecord("explanation_opened");
+      openModal(`<h2>От снимка к классу</h2><p>На вход сеть получает изображение 32 × 32 пикселя в оттенках серого. Свёрточный слой обрабатывает участки изображения обучаемыми фильтрами. Каждый фильтр создаёт карту признаков — таблицу чисел, расположенных как участки снимка.</p>${Object.values(layerNotes).map(([, explanation]) => `<p>${esc(explanation)}</p>`).join('')}<p>Глобальное усреднение вычисляет среднее по каждой карте признаков. Линейный слой получает оценки классов, а softmax преобразует их в числа от 0 до 1 с суммой 1. Выбирается класс с наибольшим числом. Это число не гарантирует правильность ответа.</p><p>Доступны 22 схемы: одна или две свёртки; после последней свёртки — блок из обязательной ReLU и необязательных BatchNorm и Dropout. В этом блоке можно менять порядок слоёв. Каждый тип встречается не больше одного раза. При двух свёртках после первой всегда стоит ReLU. Остальная часть сети фиксирована.</p><p>Обучение для всех допустимых вариантов меток и схем выполнено заранее. Браузер открывает соответствующие результаты. Дополнительный слой и другой порядок слоёв не гарантируют улучшения.</p>`);
+      return;
+    }
     if (action === "model-settings") {
       dispatch("MODEL_SETTINGS");
       return;
@@ -781,8 +862,6 @@
       return;
     }
     const actions = {
-      "guide-open": "GUIDE_OPEN",
-      "guide-next": "GUIDE_NEXT",
       "guide-add-convolution": "GUIDE_ADD_CONVOLUTION",
       "guide-confirm-compare": "GUIDE_CONFIRM_COMPARE",
       labels: "LABELS",

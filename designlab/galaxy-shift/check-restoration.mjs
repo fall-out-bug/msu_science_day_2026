@@ -25,17 +25,16 @@ for(const id of data.childIds)act('SET_LABEL',{id,label:canonical(id)});
 act('RUN');roundtrip('review');act('REPAIR');
 act('SET_LABEL',{id:data.oldIds[0],label:lesson.state.labels[data.oldIds[0]]});roundtrip('repair');
 for(const id of data.oldIds)act('SET_LABEL',{id,label:canonical(id)});
-act('RUN');act('GUIDE_OPEN');roundtrip('review');act('GUIDE_NEXT');roundtrip('review');act('GUIDE_ADD_CONVOLUTION');roundtrip('review');act('RUN');roundtrip('review');act('GUIDE_CONFIRM_COMPARE');act('MODEL_SETTINGS');roundtrip('review');
+act('RUN');roundtrip('review');act('GUIDE_ADD_CONVOLUTION');roundtrip('review');act('RUN');roundtrip('review');act('GUIDE_CONFIRM_COMPARE');act('MODEL_SETTINGS');roundtrip('review');
 act('SET_ARCHITECTURE',{architecture:'d1-r'});roundtrip('review');assert.equal(lesson.state.current,null);
 act('SET_ARCHITECTURE',{architecture:'d1-r'});act('RUN');act('FINISH');roundtrip('final');
 act('HOME');roundtrip('final');
 // Every resumable guide stage has an explicit architecture/current contract.
 const guided=api.create(data,table), guideAct=(type,extra={})=>guided.dispatch({type,...extra});
 guideAct('START');guideAct('LABELS');for(const id of data.childIds)guideAct('SET_LABEL',{id,label:canonical(id)});guideAct('RUN');guideAct('REPAIR');for(const id of data.oldIds)guideAct('SET_LABEL',{id,label:canonical(id)});guideAct('RUN');
-guideAct('GUIDE_OPEN');
 const invalidGuide=(mutate)=>{const saved=JSON.parse(JSON.stringify(guided.serialize()));mutate(saved.state);assert.throws(()=>api.create(data,table).restore(saved));checks++;};
 invalidGuide(state=>state.architecture='d2-r');
-guideAct('GUIDE_NEXT');invalidGuide(state=>state.current=null);
+invalidGuide(state=>state.current=null);
 guideAct('GUIDE_ADD_CONVOLUTION');invalidGuide(state=>state.current={labelKey:state.baseline.labelKey,architecture:'d2-r'});
 guideAct('RUN');invalidGuide(state=>state.current=null);
 const valid=JSON.parse(JSON.stringify(lesson.serialize()));
@@ -46,13 +45,21 @@ Object.assign(legacyBeforeRepair.state, {phase:'review',resumePhase:'review',fin
 delete legacyBeforeRepair.state.cnnGuide;
 let migrated=api.create(data,table);migrated.restore(legacyBeforeRepair);migrated.dispatch({type:'RESUME'});
 assert.equal(migrated.state.cnnGuide,'intro');assert.equal(migrated.state.architecture,'d1-r');assert.equal(migrated.state.current.architecture,'d1-r');assert.equal(migrated.state.repairCheckedLabelKey,null);assert.deepEqual(Array.from(migrated.state.reviewedOldIds),[]);assert.equal(JSON.stringify(migrated.state.labels),JSON.stringify(valid.state.labels));
-migrated.dispatch({type:'REPAIR'});for(const id of data.oldIds)migrated.dispatch({type:'SET_LABEL',id,label:canonical(id)});migrated.dispatch({type:'RUN'});migrated.dispatch({type:'GUIDE_OPEN'});assert.equal(migrated.state.cnnGuide,'goal');checks++;
+migrated.dispatch({type:'REPAIR'});for(const id of data.oldIds)migrated.dispatch({type:'SET_LABEL',id,label:canonical(id)});migrated.dispatch({type:'RUN'});migrated.dispatch({type:'GUIDE_ADD_CONVOLUTION'});assert.equal(migrated.state.cnnGuide,'compare');checks++;
 // A legacy completed-repair review returns to the guide and cannot unlock a
 // free architecture merely because its saved state used d2-r.
 const legacyRepairedReview=structuredClone(valid);
 Object.assign(legacyRepairedReview.state, {phase:'review',resumePhase:'review',finalSeen:false,architecture:'d2-r',current:{labelKey:valid.state.current.labelKey,architecture:'d2-r'},modelSettings:false});
 delete legacyRepairedReview.state.cnnGuide;
 const legacyEditor=structuredClone(legacyRepairedReview);legacyEditor.state.modelSettings=true;
+// The replaced goal/change screens resume directly at the unified d1-r workbench.
+for(const stage of ['goal','change']){
+ const legacyStep=structuredClone(valid);
+ Object.assign(legacyStep.state,{phase:'review',resumePhase:'review',finalSeen:false,architecture:'d1-r',current:{labelKey:valid.state.current.labelKey,architecture:'d1-r'},modelSettings:false,cnnGuide:stage});
+ migrated=api.create(data,table);migrated.restore(legacyStep);migrated.dispatch({type:'RESUME'});
+ assert.equal(migrated.state.cnnGuide,'intro');assert.equal(migrated.state.architecture,'d1-r');assert.equal(migrated.state.current.architecture,'d1-r');assert.equal(JSON.stringify(migrated.state.labels),JSON.stringify(valid.state.labels));
+ migrated.dispatch({type:'GUIDE_ADD_CONVOLUTION'});assert.equal(migrated.state.cnnGuide,'compare');checks++;
+}
 migrated=api.create(data,table);migrated.restore(legacyRepairedReview);
 assert.equal(migrated.state.cnnGuide,'intro');assert.equal(migrated.state.architecture,'d1-r');assert.equal(migrated.state.current.architecture,'d1-r');assert.equal(migrated.state.baseline.architecture,valid.state.baseline.architecture);checks++;
 migrated=api.create(data,table);migrated.restore(legacyEditor);

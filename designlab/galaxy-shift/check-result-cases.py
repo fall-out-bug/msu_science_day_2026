@@ -5,12 +5,13 @@ import http.server
 import json
 import socketserver
 import threading
+import os
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
-EVIDENCE = HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "result-cases.json"
+EVIDENCE = Path(os.environ.get("GALAXY_RECOMPOSE_RESULT_CASES_EVIDENCE", HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "recompose-result-cases.json"))
 
 
 @contextlib.contextmanager
@@ -87,11 +88,14 @@ def repair_and_run(page, data, labels):
 
 
 def complete_guide(page, return_to_one_layer=False):
-    for action in ('guide-open', 'guide-next', 'guide-add-convolution', 'run', 'guide-confirm-compare'):
-        click(page, action)
+    page.wait_for_selector('.cnn-workbench .architecture-editor')
+    click(page, 'guide-add-convolution')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'compare'")
+    click(page, 'run')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
+    click(page, 'guide-confirm-compare')
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
     if return_to_one_layer:
-        click(page, 'model-settings')
         page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
         click(page, 'architecture-save')
         page.wait_for_function("galaxyGame.model.state.current?.architecture === 'd1-r'")
@@ -114,7 +118,7 @@ def current_key(page):
 
 
 def card_texts(page):
-    return page.locator(".result-grid .result").all_text_contents()
+    return page.locator(".cnn-workbench__results article, .result-grid .result").all_text_contents()
 
 
 def assert_cards_match(page, before, after):
@@ -124,7 +128,7 @@ def assert_cards_match(page, before, after):
     for card, old, new in zip(cards, before["review"]["predictions"], after["review"]["predictions"]):
         assert f"До: {labels[old['predicted']]}" in card, card
         assert f"После: {labels[new['predicted']]}" in card, card
-        assert f"Справочная метка: {labels[new['expected']]}" in card, card
+        assert f"Справочная: {labels[new['expected']]}" in card, card
 
 
 def no_prediction_change(page):
@@ -162,7 +166,6 @@ def architecture_degrades(page):
     before = table_run(page, key, "d1-r")
     assert key == "0001110" and before["review"]["correct"] == 1
     complete_guide(page, return_to_one_layer=True)
-    click(page, "model-settings")
     page.wait_for_selector('[data-action="layer-add"][data-layer="bn"]')
     page.locator('[data-action="layer-add"][data-layer="bn"]').click()
     assert page.locator('[data-action="architecture-save"]').get_attribute("data-architecture") == "d1-r-bn"
@@ -190,7 +193,6 @@ def architectures_keep_predictions(page):
     complete_guide(page, return_to_one_layer=True)
 
     # First checked architecture: add Dropout after the required ReLU.
-    click(page, "model-settings")
     page.locator('[data-action="layer-add"][data-layer="d"]').click()
     assert page.locator('[data-action="architecture-save"]').get_attribute("data-architecture") == "d1-r-d"
     click(page, "architecture-save")
@@ -198,7 +200,6 @@ def architectures_keep_predictions(page):
     before = table_run(page, key, "d1-r-d")
 
     # Second checked architecture: use the editor control to move Dropout before ReLU.
-    click(page, "model-settings")
     page.locator('[data-action="layer-earlier"][data-layer-index="1"]').click()
     assert page.locator('[data-action="architecture-save"]').get_attribute("data-architecture") == "d1-d-r"
     click(page, "architecture-save")
@@ -223,7 +224,6 @@ def final_has_error(page):
     repair_and_run(page, data, canonical)
     key = current_key(page)
     complete_guide(page, return_to_one_layer=True)
-    click(page, "model-settings")
     page.locator('[data-action="layer-add"][data-layer="bn"]').click()
     page.locator('[data-action="layer-earlier"][data-layer-index="1"]').click()
     page.locator('[data-action="layer-add"][data-layer="d"]').click()

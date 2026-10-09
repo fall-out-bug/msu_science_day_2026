@@ -5,12 +5,13 @@ The browser never dispatches model actions from this check.  State reads are
 assertions after a person-visible button click or keyboard label choice.
 """
 import json
+import os
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
-REPORT = HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "continuity-browser.json"
+REPORT = Path(os.environ.get("GALAXY_RECOMPOSE_CONTINUITY_EVIDENCE", HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "recompose-continuity.json"))
 URL = (HERE / "index.html").as_uri()
 
 
@@ -96,8 +97,12 @@ def confirm_old(page, data):
 
 
 def complete_guide(page):
-    for action in ('guide-open', 'guide-next', 'guide-add-convolution', 'run', 'guide-confirm-compare'):
-        click(page, action)
+    page.wait_for_selector('.cnn-workbench .architecture-editor')
+    click(page, 'guide-add-convolution')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'compare'")
+    click(page, 'run')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
+    click(page, 'guide-confirm-compare')
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
 
 
@@ -107,8 +112,7 @@ def prepare_editor(page):
     click(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
     complete_guide(page)
-    click(page, "model-settings")
-    page.wait_for_function("galaxyGame.model.state.modelSettings === true")
+    assert page.locator('.cnn-workbench .architecture-editor').is_visible()
     return data
 
 
@@ -120,6 +124,10 @@ def prepare_final(page):
     complete_guide(page)
     click(page, "finish")
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
+    # State advances before the atomic image decode/surface swap. Persisted
+    # continuity begins only once the final screen is actually visible.
+    page.wait_for_selector(".final-room")
+    page.locator("#experience-loading").wait_for(state="detached")
     return data
 
 
@@ -137,7 +145,9 @@ def home_resume(page, setup, expected_phase, expects_editor=False):
     page.wait_for_function(f"galaxyGame.model.state.phase === '{expected_phase}'")
     after = state(page)
     preserved(before, after)
-    assert after["modelSettings"] is expects_editor
+    assert not after["modelSettings"]
+    if expects_editor:
+        assert page.locator('.cnn-workbench .architecture-editor').is_visible()
 
 
 def reload_continue(page, setup, expected_phase, expects_editor=False):
@@ -150,7 +160,9 @@ def reload_continue(page, setup, expected_phase, expects_editor=False):
     page.wait_for_function(f"galaxyGame.model.state.phase === '{expected_phase}'")
     after = state(page)
     preserved(before, after)
-    assert after["modelSettings"] is expects_editor
+    assert not after["modelSettings"]
+    if expects_editor:
+        assert page.locator('.cnn-workbench .architecture-editor').is_visible()
 
 
 def partial_collection(page):
@@ -208,6 +220,9 @@ def changed_final(page):
     repaired_current = current(page)
     assert repaired["repairCheckedLabelKey"] == repaired["current"]["labelKey"], repaired
     assert repaired_current["resultKey"] == changed_current["resultKey"], (changed_current, repaired_current)
+    # The mandatory experience is already complete.  Free editing after it
+    # preserves that completion; it must not create a second mandatory guide.
+    assert repaired["cnnGuide"] == "complete", repaired
     click(page, "finish")
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
     page.locator("details.research-board summary").first.click()
@@ -218,17 +233,17 @@ def reload_guided_steps(page):
     data = prepare_repair(page)
     confirm_old(page, data)
     click(page, 'run')
-    for action in ('guide-open', 'guide-next', 'guide-add-convolution', 'run', 'guide-confirm-compare'):
+    for action, stage in (('guide-add-convolution', 'compare'), ('run', 'observe'), ('guide-confirm-compare', 'complete')):
         click(page, action)
-        if action == "run":
-            page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
+        page.wait_for_function(f"galaxyGame.model.state.cnnGuide === '{stage}'")
         before = state(page)
         page.reload(); wait_ready(page); click(page, 'resume')
         preserved(before, state(page))
         assert page.locator('.modal').count() == 0
+        assert page.locator('.cnn-workbench .architecture-editor').is_visible()
     click(page, 'finish')
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
-    return 'All five guided transitions survived reload/resume and reached final'
+    return 'All three direct guided transitions survived reload/resume and reached final'
 
 
 def main():

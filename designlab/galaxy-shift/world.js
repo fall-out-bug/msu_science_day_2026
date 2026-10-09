@@ -14,6 +14,7 @@
     const slackX=(width-w)/2,slackY=(areaHeight-h)/2;
     const x=slackX+Math.max(-Math.abs(slackX),Math.min(Math.abs(slackX),panX));
     const y=top+slackY+Math.max(-Math.abs(slackY),Math.min(Math.abs(slackY),panY));
+    if(key==='room'||key==='portrait'){for(const [name,value] of Object.entries({x,y,w,h}))document.body.style.setProperty('--room-'+name,value+'px');}
     ctx.drawImage(img,x,y,w,h);sceneBounds={key,x,y,width:w,height:h,sourceWidth:img.width,sourceHeight:img.height,mode:'contain'};
   }
   function draw(time){

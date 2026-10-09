@@ -233,24 +233,12 @@
           state = state.cnnGuide === 'complete' ? { ...state, phase: 'repair', modelSettings: false, notice: '' } : { ...state, phase: 'repair', architecture: 'd1-r', current: null, architectureBaseline: null, modelSettings: false, cnnGuide: 'intro', notice: 'После проверки меток начнём опыт с готовой сетью.' };
           break;
 
-        case 'GUIDE_OPEN':
-          requirePhase('review');
-          if (!state.repairCheckedLabelKey || state.repairCheckedLabelKey !== signature(state.labels) || state.cnnGuide !== 'intro') {
-            throw new Error('Опыт с готовой CNN сейчас недоступен.');
-          }
-          state = { ...state, cnnGuide: 'goal', modelSettings: false, notice: '' };
-          break;
-
-        case 'GUIDE_NEXT':
-          requirePhase('review');
-          if (state.cnnGuide !== 'goal') throw new Error('Сначала прочитай цель опыта.');
-          state = { ...state, cnnGuide: 'change', notice: '' };
-          break;
-
         case 'GUIDE_ADD_CONVOLUTION':
           requirePhase('review');
-          if (state.cnnGuide !== 'change' || state.architecture !== 'd1-r') {
-            throw new Error('В этом опыте меняем готовую сеть с одной свёрткой.');
+          if (!state.repairCheckedLabelKey || state.repairCheckedLabelKey !== signature(state.labels) ||
+              state.cnnGuide !== 'intro' || state.architecture !== 'd1-r' ||
+              !state.current || state.current.architecture !== 'd1-r') {
+            throw new Error('Сначала проверь старые метки и открой готовую сеть с одной свёрткой.');
           }
           state = {
             ...state, architecture: 'd2-r', architectureBaseline: state.current,
@@ -333,10 +321,15 @@
       // Older saves keep learner labels. Only an already completed final may bypass
       // the newly mandatory guide; unfinished work returns to the d1-r guide path.
       const legacyGuide = input && input.cnnGuide === undefined;
+      const legacyGuideStep = input && ['goal', 'change'].includes(input.cnnGuide) ? input.cnnGuide : null;
       const legacyEffectivePhase = input?.phase === 'intro' ? input?.resumePhase : input?.phase;
       if (legacyGuide) {
         if (legacyEffectivePhase === 'final') input.cnnGuide = 'complete';
         else { input.cnnGuide = 'intro'; input.architecture = 'd1-r'; input.current = null; input.architectureBaseline = null; input.modelSettings = false; }
+      } else if (legacyGuideStep) {
+        // Earlier guide screens had already shown the valid d1-r result.  The
+        // unified workbench starts at its direct add-convolution state.
+        input.cnnGuide = 'intro';
       }
       if (!input || !phases.includes(input.phase) || !phases.includes(input.resumePhase) ||
           input.resumePhase === 'intro' || !architectureInfo(input.architecture) ||
@@ -345,7 +338,7 @@
             !(classes.includes(input.labels[id]) || childIds.includes(id) && input.labels[id] === null)) ||
           !Array.isArray(input.reviewedOldIds) || input.reviewedOldIds.some(id => !oldIds.includes(id)) ||
           new Set(input.reviewedOldIds).size !== input.reviewedOldIds.length ||
-          typeof input.modelSettings !== 'boolean' || !['intro','goal','change','compare','observe','complete'].includes(input.cnnGuide) || typeof input.finalSeen !== 'boolean') fail();
+          typeof input.modelSettings !== 'boolean' || !['intro','compare','observe','complete'].includes(input.cnnGuide) || typeof input.finalSeen !== 'boolean') fail();
       const key = signature(input.labels);
       // A legacy reviewed shift resumes at the visible d1-r guide, with the same
       // labels and a table-resolved ready run instead of an empty editor.
@@ -370,7 +363,9 @@
       if (effectivePhase === 'final' && (!current || input.repairCheckedLabelKey !== key || !input.finalSeen)) fail();
       if (input.modelSettings && (effectivePhase !== 'review' || input.repairCheckedLabelKey !== key || input.cnnGuide !== 'complete')) fail();
       if (!['intro','complete'].includes(input.cnnGuide) && effectivePhase !== 'review') fail();
-      if (['goal','change'].includes(input.cnnGuide) && (input.architecture !== 'd1-r' || !current || current.architecture !== 'd1-r')) fail();
+      if (legacyGuideStep && (effectivePhase !== 'review' || input.architecture !== 'd1-r' || !current || current.architecture !== 'd1-r')) fail();
+      if (input.cnnGuide === 'intro' && effectivePhase === 'review' && input.repairCheckedLabelKey === key &&
+          (input.architecture !== 'd1-r' || !current || current.architecture !== 'd1-r')) fail();
       if (['compare','observe'].includes(input.cnnGuide) && (input.architecture !== 'd2-r' || (input.cnnGuide === 'compare' && current !== null) || (input.cnnGuide === 'observe' && !current))) fail();
       if (correctedReview && correctedReview.labelKey !== key || architectureBaseline && architectureBaseline.labelKey !== key) fail();
       state = {

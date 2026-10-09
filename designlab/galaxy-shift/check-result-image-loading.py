@@ -2,11 +2,12 @@
 """A result image failure must preserve the last usable lesson and allow retry."""
 import importlib.util
 import json
+import os
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
-OUT = HERE.parents[1] / 'docs/design-2026-10-09/evidence/result-image-loading.json'
+OUT = Path(os.environ.get('GALAXY_RECOMPOSE_RESULT_IMAGE_EVIDENCE', HERE.parents[1] / 'docs/design-2026-10-09/evidence/recompose-result-image-loading.json'))
 
 
 def helper(name, filename):
@@ -36,8 +37,8 @@ def check_failure(page, scope, action):
     page.wait_for_selector('.final-room' if action == 'finish' else '.score-strip')
     page.locator('#experience-loading').wait_for(state='detached')
     assert not page.locator('.modal').count()
-    page.wait_for_selector('.result-grid .result img', state='attached')
-    page.wait_for_function("[...document.querySelectorAll('.result img')].every(img => img.complete && img.naturalWidth > 0)")
+    page.wait_for_selector('.cnn-workbench__results img, .result-grid .result img', state='attached')
+    page.wait_for_function("[...document.querySelectorAll('.cnn-workbench__results img, .result-grid .result img')].every(img => img.complete && img.naturalWidth > 0)")
     return {'scope': scope, 'statePreserved': True, 'storagePreserved': True, 'retry': 'PASS'}
 
 

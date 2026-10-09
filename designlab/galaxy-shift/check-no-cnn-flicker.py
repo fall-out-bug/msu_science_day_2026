@@ -7,7 +7,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
-OUT = Path(os.environ.get('GALAXY_N08_EVIDENCE', HERE / '../../docs/design-2026-10-09/evidence')).resolve()
+OUT = Path(os.environ.get('GALAXY_RECOMPOSE_FLICKER_DIR', os.environ.get('GALAXY_N08_EVIDENCE', HERE / '../../docs/design-2026-10-09/evidence'))).resolve()
 
 
 def ready_editor(page):
@@ -26,21 +26,21 @@ def ready_editor(page):
 
 def sample(page, name, action, *, changes_architecture=True, keeps_surface=True):
     page.evaluate("""name => {
-      const root=document.querySelector('#game'), station=document.querySelector('.station'), editor=document.querySelector('.architecture-editor');
-      window.__n08={name, root, station, editor, scrollY, architecture:galaxyGame.model.state.architecture}; window.__n08frames=[]; window.__n08active=true;
-      const take=()=>{ const current=document.querySelector('.station'); window.__n08frames.push({t:performance.now(),opacity:current?Number(getComputedStyle(current).opacity):null,transform:current?getComputedStyle(current).transform:null,visible:!!current && current.getBoundingClientRect().height>0,imagesReady:[...document.querySelectorAll('.result img')].every(img=>img.complete&&img.naturalWidth>0)}); if(window.__n08active) requestAnimationFrame(take); }; take();
+      const root=document.querySelector('#game'), station=document.querySelector('.station'), editor=document.querySelector('.architecture-editor'), workbench=document.querySelector('.cnn-workbench'), photo=document.querySelector('[data-action="cnn-image"]');
+      window.__n08={name, root, station, editor, workbench, photo, photoBox:photo?.getBoundingClientRect().toJSON(), editorBox:editor?.getBoundingClientRect().toJSON(), scrollY, architecture:galaxyGame.model.state.architecture}; window.__n08frames=[]; window.__n08active=true;
+      const take=()=>{ const current=document.querySelector('.station'); window.__n08frames.push({t:performance.now(),opacity:current?Number(getComputedStyle(current).opacity):null,transform:current?getComputedStyle(current).transform:null,visible:!!current && current.getBoundingClientRect().height>0,imagesReady:[...document.querySelectorAll('.cnn-workbench__results img, .result-grid .result img')].every(img=>img.complete&&img.naturalWidth>0)}); if(window.__n08active) requestAnimationFrame(take); }; take();
     }""", name)
     action()
     page.wait_for_timeout(550)
     page.evaluate('window.__n08active=false')
     record = page.evaluate("""() => ({
       name:__n08.name, sameRoot:__n08.root===document.querySelector('#game'), sameStation:__n08.station===document.querySelector('.station'),
-      sameEditor:__n08.editor===document.querySelector('.architecture-editor'), sameScroll:Math.abs(__n08.scrollY-scrollY)<2,
+      sameEditor:__n08.editor===document.querySelector('.architecture-editor'), samePhotoBox:JSON.stringify(__n08.photoBox)===JSON.stringify(document.querySelector('[data-action="cnn-image"]')?.getBoundingClientRect().toJSON()), sameEditorBox:JSON.stringify(__n08.editorBox)===JSON.stringify(document.querySelector('.architecture-editor')?.getBoundingClientRect().toJSON()), sameEditorFrame:(() => { const next=document.querySelector('.architecture-editor')?.getBoundingClientRect().toJSON(), before=__n08.editorBox; return !!next && !!before && next.x===before.x && next.y===before.y && next.width===before.width; })(), sameWorkbench:__n08.workbench===document.querySelector('.cnn-workbench'), samePhoto:__n08.photo===document.querySelector('[data-action="cnn-image"]'), sameScroll:Math.abs(__n08.scrollY-scrollY)<2,
       minOpacity:Math.min(...__n08frames.map(x=>x.opacity ?? 0)), noBlankFrames:__n08frames.every(x=>x.visible&&x.imagesReady), frames:__n08frames, beforeArchitecture:__n08.architecture, architecture:galaxyGame.model.state.architecture, focus:document.activeElement?.getAttribute('data-action') || document.activeElement?.tagName
     })""")
     assert record['minOpacity'] >= .99 and record['noBlankFrames'], record
     if keeps_surface:
-        assert record['sameRoot'] and record['sameStation'] and record['sameEditor'] and record['sameScroll'], record
+        assert record['sameRoot'] and record['sameStation'] and record['sameWorkbench'] and record['sameEditor'] and record['samePhoto'] and record['samePhotoBox'] and record['sameEditorFrame'] and record['sameScroll'] and (changes_architecture or record['sameEditorBox']), record
     if changes_architecture:
         assert record['architecture'] != record['beforeArchitecture'], record
     assert record['focus'] != 'BODY', record
@@ -77,16 +77,15 @@ def suite(page, reduced):
     save = page.locator('[data-action="architecture-save"]'); save.scroll_into_view_if_needed()
     def run():
         page.locator('[data-action="architecture-save"]').click()
-        page.wait_for_function('galaxyGame.model.state.current && !galaxyGame.model.state.modelSettings')
-    report.append(sample(page, 'run-cold', run, changes_architecture=False, keeps_surface=False))
+        page.wait_for_function('galaxyGame.model.state.current')
+    report.append(sample(page, 'run-cold', run, changes_architecture=False))
     assert page.evaluate('id => Boolean(GalaxyCNNResults.get(id))', architecture)
-    metric = page.locator('details.metrics > summary'); metric.scroll_into_view_if_needed()
-    report.append(sample(page, 'metrics-open', lambda: metric.click(), changes_architecture=False))
-    metric.click()
-    page.locator('[data-action="model-settings"]').first.scroll_into_view_if_needed()
-    report.append(sample(page, 'enter-editor', lambda: page.locator('[data-action="model-settings"]').first.click(), changes_architecture=False, keeps_surface=False))
+    metric = page.locator('[data-action="metrics"]'); metric.scroll_into_view_if_needed()
+    def open_metrics():
+        metric.click(); page.wait_for_selector('.modal details.metrics'); page.keyboard.press('Escape')
+    report.append(sample(page, 'metrics-open-close', open_metrics, changes_architecture=False))
     page.locator('[data-action="architecture-save"]').scroll_into_view_if_needed()
-    report.append(sample(page, 'run-warm', run, changes_architecture=False, keeps_surface=False))
+    report.append(sample(page, 'run-warm', run, changes_architecture=False))
     assert page.evaluate('id => Boolean(GalaxyCNNResults.get(id))', architecture)
     return report
 
@@ -105,7 +104,8 @@ def main():
             final['errors'].extend(errors); assert not errors, errors
             page.close()
         browser.close()
-    (OUT/'flicker-after.json').write_text(json.dumps(final,ensure_ascii=False,indent=2))
+    compact = {**final, **{key: [{k: v for k, v in row.items() if k != 'frames'} for row in final[key]] for key in ('ordinary', 'warm', 'reduced')}}
+    (OUT/'flicker-after.json').write_text(json.dumps(compact,ensure_ascii=False,indent=2))
     print('PASS N08', OUT/'flicker-after.json')
 
 if __name__ == '__main__': main()
