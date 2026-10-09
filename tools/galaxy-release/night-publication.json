@@ -1,11 +1,11 @@
 {
   "status": "PASS",
-  "checkedAt": "2026-10-09T11:08:57.893718+00:00",
+  "checkedAt": "2026-10-09T18:54:55.162107+00:00",
   "version": "2026.10.09-night.5",
   "image": {
-    "tag": "sd2026-public:galaxy-20261009-night-9",
-    "id": "sha256:6b44efcdb6cb58bd6b26e136cb1d1286da914d722f0e8e7aec238f63f98f6bc7",
-    "sourceCommit": "c55e238ec8957057aaa5e4b3dd8df05fb16930cc",
+    "tag": "sd2026-public:galaxy-20261009-night-10",
+    "id": "sha256:6ea629037a7705c3c8954f9b41c0cc2b3e41541dd1ee465a638ee1f16978b08b",
+    "sourceCommit": "1d4a336323d2937ce142c1fdf5cbe8ece8b90ed6",
     "runningExactImage": true
   },
   "publicHttps": {
@@ -66,11 +66,10 @@
         202,
         202,
         202,
-        202,
         202
       ],
       "telemetry": {
-        "sessionId": "ecb5caa1-6e47-4183-a235-396347a20a64",
+        "sessionId": "b404cb88-6dba-4597-942d-c6c622c549d4",
         "queued": 0,
         "dropped": 0,
         "sessions": 1,
@@ -92,5 +91,5 @@
     "collectorHealth": "healthy"
   },
   "evidenceIndex": "../../docs/design-2026-10-09/night-release.md",
-  "scope": "Exact deployed image. Read-only database check scoped to synthetic acceptance session. Actual child playtest not performed. PR remains unmerged."
+  "scope": "Exact deployed image. Read-only database check scoped to synthetic acceptance session. Actual child playtest not performed. Merge status is tracked by PR #4."
 }

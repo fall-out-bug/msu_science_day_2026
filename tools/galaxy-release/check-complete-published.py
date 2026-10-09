@@ -32,10 +32,18 @@ def main():
                for name in ['galaxy-game-design.html','technical-plan.html','acceptance.html','goal.html','baseline.html','text-review.html','release.html','programme.html','learning-review.html','game-design-foundation.html','goal-20261008.html','release-20261008.html','galaxy-design-offline.zip','galaxy-game-design-20261006.html']}
     expected={'base':base,'manifest':manifest,'zip':hashlib.sha256((GAME/'releases/galaxy-shift.zip').read_bytes()).hexdigest(),
               'documents':documents,'preserve':json.loads(args.preservation.read_text())}
-    verifier='''import sys,json,hashlib,urllib.request,urllib.error
+    verifier='''import sys,json,hashlib,http.client,urllib.parse,urllib.error
 expected=json.load(sys.stdin)
+base=urllib.parse.urlsplit(expected['base'])
+connection_type=http.client.HTTPSConnection if base.scheme=='https' else http.client.HTTPConnection
+connection=connection_type(base.hostname,base.port,timeout=25)
 def read(path):
- with urllib.request.urlopen(expected['base']+path,timeout=25) as r:return r.read()
+ connection.request('GET',base.path+path)
+ response=connection.getresponse()
+ body=response.read()
+ if response.status!=200:
+  raise urllib.error.HTTPError(expected['base']+path,response.status,response.reason,response.headers,None)
+ return body
 manifest=json.loads(read('build.json'));assert manifest==expected['manifest']
 for name,digest in manifest['files'].items():assert hashlib.sha256(read(name)).hexdigest()==digest,name
 assert hashlib.sha256(read('galaxy-shift.zip')).hexdigest()==expected['zip']
@@ -52,6 +60,7 @@ try:
  raise AssertionError('telemetry journal must not be publicly readable')
 except urllib.error.HTTPError as error:
  assert error.code==403,error.code
+connection.close()
 print(json.dumps({'status':'PASS','resources':len(manifest['files']),'documents':len(expected['documents']),'preservedComments':count,'telemetryReadStatus':403,'zipSha256':expected['zip']}))
 '''
     command=['python3','-c',verifier] if not args.ssh_host else ['ssh','-o','BatchMode=yes',args.ssh_host,'python3 -c '+shlex.quote(verifier)]

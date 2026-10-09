@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "reviewedHead": "16ae9429f97fd8bfe9ba12b545e62cf5c85cedf7",
+  "base": "0089f183e677e8d18ff6ae4733f8e883aab6ccc0",
+  "standards": {
+    "findings": 0,
+    "scope": "Substantive runtime delta; generated scientific tables and historical evidence excluded from code-style review"
+  },
+  "spec": {
+    "findings": 0,
+    "source": "../night-of-discoveries.md"
+  },
+  "fastChecks": {
+    "cnnSession": "PASS",
+    "restoration": 29,
+    "resultsLoader": 13,
+    "metrics": "PASS",
+    "telemetryClient": 16,
+    "telemetryServer": 6,
+    "adminExport": 5
+  },
+  "runtimeEvidence": "dialogue-browser.json",
+  "flickerEvidence": "dialogue-flicker.json",
+  "offlineEvidence": "dialogue-offline.json",
+  "publicEvidence": "merge-published-https.json",
+  "documentsEvidence": "merge-documents.json",
+  "httpsVerifier": {
+    "observedFailure": "Two urllib scans stopped before an acceptance report; captured second failure was ConnectionResetError 104 during a fresh TLS handshake in the resource loop.",
+    "diagnostics": "40 short-series HTTPS requests and a complete browser journey passed with certificate verification.",
+    "change": "Reuse HTTP(S)Connection, drain each response, keep default certificate verification, require HTTP 200 and preserve SHA-256 checks; telemetry GET must remain 403. No retries added.",
+    "review": "Independent review found no weakened validation.",
+    "outcome": "Full external scan of 125 resources, ZIP, 14 documents, legacy resources and 12 comments, then browser journey: PASS.",
+    "limit": "Underlying cause of the connection resets was not established; no host or reverse-proxy configuration changed."
+  },
+  "limits": [
+    "Actual child playtest not performed.",
+    "Existing uncommitted work in the primary science_day checkout is preserved."
+  ]
+}
