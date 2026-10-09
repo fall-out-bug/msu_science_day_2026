@@ -12,6 +12,15 @@
   const byId = Object.fromEntries(
     [...data.images, ...archiveData.images].map((image) => [image.id, image]),
   );
+  const imageBriefings = {
+    child_m85: "Обучающая выборка — снимки с метками, по которым модель подбирает параметры. Твоя метка добавится к этому снимку.",
+    child_ic5332: "Признаки — свойства объекта, по которым его можно описать и сравнить с другими. На снимках мы смотрим на форму галактики и распределение света.",
+    child_ngc5023: "Ракурс — направление, с которого мы видим объект. Один и тот же объект может выглядеть по-разному. Учитывай это при выборе метки.",
+    fixed_ngc3318: "Машинное обучение — подбор параметров модели по примерам. Здесь результаты обучения уже рассчитаны: после разметки откроем вариант для твоих меток.",
+    old_ngc3610: "Качество данных — их пригодность для задачи. Здесь важны и чёткость снимка, и верная метка. Сверь старую метку с изображением.",
+    old_ngc7090: "Шум в метках — ошибки и неточности в разметке. Модель использует и такие метки при обучении. Проверь эту по снимку.",
+    fixed_ngc691: "Контролируемый эксперимент — опыт, в котором меняют одно условие. Если исправим метки, остальные условия обучения и проверочные снимки оставим прежними.",
+  };
   const found = new Set();
   try {
     model = GalaxyCNNLesson.create(data, globalThis.GALAXY_CNN_EXPERIMENTS);
@@ -329,7 +338,7 @@
       "Проверим ответы модели",
       "ОБУЧЕНИЕ И ПРОВЕРКА",
       "review",
-      `${programBar()}${mentor("На обучающих примерах модель подбирала параметры, а эти снимки получила при проверке. Распознавание изображений — одна из задач искусственного интеллекта (ИИ). Сравним предсказания со справочными метками.", "curious")}<div class="score-strip"><span>На проверочной выборке верно классифицировано <b>${run.review.correct}<small> / ${run.review.total}</small></b></span><p>Это результат модели, а не оценка тебе.<br>Архитектура: ${esc(architectureLabel(state.architecture))}.<br>Обучение выполнено заранее для твоих меток.</p></div>${state.notice ? `<p class="callout">${esc(state.notice)}</p>` : ""}${compare}${nextStep}<div class="result-grid">${run.review.predictions.map(prediction => resultCard(prediction, previous?.result.review.predictions.find(item => item.id === prediction.id))).join("")}</div>${metricDetails(run)}<div class="navigation result-nav"><button class="secondary" data-action="labels">← Разметить снимки</button><div><button class="secondary" data-action="repair">Вернуться к старым меткам</button></div></div>`,
+      `${programBar()}${mentor("Эти снимки — проверочная выборка: модель не училась на них. Она выдала предсказания — предполагаемые классы. Распознавание изображений — одна из задач искусственного интеллекта (ИИ). Сравним ответы со справочными метками.", "curious")}<div class="score-strip"><span>На проверочной выборке верно классифицировано <b>${run.review.correct}<small> / ${run.review.total}</small></b></span><p>Это результат модели, а не оценка тебе.<br>Архитектура: ${esc(architectureLabel(state.architecture))}.<br>Обучение выполнено заранее для твоих меток.</p></div>${state.notice ? `<p class="callout">${esc(state.notice)}</p>` : ""}${compare}${nextStep}<div class="result-grid">${run.review.predictions.map(prediction => resultCard(prediction, previous?.result.review.predictions.find(item => item.id === prediction.id))).join("")}</div>${metricDetails(run)}<div class="navigation result-nav"><button class="secondary" data-action="labels">← Разметить снимки</button><div><button class="secondary" data-action="repair">Вернуться к старым меткам</button></div></div>`,
     );
   }
   function repair() {
@@ -483,9 +492,7 @@
         opening:
           phase === "tutorial"
             ? "Класс — категория снимков с общими признаками. Метка класса указывает, к какому классу мы отнесли снимок. Разметка — назначение таких меток. Попробуем на одном примере: выбери класс по форме галактики."
-            : phase === "repair"
-              ? "В старой выборке тоже могут быть ошибки. Проверь подпись по снимку, затем повторим опыт."
-              : "Обучающая выборка — снимки с метками, по которым модель подбирает параметры. Обучение на примерах называется машинным обучением. Результаты для твоих меток уже рассчитаны; мы откроем предсказания — предполагаемые классы других снимков. Проверочная выборка не участвует в обучении. Выбери метку этого снимка.",
+            : imageBriefings[image.id],
         onLabel: (value) => choose(image.id, value),
       });
     }

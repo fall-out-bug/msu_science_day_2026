@@ -41,8 +41,8 @@
       if (stage === 'inspected') return 'Это выбранный тобой участок. Увеличение помогает рассмотреть изображение, но метку выбираешь ты.';
       if (stage === 'hint') return image.explanation || 'Посмотри на форму света, а затем выбери метку сам.';
       if (stage === 'briefing') return options.opening || 'Рассмотри снимок и выбери одну метку.';
-      if (options.selected) return `Твоя метка «${selectedClass()?.label || options.selected}» сохранена. Можно перейти к следующему снимку или изменить выбор.`;
       if (options.opening) return options.opening;
+      if (options.selected) return `Твоя метка «${selectedClass()?.label || options.selected}» сохранена. Можно перейти к следующему снимку или изменить выбор.`;
       return 'Рассмотри снимок и выбери одну метку. Если сомневаешься, попроси подсказку.';
     }
     function render() {

@@ -11,7 +11,7 @@
 @media (max-width:900px){.quest-scene__main{grid-template-columns:minmax(0,1.45fr) minmax(190px,.55fr);gap:15px}.quest-scene__conversation{grid-template-columns:1fr}.quest-scene__observation{text-align:left}.quest-scene__observation>div{justify-content:flex-start}.quest-scene__label-list{grid-template-columns:1fr}.quest-scene__label{min-height:58px}}
 @media (prefers-reduced-motion:reduce){.quest-scene__photo{transition:none}}
 /* The scene occupies the desktop viewport; only its conversation has a paper surface. */
-.workbench.workbench--quest{padding:65px max(24px,calc((100vw - 1560px)/2)) 12px;gap:8px}
+.workbench.workbench--quest{padding:65px max(24px,calc((100vw - 1560px)/2)) 10px;gap:8px}
 .workbench--quest .station{padding:0;background:none}
 .workbench--quest .station-head{padding:8px 16px;margin-bottom:8px;width:fit-content}
 .workbench--quest .station-head h1{font-size:1.35rem;margin-top:2px}
@@ -106,4 +106,19 @@
  .workbench--quest .quest-scene__main{grid-template-columns:minmax(385px,min(560px,calc(100svh - 335px))) minmax(0,1fr)}
  .workbench--quest .quest-scene__photo-area{align-items:flex-start}
  .workbench--quest .quest-scene__photo-shell{width:min(100%,min(560px,calc(100svh - 335px)));height:auto;aspect-ratio:1/1;flex:none}
+ /* The full figure stands behind the class cards: the overlap gives her a
+    visible floor without moving either the conversation or the controls. */
+ .quest-scene__side .quest-scene__nika{position:relative;z-index:1;overflow:visible;transform:translateY(36px)}
+ .quest-scene__side .quest-scene__nika img{transform:scale(1.18);transform-origin:left bottom}
+ .quest-scene__side .quest-scene__labels{position:relative;z-index:2;background:#f7f2e5}
+ /* Repair has an extra archived-label line. Lift the decorative figure so her
+    face stays above that taller panel while its lower half remains behind it. */
+ .quest-scene[data-quest-phase=repair] .quest-scene__side .quest-scene__nika{transform:translateY(-20px)}
+}
+@media (min-width:1400px){
+ .quest-scene[data-quest-phase=repair] .quest-scene__side .quest-scene__nika{transform:translateY(12px)}
+}
+@media (min-width:1601px){
+ .quest-scene__side .quest-scene__nika{transform:translateY(54px)}
+ .quest-scene[data-quest-phase=repair] .quest-scene__side .quest-scene__nika{transform:translateY(40px)}
 }

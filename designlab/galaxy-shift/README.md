@@ -76,6 +76,7 @@ python3 designlab/galaxy-shift/prepare-archive.py --check
 python3 designlab/galaxy-shift/experiments/check_constructor_math.py
 python3 designlab/galaxy-shift/experiments/cnn-label-correction/check_constructor_table.py --require-full
 python3 designlab/galaxy-shift/experiments/cnn-label-correction/check_reproduction.py
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-image-dialogue.py --evidence docs/design-2026-10-09/evidence/dialogue-briefings.json
 bun designlab/galaxy-shift/check-cnn-session.mjs
 bun designlab/galaxy-shift/check-restoration.mjs
 bun designlab/galaxy-shift/check-results-loader.mjs

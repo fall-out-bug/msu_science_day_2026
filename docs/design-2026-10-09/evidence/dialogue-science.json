@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "comparison": "unchanged from 34b7463dab9d9ac4b0980c98a3eea55610aee683",
+  "files": {
+    "designlab/galaxy-shift/experiments/cnn-label-correction/cnn-experiments.json": "6add4c3a34a758526e2edbededba891b7b37a48981ceeb6bd66a406cb31a4118",
+    "designlab/galaxy-shift/experiments/cnn-label-correction/protocol.json": "e4fbdb69d1af15ab099a9e92d0f23feb8e4b132cc16f512c2ea6c66c5f109ad2",
+    "designlab/galaxy-shift/cnn-architectures.js": "3b66d05d1cab7eb51e2d0f2d85b1878a4e39b7ef1b891a8889b0cdb28c4dda6b",
+    "designlab/galaxy-shift/data.js": "e68fff4e51223f07f360c6a0b648d45f50af4ba801776962233e62b3587cb788",
+    "designlab/galaxy-shift/discovery-data.js": "e87e1c2c573f8886c7f28ec187d68589501970231a980198368a7d8fcecbea5c",
+    "designlab/galaxy-shift/archive-data.js": "661f4c66c9ece67e06bc2e173caeba2ee405a24d7824586835c5057db3f59d01"
+  },
+  "scope": "No scientific data, architectures or training results changed."
+}
