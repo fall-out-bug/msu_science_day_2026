@@ -1,17 +1,15 @@
-# Публикация «Первой смены»
+# Публикация «Ночи открытий»
 
-Опубликованная версия: `2026.10.09-complete.1`. До неё использовались
-`2026.10.08-cnn.12` и образ `sd2026-public:galaxy-20261008-12`.
-Финальный образ игры и отчётов: `sd2026-public:galaxy-20261009-2`.
+Кандидат: `2026.10.09-night.1`. Предыдущий выпуск указан ниже.
+Образ кандидата игры и отчётов: `sd2026-public:galaxy-20261009-night-1`.
 Идентификатор образа, исходный коммит и последняя проверка публичного HTTPS
-сохранены в [complete-publication.json](complete-publication.json).
+сохранены в [night-publication.json](night-publication.json).
 
-Проверки опубликованного кандидата записаны в
-`docs/design-2026-10-08/release.md`: upstream и публичный HTTPS подтвердили
-123 ресурса, 9 документов, ZIP, сохранность комментариев, игровой маршрут и
-публичную телеметрию: 46 последовательных событий без дублей, `dropped=0`,
-запрет публичного чтения и сохранность после перезапуска. Срок хранения
-настроен на 30 дней и проверен локальными тестами истечения.
+Локальные проверки и состояние поставки записаны в
+`docs/design-2026-10-09/night-release.md`. Проверка публичного HTTPS и точного
+образа сохраняется в отдельном отчёте; локальный PASS её не заменяет.
+Предыдущий опубликованный выпуск: `2026.10.09-complete.1`, образ
+`sd2026-public:galaxy-20261009-2`.
 
 ## Подготовка и проверка
 
@@ -42,7 +40,7 @@ SQLite, срок хранения 30 дней и локальную админи
 
 ```bash
 docker build --builder default --pull=false -t sd2026-telemetry:complete-20261008-1 tools/galaxy-telemetry
-tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-2
+tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-1
 ```
 
 Базовый образ `sd2026-public:scenario-comments` закреплён точным SHA-256 в
@@ -53,7 +51,7 @@ tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-2
 ## Переключение и приёмка
 
 ```bash
-tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-2
+tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-1
 ```
 
 Команда создаёт отдельный каталог БД телеметрии, запускает её контейнер и
@@ -71,8 +69,8 @@ tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-2
 снятого до публикации; содержание чужих комментариев в отчёт не включается.
 
 ```bash
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base http://192.168.50.12:8080 --preservation /tmp/science-day-complete-preservation.json --evidence docs/design-2026-10-08/evidence/published-upstream.json
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base https://sd2026.beetles.family --ssh-host superduper --preservation /tmp/science-day-complete-preservation.json --evidence docs/design-2026-10-08/evidence/published-https.json
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base http://192.168.50.12:8080 --preservation /tmp/science-day-night-preservation.json --evidence docs/design-2026-10-09/evidence/published-upstream.json
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base https://sd2026.beetles.family --ssh-host superduper --preservation /tmp/science-day-night-preservation.json --evidence docs/design-2026-10-09/evidence/published-https.json
 ```
 
 HTTPS проверяется с обычной проверкой сертификата через временный SSH SOCKS
@@ -86,7 +84,7 @@ VPN или службы хоста. Локальный PASS не считает�
 При неуспешной приёмке вернуть предыдущий web:
 
 ```bash
-tools/galaxy-release/rollback.sh sd2026-public:galaxy-20261008-12
+tools/galaxy-release/rollback.sh sd2026-public:galaxy-20261009-2
 ```
 
 Откат сохраняет данные комментариев, архивы и отдельную SQLite телеметрии.
@@ -382,3 +380,9 @@ Runtime-коммит `7564d5c`, образ `sd2026-public:galaxy-20261008-12`,
 контейнер комментариев не перезапускался.
 На публичном HTTPS через superduper подтверждены 96 SHA-256 ресурсов и ZIP,
 современная сцена первого экрана и переход из примера к разметке.
+
+## Выпуск 9 октября: complete.1
+
+Предыдущий образ: `sd2026-public:galaxy-20261009-2`. Проверки и точная
+идентичность сохранены в [complete-publication.json](complete-publication.json)
+и `docs/design-2026-10-08/release.md`.

@@ -10,7 +10,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
-REPORT = HERE.parent.parent / "docs" / "design-2026-10-08" / "evidence" / "continuity-browser.json"
+REPORT = HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "continuity-browser.json"
 URL = (HERE / "index.html").as_uri()
 
 
@@ -45,7 +45,7 @@ def wait_ready(page):
 
 def collect(page, item_id):
     page.locator(f'.sky-atlas [data-target="{item_id}"]').click()
-    page.wait_for_timeout(500)
+    page.wait_for_timeout(700)
     snapshot = page.evaluate("galaxyGame.sky.snapshot()")
     page.mouse.click(snapshot["targetPixel"]["x"], snapshot["targetPixel"]["y"])
     page.wait_for_function("galaxyGame.sky.state().aligned")
@@ -95,11 +95,18 @@ def confirm_old(page, data):
             click(page, "next")
 
 
+def complete_guide(page):
+    for action in ('guide-open', 'guide-next', 'guide-add-convolution', 'run', 'guide-confirm-compare'):
+        click(page, action)
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
+
+
 def prepare_editor(page):
     data = prepare_repair(page)
     confirm_old(page, data)
     click(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
+    complete_guide(page)
     click(page, "model-settings")
     page.wait_for_function("galaxyGame.model.state.modelSettings === true")
     return data
@@ -110,13 +117,14 @@ def prepare_final(page):
     confirm_old(page, data)
     click(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
+    complete_guide(page)
     click(page, "finish")
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
     return data
 
 
 def preserved(before, after):
-    for key in ("labels", "architecture", "reviewedOldIds", "repairCheckedLabelKey", "current"):
+    for key in ("labels", "architecture", "reviewedOldIds", "repairCheckedLabelKey", "current", "cnnGuide"):
         assert after[key] == before[key], key
 
 
@@ -206,6 +214,23 @@ def changed_final(page):
     assert "повторный просмотр" in page.locator(".final-note").inner_text().lower(), page.locator(".final-note").inner_text()
 
 
+def reload_guided_steps(page):
+    data = prepare_repair(page)
+    confirm_old(page, data)
+    click(page, 'run')
+    for action in ('guide-open', 'guide-next', 'guide-add-convolution', 'run', 'guide-confirm-compare'):
+        click(page, action)
+        if action == "run":
+            page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
+        before = state(page)
+        page.reload(); wait_ready(page); click(page, 'resume')
+        preserved(before, state(page))
+        assert page.locator('.modal').count() == 0
+    click(page, 'finish')
+    page.wait_for_function("galaxyGame.model.state.phase === 'final'")
+    return 'All five guided transitions survived reload/resume and reached final'
+
+
 def main():
     checks = Checks()
     with sync_playwright() as pw:
@@ -253,6 +278,10 @@ def main():
         context.close()
 
         context, page = new_page()
+        checks.run("N09 reload each guided CNN step", lambda: reload_guided_steps(page))
+        context.close()
+
+        context, page = new_page()
         checks.run("A10 changed child label requires current repair and repeats final notice", lambda: changed_final(page))
         context.close()
         browser.close()
@@ -261,6 +290,8 @@ def main():
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps({"status": "FAIL" if failed else "PASS", "viewport": [1280, 720], "checks": checks.items}, ensure_ascii=False, indent=2) + "\n")
     print(REPORT.read_text())
+    if failed:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

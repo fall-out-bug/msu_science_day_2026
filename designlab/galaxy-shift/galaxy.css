@@ -190,3 +190,15 @@ body{background:#08141e}.sr-only{position:absolute;width:1px;height:1px;margin:-
 .resource-failure h1{font-size:clamp(1.4rem,3vw,2rem);line-height:1.2;margin:0 0 16px}
 .resource-failure p{line-height:1.6;margin:0 0 20px}
 .resource-failure .navigation{flex-wrap:wrap;gap:12px}
+/* The background illustration supplies Nika; the opening copy remains one compact reading group. */
+.room > .welcome > h1{margin:0;color:#f7ecd3;font:400 clamp(1.45rem,2.6vw,2rem)/1.04 Georgia,serif;text-shadow:0 2px 10px #06131ccc}
+.room > .welcome > h1 span{display:block;margin-top:5px;color:#d7e3db;font:700 .62rem/1.25 system-ui;letter-spacing:.12em;text-transform:uppercase}
+.room .room-dialogue:not(:has(.mentor-portrait)){max-width:340px;padding:16px 18px}
+.welcome:has(.room-dialogue:not(:has(.mentor-portrait)))>.primary{margin-left:0}
+@media(max-height:550px) and (min-width:701px){.room > .welcome > h1{font-size:1.35rem}.room > .welcome > h1 span{font-size:.54rem}}
+
+/* Changing a CNN setting must not replay a whole-screen arrival animation. */
+body[data-phase=review] .workbench .station,
+body[data-phase=review] .workbench .result-grid .result{animation:none}
+#experience-loading.cnn-run-status{position:fixed;right:20px;bottom:18px;z-index:45;max-width:min(360px,calc(100vw - 40px));margin:0;padding:10px 14px;border:1px solid #a9cbb9;border-radius:10px;background:#f7f3e7;color:#203d40;box-shadow:0 8px 24px #08141e55;font-size:.82rem;line-height:1.35}
+@media(max-width:700px){#experience-loading.cnn-run-status{right:12px;bottom:12px;max-width:calc(100vw - 24px)}}

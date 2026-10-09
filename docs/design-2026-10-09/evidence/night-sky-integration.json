@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-10-09",
+  "check": "designlab/galaxy-shift/check-night-sky-integration.py",
+  "route": "visible start → collection → labels → repair → mandatory CNN guide → final → sky",
+  "materials": {
+    "scientific": 19,
+    "archiveGalaxies": 24,
+    "realModalsOpenedByVisibleClick": 43
+  },
+  "map": {
+    "filters": 0,
+    "catalogButtons": 0,
+    "notesWithoutSingleCoordinate": 9,
+    "cameraAfterModalClose": "preserved",
+    "fallback": "full viewport search; if no legal slot remains, merge into nearest placed accessible group without dropping IDs",
+    "finiteMarkerCoordinates": true,
+    "allCoordinateMaterialIdsRetained": true
+  },
+  "layout": {
+    "viewports": [
+      "1280x720",
+      "1366x768",
+      "1440x900",
+      "1920x1080"
+    ],
+    "zoom": "150%",
+    "horizontalOverflow": false,
+    "noteTitlesVisible": true
+  },
+  "browser": {
+    "python": "/home/zhuckoff/projects/msu/science_day/.venv/bin/python",
+    "chromium": "/home/zhuckoff/.cache/ms-playwright/chromium-1234/chrome-linux/chrome"
+  },
+  "visualReview": {
+    "status": "PASS",
+    "checks": [
+      "whole-note-panel marker zero-overlap",
+      "marker-to-marker zero-overlap at 1280x720, 1366x768, 1440x900, 1920x1080 and 150%",
+      "readable two-column scrolling notes at 150%"
+    ]
+  }
+}

@@ -22,7 +22,7 @@ from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent / "designlab" / "galaxy-shift"
-EVIDENCE = HERE.parent.parent / "docs" / "design-2026-10-08" / "evidence" / "telemetry-integration.json"
+EVIDENCE = HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "telemetry-integration.json"
 SPEC = importlib.util.spec_from_file_location("galaxy_telemetry_server", HERE / "server.py")
 SERVER = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(SERVER)
@@ -111,6 +111,13 @@ def journey(page):
     label_all(page, data["oldIds"], images)
     click(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
+    click(page, "guide-open")
+    click(page, "guide-next")
+    click(page, "guide-add-convolution")
+    click(page, "run")
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
+    click(page, "guide-confirm-compare")
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
     click(page, "finish")
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
     return data
@@ -161,12 +168,14 @@ def verify_sequence(events, data):
     assert len(labels) == 7
     assert [event["detail"]["imageId"] for event in labels] == data["childIds"] + data["oldIds"]
     assert all(event["detail"]["after"] == next(image["label"] for image in data["images"] if image["id"] == event["detail"]["imageId"]) for event in labels)
-    assert types.count("run_opened") == 2 and types.count("result_opened") == 3
-    assert types.count("final_opened") == 1 and types[-1] == "phase_entered"
-    assert events[-1]["detail"] == {"phase": "final"}
-    assert [event["detail"]["scope"] for event in events if event["type"] == "run_opened"] == ["review", "review"]
-    assert [event["detail"]["scope"] for event in events if event["type"] == "result_opened"] == ["review", "review", "final"]
-    assert {event["detail"]["architecture"] for event in events if event["type"] == "run_opened"} == {"d1-r"}
+    assert types.count("run_opened") == 3 and types.count("result_opened") == 4, types
+    guide_architecture = [event["detail"] for event in events if event["type"] == "architecture_selected"]
+    assert guide_architecture == [{"architecture": "d2-r"}]
+    assert types.count("final_opened") == 1 and types[-3:] == ["phase_entered", "final_opened", "result_opened"], types
+    assert events[-3]["detail"] == {"phase": "final"}
+    assert [event["detail"]["scope"] for event in events if event["type"] == "run_opened"] == ["review", "review", "review"]
+    assert [event["detail"]["scope"] for event in events if event["type"] == "result_opened"] == ["review", "review", "review", "final"]
+    assert {event["detail"]["architecture"] for event in events if event["type"] == "run_opened"} == {"d1-r", "d2-r"}
 
 
 def browser_errors(page, errors, failed):
@@ -202,11 +211,11 @@ def main():
                     open_game(page, origin + "/index.html")
                     data = journey(page)
                     session_id = page.evaluate("GalaxyTelemetry.sessionId")
-                    events = wait_for_events(db_path, session_id, 27)
+                    events = wait_for_events(db_path, session_id, 32)
                     verify_sequence(events, data)
                     assert not errors, errors
                     assert not failed, failed
-                    result["checks"].append("visible full route: collect4, labels4, repair3, two runs, final")
+                    result["checks"].append("visible full route: collect4, labels4, repair3, three runs, final")
                     result["checks"].append("SQLite event sequence, image IDs, run keys, architecture, review/final results")
 
                     page.reload(wait_until="domcontentloaded")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Publish the agreed 8 October design documents without touching comments."""
+"""Publish the current design and its historical foundations without touching comments."""
 import argparse
 import hashlib
 import html
@@ -17,13 +17,18 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "docs" / "design-2026-10-08"
 PUBLIC = ROOT / "designlab" / "comparison" / "docs"
 PAGES = {
-    "game-design": ("galaxy-game-design", "Дизайн: законченный маршрут"),
+    "night-of-discoveries": ("galaxy-game-design", "Дизайн: Ночь открытий"),
+    "night-release": ("release", "Проверки и поставка"),
+    "night-goal": ("goal", "Текущая цель"),
+    "programme": ("programme", "Описание для программы"),
+    "learning-review": ("learning-review", "Вычитка учебного маршрута"),
+    "game-design": ("game-design-foundation", "Исходный дизайн 8 октября"),
     "technical-plan": ("technical-plan", "Технический план"),
-    "acceptance": ("acceptance", "Матрица приёмки"),
-    "goal": ("goal", "Цель работы"),
+    "acceptance": ("acceptance", "Исходная матрица A/V"),
+    "goal": ("goal-20261008", "Цель предыдущего выпуска"),
     "baseline": ("baseline", "Исходное состояние"),
-    "text-review": ("text-review", "Вычитка текстов"),
-    "release": ("release", "Состояние поставки и проверки"),
+    "text-review": ("text-review", "Вычитка 8 октября"),
+    "release": ("release-20261008", "Проверки предыдущего выпуска"),
 }
 HISTORICAL_HTML = "galaxy-game-design-20261006.html"
 HISTORICAL_MD = "galaxy-game-design-20261006.md"
@@ -43,6 +48,11 @@ ZIP_SUPPORT_FILES = (
 )
 
 
+def source_path(name: str) -> Path:
+    folder = ROOT / "docs" / "design-2026-10-09" if name in {"night-of-discoveries", "night-release", "night-goal", "programme", "learning-review"} else SOURCE
+    return folder / f"{name}.md"
+
+
 def page_links(current: str) -> str:
     links = []
     for source_name, (published_name, title) in PAGES.items():
@@ -53,6 +63,7 @@ def page_links(current: str) -> str:
 
 def rewrite_html_links(text: str) -> str:
     """Keep the published document set closed under its useful links."""
+    text = text.replace("../design-2026-10-08/", "").replace("../design-2026-10-09/", "")
     for source_name, (published_name, _) in PAGES.items():
         text = re.sub(
             rf'(\]\(){re.escape(source_name)}\.md(?=#[^)]+\)|\))',
@@ -76,6 +87,8 @@ def rewrite_html_links(text: str) -> str:
 
 def render(source_name: str, published_name: str, title: str, raw: str) -> str:
     rendered = markdown.Markdown(extensions=["tables", "fenced_code", "toc"], extension_configs={"toc":{"slugify":slugify_unicode}})
+    if source_name in {"night-of-discoveries", "night-release", "night-goal", "programme", "learning-review"}:
+        raw = raw.replace("](evidence/", "](night-evidence/")
     body = rendered.convert(rewrite_html_links(raw))
     return f"""<!doctype html>
 <html lang=\"ru\">
@@ -88,7 +101,7 @@ def render(source_name: str, published_name: str, title: str, raw: str) -> str:
 <body>
   <main>
     <header>
-      <p class=\"eyebrow\">Science Day · 8 октября 2026 · согласованная редакция</p>
+      <p class=\"eyebrow\">Science Day · 9 октября 2026 · Ночь открытий</p>
       <div class=\"asset-links\">{page_links(published_name)}<a href=\"{HISTORICAL_HTML}\">Историческая редакция с комментариями</a><a href=\"galaxy-design-offline.zip\">Офлайн-документы</a></div>
       <p class=\"build-note\">Дизайн и матрица задают требования. Фактические проверки и состояние публикации записаны в <a href=\"release.html\">отчёте о поставке</a>.</p>
     </header>
@@ -101,12 +114,13 @@ def render(source_name: str, published_name: str, title: str, raw: str) -> str:
 
 
 def readme() -> str:
-    return """# Документы согласованной редакции · 8 октября 2026
+    return """# Документы «Ночи открытий» · 9 октября 2026
 
 Стартовая страница: `galaxy-game-design.html`. Рядом лежат технический план,
 матрица приёмки, формулировка цели, исходное состояние, вычитка и отчёт о
-поставке. Их Markdown собран из
-`docs/design-2026-10-08/`; этот каталог — единственный источник новой редакции.
+поставке. Текущие решения и отчёт собраны из `docs/design-2026-10-09/`;
+научный и технический контракт сохранён из `docs/design-2026-10-08/`.
+При противоречии в маршруте и интерфейсе действует редакция 9 октября.
 
 `galaxy-game-design-20261006.html` и `.md` — точная сохранённая публикация
 6 октября. В HTML остаются исходные `data-review-id`, подключение комментариев
@@ -159,7 +173,7 @@ def write_zip_file(archive: zipfile.ZipFile, path: Path, name: str) -> None:
 def build() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.parse_args()
-    missing = [name for name in PAGES if not (SOURCE / f"{name}.md").is_file()]
+    missing = [name for name in PAGES if not source_path(name).is_file()]
     if missing:
         raise FileNotFoundError(f"missing design sources: {', '.join(missing)}")
 
@@ -174,7 +188,7 @@ def build() -> None:
 
     with tempfile.TemporaryDirectory(prefix="science-day-current-design-") as temp_dir:
         staging = Path(temp_dir)
-        raw_sources = {name: (SOURCE / f"{name}.md").read_text() for name in PAGES}
+        raw_sources = {name: source_path(name).read_text() for name in PAGES}
         for source_name, (published_name, title) in PAGES.items():
             (staging / f"{published_name}.md").write_text(raw_sources[source_name])
             (staging / f"{published_name}.html").write_text(
@@ -184,6 +198,9 @@ def build() -> None:
         evidence = SOURCE / "evidence"
         if evidence.is_dir():
             shutil.copytree(evidence, staging / "evidence")
+        night_evidence = ROOT / "docs/design-2026-10-09/evidence"
+        if night_evidence.is_dir():
+            shutil.copytree(night_evidence, staging / "night-evidence")
 
         shutil.copy2(
             historical_html if historical_html.exists() else old_html,

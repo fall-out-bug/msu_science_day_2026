@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "checked": "unpacked galaxy-design-offline.zip; local closure and file:// opening of 12 current pages",
+  "pageCount": 12,
+  "pages": [
+    "galaxy-game-design",
+    "release",
+    "goal",
+    "programme",
+    "learning-review",
+    "game-design-foundation",
+    "technical-plan",
+    "acceptance",
+    "goal-20261008",
+    "baseline",
+    "text-review",
+    "release-20261008"
+  ],
+  "localReferences": 252,
+  "historicalSha256": "31e26ea7bb4f8ba3f1b656c9fb89a4b27078174ff14871a7358fcd0430a1ac10",
+  "historicalMatch": true,
+  "externalRequests": [],
+  "browserErrors": [],
+  "failures": [],
+  "zipSelfHashExcluded": true
+}

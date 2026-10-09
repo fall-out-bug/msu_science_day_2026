@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "check": "designlab/galaxy-shift/check-tutorial-nika.py",
+  "viewports": [
+    "1280x720",
+    "1366x768",
+    "1440x900",
+    "1920x1080"
+  ],
+  "scope": "Component: one opening portrait, active trial labels, unchanged training labels and scene nodes; independent full route in night-browser.json",
+  "visual": "final-visual-review.md"
+}

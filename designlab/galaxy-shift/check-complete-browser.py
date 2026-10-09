@@ -141,6 +141,32 @@ def collect(page, item_id):
     page.locator(".sky-atlas__open").click()
 
 
+def complete_cnn_guide(page):
+    """Visible N03/N04 route: d1-r, one d2-r change, then observed comparison."""
+    assert page.evaluate("galaxyGame.model.state.cnnGuide") == "intro"
+    intro = page.locator(".cnn-guide").inner_text().lower()
+    for term in ("обучающую выборку", "архитектур"):
+        assert term in intro, term
+    click_action(page, "guide-open")
+    goal = page.locator(".cnn-guide").inner_text().lower()
+    for term in ("слой", "признак", "свёртк", "фильтр", "архитектур"):
+        assert term in goal, term
+    page.locator(".cnn-guide details summary").click()
+    teaching_example = page.locator(".cnn-guide details").inner_text().lower()
+    for marker in ("поэлементного умножения", "суммы", "не показывает активации"):
+        assert marker in teaching_example, marker
+    click_action(page, "guide-next")
+    assert "вторую свёртку" in page.locator(".cnn-guide").inner_text().lower()
+    click_action(page, "guide-add-convolution")
+    assert page.evaluate("galaxyGame.model.state.architecture") == "d2-r"
+    assert page.evaluate("galaxyGame.model.state.current") is None
+    click_action(page, "run")
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
+    assert "сравн" in page.locator(".cnn-guide").inner_text().lower()
+    click_action(page, "guide-confirm-compare")
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
+
+
 def keyboard_baseline(page, zoom=None):
     """Keyboard-only route through map collection and first calculated result."""
     page.goto((HERE / "index.html").as_uri())
@@ -201,6 +227,9 @@ def keyboard_baseline(page, zoom=None):
             enter_action(page, "next")
     enter_action(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
+    enter_action(page, "guide-open"); enter_action(page, "guide-next"); enter_action(page, "guide-add-convolution")
+    enter_action(page, "run"); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
+    enter_action(page, "guide-confirm-compare"); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
     enter_action(page, "finish")
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
 
@@ -379,11 +408,18 @@ def full_route(page, report, viewport, all_architectures=False, zoom=None):
     second = page.evaluate("galaxyGame.model.state.current")
     capture(page, "review-after-repair")
 
-    # A04 — running unchanged inputs does not manufacture a new result.
-    click_action(page, "labels")
-    click_action(page, "run")
+    # N03/N04 — the required, explained d1-r → d2-r comparison precedes finish/editor.
+    complete_cnn_guide(page)
+    capture(page, "cnn-guide-compare")
+
+    # A04 — through the now-unlocked visible editor, save the unchanged d2-r
+    # configuration again; it must resolve the same prepared result rather than
+    # inventing a new one.
+    guide_result = page.evaluate("galaxyGame.model.state.current")
+    click_action(page, "model-settings")
+    click_action(page, "architecture-save")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
-    assert page.evaluate("galaxyGame.model.state.current.resultKey") == second["resultKey"]
+    assert page.evaluate("galaxyGame.model.state.current.resultKey") == guide_result["resultKey"]
     assert "тот же подготовленный опыт" in page.locator("body").inner_text().lower()
 
     # A07 — home and resume preserve the exact current state.
@@ -435,29 +471,23 @@ def full_route(page, report, viewport, all_architectures=False, zoom=None):
     assert final_button.bounding_box()["y"] + final_button.bounding_box()["height"] <= viewport[1]
     capture(page, "final")
 
-    # A11 opens an actual research story and returns to its parent surfaces.
+    # A11 opens a current sky note and returns to the same map/camera.  The
+    # complete material catalogue belongs to check-night-sky.py.
     final_state = page.evaluate("galaxyGame.model.serialize()")
     click_action(page, "sky")
-    page.locator('.sky-atlas [data-filter="ai"]').click()
-    page.locator('[data-research-id]').first.click()
+    page.wait_for_selector(".sky-atlas__note")
+    camera = page.evaluate("galaxyGame.sky.snapshot().camera")
+    page.locator(".sky-atlas__note").first.click()
     assert page.locator(".modal").is_visible()
     click_action(page, "close-modal")
-    page.keyboard.press("Escape")
-    click_action(page, "astronomy")
-    assert page.locator(".discovery-grid [data-action='discovery']").count() > 0
-    page.locator(".discovery-grid [data-action='discovery']").first.click()
-    assert page.locator(".modal").is_visible()
-    page.locator('.modal [data-action="astronomy"]').click()
-    assert page.locator(".discovery-grid").is_visible()
-    page.locator('[data-action="archive"]').click()
-    archive_card = page.locator('[data-action="archive-image"]').first
-    archive_name = archive_card.inner_text()
-    archive_card.click()
-    assert archive_name in page.locator('.modal h2').inner_text()
-    assert page.locator('.modal .galaxy-frame img').count() == 1
-    page.locator('.modal [data-action="archive"]').click()
-    assert page.locator('[data-action="archive-image"]').count() > 0
-    click_action(page, "close-modal")
+    page.wait_for_selector(".sky-atlas")
+    assert page.evaluate("galaxyGame.sky.snapshot().camera") == camera
+    page.locator(".sky-atlas__note").first.click()
+    page.locator('.modal [data-action="return-sky"]').click()
+    page.wait_for_selector(".sky-atlas")
+    assert page.evaluate("galaxyGame.sky.snapshot().camera") == camera
+    page.locator(".sky-atlas__close").click()
+    page.wait_for_function("!galaxyGame.sky")
     after_free = page.evaluate("galaxyGame.model.serialize()")
     for key in ("labels", "architecture", "current", "repairCheckedLabelKey"):
         assert after_free["state"][key] == final_state["state"][key], key
@@ -511,8 +541,10 @@ def missing_shard(page, report, entry=None):
     assign_all(page, data, "repair")
     click_action(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
+    complete_cnn_guide(page)
     click_action(page, "model-settings")
     build = {"id": "d1-r-bn", "depth": 1, "tail": ["r", "bn"]}
+    page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
     page.locator('[data-action="layer-add"][data-layer="bn"]').click()
     assert page.locator('[data-action="architecture-save"]').get_attribute("data-architecture") == build["id"]
     shard = "**/cnn-results/d1-r-bn.js"
@@ -555,8 +587,8 @@ def corrupt_shard(page, report, entry):
     page.locator(".sky-atlas__complete").click(); click_action(page, "labels"); assign_all(page, data, "labels")
     click_action(page, "run"); page.wait_for_function("galaxyGame.model.state.phase === 'review'")
     click_action(page, "repair"); assign_all(page, data, "repair"); click_action(page, "run")
-    page.wait_for_function("galaxyGame.model.state.phase === 'review'"); click_action(page, "model-settings")
-    page.locator('[data-action="layer-add"][data-layer="bn"]').click(); page.locator('[data-action="architecture-save"]').click()
+    page.wait_for_function("galaxyGame.model.state.phase === 'review'"); complete_cnn_guide(page); click_action(page, "model-settings")
+    page.locator('[data-action="architecture-depth"][data-depth="1"]').click(); page.locator('[data-action="layer-add"][data-layer="bn"]').click(); page.locator('[data-action="architecture-save"]').click()
     page.wait_for_selector(".modal")
     assert "не удалось" in page.locator(".modal").inner_text().lower()
     report.add("A14 corrupt shard", "PASS", "HTTP fulfilled invalid d1-r-bn shard")

@@ -10,7 +10,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
-EVIDENCE = HERE.parent.parent / "docs" / "design-2026-10-08" / "evidence" / "result-cases.json"
+EVIDENCE = HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "result-cases.json"
 
 
 @contextlib.contextmanager
@@ -86,6 +86,17 @@ def repair_and_run(page, data, labels):
     run(page)
 
 
+def complete_guide(page, return_to_one_layer=False):
+    for action in ('guide-open', 'guide-next', 'guide-add-convolution', 'run', 'guide-confirm-compare'):
+        click(page, action)
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
+    if return_to_one_layer:
+        click(page, 'model-settings')
+        page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
+        click(page, 'architecture-save')
+        page.wait_for_function("galaxyGame.model.state.current?.architecture === 'd1-r'")
+
+
 def table_run(page, key, architecture):
     return page.evaluate("""([key, architecture]) => {
       const run = GALAXY_CNN_EXPERIMENTS.experiments[key].architectures[architecture];
@@ -134,8 +145,10 @@ def no_prediction_change(page):
     comparison = page.locator("[data-comparison]").inner_text()
     assert "Архитектура та же; изменены метки обучающих снимков." in comparison
     assert "Предсказания не изменились." in comparison
-    assert page.locator('[data-action="finish"]').is_enabled()
+    assert not page.locator('[data-action="finish"]').count()
     assert_cards_match(page, before, after)
+    complete_guide(page)
+    assert page.locator('[data-action="finish"]').is_enabled()
     return {"keys": [before_key, after_key], "review": [before["review"]["correct"], after["review"]["correct"]], "comparison": comparison}
 
 
@@ -148,6 +161,7 @@ def architecture_degrades(page):
     key = current_key(page)
     before = table_run(page, key, "d1-r")
     assert key == "0001110" and before["review"]["correct"] == 1
+    complete_guide(page, return_to_one_layer=True)
     click(page, "model-settings")
     page.wait_for_selector('[data-action="layer-add"][data-layer="bn"]')
     page.locator('[data-action="layer-add"][data-layer="bn"]').click()
@@ -173,6 +187,7 @@ def architectures_keep_predictions(page):
     repair_and_run(page, data, labels)
     key = current_key(page)
     assert key == "0121021"
+    complete_guide(page, return_to_one_layer=True)
 
     # First checked architecture: add Dropout after the required ReLU.
     click(page, "model-settings")
@@ -207,6 +222,7 @@ def final_has_error(page):
     run(page)
     repair_and_run(page, data, canonical)
     key = current_key(page)
+    complete_guide(page, return_to_one_layer=True)
     click(page, "model-settings")
     page.locator('[data-action="layer-add"][data-layer="bn"]').click()
     page.locator('[data-action="layer-earlier"][data-layer-index="1"]').click()

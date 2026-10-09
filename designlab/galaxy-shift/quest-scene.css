@@ -69,3 +69,6 @@
 }
 /* Reserve a line for the archived label without hiding the next-step controls. */
 .workbench--quest:has(.quest-scene[data-quest-phase=repair]) .quest-scene__main{height:clamp(260px,calc(100svh - 485px),590px)}
+/* The tutorial uses the same single class-choice row as independent labeling. */
+.quest-scene[data-quest-phase=tutorial] .quest-scene__conversation{grid-template-columns:minmax(0,1fr) auto}
+.quest-scene__labels--tutorial .quest-scene__label-heading b{font-size:.7rem}

@@ -1,0 +1,431 @@
+{
+  "status": "PASS",
+  "version": "2026.10.09-night.1",
+  "before": {
+    "version": "2026.10.09-complete.1",
+    "action": "add BatchNorm",
+    "minimumStationOpacity": 0,
+    "entryFadeMs": 405,
+    "trace": "flicker-before.json",
+    "frames": [
+      "flicker-before-editor-1280.jpg",
+      "flicker-before-settled-editor-1280.jpg"
+    ]
+  },
+  "after": {
+    "setup": "Full visible route: sky collection, labels, repair, guided CNN, editor. No model dispatch or state injection.",
+    "trace": "flicker-after.json",
+    "modes": {
+      "ordinary": [
+        {
+          "name": "depth-1-to-2",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d1-r",
+          "architecture": "d2-r",
+          "focus": "architecture-depth"
+        },
+        {
+          "name": "add-bn",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r",
+          "architecture": "d2-r-bn",
+          "focus": "layer-add"
+        },
+        {
+          "name": "add-dropout",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn",
+          "architecture": "d2-r-bn-d",
+          "focus": "architecture-save"
+        },
+        {
+          "name": "reorder-button",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn-d",
+          "architecture": "d2-r-d-bn",
+          "focus": "LI"
+        },
+        {
+          "name": "reorder-keyboard",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-d-bn",
+          "architecture": "d2-d-r-bn",
+          "focus": "LI"
+        },
+        {
+          "name": "remove-dropout",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-d-r-bn",
+          "architecture": "d2-r-bn",
+          "focus": "layer-remove"
+        },
+        {
+          "name": "layer-help",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn",
+          "architecture": "d2-r-bn",
+          "focus": "layer-info"
+        },
+        {
+          "name": "reorder-drag",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn",
+          "architecture": "d2-bn-r",
+          "focus": "LI"
+        },
+        {
+          "name": "run-cold",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": false,
+          "sameEditor": false,
+          "sameScroll": false,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "H1"
+        },
+        {
+          "name": "metrics-open",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "SUMMARY"
+        },
+        {
+          "name": "enter-editor",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": false,
+          "sameEditor": false,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "H1"
+        },
+        {
+          "name": "run-warm",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": false,
+          "sameEditor": false,
+          "sameScroll": false,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "H1"
+        }
+      ],
+      "warm": [
+        {
+          "name": "depth-1-to-2",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d1-r",
+          "architecture": "d2-r",
+          "focus": "architecture-depth"
+        },
+        {
+          "name": "add-bn",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r",
+          "architecture": "d2-r-bn",
+          "focus": "layer-add"
+        },
+        {
+          "name": "add-dropout",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn",
+          "architecture": "d2-r-bn-d",
+          "focus": "architecture-save"
+        },
+        {
+          "name": "reorder-button",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn-d",
+          "architecture": "d2-r-d-bn",
+          "focus": "LI"
+        },
+        {
+          "name": "reorder-keyboard",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-d-bn",
+          "architecture": "d2-d-r-bn",
+          "focus": "LI"
+        },
+        {
+          "name": "remove-dropout",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-d-r-bn",
+          "architecture": "d2-r-bn",
+          "focus": "layer-remove"
+        },
+        {
+          "name": "layer-help",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn",
+          "architecture": "d2-r-bn",
+          "focus": "layer-info"
+        },
+        {
+          "name": "reorder-drag",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn",
+          "architecture": "d2-bn-r",
+          "focus": "LI"
+        },
+        {
+          "name": "run-cold",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": false,
+          "sameEditor": false,
+          "sameScroll": false,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "H1"
+        },
+        {
+          "name": "metrics-open",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "SUMMARY"
+        },
+        {
+          "name": "enter-editor",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": false,
+          "sameEditor": false,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "H1"
+        },
+        {
+          "name": "run-warm",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": false,
+          "sameEditor": false,
+          "sameScroll": false,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "H1"
+        }
+      ],
+      "reduced": [
+        {
+          "name": "depth-1-to-2",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d1-r",
+          "architecture": "d2-r",
+          "focus": "architecture-depth"
+        },
+        {
+          "name": "add-bn",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r",
+          "architecture": "d2-r-bn",
+          "focus": "layer-add"
+        },
+        {
+          "name": "add-dropout",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn",
+          "architecture": "d2-r-bn-d",
+          "focus": "architecture-save"
+        },
+        {
+          "name": "reorder-button",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn-d",
+          "architecture": "d2-r-d-bn",
+          "focus": "LI"
+        },
+        {
+          "name": "reorder-keyboard",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-d-bn",
+          "architecture": "d2-d-r-bn",
+          "focus": "LI"
+        },
+        {
+          "name": "remove-dropout",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-d-r-bn",
+          "architecture": "d2-r-bn",
+          "focus": "layer-remove"
+        },
+        {
+          "name": "layer-help",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn",
+          "architecture": "d2-r-bn",
+          "focus": "layer-info"
+        },
+        {
+          "name": "reorder-drag",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-r-bn",
+          "architecture": "d2-bn-r",
+          "focus": "LI"
+        },
+        {
+          "name": "run-cold",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": false,
+          "sameEditor": false,
+          "sameScroll": false,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "H1"
+        },
+        {
+          "name": "metrics-open",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": true,
+          "sameEditor": true,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "SUMMARY"
+        },
+        {
+          "name": "enter-editor",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": false,
+          "sameEditor": false,
+          "sameScroll": true,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "H1"
+        },
+        {
+          "name": "run-warm",
+          "minOpacity": 1,
+          "noBlankFrames": true,
+          "sameStation": false,
+          "sameEditor": false,
+          "sameScroll": false,
+          "beforeArchitecture": "d2-bn-r",
+          "architecture": "d2-bn-r",
+          "focus": "H1"
+        }
+      ]
+    },
+    "browserErrors": [],
+    "temporalFrames": [
+      "flicker-temporal-before.jpg",
+      "flicker-temporal-0ms.jpg",
+      "flicker-temporal-100ms.jpg",
+      "flicker-temporal-400ms.jpg"
+    ]
+  },
+  "interpretation": "Editing preserves station/editor/scroll and changes the actual architecture. RUN and entry to editor intentionally replace the result surface and focus its heading; every sampled animation frame stays opaque with decoded result images. Metrics and help preserve the current surface."
+}

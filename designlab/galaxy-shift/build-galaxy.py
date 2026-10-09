@@ -4,7 +4,7 @@ import hashlib,json,zipfile,shutil,re,subprocess,sys
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 subprocess.run([sys.executable,str(HERE/'experiments/cnn-label-correction/check_constructor_table.py'),'--require-full'],check=True)
-runtime=['index.html','galaxy.css','library.css','nika.css','companion.css','quest-scene.css','quest-scene.js','nika-dialogue.js','sky.css','sky.js','sky-data.js','sky-provenance.json','astronomy.js','game.js','world.js','data.js','archive-data.js','archive-catalog.json','archive-admission.json','version.js','lesson-storage.js','telemetry.js','cnn-architectures.js','cnn-results-loader.js','cnn-experiments.js','cnn-session.js','metrics.js','discovery-data.js','discovery-provenance.json','provenance.json','DATA-NOTES.md','README.md','FACILITATOR.md']
+runtime=['index.html','galaxy.css','library.css','nika.css','companion.css','quest-scene.css','quest-scene.js','nika-dialogue.js','sky.css','sky.js','sky-data.js','sky-provenance.json','astronomy.js','game.js','world.js','data.js','archive-data.js','archive-catalog.json','archive-admission.json','version.js','lesson-storage.js','telemetry.js','cnn-architectures.js','cnn-results-loader.js','cnn-experiments.js','cnn-session.js','cnn-guide.js','cnn-guide.css','metrics.js','discovery-data.js','discovery-provenance.json','provenance.json','DATA-NOTES.md','README.md','FACILITATOR.md']
 results=sorted(p.relative_to(HERE).as_posix() for p in (HERE/'cnn-results').glob('*.js'))
 if len(results)!=21: raise SystemExit('The release requires exactly 21 additional CNN architecture files')
 runtime += results
@@ -16,7 +16,7 @@ assets += ['assets/sky/licenses/'+name for name in ['CC-BY-SA-4.0.txt','FAL-1.3.
 files=runtime+assets
 for name in files:
  if not (HERE/name).is_file():raise SystemExit('Missing package resource: '+name)
-manifest={'title':'ИИ в астрономии','version':version,'entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
+manifest={'title':'Ночь открытий: приключение в обсерватории','version':version,'entry':'index.html','files':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in files}}
 out=HERE/'releases';out.mkdir(exist_ok=True)
 web=out/'web'
 if web.exists():shutil.rmtree(web)

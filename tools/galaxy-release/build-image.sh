@@ -15,7 +15,7 @@ revision=$(git -C "$root" rev-parse HEAD)
 
 docker build --builder default --pull=false \
   --label "org.opencontainers.image.revision=$revision" \
-  --label "org.opencontainers.image.title=Science Day: Nika and model" \
+  --label "org.opencontainers.image.title=Science Day: Night of Discoveries" \
   --label "org.opencontainers.image.base.name=sd2026-public:scenario-comments" \
   -t "$tag" -f "$root/tools/galaxy-release/Dockerfile" "$root"
 

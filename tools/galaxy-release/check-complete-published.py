@@ -29,7 +29,7 @@ def main():
     base=args.base.rstrip('/')+'/'
     manifest=json.loads((GAME/'releases/build.json').read_text())
     documents={name:hashlib.sha256((ROOT/'designlab/comparison/docs'/name).read_bytes()).hexdigest()
-               for name in ['galaxy-game-design.html','technical-plan.html','acceptance.html','goal.html','baseline.html','text-review.html','release.html','galaxy-design-offline.zip','galaxy-game-design-20261006.html']}
+               for name in ['galaxy-game-design.html','technical-plan.html','acceptance.html','goal.html','baseline.html','text-review.html','release.html','programme.html','learning-review.html','game-design-foundation.html','goal-20261008.html','release-20261008.html','galaxy-design-offline.zip','galaxy-game-design-20261006.html']}
     expected={'base':base,'manifest':manifest,'zip':hashlib.sha256((GAME/'releases/galaxy-shift.zip').read_bytes()).hexdigest(),
               'documents':documents,'preserve':json.loads(args.preservation.read_text())}
     verifier='''import sys,json,hashlib,urllib.request
@@ -88,6 +88,8 @@ print(json.dumps({'status':'PASS','resources':len(manifest['files']),'documents'
             config=page.evaluate("GalaxyArchitectures.get('d2-d-bn-r')")
             editor.build_architecture(page,config)
             journey.click(page,'finish');page.wait_for_function("galaxyGame.model.state.phase==='final'")
+            page.locator('.final-room').wait_for(state='visible')
+            page.wait_for_function("!document.querySelector('.cnn-run-status') && [...document.querySelectorAll('#game img')].every(image => image.complete && image.naturalWidth > 0)")
             final=page.evaluate('galaxyGame.model.state.current')
             page.wait_for_function('GalaxyTelemetry.diagnostics().queued===0',timeout=15000)
             session_id=page.evaluate('GalaxyTelemetry.sessionId')

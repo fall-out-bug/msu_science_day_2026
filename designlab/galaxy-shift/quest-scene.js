@@ -23,21 +23,22 @@
     let destroyed = false;
     let stage = 'question';
     let zoomed = false;
-    let observation = null;
+    let observation = null, tutorialChoice = null;
     let resizeObserver = null;
     let point = points.get(options.image.id) || null;
     const image = options.image;
     const classes = Array.isArray(options.classes) ? options.classes : [];
     const isTutorial = options.phase === 'tutorial';
     const old = options.initialOldLabel;
-    const selectedClass = () => classes.find(item => item.id === options.selected);
+    const selectedClass = () => classes.find(item => item.id === (isTutorial ? tutorialChoice : options.selected));
     function portraitMood() {
       if (options.phase === 'repair' || stage === 'hint') return 'thinking';
-      return stage === 'inspected' || options.selected ? 'warm' : 'thinking';
+      return stage === 'inspected' || (isTutorial ? tutorialChoice : options.selected) ? 'warm' : 'thinking';
     }
 
     function dialogue() {
       if (stage === 'observed') return observations[observation];
+      if (stage === 'tutorial-choice') return `Твоя пробная метка — «${selectedClass()?.label}». ${image.explanation || selectedClass()?.hint || ''} Она не входит в обучающую выборку.`;
       if (stage === 'inspected') return 'Это выбранный тобой участок. Увеличение помогает рассмотреть изображение, но метку выбираешь ты.';
       if (stage === 'hint') return image.explanation || 'Посмотри на форму света, а затем выбери метку сам.';
       if (options.selected) return `Твоя метка «${selectedClass()?.label || options.selected}» сохранена. Можно перейти к следующему снимку или изменить выбор.`;
@@ -47,10 +48,11 @@
     function render() {
       if (destroyed) return;
       if (host.firstElementChild) { update(); return; }
-      const labels = isTutorial ? '' : `<section class="quest-scene__labels" aria-label="Выбор метки">
-        <div class="quest-scene__label-heading"><span>ТВОЯ МЕТКА</span><b>${old ? 'Подтверди старую метку или выбери другую' : 'Выбери одну метку для снимка'}</b></div>
+      const selected = isTutorial ? tutorialChoice : options.selected;
+      const labels = `<section class="quest-scene__labels ${isTutorial ? 'quest-scene__labels--tutorial' : ''}" aria-label="${isTutorial ? 'Пробная метка класса' : 'Выбор метки'}">
+        <div class="quest-scene__label-heading"><span>${isTutorial ? 'ПРОБНАЯ МЕТКА' : 'ТВОЯ МЕТКА'}</span><b>${isTutorial ? 'Как выглядит галактика на снимке?' : old ? 'Подтверди старую метку или выбери другую' : 'Выбери одну метку для снимка'}</b></div>
         ${old ? `<p class="quest-scene__old">В архиве было: <b>${esc(old)}</b></p>` : ''}
-        <div class="quest-scene__label-list">${classes.map(item => `<button type="button" class="quest-scene__label ${esc(item.id)} ${options.selected === item.id ? 'is-selected' : ''}" data-quest-label="${esc(item.id)}" data-label-id="${esc(image.id)}" data-label="${esc(item.id)}" aria-pressed="${options.selected === item.id}"><i class="morphology-symbol ${esc(item.id)}" aria-hidden="true"></i><span><b>${esc(item.label)}</b><small>${esc(item.hint || '')}</small></span><em aria-hidden="true">${options.selected === item.id ? '✓' : '+'}</em></button>`).join('')}</div>
+        <div class="quest-scene__label-list">${classes.map(item => `<button type="button" class="quest-scene__label ${esc(item.id)} ${selected === item.id ? 'is-selected' : ''}" data-quest-label="${esc(item.id)}" data-label-id="${esc(image.id)}" data-label="${esc(item.id)}" aria-pressed="${selected === item.id}"><i class="morphology-symbol ${esc(item.id)}" aria-hidden="true"></i><span><b>${esc(item.label)}</b><small>${esc(item.hint || '')}</small></span><em aria-hidden="true">${selected === item.id ? '✓' : '+'}</em></button>`).join('')}</div>
       </section>`;
       host.innerHTML = `<section class="quest-scene" data-quest-phase="${esc(options.phase || '')}">
         <div class="quest-scene__main">
@@ -71,9 +73,8 @@
         </div>
         <section class="quest-scene__conversation" aria-label="Разговор с Никой">
           <div class="quest-scene__line"><span>НИКА</span><p role="status" aria-live="polite">${esc(dialogue())}</p></div>
-          <div class="quest-scene__observation" aria-label="${isTutorial ? 'Наблюдение на снимке' : 'Помощь Ники'}">
-            ${isTutorial ? '<span>СНАЧАЛА НАБЛЮДЕНИЕ</span>' : ''}
-            <div>${isTutorial ? '<button type="button" data-quest-observation="arms" aria-pressed="false">Вижу рукава</button><button type="button" data-quest-observation="smooth" aria-pressed="false">Вижу гладкое свечение</button><button type="button" data-quest-observation="edge" aria-pressed="false">Вижу галактику с ребра</button>' : ''}<button type="button" data-quest="hint" class="quest-scene__quiet">Подсказка Ники</button></div>
+          <div class="quest-scene__observation" aria-label="Помощь Ники">
+            <div><button type="button" data-quest="hint" class="quest-scene__quiet">Подсказка Ники</button></div>
           </div>
         </section>
         ${labels}
@@ -93,7 +94,7 @@
         button.setAttribute('aria-pressed', String(button.dataset.questObservation === observation));
       });
       host.querySelectorAll('[data-quest-label]').forEach(button => {
-        const selected = button.dataset.questLabel === options.selected;
+        const selected = button.dataset.questLabel === (isTutorial ? tutorialChoice : options.selected);
         button.setAttribute('aria-pressed', String(selected));
         button.classList.toggle('is-selected', selected);
         button.querySelector('em').textContent = selected ? '✓' : '+';
@@ -156,7 +157,7 @@
       const observationButton = event.target.closest('[data-quest-observation]');
       if (observationButton) { observation = observationButton.dataset.questObservation; stage = 'observed'; render(); focus(`[data-quest-observation="${observation}"]`); return; }
       const label = event.target.closest('[data-quest-label]');
-      if (label) { event.stopPropagation(); options.onLabel?.(label.dataset.questLabel); return; }
+      if (label) { event.stopPropagation(); if (isTutorial) { tutorialChoice = label.dataset.questLabel; stage = 'tutorial-choice'; update(); focus(`[data-quest-label="${tutorialChoice}"]`); } else options.onLabel?.(label.dataset.questLabel); return; }
       const action = event.target.closest('[data-quest]')?.dataset.quest;
       if (action === 'hint') { stage = 'hint'; render(); focus('[data-quest="hint"]'); return; }
       if (action === 'center') { setPoint({ x: .5, y: .5 }); return; }
@@ -173,7 +174,7 @@
     return {
       updateSelection(value) { options.selected = value; stage = 'selected'; update(); },
       destroy() { if (!destroyed) { destroyed = true; resizeObserver?.disconnect(); host.removeEventListener('click', onClick); host.replaceChildren(); } },
-      startConversation() { if (!destroyed) { stage = 'question'; observation = null; render(); focus('[data-quest-observation="arms"]'); } },
+      startConversation() { if (!destroyed) { stage = 'question'; observation = null; render(); focus(isTutorial ? '[data-quest-label]' : '[data-quest="hint"]'); } },
       hint() { if (!destroyed) { stage = 'hint'; render(); focus('[data-quest="hint"]'); } },
       get point() { return point && { ...point }; }
     };
