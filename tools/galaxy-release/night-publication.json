@@ -1,11 +1,11 @@
 {
   "status": "PASS",
-  "checkedAt": "2026-10-09T09:17:37.767104+00:00",
+  "checkedAt": "2026-10-09T09:21:25.493448+00:00",
   "version": "2026.10.09-night.3",
   "image": {
-    "tag": "sd2026-public:galaxy-20261009-night-4",
-    "id": "sha256:1ce1ed23638c3136cfe51c318e2a0541639c0777144c9ee509eabf61dca00261",
-    "sourceCommit": "9e198bf2b2153a90828a4a738a04cd28136dbad3",
+    "tag": "sd2026-public:galaxy-20261009-night-5",
+    "id": "sha256:c2d05c9445ca17185b9d4bb969132fc14842f862e829ec932ae1868434815ed2",
+    "sourceCommit": "5639ae02d8cdb3381343baa8586c70a60ed895bc",
     "runningExactImage": true
   },
   "publicHttps": {
@@ -67,7 +67,7 @@
         202
       ],
       "telemetry": {
-        "sessionId": "c6088dea-59c7-4f04-9269-7674a1fef8fa",
+        "sessionId": "d9f7fb56-ba3e-45ae-8fe4-abafee8f20ab",
         "queued": 0,
         "dropped": 0,
         "sessions": 1,
@@ -89,5 +89,21 @@
     "collectorHealth": "healthy"
   },
   "evidenceIndex": "../../docs/design-2026-10-09/night-release.md",
-  "scope": "Exact deployed image. Read-only database check scoped to synthetic acceptance session. Actual child playtest not performed. PR remains unmerged."
+  "scope": "Exact deployed image. Read-only database check scoped to synthetic acceptance session. Actual child playtest not performed. PR remains unmerged.",
+  "upstream": {
+    "status": "PASS",
+    "base": "http://192.168.50.12:8080/",
+    "version": "2026.10.09-night.3",
+    "assets": {
+      "status": "PASS",
+      "resources": 125,
+      "documents": 14,
+      "preservedComments": 12,
+      "telemetryReadStatus": 403,
+      "zipSha256": "0f788699b42a52b468a7e845457b8b826c91d786aa60bfcd2df9ef3affec5b5b"
+    },
+    "browserErrors": [],
+    "failedRequests": [],
+    "telemetryScope": "LAN origin intentionally denied; public ingestion checked separately"
+  }
 }
