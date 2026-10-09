@@ -1,0 +1,2347 @@
+{
+  "protocol": "protocol.md",
+  "parameters": {
+    "detector_k": 5,
+    "stable_tolerance_px": 1.5,
+    "features": [
+      "log1p_speed_arcsec_hour",
+      "log1p_velocity_difference_arcsec_hour",
+      "log_peak_ratio"
+    ],
+    "train_scale": [
+      0.7310335090786245,
+      0.865236157959573,
+      1.3134134015291643
+    ],
+    "decision_threshold": 0
+  },
+  "input_sha256": {
+    "assets/observations/manifest.json": "4fb474cb8cb9b75387245c6cb859c9a1d537bed40f331f26fb2679f42838cfa7",
+    "tools/realdata.py": "725092975863924fe6859a09cfca8256185ad543471f9ea9712744bbe1bde8bc",
+    "tools/generate_data.py": "cc234ecdd62c54c5238e3c69b84aee410018894c177cce0522259356cf51d92a",
+    "assets/observations/motion-fields/ztf_20250325344780_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz": "c09a92678427c79149c4aedc7aec3d7bc7bc2eb04f8907bfd33614682273feb2",
+    "assets/observations/motion-fields/ztf_20250325387130_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz": "d19a7d9cdb37aaaf4624c0791a608972d78a36260c396c3a0430572897b24c13",
+    "assets/observations/motion-fields/ztf_20250325471562_000325_zr_c16_o_q4_sciimg_b369c28f8a.fits.gz": "815243b969391d813636edb0879f98006d6292ba86fc6950b6b31b3be5d0d1f6",
+    "assets/observations/motion-fields/ztf_20200102273947_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz": "ec223e1cc1d71194149dd662da448cb2dc8f59429280bc6d689ab5627be66d1c",
+    "assets/observations/motion-fields/ztf_20200102300035_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz": "8760cd4533d7147cdd27ba9345b87073836b0f68d68a2a5bec072ef0c442c8ed",
+    "assets/observations/motion-fields/ztf_20200102342477_000567_zr_c11_o_q2_sciimg_aaa172474d.fits.gz": "688ddf0368fd3e5d884e5dc81e9e1d95ecff8adcc6ececd4afd0bf1cfa3de1cd"
+  },
+  "reference_sha256": "9ce275b73615a17432a60efc2b19694dc426ed4064d611ab6404588c6e5fba58",
+  "experiment_sha256": "2516f6988981b72a015f4e6117b0f86068e423fa4accdb2ea9cb2a01ac4dcf43",
+  "protocol_sha256": "9d6020c2d4d6571417b9da40244d126af851b4192b57911c677248a39f60bbbf",
+  "fields": {
+    "mover1": {
+      "detection_counts": [
+        6,
+        5,
+        6
+      ],
+      "candidates": 180,
+      "hours": [
+        0.0,
+        1.0163879916071892,
+        3.0427776016294956
+      ],
+      "labels": {
+        "mixed_identity": 120,
+        "mover": 1,
+        "stationary": 4,
+        "unknown": 55
+      },
+      "reference_offsets_px": [
+        0.588241153639754,
+        0.348156685006047,
+        0.16034440209000628
+      ],
+      "target_index": 177
+    },
+    "mover2": {
+      "detection_counts": [
+        10,
+        10,
+        10
+      ],
+      "candidates": 1000,
+      "hours": [
+        0.0,
+        0.6258336044847965,
+        1.6444464102387428
+      ],
+      "labels": {
+        "mixed_identity": 990,
+        "mover": 1,
+        "stationary": 9
+      },
+      "reference_offsets_px": [
+        1.0430331007222533,
+        0.5021327204518068,
+        0.4888949221879958
+      ],
+      "target_index": 555
+    }
+  },
+  "examples": {
+    "initial": [
+      {
+        "candidate": 177,
+        "label": 1,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      },
+      {
+        "candidate": 0,
+        "label": 0,
+        "positions": [
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ]
+        ]
+      },
+      {
+        "candidate": 112,
+        "label": 0,
+        "positions": [
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ]
+        ]
+      },
+      {
+        "candidate": 74,
+        "label": 0,
+        "positions": [
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ]
+        ]
+      },
+      {
+        "candidate": 37,
+        "label": 0,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ]
+        ]
+      }
+    ],
+    "correction_a": [
+      {
+        "candidate": 177,
+        "label": 1,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      },
+      {
+        "candidate": 0,
+        "label": 0,
+        "positions": [
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ]
+        ]
+      },
+      {
+        "candidate": 112,
+        "label": 0,
+        "positions": [
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ]
+        ]
+      },
+      {
+        "candidate": 74,
+        "label": 0,
+        "positions": [
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ]
+        ]
+      },
+      {
+        "candidate": 37,
+        "label": 0,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ]
+        ]
+      },
+      {
+        "candidate": 45,
+        "label": 0,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      }
+    ],
+    "correction_b": [
+      {
+        "candidate": 177,
+        "label": 1,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      },
+      {
+        "candidate": 0,
+        "label": 0,
+        "positions": [
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ]
+        ]
+      },
+      {
+        "candidate": 112,
+        "label": 0,
+        "positions": [
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ]
+        ]
+      },
+      {
+        "candidate": 74,
+        "label": 0,
+        "positions": [
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ]
+        ]
+      },
+      {
+        "candidate": 37,
+        "label": 0,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ]
+        ]
+      },
+      {
+        "candidate": 174,
+        "label": 0,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            71.0,
+            10.0
+          ]
+        ]
+      }
+    ],
+    "both": [
+      {
+        "candidate": 177,
+        "label": 1,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      },
+      {
+        "candidate": 0,
+        "label": 0,
+        "positions": [
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ]
+        ]
+      },
+      {
+        "candidate": 112,
+        "label": 0,
+        "positions": [
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ]
+        ]
+      },
+      {
+        "candidate": 74,
+        "label": 0,
+        "positions": [
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ]
+        ]
+      },
+      {
+        "candidate": 37,
+        "label": 0,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ]
+        ]
+      },
+      {
+        "candidate": 45,
+        "label": 0,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      },
+      {
+        "candidate": 174,
+        "label": 0,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            71.0,
+            10.0
+          ]
+        ]
+      }
+    ],
+    "wrong_label": [
+      {
+        "candidate": 177,
+        "label": 1,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      },
+      {
+        "candidate": 0,
+        "label": 0,
+        "positions": [
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ]
+        ]
+      },
+      {
+        "candidate": 112,
+        "label": 0,
+        "positions": [
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ]
+        ]
+      },
+      {
+        "candidate": 74,
+        "label": 0,
+        "positions": [
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ]
+        ]
+      },
+      {
+        "candidate": 37,
+        "label": 0,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ]
+        ]
+      },
+      {
+        "candidate": 45,
+        "label": 1,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      }
+    ],
+    "undo": [
+      {
+        "candidate": 177,
+        "label": 1,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      },
+      {
+        "candidate": 0,
+        "label": 0,
+        "positions": [
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ]
+        ]
+      },
+      {
+        "candidate": 112,
+        "label": 0,
+        "positions": [
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ]
+        ]
+      },
+      {
+        "candidate": 74,
+        "label": 0,
+        "positions": [
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ]
+        ]
+      },
+      {
+        "candidate": 37,
+        "label": 0,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ]
+        ]
+      }
+    ],
+    "duplicate_positive": [
+      {
+        "candidate": 177,
+        "label": 1,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      },
+      {
+        "candidate": 0,
+        "label": 0,
+        "positions": [
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ],
+          [
+            71.0,
+            10.0
+          ]
+        ]
+      },
+      {
+        "candidate": 112,
+        "label": 0,
+        "positions": [
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ],
+          [
+            4.0,
+            45.0
+          ]
+        ]
+      },
+      {
+        "candidate": 74,
+        "label": 0,
+        "positions": [
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ],
+          [
+            16.0,
+            34.0
+          ]
+        ]
+      },
+      {
+        "candidate": 37,
+        "label": 0,
+        "positions": [
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ],
+          [
+            2.0,
+            13.0
+          ]
+        ]
+      },
+      {
+        "candidate": 177,
+        "label": 1,
+        "positions": [
+          [
+            42.0,
+            82.0
+          ],
+          [
+            58.0,
+            68.0
+          ],
+          [
+            91.0,
+            40.0
+          ]
+        ]
+      }
+    ]
+  },
+  "checks": {
+    "source_hashes_verified": true,
+    "undo_exact": true,
+    "correction_memorized": true,
+    "different_labels_different_transfer": true,
+    "two_corrections_different_transfer": true,
+    "truth_free_replay_exact": true,
+    "train_query_order_equivariant": true,
+    "duplicate_positive_no_effect": true
+  },
+  "results": {
+    "initial": {
+      "mover1": {
+        "target_rank": 1,
+        "target_score": 1.0,
+        "accepted_known_false": 120,
+        "accepted_unknown": 55,
+        "top": [
+          {
+            "index": 177,
+            "score": 1.0,
+            "label": "mover",
+            "positions": [
+              [
+                42.0,
+                82.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          },
+          {
+            "index": 47,
+            "score": 0.34701219330106486,
+            "label": "unknown",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                19.0,
+                76.0
+              ]
+            ]
+          },
+          {
+            "index": 53,
+            "score": 0.29347817759319883,
+            "label": "unknown",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                19.0,
+                76.0
+              ]
+            ]
+          },
+          {
+            "index": 139,
+            "score": 0.28241275513701863,
+            "label": "unknown",
+            "positions": [
+              [
+                18.0,
+                76.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                2.0,
+                13.0
+              ]
+            ]
+          },
+          {
+            "index": 147,
+            "score": 0.28057293403541184,
+            "label": "unknown",
+            "positions": [
+              [
+                18.0,
+                76.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 0,
+        "changed_decisions": 0
+      },
+      "mover2": {
+        "target_rank": 1,
+        "target_score": 0.6773789525799976,
+        "accepted_known_false": 990,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 555,
+            "score": 0.6773789525799976,
+            "label": "mover",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                95.0,
+                53.0
+              ]
+            ]
+          },
+          {
+            "index": 986,
+            "score": 0.46091484801699567,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                40.0,
+                110.0
+              ],
+              [
+                71.0,
+                94.0
+              ],
+              [
+                124.0,
+                72.0
+              ]
+            ]
+          },
+          {
+            "index": 35,
+            "score": 0.3741957342302663,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                127.0,
+                3.0
+              ],
+              [
+                119.0,
+                21.0
+              ],
+              [
+                95.0,
+                53.0
+              ]
+            ]
+          },
+          {
+            "index": 851,
+            "score": 0.35410977135626803,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                72.0,
+                94.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                38.0,
+                7.0
+              ]
+            ]
+          },
+          {
+            "index": 578,
+            "score": 0.3450849119976876,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                45.0,
+                82.0
+              ],
+              [
+                71.0,
+                94.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 0,
+        "changed_decisions": 0
+      }
+    },
+    "correction_a": {
+      "mover1": {
+        "target_rank": 1,
+        "target_score": 1.0,
+        "accepted_known_false": 2,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 177,
+            "score": 1.0,
+            "label": "mover",
+            "positions": [
+              [
+                42.0,
+                82.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          },
+          {
+            "index": 76,
+            "score": 0.0049802003171206385,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                16.0,
+                34.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                4.0,
+                45.0
+              ]
+            ]
+          },
+          {
+            "index": 110,
+            "score": 0.002844699840433301,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                4.0,
+                45.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                16.0,
+                34.0
+              ]
+            ]
+          },
+          {
+            "index": 38,
+            "score": -0.12714046019452846,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                2.0,
+                13.0
+              ],
+              [
+                16.0,
+                34.0
+              ]
+            ]
+          },
+          {
+            "index": 73,
+            "score": -0.13034745848094217,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                16.0,
+                34.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                2.0,
+                13.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 175,
+        "changed_decisions": 173
+      },
+      "mover2": {
+        "target_rank": 1,
+        "target_score": 0.5053044988006966,
+        "accepted_known_false": 0,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 555,
+            "score": 0.5053044988006966,
+            "label": "mover",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                95.0,
+                53.0
+              ]
+            ]
+          },
+          {
+            "index": 986,
+            "score": -0.024813026843372887,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                40.0,
+                110.0
+              ],
+              [
+                71.0,
+                94.0
+              ],
+              [
+                124.0,
+                72.0
+              ]
+            ]
+          },
+          {
+            "index": 332,
+            "score": -0.06574801651346832,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                119.0,
+                21.0
+              ],
+              [
+                119.0,
+                21.0
+              ],
+              [
+                112.0,
+                15.0
+              ]
+            ]
+          },
+          {
+            "index": 223,
+            "score": -0.06613261215197644,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                112.0,
+                15.0
+              ],
+              [
+                112.0,
+                15.0
+              ],
+              [
+                119.0,
+                21.0
+              ]
+            ]
+          },
+          {
+            "index": 322,
+            "score": -0.21011262829891333,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                119.0,
+                21.0
+              ],
+              [
+                112.0,
+                15.0
+              ],
+              [
+                112.0,
+                15.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 991,
+        "changed_decisions": 990
+      }
+    },
+    "correction_b": {
+      "mover1": {
+        "target_rank": 1,
+        "target_score": 1.0,
+        "accepted_known_false": 1,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 177,
+            "score": 1.0,
+            "label": "mover",
+            "positions": [
+              [
+                42.0,
+                82.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          },
+          {
+            "index": 76,
+            "score": 0.0005039744829036304,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                16.0,
+                34.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                4.0,
+                45.0
+              ]
+            ]
+          },
+          {
+            "index": 110,
+            "score": -0.005952596941960468,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                4.0,
+                45.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                16.0,
+                34.0
+              ]
+            ]
+          },
+          {
+            "index": 38,
+            "score": -0.09526445957481142,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                2.0,
+                13.0
+              ],
+              [
+                16.0,
+                34.0
+              ]
+            ]
+          },
+          {
+            "index": 73,
+            "score": -0.10481230714093356,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                16.0,
+                34.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                2.0,
+                13.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 175,
+        "changed_decisions": 174
+      },
+      "mover2": {
+        "target_rank": 1,
+        "target_score": 0.5213188818545976,
+        "accepted_known_false": 0,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 555,
+            "score": 0.5213188818545976,
+            "label": "mover",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                95.0,
+                53.0
+              ]
+            ]
+          },
+          {
+            "index": 986,
+            "score": -0.07598152938945013,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                40.0,
+                110.0
+              ],
+              [
+                71.0,
+                94.0
+              ],
+              [
+                124.0,
+                72.0
+              ]
+            ]
+          },
+          {
+            "index": 909,
+            "score": -0.17736606267788366,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                40.0,
+                110.0
+              ],
+              [
+                127.0,
+                3.0
+              ],
+              [
+                40.0,
+                110.0
+              ]
+            ]
+          },
+          {
+            "index": 90,
+            "score": -0.18220567370538765,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                127.0,
+                3.0
+              ],
+              [
+                40.0,
+                110.0
+              ],
+              [
+                127.0,
+                3.0
+              ]
+            ]
+          },
+          {
+            "index": 509,
+            "score": -0.18234393435816537,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                127.0,
+                3.0
+              ],
+              [
+                40.0,
+                110.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 991,
+        "changed_decisions": 990
+      }
+    },
+    "both": {
+      "mover1": {
+        "target_rank": 1,
+        "target_score": 1.0,
+        "accepted_known_false": 1,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 177,
+            "score": 1.0,
+            "label": "mover",
+            "positions": [
+              [
+                42.0,
+                82.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          },
+          {
+            "index": 76,
+            "score": 0.0005039744829036304,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                16.0,
+                34.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                4.0,
+                45.0
+              ]
+            ]
+          },
+          {
+            "index": 110,
+            "score": -0.005952596941960468,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                4.0,
+                45.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                16.0,
+                34.0
+              ]
+            ]
+          },
+          {
+            "index": 38,
+            "score": -0.12714046019452846,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                2.0,
+                13.0
+              ],
+              [
+                16.0,
+                34.0
+              ]
+            ]
+          },
+          {
+            "index": 73,
+            "score": -0.13034745848094217,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                16.0,
+                34.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                2.0,
+                13.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 175,
+        "changed_decisions": 174
+      },
+      "mover2": {
+        "target_rank": 1,
+        "target_score": 0.5053044988006966,
+        "accepted_known_false": 0,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 555,
+            "score": 0.5053044988006966,
+            "label": "mover",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                95.0,
+                53.0
+              ]
+            ]
+          },
+          {
+            "index": 986,
+            "score": -0.07598152938945013,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                40.0,
+                110.0
+              ],
+              [
+                71.0,
+                94.0
+              ],
+              [
+                124.0,
+                72.0
+              ]
+            ]
+          },
+          {
+            "index": 332,
+            "score": -0.18863958550296034,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                119.0,
+                21.0
+              ],
+              [
+                119.0,
+                21.0
+              ],
+              [
+                112.0,
+                15.0
+              ]
+            ]
+          },
+          {
+            "index": 223,
+            "score": -0.19110121493167007,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                112.0,
+                15.0
+              ],
+              [
+                112.0,
+                15.0
+              ],
+              [
+                119.0,
+                21.0
+              ]
+            ]
+          },
+          {
+            "index": 909,
+            "score": -0.28807370136604454,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                40.0,
+                110.0
+              ],
+              [
+                127.0,
+                3.0
+              ],
+              [
+                40.0,
+                110.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 991,
+        "changed_decisions": 990
+      }
+    },
+    "wrong_label": {
+      "mover1": {
+        "target_rank": 2,
+        "target_score": 1.0,
+        "accepted_known_false": 120,
+        "accepted_unknown": 55,
+        "top": [
+          {
+            "index": 45,
+            "score": 1.0,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          },
+          {
+            "index": 177,
+            "score": 1.0,
+            "label": "mover",
+            "positions": [
+              [
+                42.0,
+                82.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          },
+          {
+            "index": 133,
+            "score": 0.9171938515143941,
+            "label": "unknown",
+            "positions": [
+              [
+                18.0,
+                76.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                2.0,
+                13.0
+              ]
+            ]
+          },
+          {
+            "index": 105,
+            "score": 0.8799701059938246,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                4.0,
+                45.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          },
+          {
+            "index": 169,
+            "score": 0.8748617060814354,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                42.0,
+                82.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                2.0,
+                13.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 173,
+        "changed_decisions": 0
+      },
+      "mover2": {
+        "target_rank": 140,
+        "target_score": 0.6773789525799976,
+        "accepted_known_false": 990,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 24,
+            "score": 0.8972235975118783,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                127.0,
+                3.0
+              ],
+              [
+                112.0,
+                15.0
+              ],
+              [
+                127.0,
+                41.0
+              ]
+            ]
+          },
+          {
+            "index": 579,
+            "score": 0.8544575949050801,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                45.0,
+                82.0
+              ],
+              [
+                40.0,
+                110.0
+              ]
+            ]
+          },
+          {
+            "index": 36,
+            "score": 0.8513863496274714,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                127.0,
+                3.0
+              ],
+              [
+                119.0,
+                21.0
+              ],
+              [
+                124.0,
+                72.0
+              ]
+            ]
+          },
+          {
+            "index": 420,
+            "score": 0.8354422662680002,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                127.0,
+                41.0
+              ],
+              [
+                112.0,
+                15.0
+              ],
+              [
+                127.0,
+                3.0
+              ]
+            ]
+          },
+          {
+            "index": 556,
+            "score": 0.8139077323400522,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                124.0,
+                72.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 990,
+        "changed_decisions": 0
+      }
+    },
+    "undo": {
+      "mover1": {
+        "target_rank": 1,
+        "target_score": 1.0,
+        "accepted_known_false": 120,
+        "accepted_unknown": 55,
+        "top": [
+          {
+            "index": 177,
+            "score": 1.0,
+            "label": "mover",
+            "positions": [
+              [
+                42.0,
+                82.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          },
+          {
+            "index": 47,
+            "score": 0.34701219330106486,
+            "label": "unknown",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                19.0,
+                76.0
+              ]
+            ]
+          },
+          {
+            "index": 53,
+            "score": 0.29347817759319883,
+            "label": "unknown",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                19.0,
+                76.0
+              ]
+            ]
+          },
+          {
+            "index": 139,
+            "score": 0.28241275513701863,
+            "label": "unknown",
+            "positions": [
+              [
+                18.0,
+                76.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                2.0,
+                13.0
+              ]
+            ]
+          },
+          {
+            "index": 147,
+            "score": 0.28057293403541184,
+            "label": "unknown",
+            "positions": [
+              [
+                18.0,
+                76.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 0,
+        "changed_decisions": 0
+      },
+      "mover2": {
+        "target_rank": 1,
+        "target_score": 0.6773789525799976,
+        "accepted_known_false": 990,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 555,
+            "score": 0.6773789525799976,
+            "label": "mover",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                95.0,
+                53.0
+              ]
+            ]
+          },
+          {
+            "index": 986,
+            "score": 0.46091484801699567,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                40.0,
+                110.0
+              ],
+              [
+                71.0,
+                94.0
+              ],
+              [
+                124.0,
+                72.0
+              ]
+            ]
+          },
+          {
+            "index": 35,
+            "score": 0.3741957342302663,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                127.0,
+                3.0
+              ],
+              [
+                119.0,
+                21.0
+              ],
+              [
+                95.0,
+                53.0
+              ]
+            ]
+          },
+          {
+            "index": 851,
+            "score": 0.35410977135626803,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                72.0,
+                94.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                38.0,
+                7.0
+              ]
+            ]
+          },
+          {
+            "index": 578,
+            "score": 0.3450849119976876,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                45.0,
+                82.0
+              ],
+              [
+                71.0,
+                94.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 0,
+        "changed_decisions": 0
+      }
+    },
+    "duplicate_positive": {
+      "mover1": {
+        "target_rank": 1,
+        "target_score": 1.0,
+        "accepted_known_false": 120,
+        "accepted_unknown": 55,
+        "top": [
+          {
+            "index": 177,
+            "score": 1.0,
+            "label": "mover",
+            "positions": [
+              [
+                42.0,
+                82.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          },
+          {
+            "index": 47,
+            "score": 0.34701219330106486,
+            "label": "unknown",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                16.0,
+                34.0
+              ],
+              [
+                19.0,
+                76.0
+              ]
+            ]
+          },
+          {
+            "index": 53,
+            "score": 0.29347817759319883,
+            "label": "unknown",
+            "positions": [
+              [
+                2.0,
+                13.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                19.0,
+                76.0
+              ]
+            ]
+          },
+          {
+            "index": 139,
+            "score": 0.28241275513701863,
+            "label": "unknown",
+            "positions": [
+              [
+                18.0,
+                76.0
+              ],
+              [
+                4.0,
+                45.0
+              ],
+              [
+                2.0,
+                13.0
+              ]
+            ]
+          },
+          {
+            "index": 147,
+            "score": 0.28057293403541184,
+            "label": "unknown",
+            "positions": [
+              [
+                18.0,
+                76.0
+              ],
+              [
+                58.0,
+                68.0
+              ],
+              [
+                91.0,
+                40.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 0,
+        "changed_decisions": 0
+      },
+      "mover2": {
+        "target_rank": 1,
+        "target_score": 0.6773789525799976,
+        "accepted_known_false": 990,
+        "accepted_unknown": 0,
+        "top": [
+          {
+            "index": 555,
+            "score": 0.6773789525799976,
+            "label": "mover",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                95.0,
+                53.0
+              ]
+            ]
+          },
+          {
+            "index": 986,
+            "score": 0.46091484801699567,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                40.0,
+                110.0
+              ],
+              [
+                71.0,
+                94.0
+              ],
+              [
+                124.0,
+                72.0
+              ]
+            ]
+          },
+          {
+            "index": 35,
+            "score": 0.3741957342302663,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                127.0,
+                3.0
+              ],
+              [
+                119.0,
+                21.0
+              ],
+              [
+                95.0,
+                53.0
+              ]
+            ]
+          },
+          {
+            "index": 851,
+            "score": 0.35410977135626803,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                72.0,
+                94.0
+              ],
+              [
+                59.0,
+                65.0
+              ],
+              [
+                38.0,
+                7.0
+              ]
+            ]
+          },
+          {
+            "index": 578,
+            "score": 0.3450849119976876,
+            "label": "mixed_identity",
+            "positions": [
+              [
+                36.0,
+                72.0
+              ],
+              [
+                45.0,
+                82.0
+              ],
+              [
+                71.0,
+                94.0
+              ]
+            ]
+          }
+        ],
+        "changed_scores": 0,
+        "changed_decisions": 0
+      }
+    }
+  },
+  "geometric_baseline": {
+    "mover1": {
+      "target_rank": 1,
+      "target_middle_residual_px": 0.3687872519469707,
+      "top_index": 177,
+      "moving_candidates": 136
+    },
+    "mover2": {
+      "target_rank": 1,
+      "target_middle_residual_px": 0.5929401479292863,
+      "top_index": 555,
+      "moving_candidates": 829
+    }
+  }
+}

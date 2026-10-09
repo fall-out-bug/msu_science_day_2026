@@ -1,0 +1,23 @@
+artifacts/
+dist/
+.venv/
+verification/
+app/data.js
+app/real/
+node_modules/
+__pycache__/
+app/sky-data.js
+app/discovery-data.js
+app/sky-source.zip
+app/LICENSES.txt
+assets/sky/src/
+assets/discoveries/*.tar
+assets/discoveries/*.fits
+assets/observations/cache/
+assets/observations/demo-quadrants/
+assets/observations/*.npz
+assets/observations/**/*.fits
+assets/observations/**/*.fits.gz
+
+# Shared scenario comments stay on this host.
+/var/scenario-comments/

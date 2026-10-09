@@ -1,0 +1,86 @@
+{
+  "browser": "Chromium with existing workspace Playwright executable",
+  "url_scheme": "file",
+  "phaser": "4.2.1",
+  "checks": [
+    {
+      "name": "Pinned Phaser 4.2.1 loads via file URL",
+      "passed": true
+    },
+    {
+      "name": "Third image initially concealed",
+      "passed": true
+    },
+    {
+      "name": "Blink changes the real displayed epoch",
+      "passed": true
+    },
+    {
+      "name": "Blend input changes visible frame layers",
+      "passed": true
+    },
+    {
+      "name": "Composite view cannot silently write an epoch mark",
+      "passed": true
+    },
+    {
+      "name": "Two pointer marks enable testing",
+      "passed": true
+    },
+    {
+      "name": "Wrong association produces actual miss",
+      "passed": true
+    },
+    {
+      "name": "Revised player measurements recover",
+      "passed": true
+    },
+    {
+      "name": "First forecast stays frozen after revision",
+      "passed": true
+    },
+    {
+      "name": "Unequal timestamps govern extrapolation",
+      "passed": true
+    },
+    {
+      "name": "Second real case has its own hidden third frame",
+      "passed": true
+    },
+    {
+      "name": "Help is explicit and records assistance",
+      "passed": true
+    },
+    {
+      "name": "Dragging changes player-derived forecast",
+      "passed": true
+    },
+    {
+      "name": "s07 forecast verifies with actual third frame",
+      "passed": true
+    },
+    {
+      "name": "Keyboard places a measured mark",
+      "passed": true
+    },
+    {
+      "name": "No runtime HTTP(S) request",
+      "passed": true
+    },
+    {
+      "name": "No browser script error",
+      "passed": true
+    },
+    {
+      "name": "Narrow touchscreen places mark",
+      "passed": true
+    },
+    {
+      "name": "Narrow layout has no horizontal overflow",
+      "passed": true
+    }
+  ],
+  "remote_requests": [],
+  "page_errors": [],
+  "limits": "Mobile viewport/touch emulation; no physical iOS/Android test, no player test, no performance claim."
+}

@@ -1,0 +1,21 @@
+{
+  "files": [
+    "index.html",
+    "style.css",
+    "game.js",
+    "model.js",
+    "tracking.js",
+    "data.js",
+    "provenance.json",
+    "brightness.js",
+    "brightness-model.js",
+    "brightness-data.js",
+    "brightness-provenance.json",
+    "vendor/phaser.min.js",
+    "vendor/PHASER-LICENSE.md",
+    "vendor/EVENTEMITTER3-LICENSE.txt"
+  ],
+  "crc": "passed",
+  "allBytesMatch": true,
+  "extractedTo": "/tmp/comparison-brightness-package-6nbcgvnj"
+}

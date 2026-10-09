@@ -1,0 +1,32 @@
+/* THROWAWAY: fullscreen sector-flight overlay for the offline prototype.
+   Matches the variant A cockpit look (deep teal console, amber highlights).
+   The <dialog class="sky-flight"> element itself is created once by prototype-flight.js. */
+
+.sky-flight{position:fixed;inset:0;margin:0;border:0;padding:0;width:100vw;max-width:none;height:100vh;height:100dvh;max-height:none;overflow:hidden;background:#050e1a;color:#e9f0f4;font:16px/1.5 system-ui,sans-serif}
+.sky-flight[open]{animation:sky-flight-in 170ms ease-out}
+@keyframes sky-flight-in{from{opacity:0}}
+.sky-flight::backdrop{background:rgba(3,8,15,.55)}
+.sky-flight-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.sky-flight-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 95% at 50% 42%,transparent 52%,rgba(2,6,12,.6) 100%)}
+.sky-flight-top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 20px;pointer-events:none}
+.sky-flight-kicker,.sky-flight-note{font:10px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.16em;text-transform:uppercase;color:#9fc3cd;text-shadow:0 1px 8px rgba(1,5,9,.9)}
+.sky-flight-note{color:#7fa0ad;letter-spacing:.12em}
+.sky-flight-bottom{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 20px calc(16px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(4,12,20,0),rgba(3,9,16,.9) 58%)}
+.sky-flight-route{display:flex;align-items:center;gap:12px;margin:0;font-size:clamp(16px,2.2vw,21px);line-height:1.3}
+.sky-flight-name{display:inline-flex;align-items:center;padding:4px 13px;border:1px solid #6b5a33;border-radius:999px;background:rgba(8,19,29,.78);font-weight:600;color:#f2e3c2;white-space:nowrap}
+.sky-flight-to{border-color:#2f6b62;color:#d9f5ec}
+.sky-flight-arrow{color:#79e0c2;font-weight:700}
+.sky-flight-caption{margin:6px 0 0;font-size:11.5px;line-height:1.5;color:#8fa9b5;max-width:560px}
+.sky-flight-skip{flex-shrink:0;font:inherit;cursor:pointer;color:#e7f4ef;background:#10242f;border:1px solid #2c4a54;border-radius:10px;padding:11px 18px;transition:transform .16s,border-color .16s}
+.sky-flight-skip:hover{border-color:#79e0c2;transform:translateY(-1px)}
+.sky-flight-skip:focus-visible{outline:3px solid #eaaf4b;outline-offset:3px}
+@media(max-width:640px){
+ .sky-flight-top{padding:12px 14px}
+ .sky-flight-note{display:none}
+ .sky-flight-bottom{flex-direction:column;align-items:stretch;gap:10px;text-align:center;padding:12px 14px calc(14px + env(safe-area-inset-bottom,0px))}
+ .sky-flight-route{justify-content:center;flex-wrap:wrap;gap:8px}
+ .sky-flight-caption{max-width:none}
+ .sky-flight-skip{width:100%;padding:13px 18px}
+}
+@media(max-height:430px){.sky-flight-caption{display:none}}
+@media(prefers-reduced-motion:reduce){.sky-flight[open]{animation:none}}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#071723" />
+    <title>Ночная смена — обсерватория Наука 0+</title>
+    <link rel="stylesheet" href="game.css" />
+    <link rel="stylesheet" href="sky-map.css" />
+    <link rel="stylesheet" href="nightshift.css" />
+  </head>
+  <body data-experience="nightshift">
+    <a class="skip-link" href="#app">Перейти к игре</a>
+    <div id="app"></div>
+    <div id="announce" role="status" aria-live="polite"></div>
+    <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+    <noscript
+      >Для игры нужен включённый JavaScript. Печатные карточки и памятка
+      доступны в папке print.</noscript
+    >
+    <details class="legal-details">
+      <summary>Источники, лицензии и данные атласа</summary>
+      <p>Наблюдения — ZTF / IPAC / NASA IRSA и NASA / Kepler / MAST.
+        Атлас — NASA SVS / Ernie Wright, HYG / David Nash, Stellarium.
+        Адреса первоисточников указаны в паспортах наблюдений и историях.</p>
+      <p><a data-sky-source href="sky-source.zip" download="sky-source.zip">Исходные данные атласа (ZIP)</a>
+        · <a data-license-text href="LICENSES.txt" download="LICENSES.txt">Полные тексты лицензий</a></p>
+    </details>
+    <script src="data.js"></script>
+    <script src="sky-data.js"></script>
+    <script src="discovery-data.js"></script>
+    <script src="content.js"></script>
+    <script src="model.js"></script>
+    <script src="sky-map.js"></script>
+    <script src="nightshift-evidence.js"></script>
+    <script src="nightshift-content.js"></script>
+    <script src="nightshift-model.js"></script>
+    <script src="nightshift-art.js"></script>
+    <script src="game.js"></script>
+    <script src="nightshift.js"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>След в трёх кадрах · игровой эксперимент</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<main>
+  <header><span class="eyebrow">ИГРОВОЙ ЭКСПЕРИМЕНТ · 2–3 МИНУТЫ</span><h1>След в трёх кадрах</h1>
+    <p>Найди точку, которая сместилась. Предскажи, где она окажется.</p>
+    <div class="case-switch"><button data-case="0" aria-pressed="true">Первый след</button><button data-case="1" aria-pressed="false">Другой объект</button></div>
+  </header>
+  <section class="instrument" aria-label="Наблюдательный прибор">
+    <div class="instrument-top"><span id="frame-date">Загрузка снимков…</span><span id="stage">Два наблюдения</span></div>
+    <div id="game"></div>
+    <div class="epochs" role="group" aria-label="Архивные снимки"><button data-epoch="0" aria-pressed="true">1 · отметь объект</button><button data-epoch="1" aria-pressed="false">2 · найди снова</button><button data-epoch="2" disabled aria-pressed="false">3 · ещё закрыт</button></div>
+    <div class="tools"><button id="blink" aria-pressed="false">Чередовать 1 ↔ 2</button><label>Совместить <input id="blend" type="range" min="0" max="100" value="0" aria-label="Совмещение первых двух кадров"></label></div>
+    <div class="test-row"><button id="test" class="primary" disabled>Проверить на третьем кадре</button><button id="help">Нужен ориентир</button></div>
+    <p id="feedback" role="status" aria-live="polite">Нажми на движущуюся точку в кадре 1, затем в кадре 2.</p>
+    <p class="legend"><span class="amber">○ Первый прогноз</span><span class="cyan">○ Текущий прогноз</span><span class="mint">✦ Объект после проверки</span></p>
+    <p class="fine">Круг: допуск выбора точки ±4 пикселя, не уверенность модели. Стрелки — прицел, Enter — отметка, 1/2/3 — кадры. Отметку можно перетащить.</p>
+  </section>
+  <details><summary>Что здесь настоящее</summary><div id="sources"></div><p>Три архивных снимка ZTF, без изменения пикселей. Прогноз — линейная экстраполяция твоих отметок по реальным датам. Это исследование данных, не расчёт орбиты и не обученный ИИ. Ранжирование кандидатов моделью ML в этом эксперименте не реализовано.</p></details>
+</main>
+<script src="vendor/phaser.min.js"></script><script src="labdata.js"></script><script src="model.js"></script><script src="game.js"></script>
+</body></html>
