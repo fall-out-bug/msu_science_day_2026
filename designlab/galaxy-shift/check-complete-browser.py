@@ -114,7 +114,22 @@ def capture(page, name):
     page.screenshot(path=str(EVIDENCE / f"complete-{page.viewport_size['width']}x{page.viewport_size['height']}-{name}.png"), full_page=True)
 
 
+def story_frame_visible(page):
+    assert page.evaluate("""() => {
+      const card=document.querySelector('.route-story__card');
+      const button=document.querySelector('[data-action="collect-map"]');
+      if (!card || !button) return false;
+      const r=button.getBoundingClientRect();
+      const hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
+      return document.documentElement.scrollHeight <= innerHeight+1 &&
+        card.scrollHeight <= card.clientHeight+1 &&
+        r.top >= 0 && r.bottom <= innerHeight &&
+        (hit === button || button.contains(hit));
+    }"""), 'Story text and next action must be visible before scrolling or clicking'
+
+
 def click_action(page, name):
+    if name == "collect-map": story_frame_visible(page)
     page.locator(f'[data-action="{name}"]').first.click()
 
 
@@ -128,6 +143,7 @@ def tab_to(page, selector, limit=80):
 
 
 def enter_action(page, action):
+    if action == "collect-map": story_frame_visible(page)
     tab_to(page, f'[data-action="{action}"]')
     page.keyboard.press("Enter")
 

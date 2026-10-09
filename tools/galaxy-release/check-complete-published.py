@@ -55,6 +55,11 @@ print(json.dumps({'status':'PASS','resources':len(manifest['files']),'documents'
     assets=json.loads(checked.stdout)
     journey=module('telemetry_flow',ROOT/'tools/galaxy-telemetry/check-integration.py')
     editor=module('constructor_flow',GAME/'check-complete-browser.py')
+    original_click=journey.click
+    def checked_click(page, action):
+        if action=='collect-map': editor.story_frame_visible(page)
+        original_click(page, action)
+    journey.click=checked_click
     tunnel=None
     try:
         options={}

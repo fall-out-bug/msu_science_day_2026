@@ -85,6 +85,7 @@ python3 tools/galaxy-telemetry/test_admin_export.py
 /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-result-cases.py
 /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-continuity-browser.py
 GALAXY_EVIDENCE_DIR=/tmp/science-day-complete-qa /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-complete-browser.py
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-story-frame.py --evidence docs/design-2026-10-09/evidence/story-frame-after.json
 /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-no-cnn-flicker.py
 /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-result-image-loading.py
 /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-night-sky-integration.py

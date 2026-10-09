@@ -1,15 +1,15 @@
 # Публикация «Ночи открытий»
 
-Опубликованная версия: `2026.10.09-night.1`. Предыдущий выпуск указан ниже.
-Финальный образ игры и отчётов: `sd2026-public:galaxy-20261009-night-2`.
+Текущая версия: `2026.10.09-night.2`. Предыдущий выпуск указан ниже.
+Финальный образ игры и отчётов: `sd2026-public:galaxy-20261009-night-3`.
 Идентификатор образа, исходный коммит и последняя проверка публичного HTTPS
 сохранены в [night-publication.json](night-publication.json).
 
 Локальные проверки и состояние поставки записаны в
 `docs/design-2026-10-09/night-release.md`. Проверка публичного HTTPS и точного
 образа сохраняется в отдельном отчёте; локальный PASS её не заменяет.
-Предыдущий опубликованный выпуск: `2026.10.09-complete.1`, образ
-`sd2026-public:galaxy-20261009-2`.
+Предыдущий опубликованный выпуск: `2026.10.09-night.1`, образ
+`sd2026-public:galaxy-20261009-night-2`.
 
 ## Подготовка и проверка
 
@@ -40,7 +40,7 @@ SQLite, срок хранения 30 дней и локальную админи
 
 ```bash
 docker build --builder default --pull=false -t sd2026-telemetry:complete-20261008-1 tools/galaxy-telemetry
-tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-2
+tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-3
 ```
 
 Базовый образ `sd2026-public:scenario-comments` закреплён точным SHA-256 в
@@ -51,7 +51,7 @@ tools/galaxy-release/build-image.sh sd2026-public:galaxy-20261009-night-2
 ## Переключение и приёмка
 
 ```bash
-tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-2
+tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-3
 ```
 
 Команда создаёт отдельный каталог БД телеметрии, запускает её контейнер и
@@ -84,7 +84,7 @@ VPN или службы хоста. Локальный PASS не считает�
 При неуспешной приёмке вернуть предыдущий web:
 
 ```bash
-tools/galaxy-release/rollback.sh sd2026-public:galaxy-20261009-2
+tools/galaxy-release/rollback.sh sd2026-public:galaxy-20261009-night-2
 ```
 
 Откат сохраняет данные комментариев, архивы и отдельную SQLite телеметрии.

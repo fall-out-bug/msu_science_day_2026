@@ -1,0 +1,287 @@
+{
+  "status": "PASS",
+  "baseline": null,
+  "checks": [
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "pageHeight": 720,
+      "pageWidth": 1280,
+      "card": {
+        "left": 120,
+        "top": 169.1875,
+        "right": 1160,
+        "bottom": 614.796875,
+        "clientHeight": 444,
+        "scrollHeight": 444
+      },
+      "button": {
+        "left": 814.828125,
+        "top": 525.015625,
+        "right": 1131,
+        "bottom": 572.015625
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "pageHeight": 720,
+      "pageWidth": 1280,
+      "card": {
+        "left": 120,
+        "top": 169.1875,
+        "right": 1160,
+        "bottom": 614.796875,
+        "clientHeight": 444,
+        "scrollHeight": 444
+      },
+      "button": {
+        "left": 814.828125,
+        "top": 525.015625,
+        "right": 1131,
+        "bottom": 572.015625
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageHeight": 768,
+      "pageWidth": 1366,
+      "card": {
+        "left": 163,
+        "top": 191.90625,
+        "right": 1203,
+        "bottom": 640.09375,
+        "clientHeight": 446,
+        "scrollHeight": 446
+      },
+      "button": {
+        "left": 857.828125,
+        "top": 550.3125,
+        "right": 1174,
+        "bottom": 597.3125
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageHeight": 768,
+      "pageWidth": 1366,
+      "card": {
+        "left": 163,
+        "top": 191.90625,
+        "right": 1203,
+        "bottom": 640.09375,
+        "clientHeight": 446,
+        "scrollHeight": 446
+      },
+      "button": {
+        "left": 857.828125,
+        "top": 550.3125,
+        "right": 1174,
+        "bottom": 597.3125
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "pageHeight": 900,
+      "pageWidth": 1440,
+      "card": {
+        "left": 200,
+        "top": 257.90625,
+        "right": 1240,
+        "bottom": 706.09375,
+        "clientHeight": 446,
+        "scrollHeight": 446
+      },
+      "button": {
+        "left": 894.828125,
+        "top": 616.3125,
+        "right": 1211,
+        "bottom": 663.3125
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "pageHeight": 900,
+      "pageWidth": 1440,
+      "card": {
+        "left": 200,
+        "top": 257.90625,
+        "right": 1240,
+        "bottom": 706.09375,
+        "clientHeight": 446,
+        "scrollHeight": 446
+      },
+      "button": {
+        "left": 894.828125,
+        "top": 616.3125,
+        "right": 1211,
+        "bottom": 663.3125
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageHeight": 1080,
+      "pageWidth": 1920,
+      "card": {
+        "left": 440,
+        "top": 347.90625,
+        "right": 1480,
+        "bottom": 796.09375,
+        "clientHeight": 446,
+        "scrollHeight": 446
+      },
+      "button": {
+        "left": 1134.828125,
+        "top": 706.3125,
+        "right": 1451,
+        "bottom": 753.3125
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageHeight": 1080,
+      "pageWidth": 1920,
+      "card": {
+        "left": 440,
+        "top": 347.90625,
+        "right": 1480,
+        "bottom": 796.09375,
+        "clientHeight": 446,
+        "scrollHeight": 446
+      },
+      "button": {
+        "left": 1134.828125,
+        "top": 706.3125,
+        "right": 1451,
+        "bottom": 753.3125
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    },
+    {
+      "viewport": [
+        853,
+        480
+      ],
+      "pageHeight": 480,
+      "pageWidth": 853,
+      "card": {
+        "left": 16,
+        "top": 75.125,
+        "right": 837,
+        "bottom": 466.859375,
+        "clientHeight": 390,
+        "scrollHeight": 390
+      },
+      "button": {
+        "left": 533.578125,
+        "top": 388.578125,
+        "right": 814,
+        "bottom": 432.578125
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "reduce"
+    },
+    {
+      "viewport": [
+        853,
+        480
+      ],
+      "pageHeight": 480,
+      "pageWidth": 853,
+      "card": {
+        "left": 16,
+        "top": 75.125,
+        "right": 837,
+        "bottom": 466.859375,
+        "clientHeight": 390,
+        "scrollHeight": 390
+      },
+      "button": {
+        "left": 533.578125,
+        "top": 388.578125,
+        "right": 814,
+        "bottom": 432.578125
+      },
+      "buttonHit": true,
+      "internalScroll": [],
+      "scrollY": 0,
+      "failures": [],
+      "status": "PASS",
+      "motion": "no-preference"
+    }
+  ],
+  "browserErrors": []
+}

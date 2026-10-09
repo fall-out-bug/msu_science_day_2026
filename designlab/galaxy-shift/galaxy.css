@@ -145,7 +145,20 @@ body{background:#08141e}.sr-only{position:absolute;width:1px;height:1px;margin:-
   .sky-hotspot{left:28%;top:18%;}
 }
 
-.route-story{display:grid;place-items:center;padding:92px 24px 30px}.route-story__card{width:min(720px,100%);max-height:calc(100svh - 140px);overflow:auto;padding:clamp(22px,4vw,42px);border:1px solid #fff8;border-radius:22px;background:#f9f5e9f2;color:var(--ink);box-shadow:var(--shadow)}.route-story__card h1{font:400 clamp(1.8rem,3vw,2.7rem)/1.15 Georgia,serif;margin:10px 0 18px}.route-story__card>p{font-size:1rem;line-height:1.6;margin:12px 0}.route-story__question{padding:12px 16px;border-left:3px solid var(--gold);background:#eee4ca;color:#3e564c}.route-story__card .mentor{margin:22px 0 16px;max-width:none}.route-story__card .primary{margin-left:auto}@media(max-width:700px){.route-story{align-items:end;padding:70px 10px 12px}.route-story__card{max-height:calc(100svh - 82px);padding:20px 16px;border-radius:16px}.route-story__card h1{font-size:1.65rem}.route-story__card>p{font-size:.88rem;line-height:1.5}.route-story__card .mentor{font-size:.8rem;margin:16px 0 12px}.route-story__card .primary{width:100%}}
+.route-story{display:grid;place-items:center;padding:88px 24px 24px}
+.route-story__card{width:min(1040px,100%);padding:28px;border:1px solid #fff8;border-radius:22px;background:#f9f5e9f2;color:var(--ink);box-shadow:var(--shadow)}
+.route-story__card h1{font:400 clamp(1.6rem,2.7vw,2.3rem)/1.15 Georgia,serif;margin:7px 0 20px}
+.route-story__body{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.route-story__body p{font-size:1rem;line-height:1.45;margin:0 0 12px}
+.route-story__body .source{font-size:.8rem;line-height:1.4;margin:14px 0 0}
+.route-story__terms{border-left:1px solid var(--line);padding-left:28px}
+.route-story__terms p:last-child{margin-bottom:0}
+.route-story__next{display:flex;align-items:center;gap:24px;border-top:1px solid var(--line);margin-top:22px;padding-top:18px}
+.route-story__next .mentor{flex:1;min-width:0;max-width:none;margin:0;padding:0;border:0;background:none;box-shadow:none}
+.route-story__next .primary{flex:none;margin:0;min-height:44px}
+@media(max-height:600px) and (min-width:701px){.route-story{padding:74px 16px 12px}.route-story__card{padding:18px 22px}.route-story__card h1{font-size:1.6rem;margin:5px 0 12px}.route-story__body{gap:20px}.route-story__terms{padding-left:20px}.route-story__body p{line-height:1.35;margin-bottom:9px}.route-story__next{gap:18px;margin-top:12px;padding-top:10px}.route-story__next .primary{padding:11px 15px;font-size:.9rem}}
+@media(max-width:700px){.route-story{padding:80px 12px 18px}.route-story__card{padding:20px 18px}.route-story__card h1{font-size:1.6rem}.route-story__body{grid-template-columns:1fr;gap:16px}.route-story__terms{border-left:0;padding-left:0}.route-story__next{flex-direction:column;align-items:stretch;gap:14px}.route-story__next .primary{width:100%}}
+
 
 /* One CNN lesson: its three desktop programs share the same prepared experiment. */
 .cnn-programs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.cnn-programs button,.architecture-choice button{border:1px solid #9ab1ae;border-radius:8px;background:#f7f1df;color:#174b4a;padding:9px 12px;font:700 .82rem/1.2 system-ui;cursor:pointer}.cnn-programs button.selected,.architecture-choice button.selected{background:#176c68;color:#fff;border-color:#176c68}.cnn-programs button:disabled{opacity:.48;cursor:not-allowed}.architecture-choice{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:18px 0;padding:12px;background:#f4ecd8;border-radius:8px;font-size:.88rem}.folder-panel{max-width:980px}.folder-panel>p{line-height:1.5}.folder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-top:16px}.folder-grid article{padding:9px;background:#f5ecd5;border:1px solid #d7c297;border-radius:8px;font-size:.8rem}.folder-grid .galaxy-frame{margin:0 0 7px}.folder-grid .galaxy-frame figcaption{display:none}.folder-grid article b,.folder-grid article span{display:block}.folder-grid article span{color:var(--muted);margin-top:4px}@media(max-width:700px){.cnn-programs{gap:6px}.cnn-programs button{font-size:.73rem;padding:8px}.folder-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.architecture-choice{font-size:.8rem}}
