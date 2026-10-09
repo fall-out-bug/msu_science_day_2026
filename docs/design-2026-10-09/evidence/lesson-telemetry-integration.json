@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "checks": [
+    "visible full route: collect4, labels4, repair3, guided and independent CNN runs, final",
+    "SQLite event sequence, image IDs, run keys, architecture, review/final results",
+    "reload retains lesson state and telemetry session ID",
+    "independent second tab has a new telemetry session",
+    "new shift rotates telemetry session ID",
+    "file ZIP export is valid JSON and makes no HTTP request",
+    "map collection remains aligned after a 350ms click during normal-motion camera focus",
+    "blocked sessionStorage plus telemetry network failure still completes route and shows diagnostic"
+  ],
+  "failures": [],
+  "environment": {
+    "origin": "http://127.0.0.1:39669",
+    "backend": "private localhost",
+    "proxyOriginHandling": "local test proxy strips Origin before forwarding; backend production allowlist unchanged"
+  },
+  "events": {
+    "count": 33,
+    "sessionId": "3766b341-97e3-4572-9509-93742f4cb8ed",
+    "types": [
+      "session_started",
+      "phase_entered",
+      "phase_entered",
+      "phase_entered",
+      "map_target_collected",
+      "map_target_collected",
+      "map_target_collected",
+      "map_target_collected",
+      "phase_entered",
+      "phase_entered",
+      "label_set",
+      "label_set",
+      "label_set",
+      "label_set",
+      "phase_entered",
+      "run_opened",
+      "result_opened",
+      "phase_entered",
+      "label_set",
+      "label_set",
+      "label_set",
+      "phase_entered",
+      "run_opened",
+      "result_opened",
+      "architecture_selected",
+      "run_opened",
+      "result_opened",
+      "architecture_selected",
+      "run_opened",
+      "result_opened",
+      "phase_entered",
+      "final_opened",
+      "result_opened"
+    ]
+  }
+}

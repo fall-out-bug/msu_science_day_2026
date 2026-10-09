@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "scenario": "keyboard-only map collection at 853x480 with ordinary motion",
+  "attempts": 3,
+  "result": ["PASS", "PASS", "PASS"],
+  "previousFailure": {
+    "target": "child_ic5332",
+    "cause": "The target-button focus animation was still moving the camera while documented Arrow navigation began. Cancelling that animation made the target too distant for the 48-key alignment bound."
+  },
+  "fix": "Keyboard activation of a target frames it immediately; pointer activation keeps the existing animated framing.",
+  "followUp": {
+    "checkNightSkyIntegration": "PASS",
+    "openedRealModals": 43,
+    "viewports": ["1280x720", "1366x768", "1440x900", "1920x1080", "150% CSS viewport"]
+  }
+}

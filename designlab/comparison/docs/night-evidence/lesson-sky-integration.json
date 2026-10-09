@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "check": "designlab/galaxy-shift/check-night-sky-integration.py",
+  "route": "visible start → collection → labels → repair → guided CNN change → independent CNN change → final → sky",
+  "openedRealModals": 43,
+  "storiesWithoutSingleCoordinate": 9,
+  "storyBlockHeading": "Открытия по всему небу",
+  "contracts": [
+    "All 19 discovery cards and 24 archive galaxies opened from the sky.",
+    "Nine unlocated stories are one labelled button block; no note-without-coordinate wording remains.",
+    "A sky card has one return-to-sky action, no generic close action, and equal Consider and Talk actions.",
+    "Enlarging and talking close by Escape without changing the sky camera.",
+    "Markers do not overlap one another or the story block."
+  ],
+  "viewports": [
+    "1280x720",
+    "1366x768",
+    "1440x900",
+    "1920x1080",
+    "1280x720 at 150%",
+    "853x480"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "scope": "CNN lesson geometry after contextual bridge and learner-controlled experiment",
+  "method": "Visible-control route: repair -> rerun -> bridge -> guided change -> learner change -> final. The photo and editor bounding boxes were compared at every CNN stage; no model state was injected.",
+  "viewports": {
+    "1280x720": {
+      "documentHeight": 720,
+      "photo": [40, 294, 334.25, 372],
+      "editor": [382.25, 294, 575.89, 372],
+      "ctaBottomRange": [585.88, 710]
+    },
+    "1366x768": {
+      "documentHeight": 768,
+      "photo": [83, 294, 334.25, 372],
+      "editor": [425.25, 294, 575.89, 372],
+      "ctaBottomRange": [585.88, 710]
+    },
+    "1440x900": {
+      "documentHeight": 900,
+      "photo": [125, 327, 332.13, 467],
+      "editor": [467.13, 327, 566.13, 467]
+    },
+    "1920x1080": {
+      "documentHeight": 1080,
+      "photo": [365, 327, 332.13, 467],
+      "editor": [707.13, 327, 566.13, 467]
+    },
+    "853x480": {
+      "mode": "150% CSS viewport; full keyboard route",
+      "documentScrollWidth": 853,
+      "viewportWidth": 853,
+      "result": "No horizontal overflow; reached final room. Vertical scrolling is permitted at this scale."
+    }
+  },
+  "result": "PASS: at bridge, intro, compare, observe, independent, independent-observe and complete the photo and editor boxes stayed identical within each viewport. No document overflow occurred on the four desktop viewports."
+}

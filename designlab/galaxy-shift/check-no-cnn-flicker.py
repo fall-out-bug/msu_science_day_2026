@@ -90,9 +90,28 @@ def suite(page, reduced):
     return report
 
 
+def guide_suite(page):
+    """Temporal contract for the visible bridge and both learning experiences."""
+    spec = importlib.util.spec_from_file_location('continuity', HERE / 'check-continuity-browser.py')
+    flow = importlib.util.module_from_spec(spec); spec.loader.exec_module(flow)
+    page.goto((HERE / 'index.html').as_uri())
+    page.wait_for_function('window.galaxyGame && window.GALAXY_DATA')
+    data = flow.prepare_repair(page); flow.confirm_old(page, data)
+    flow.click(page, 'run'); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'bridge'")
+    report=[]
+    report.append(sample(page, 'guide-open', lambda: (flow.click(page, 'guide-open'), page.wait_for_function("galaxyGame.model.state.cnnGuide === 'intro'")), changes_architecture=False))
+    report.append(sample(page, 'guide-add-convolution', lambda: (flow.click(page, 'guide-add-convolution'), page.wait_for_function("galaxyGame.model.state.cnnGuide === 'compare'"))))
+    report.append(sample(page, 'guide-run-observe', lambda: (flow.click(page, 'run'), page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")), changes_architecture=False))
+    report.append(sample(page, 'guide-confirm-independent', lambda: (flow.click(page, 'guide-confirm-compare'), page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent'")), changes_architecture=False))
+    page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
+    report.append(sample(page, 'own-run-observe', lambda: (flow.click(page, 'architecture-save'), page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent-observe'")), changes_architecture=False))
+    report.append(sample(page, 'own-confirm-complete', lambda: (flow.click(page, 'independent-confirm'), page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")), changes_architecture=False))
+    return report
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    final={'status':'PASS','ordinary':None,'warm':None,'reduced':None,'errors':[]}
+    final={'status':'PASS','ordinary':None,'warm':None,'reduced':None,'guide':None,'errors':[]}
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True)
         for key, motion in [('ordinary','no-preference'),('reduced','reduce')]:
@@ -103,9 +122,14 @@ def main():
                 final['warm'] = suite(page, False)
             final['errors'].extend(errors); assert not errors, errors
             page.close()
+        guide_page=browser.new_page(viewport={'width':1280,'height':720},reduced_motion='no-preference')
+        guide_errors=[]; guide_page.on('pageerror',lambda error:guide_errors.append(str(error)))
+        final['guide']=guide_suite(guide_page)
+        final['errors'].extend(guide_errors)
+        guide_page.close()
         browser.close()
     compact = {**final, **{key: [{k: v for k, v in row.items() if k != 'frames'} for row in final[key]] for key in ('ordinary', 'warm', 'reduced')}}
-    (OUT/'flicker-after.json').write_text(json.dumps(compact,ensure_ascii=False,indent=2))
-    print('PASS N08', OUT/'flicker-after.json')
+    (OUT/'lesson-flicker.json').write_text(json.dumps(compact,ensure_ascii=False,indent=2))
+    print('PASS N08', OUT/'lesson-flicker.json')
 
 if __name__ == '__main__': main()

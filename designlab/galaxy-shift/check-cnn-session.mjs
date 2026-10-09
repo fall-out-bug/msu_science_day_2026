@@ -61,8 +61,10 @@ assert.equal(lesson.state.current.result, table.experiments[repairedKey].archite
 action('REPAIR');
 assert.deepEqual(Array.from(lesson.state.reviewedOldIds), Array.from(data.oldIds), 'returning to old labels must keep explicit confirmations');
 action('RUN');
-assert.equal(lesson.state.cnnGuide, 'intro');
+assert.equal(lesson.state.cnnGuide, 'bridge');
 mustThrow('FINISH'); mustThrow('MODEL_SETTINGS');
+mustThrow('GUIDE_ADD_CONVOLUTION');
+action('GUIDE_OPEN'); assert.equal(lesson.state.cnnGuide, 'intro');
 action('GUIDE_ADD_CONVOLUTION');
 assert.equal(lesson.state.architecture, 'd2-r'); assert.equal(lesson.state.current, null);
 if (baselineOnly) {
@@ -71,29 +73,21 @@ if (baselineOnly) {
   process.exit(0);
 }
 action('RUN'); assert.equal(lesson.state.cnnGuide, 'observe');
-mustThrow('FINISH'); action('GUIDE_CONFIRM_COMPARE'); assert.equal(lesson.state.cnnGuide, 'complete');
+mustThrow('FINISH'); action('GUIDE_CONFIRM_COMPARE'); assert.equal(lesson.state.cnnGuide, 'independent');
+mustThrow('RUN'); mustThrow('FINISH');
 
 action('SET_ARCHITECTURE', { architecture: 'd1-r' });
 assert.equal(lesson.state.current, null, 'free editor architecture change must require an exact run');
 action('RUN');
 const beforeSameArchitecture = lesson.state.current;
-action('SET_ARCHITECTURE', { architecture: 'd1-r' });
-assert.equal(lesson.state.current, beforeSameArchitecture, 'same architecture must not invalidate a checked run');
-action('MODEL_SETTINGS');
-assert.equal(lesson.state.current, beforeSameArchitecture, 'opening settings must retain the displayed result');
-assert.equal(lesson.state.modelSettings, true);
+assert.equal(lesson.state.cnnGuide, 'independent-observe');
+mustThrow('FINISH'); mustThrow('SET_ARCHITECTURE', { architecture: secondary });
+action('INDEPENDENT_CONFIRM'); assert.equal(lesson.state.cnnGuide, 'complete');
+assert.equal(lesson.state.current, beforeSameArchitecture, 'own comparison retains its exact run');
+action('MODEL_SETTINGS'); assert.equal(lesson.state.modelSettings, true);
 assert.equal(lesson.state.repairCheckedLabelKey, repairedKey);
-action('LABELS');
-assert.equal(lesson.state.modelSettings, false, 'returning to labels must close settings');
-assert.equal(lesson.state.current, beforeSameArchitecture, 'labels route must keep its comparison snapshot');
-action('RUN'); action('REPAIR');
-assert.equal(lesson.state.modelSettings, false, 'opening repair must close settings');
-for (const id of data.oldIds) label(id, lesson.state.labels[id]);
-action('RUN');
 action('SET_ARCHITECTURE', { architecture: secondary });
-if (!baselineOnly) assert.equal(lesson.state.current, null, 'a changed architecture needs its own exact run');
-assert.equal(lesson.state.repairCheckedLabelKey, repairedKey, 'architecture switch must preserve repaired label approval');
-if (!baselineOnly) mustThrow('FINISH'); mustThrow('GUIDE_ADD_CONVOLUTION');
+assert.equal(lesson.state.current, null, 'a free architecture change needs its own exact run');
 action('RUN');
 assert.equal(lesson.state.current.result, table.experiments[repairedKey].architectures[secondary]);
 action('FINISH'); assert.equal(lesson.state.phase, 'final');
@@ -109,9 +103,12 @@ label(changedChild, wrongLabel);
 const wrongKey = signature();
 assert.equal(lesson.state.current, null);
 assert.equal(lesson.state.repairCheckedLabelKey, null, 'any label edit must invalidate repair approval');
+assert.equal(lesson.state.cnnGuide, 'complete', 'a completed own comparison remains part of the lesson after label edits');
 action('RUN'); assert.equal(lesson.state.current.result, table.experiments[wrongKey].architectures[secondary]);
 mustThrow('FINISH');
-action('REPAIR'); for (const id of data.oldIds) label(id, lesson.state.labels[id]); action('RUN'); action('FINISH');
+action('REPAIR'); for (const id of data.oldIds) label(id, lesson.state.labels[id]); action('RUN');
+assert.equal(lesson.state.cnnGuide, 'complete', 'rechecking labels does not demand a second guided and own experiment');
+action('FINISH');
 assert.equal(lesson.state.current.result, table.experiments[wrongKey].architectures[secondary], 'wrong child label resolves an exact table row');
 
 if (!baselineOnly) {
@@ -124,7 +121,7 @@ for (const id of data.childIds) run('SET_LABEL', { id, label: id === changedChil
 run('RUN'); run('REPAIR');
 for (const id of data.oldIds) run('SET_LABEL', { id, label: canonical(id) });
 run('RUN');
-run('GUIDE_ADD_CONVOLUTION');
+run('GUIDE_OPEN'); run('GUIDE_ADD_CONVOLUTION');
 assert.throws(() => run('RUN'), /нет подготовленного опыта/, 'missing table row must never fall back');
 }
-console.log(JSON.stringify({ status: 'PASS', scope: baselineOnly ? 'baseline-only' : 'two-architectures', checks: ['fresh child labels', 'exact lookup', 'label invalidation', 'architecture state', 'wrong child state', 'no fallback'] }));
+console.log(JSON.stringify({ status: 'PASS', scope: baselineOnly ? 'baseline-only' : 'two-architectures', checks: ['fresh child labels', 'bridge before network', 'guided and independent comparison', 'exact lookup', 'label invalidation', 'no fallback'] }));

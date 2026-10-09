@@ -100,3 +100,10 @@
 @media(max-width:1000px) and (min-width:701px) and (max-height:600px){
  .workbench--quest:has(.quest-scene__labels) .quest-scene__main{height:242px}
 }
+
+/* A galaxy is inspected as a whole frame, rather than stretched into a banner. */
+@media (min-width:1001px){
+ .workbench--quest .quest-scene__main{grid-template-columns:minmax(385px,min(560px,calc(100svh - 335px))) minmax(0,1fr)}
+ .workbench--quest .quest-scene__photo-area{align-items:flex-start}
+ .workbench--quest .quest-scene__photo-shell{width:min(100%,min(560px,calc(100svh - 335px)));height:auto;aspect-ratio:1/1;flex:none}
+}

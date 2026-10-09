@@ -45,8 +45,9 @@ def check(page, url, keyboard=False):
     if state['internalScroll'] or state['card']['scrollHeight']>state['card']['clientHeight']+1:failures.append('card scroll')
     if state['card']['top']<0 or state['card']['bottom']>h+1:failures.append('card outside frame')
     if not state['buttonHit']:failures.append('next action obscured')
-    for text in ['Искусственный интеллект','Машинное обучение','Data Science','Euclid','Источник']:
+    for text in ['Найдём галактики','Волосы Вероники','M85','Euclid','Источник']:
         if text not in state['text']:failures.append('missing '+text)
+    if page.locator('.route-story__terms').count():failures.append('premature dictionary block')
     del state['text']
     state['failures']=failures
     state['status']='FAIL' if failures else 'PASS'

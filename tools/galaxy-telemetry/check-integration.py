@@ -112,10 +112,18 @@ def journey(page):
     click(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
     page.wait_for_selector(".cnn-workbench .architecture-editor")
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'bridge'")
+    click(page, "guide-open")
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'intro'")
     click(page, "guide-add-convolution")
     click(page, "run")
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
     click(page, "guide-confirm-compare")
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent'")
+    page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
+    click(page, "architecture-save")
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent-observe'")
+    click(page, "independent-confirm")
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
     click(page, "finish")
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
@@ -167,13 +175,13 @@ def verify_sequence(events, data):
     assert len(labels) == 7
     assert [event["detail"]["imageId"] for event in labels] == data["childIds"] + data["oldIds"]
     assert all(event["detail"]["after"] == next(image["label"] for image in data["images"] if image["id"] == event["detail"]["imageId"]) for event in labels)
-    assert types.count("run_opened") == 3 and types.count("result_opened") == 4, types
+    assert types.count("run_opened") == 4 and types.count("result_opened") == 5, types
     guide_architecture = [event["detail"] for event in events if event["type"] == "architecture_selected"]
-    assert guide_architecture == [{"architecture": "d2-r"}]
+    assert guide_architecture == [{"architecture": "d2-r"}, {"architecture": "d1-r"}]
     assert types.count("final_opened") == 1 and types[-3:] == ["phase_entered", "final_opened", "result_opened"], types
     assert events[-3]["detail"] == {"phase": "final"}
-    assert [event["detail"]["scope"] for event in events if event["type"] == "run_opened"] == ["review", "review", "review"]
-    assert [event["detail"]["scope"] for event in events if event["type"] == "result_opened"] == ["review", "review", "review", "final"]
+    assert [event["detail"]["scope"] for event in events if event["type"] == "run_opened"] == ["review", "review", "review", "review"]
+    assert [event["detail"]["scope"] for event in events if event["type"] == "result_opened"] == ["review", "review", "review", "review", "final"]
     assert {event["detail"]["architecture"] for event in events if event["type"] == "run_opened"} == {"d1-r", "d2-r"}
 
 
@@ -214,7 +222,7 @@ def main():
                     verify_sequence(events, data)
                     assert not errors, errors
                     assert not failed, failed
-                    result["checks"].append("visible full route: collect4, labels4, repair3, three runs, final")
+                    result["checks"].append("visible full route: collect4, labels4, repair3, guided and independent CNN runs, final")
                     result["checks"].append("SQLite event sequence, image IDs, run keys, architecture, review/final results")
 
                     page.reload(wait_until="domcontentloaded")

@@ -89,11 +89,18 @@ def repair_and_run(page, data, labels):
 
 def complete_guide(page, return_to_one_layer=False):
     page.wait_for_selector('.cnn-workbench .architecture-editor')
+    click(page, 'guide-open')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'intro'")
     click(page, 'guide-add-convolution')
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'compare'")
     click(page, 'run')
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
     click(page, 'guide-confirm-compare')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent'")
+    page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
+    click(page, 'architecture-save')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent-observe'")
+    click(page, 'independent-confirm')
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
     if return_to_one_layer:
         page.locator('[data-action="architecture-depth"][data-depth="1"]').click()

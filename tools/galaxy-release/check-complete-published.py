@@ -91,8 +91,12 @@ print(json.dumps({'status':'PASS','resources':len(manifest['files']),'documents'
             assert page.evaluate('GALAXY_BUILD_VERSION')==manifest['version']
             data=journey.journey(page)
             baseline=page.evaluate('galaxyGame.model.state.baseline')
-            guided=page.evaluate('galaxyGame.model.state.current')
+            guided=page.evaluate('galaxyGame.model.state.independentBaseline')
+            independent=page.evaluate('galaxyGame.model.state.current')
             assert baseline['architecture']=='d1-r' and guided['architecture']=='d2-r'
+            assert independent['architecture']!=guided['architecture']
+            assert independent['labelKey']==guided['labelKey']
+            assert page.evaluate("galaxyGame.model.state.cnnGuide==='complete'")
             page.locator('.research-board > summary').click()
             journey.click(page,'labels');journey.click(page,'run')
             page.wait_for_function("galaxyGame.model.state.phase==='review'")
@@ -121,7 +125,7 @@ print(json.dumps({'status':'PASS','resources':len(manifest['files']),'documents'
             assert all(urlsplit(url).netloc==urlsplit(base).netloc for url in requests if url.startswith(('http:','https:')))
             browser.close()
         report={'status':'PASS','base':base,'version':manifest['version'],'transport':'HTTPS with normal certificate verification via '+args.ssh_host if args.ssh_host else 'direct HTTP upstream',
-                'assets':assets,'flow':{'baseline':baseline['architecture'],'guided':guided['architecture'],'constructor':final['architecture'],'labelKey':final['labelKey'],'firstReview':baseline['result']['review']['correct'],'finalReview':final['result']['review']['correct'],'final':final['result']['final']['correct'],'errors':errors,'failedRequests':failures,'telemetrySessionId':session_id,'telemetryResponses':receipts,'telemetry':telemetry,'consoleErrors':console,'ingestionScope':'public HTTPS' if urlsplit(base).scheme=='https' else 'LAN origin intentionally denied; public ingestion checked separately'}}
+                'assets':assets,'flow':{'baseline':baseline['architecture'],'guided':guided['architecture'],'independent':independent['architecture'],'constructor':final['architecture'],'labelKey':final['labelKey'],'firstReview':baseline['result']['review']['correct'],'finalReview':final['result']['review']['correct'],'final':final['result']['final']['correct'],'errors':errors,'failedRequests':failures,'telemetrySessionId':session_id,'telemetryResponses':receipts,'telemetry':telemetry,'consoleErrors':console,'ingestionScope':'public HTTPS' if urlsplit(base).scheme=='https' else 'LAN origin intentionally denied; public ingestion checked separately'}}
         args.evidence.parent.mkdir(parents=True,exist_ok=True);args.evidence.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps(report,ensure_ascii=False))
     finally:
         if tunnel:

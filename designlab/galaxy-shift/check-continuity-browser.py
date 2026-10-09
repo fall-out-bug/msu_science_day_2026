@@ -98,11 +98,19 @@ def confirm_old(page, data):
 
 def complete_guide(page):
     page.wait_for_selector('.cnn-workbench .architecture-editor')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'bridge'")
+    click(page, 'guide-open')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'intro'")
     click(page, 'guide-add-convolution')
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'compare'")
     click(page, 'run')
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
     click(page, 'guide-confirm-compare')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent'")
+    page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
+    click(page, 'architecture-save')
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent-observe'")
+    click(page, 'independent-confirm')
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
 
 
@@ -233,8 +241,11 @@ def reload_guided_steps(page):
     data = prepare_repair(page)
     confirm_old(page, data)
     click(page, 'run')
-    for action, stage in (('guide-add-convolution', 'compare'), ('run', 'observe'), ('guide-confirm-compare', 'complete')):
-        click(page, action)
+    for action, stage in (('guide-open', 'intro'), ('guide-add-convolution', 'compare'), ('run', 'observe'), ('guide-confirm-compare', 'independent'), ('architecture-depth', 'independent'), ('architecture-save', 'independent-observe'), ('independent-confirm', 'complete')):
+        if action == 'architecture-depth':
+            page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
+        else:
+            click(page, action)
         page.wait_for_function(f"galaxyGame.model.state.cnnGuide === '{stage}'")
         before = state(page)
         page.reload(); wait_ready(page); click(page, 'resume')

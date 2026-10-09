@@ -15,15 +15,56 @@ spec.loader.exec_module(telemetry)
 
 
 def close_modal(page):
-    page.locator('.modal [data-action="close-modal"]').click()
+    return_to_sky = page.locator('.modal [data-action="return-sky"]')
+    if return_to_sky.count():
+        assert return_to_sky.count() == 1
+        return_to_sky.click()
+    else:
+        page.locator('.modal [data-action="close-modal"]').click()
     page.wait_for_selector('.modal', state='detached')
 
 
 def open_one(page, expected_title, opened):
     page.wait_for_selector('.modal')
     assert page.locator('.modal h2').inner_text() == expected_title
+    assert_sky_card_actions(page)
     opened.add(expected_title)
     close_modal(page)
+
+
+def assert_sky_card_actions(page):
+    """Every sky card has one return and two genuinely equal next actions."""
+    card = page.locator('.modal')
+    assert card.locator('[data-action="return-sky"]').count() == 1
+    assert card.locator('[data-action="close-modal"]').count() == 0
+    actions = card.locator('.archive-actions .secondary')
+    assert actions.count() == 2
+    labels = actions.all_inner_texts()
+    assert labels == ['Рассмотреть', 'Поговорить с Никой'], labels
+    comparison = actions.evaluate_all("""nodes => nodes.map(node => {
+      const style = getComputedStyle(node), rect = node.getBoundingClientRect();
+      return {display: style.display, font: style.font, minHeight: style.minHeight,
+              height: rect.height, borderRadius: style.borderRadius};
+    })""")
+    assert comparison[0] == comparison[1], comparison
+
+def exercise_sky_card_actions(page, reopen):
+    """Both secondary actions close predictably and preserve the atlas camera."""
+    before = page.evaluate('galaxyGame.sky.state().camera')
+    page.locator('.modal .archive-actions .secondary').nth(0).click()
+    page.wait_for_selector('.modal .image-box')
+    assert page.locator('.modal [data-action="return-sky"]').count() == 1
+    page.keyboard.press('Escape')
+    page.wait_for_selector('.modal', state='detached')
+    assert page.evaluate('galaxyGame.sky.state().camera') == before
+    reopen()
+    page.wait_for_selector('.modal')
+    page.locator('.modal .archive-actions .secondary').nth(1).click()
+    page.wait_for_selector('.nika-dialogue')
+    page.keyboard.press('Escape')
+    page.wait_for_selector('.nika-dialogue', state='detached')
+    assert page.locator('.modal').count() == 1
+    assert page.evaluate('galaxyGame.sky.state().camera') == before
 
 
 def open_all_visible(page, opened):
@@ -58,6 +99,8 @@ def check_map(page, expected_titles):
     page.wait_for_selector('.sky-atlas')
     assert page.locator('[data-filter], [data-research-id], .sky-atlas__research-list').count() == 0
     assert page.locator('.sky-atlas__note').count() == 9
+    assert page.locator('.sky-atlas__notes h3').inner_text() == 'Открытия по всему небу'
+    assert page.locator('.sky-atlas__notes').inner_text().count('Заметка без одной координаты') == 0
     ids = page.evaluate("""() => ({ expected:[...GALAXY_ARCHIVE.images,...GALAXY_DISCOVERIES].filter(item=>Number.isFinite(item.ra)&&Number.isFinite(item.dec)&&item.id !== 'btsbot-supernova').map(item=>item.id).sort(), actual:[...document.querySelectorAll('.sky-atlas__marker')].flatMap(node=>node.dataset.materialIds.split(',')).sort(), finite:[...document.querySelectorAll('.sky-atlas__marker')].every(node=>Number.isFinite(parseFloat(node.style.left))&&Number.isFinite(parseFloat(node.style.top))) })""")
     assert ids['actual'] == ids['expected'] and ids['finite'], ids
     overlaps = page.evaluate("""() => { const items=[...document.querySelectorAll('.sky-atlas__marker')].map(node=>({id:node.dataset.materialIds,r:node.getBoundingClientRect()})); return items.flatMap((a,index)=>items.slice(index+1).map(b=>({a:a.id,b:b.id,area:Math.max(0,Math.min(a.r.right,b.r.right)-Math.max(a.r.left,b.r.left))*Math.max(0,Math.min(a.r.bottom,b.r.bottom)-Math.max(a.r.top,b.r.top))}))).filter(item=>item.area); }""")
@@ -65,7 +108,12 @@ def check_map(page, expected_titles):
     before = page.evaluate('galaxyGame.sky.state().camera')
     first = page.locator('.sky-atlas__note').first
     title = first.locator('strong').inner_text()
-    first.click(); open_one(page, title, set())
+    first.click()
+    page.wait_for_selector('.modal')
+    assert page.locator('.modal h2').inner_text() == title
+    assert_sky_card_actions(page)
+    exercise_sky_card_actions(page, lambda: first.click())
+    close_modal(page)
     assert page.evaluate('galaxyGame.sky.state().camera') == before, 'closing a card changed the camera'
     opened = {title}
     # The first note has already been tested for camera persistence.
@@ -100,10 +148,15 @@ def check_layout(page, width, height, zoom):
     page.evaluate("zoom => { document.body.style.zoom = zoom; GalaxySky.open({onArchive:()=>{}, onDiscovery:()=>{}}); }", str(zoom))
     page.wait_for_selector('.sky-atlas')
     assert page.locator('.sky-atlas__note').count() == 9
+    assert page.locator('.sky-atlas__notes h3').inner_text() == 'Открытия по всему небу'
+    assert page.locator('.sky-atlas__notes').inner_text().count('Заметка без одной координаты') == 0
     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
-    # At 150%, every illustrated note retains a visible textual title.
+    # At exhibit scaling, every story keeps a readable visible title.
     titles = page.locator('.sky-atlas__note strong')
-    assert all(titles.nth(i).bounding_box()['height'] > 0 for i in range(titles.count()))
+    title_metrics = titles.evaluate_all("""nodes => nodes.map(node => { const style=getComputedStyle(node); return {height:node.getBoundingClientRect().height, fontSize:parseFloat(style.fontSize)}; })""")
+    assert all(metric['height'] > 0 and metric['fontSize'] >= 11.5 for metric in title_metrics), title_metrics
+    note_boxes = page.locator('.sky-atlas__note').evaluate_all("nodes => nodes.map(node => node.getBoundingClientRect().toJSON())")
+    assert all(box['top'] >= 0 and box['bottom'] <= height for box in note_boxes), note_boxes
     note = page.locator('.sky-atlas__notes').bounding_box()
     marker_boxes = page.locator('.sky-atlas__marker').evaluate_all("nodes => nodes.map(node => ({id:node.dataset.materialIds,r:node.getBoundingClientRect().toJSON()}))")
     for index, first in enumerate(marker_boxes):

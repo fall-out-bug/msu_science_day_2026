@@ -80,10 +80,13 @@
         baseline: null,
         correctedReview: null,
         architectureBaseline: null,
+        independentBaseline: null,
         repairCheckedLabelKey: null,
         reviewedOldIds: [],
         modelSettings: false,
-        cnnGuide: 'intro',
+        // The workbench is revealed only after the learner has checked the
+        // old labels.  The bridge explains why the network is relevant.
+        cnnGuide: 'bridge',
         finalSeen: false,
         notice: ''
       };
@@ -145,8 +148,12 @@
             current: null,
             repairCheckedLabelKey: null,
             architectureBaseline: null,
+            independentBaseline: null,
             correctedReview: null,
             modelSettings: false,
+            // A completed own comparison is part of the learner's history.
+            // Editing labels invalidates results, never the completed lesson.
+            cnnGuide: state.cnnGuide === 'complete' ? 'complete' : 'bridge',
             reviewedOldIds: state.phase === 'labels' ? [] : reviewedOldIds,
             notice: state.baseline ? 'Метки изменились. Повтори проверку модели.' : ''
           };
@@ -162,8 +169,8 @@
           if (!state.repairCheckedLabelKey || state.repairCheckedLabelKey !== signature(state.labels)) {
             throw new Error('Сначала проверь старые метки и повтори проверку.');
           }
-          if (state.cnnGuide !== 'complete') {
-            throw new Error('Сначала пройди опыт с готовой CNN.');
+          if (!['independent', 'complete'].includes(state.cnnGuide)) {
+            throw new Error('Сначала сравни опыт с готовой CNN и выбери своё изменение.');
           }
           if (state.architecture === architecture) {
             state = { ...state, notice: 'Архитектура модели не изменилась.' };
@@ -183,8 +190,8 @@
 
         case 'MODEL_SETTINGS':
           requirePhase('review');
-          if (state.cnnGuide !== 'complete') {
-            throw new Error('Сначала пройди опыт с готовой CNN.');
+          if (!['independent', 'complete'].includes(state.cnnGuide)) {
+            throw new Error('Сначала сравни опыт с готовой CNN.');
           }
           if (!state.repairCheckedLabelKey || state.repairCheckedLabelKey !== signature(state.labels)) {
             throw new Error('Сначала проверь старые метки и повтори проверку.');
@@ -201,6 +208,10 @@
           if (state.phase === 'repair' && !oldIds.every(id => state.reviewedOldIds.includes(id))) {
             throw new Error('Сначала подтверди метку на каждом старом снимке.');
           }
+          if (state.cnnGuide === 'independent' &&
+              (!state.independentBaseline || state.architecture === state.independentBaseline.architecture || state.current)) {
+            throw new Error('Сначала измени устройство сети для собственного опыта.');
+          }
           const found = lookup(state.labels, state.architecture);
           const current = {
             labelKey: found.key,
@@ -214,7 +225,8 @@
           state = {
             ...state,
             phase: 'review',
-            cnnGuide: state.cnnGuide === 'compare' && state.architecture === 'd2-r' ? 'observe' : state.cnnGuide,
+            cnnGuide: state.cnnGuide === 'compare' && state.architecture === 'd2-r' ? 'observe'
+              : state.cnnGuide === 'independent' ? 'independent-observe' : state.cnnGuide,
             labelKey: found.key,
             current,
             modelSettings: false,
@@ -230,7 +242,19 @@
           requirePhase('review', 'labels', 'repair');
           if (!state.baseline) throw new Error('Сначала проверь модель.');
           // The comparison snapshot survives opening old labels.
-          state = state.cnnGuide === 'complete' ? { ...state, phase: 'repair', modelSettings: false, notice: '' } : { ...state, phase: 'repair', architecture: 'd1-r', current: null, architectureBaseline: null, modelSettings: false, cnnGuide: 'intro', notice: 'После проверки меток начнём опыт с готовой сетью.' };
+          state = ['independent', 'independent-observe', 'complete'].includes(state.cnnGuide)
+            ? { ...state, phase: 'repair', modelSettings: false, notice: '' }
+            : { ...state, phase: 'repair', architecture: 'd1-r', current: null, architectureBaseline: null, independentBaseline: null, modelSettings: false, cnnGuide: 'bridge', notice: 'После проверки меток посмотрим, как сеть отвечает на эти снимки.' };
+          break;
+
+        case 'GUIDE_OPEN':
+          requirePhase('review');
+          if (state.cnnGuide !== 'bridge' || !state.repairCheckedLabelKey ||
+              state.repairCheckedLabelKey !== signature(state.labels) ||
+              state.architecture !== 'd1-r' || !state.current || state.current.architecture !== 'd1-r') {
+            throw new Error('Сначала проверь старые метки и посмотри их результат.');
+          }
+          state = { ...state, cnnGuide: 'intro', notice: 'Посмотрим готовую сеть: сначала она выделяет признаки на снимке, затем выбирает класс.' };
           break;
 
         case 'GUIDE_ADD_CONVOLUTION':
@@ -250,13 +274,29 @@
         case 'GUIDE_CONFIRM_COMPARE':
           requirePhase('review');
           if (state.cnnGuide !== 'observe' || state.architecture !== 'd2-r' || !state.current) throw new Error('Сначала открой сравнение результатов.');
-          state = { ...state, cnnGuide: 'complete', notice: 'Опыт завершён: данные не менялись, изменилась архитектура.' };
+          state = {
+            ...state,
+            cnnGuide: 'independent',
+            architectureBaseline: state.current,
+            independentBaseline: state.current,
+            notice: 'Теперь выбери одно своё изменение сети и проверь его на тех же снимках.'
+          };
+          break;
+
+        case 'INDEPENDENT_CONFIRM':
+          requirePhase('review');
+          if (state.cnnGuide !== 'independent-observe' || !state.current || !state.independentBaseline ||
+              state.current.labelKey !== state.independentBaseline.labelKey ||
+              state.current.architecture === state.independentBaseline.architecture) {
+            throw new Error('Сначала измени сеть, проверь её и сравни ответы.');
+          }
+          state = { ...state, cnnGuide: 'complete', notice: 'Ты проверил собственную гипотезу: теперь можно продолжать опыты или перейти к итоговым снимкам.' };
           break;
 
         case 'FINISH':
           requirePhase('review');
           if (state.cnnGuide !== 'complete') {
-            throw new Error('Сначала заверши опыт с готовой CNN.');
+            throw new Error('Сначала закончи собственный опыт и сравни ответы.');
           }
           if (!state.current || state.current.labelKey !== state.repairCheckedLabelKey) {
             throw new Error('Сначала проверь старые метки и повтори опыт.');
@@ -306,6 +346,7 @@
           baseline: reference(state.baseline), current: reference(state.current),
           correctedReview: reference(state.correctedReview),
           architectureBaseline: reference(state.architectureBaseline),
+          independentBaseline: reference(state.independentBaseline),
           repairCheckedLabelKey: state.repairCheckedLabelKey,
           reviewedOldIds: [...state.reviewedOldIds],
           modelSettings: state.modelSettings, cnnGuide: state.cnnGuide, finalSeen: state.finalSeen
@@ -318,18 +359,41 @@
       if (!saved || saved.schemaVersion !== 1 || saved.datasetVersion !== protocol.datasetVersion ||
           saved.protocolVersion !== protocol.protocolVersion) fail();
       const input = saved.state;
-      // Older saves keep learner labels. Only an already completed final may bypass
-      // the newly mandatory guide; unfinished work returns to the d1-r guide path.
+      // Older saves keep learner labels. An already completed final remains a
+      // final; an unfinished old free-editor state now receives the mandatory
+      // independent comparison instead of silently losing its progress.
       const legacyGuide = input && input.cnnGuide === undefined;
       const legacyGuideStep = input && ['goal', 'change'].includes(input.cnnGuide) ? input.cnnGuide : null;
       const legacyEffectivePhase = input?.phase === 'intro' ? input?.resumePhase : input?.phase;
       if (legacyGuide) {
         if (legacyEffectivePhase === 'final') input.cnnGuide = 'complete';
-        else { input.cnnGuide = 'intro'; input.architecture = 'd1-r'; input.current = null; input.architectureBaseline = null; input.modelSettings = false; }
+        else { input.cnnGuide = 'bridge'; input.architecture = 'd1-r'; input.current = null; input.architectureBaseline = null; input.independentBaseline = null; input.modelSettings = false; }
       } else if (legacyGuideStep) {
         // Earlier guide screens had already shown the valid d1-r result.  The
         // unified workbench starts at its direct add-convolution state.
         input.cnnGuide = 'intro';
+      }
+      if (!legacyGuide && !legacyGuideStep && legacyEffectivePhase !== 'final' && !Object.hasOwn(input, 'independentBaseline')) {
+        // night.3 called the previously unlocked free constructor "complete".
+        // Preserve its checked result, but require one explicit comparison.
+        if (input.cnnGuide === 'complete') {
+          if (legacyEffectivePhase === 'review' && input.current) {
+            input.cnnGuide = 'independent';
+            input.independentBaseline = input.current;
+            input.architectureBaseline = input.current;
+          } else {
+            // A legacy open editor can have an unrun draft or be in labels /
+            // repair.  Preserve the labels and resume at a safe visible bridge.
+            input.cnnGuide = 'bridge';
+            input.architecture = 'd1-r';
+            input.current = legacyEffectivePhase === 'review' && signature(input.labels)
+              ? { labelKey: signature(input.labels), architecture: 'd1-r' } : null;
+            input.architectureBaseline = null;
+            input.independentBaseline = null;
+            input.modelSettings = false;
+          }
+        }
+        if (input.cnnGuide === 'intro' && input.repairCheckedLabelKey) input.cnnGuide = 'bridge';
       }
       if (!input || !phases.includes(input.phase) || !phases.includes(input.resumePhase) ||
           input.resumePhase === 'intro' || !architectureInfo(input.architecture) ||
@@ -338,7 +402,7 @@
             !(classes.includes(input.labels[id]) || childIds.includes(id) && input.labels[id] === null)) ||
           !Array.isArray(input.reviewedOldIds) || input.reviewedOldIds.some(id => !oldIds.includes(id)) ||
           new Set(input.reviewedOldIds).size !== input.reviewedOldIds.length ||
-          typeof input.modelSettings !== 'boolean' || !['intro','compare','observe','complete'].includes(input.cnnGuide) || typeof input.finalSeen !== 'boolean') fail();
+          typeof input.modelSettings !== 'boolean' || !['bridge','intro','compare','observe','independent','independent-observe','complete'].includes(input.cnnGuide) || typeof input.finalSeen !== 'boolean') fail();
       const key = signature(input.labels);
       // A legacy reviewed shift resumes at the visible d1-r guide, with the same
       // labels and a table-resolved ready run instead of an empty editor.
@@ -355,22 +419,29 @@
       };
       const current = reference(input.current), baseline = reference(input.baseline);
       const correctedReview = reference(input.correctedReview), architectureBaseline = reference(input.architectureBaseline);
+      const independentBaseline = reference(input.independentBaseline || null);
       if (current && (current.labelKey !== key || current.architecture !== input.architecture)) fail();
       if (input.repairCheckedLabelKey !== null &&
           (input.repairCheckedLabelKey !== key || input.reviewedOldIds.length !== oldIds.length)) fail();
       const effectivePhase = input.phase === 'intro' ? input.resumePhase : input.phase;
       if (['review', 'repair', 'final'].includes(effectivePhase) && (!key || !baseline)) fail();
       if (effectivePhase === 'final' && (!current || input.repairCheckedLabelKey !== key || !input.finalSeen)) fail();
-      if (input.modelSettings && (effectivePhase !== 'review' || input.repairCheckedLabelKey !== key || input.cnnGuide !== 'complete')) fail();
-      if (!['intro','complete'].includes(input.cnnGuide) && effectivePhase !== 'review') fail();
+      if (input.modelSettings && (effectivePhase !== 'review' || input.repairCheckedLabelKey !== key || !['independent','complete'].includes(input.cnnGuide))) fail();
+      if (!['bridge','intro','complete'].includes(input.cnnGuide) && effectivePhase !== 'review') fail();
       if (legacyGuideStep && (effectivePhase !== 'review' || input.architecture !== 'd1-r' || !current || current.architecture !== 'd1-r')) fail();
-      if (input.cnnGuide === 'intro' && effectivePhase === 'review' && input.repairCheckedLabelKey === key &&
+      if (['bridge','intro'].includes(input.cnnGuide) && effectivePhase === 'review' && input.repairCheckedLabelKey === key &&
           (input.architecture !== 'd1-r' || !current || current.architecture !== 'd1-r')) fail();
       if (['compare','observe'].includes(input.cnnGuide) && (input.architecture !== 'd2-r' || (input.cnnGuide === 'compare' && current !== null) || (input.cnnGuide === 'observe' && !current))) fail();
+      if (['independent','independent-observe'].includes(input.cnnGuide) && effectivePhase === 'review') {
+        if (!independentBaseline || independentBaseline.labelKey !== key) fail();
+        if (input.cnnGuide === 'independent' && current &&
+            current.architecture !== independentBaseline.architecture) fail();
+        if (input.cnnGuide === 'independent-observe' && (!current || current.architecture === independentBaseline.architecture || input.architecture !== current.architecture)) fail();
+      }
       if (correctedReview && correctedReview.labelKey !== key || architectureBaseline && architectureBaseline.labelKey !== key) fail();
       state = {
         ...fresh(), ...input, labels: { ...input.labels }, reviewedOldIds: [...input.reviewedOldIds],
-        labelKey: key, current, baseline, correctedReview, architectureBaseline,
+        labelKey: key, current, baseline, correctedReview, architectureBaseline, independentBaseline,
         phase: 'intro', resumePhase: effectivePhase, notice: 'Смена восстановлена. Можно продолжить.'
       };
       return snapshot();

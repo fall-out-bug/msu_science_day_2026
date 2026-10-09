@@ -27,3 +27,17 @@
 .sky-atlas--scaled .sky-atlas__note img{width:24px;height:24px}
 .sky-atlas--scaled .sky-atlas__note strong{font-size:.62rem;line-height:1.1}
 .sky-atlas--scaled .sky-atlas__note small{font-size:.5rem;line-height:1.05}
+
+/* Stories without a single celestial coordinate are one catalogue, not nine
+   pretend markers. Their buttons remain readable at exhibit scale. */
+.sky-atlas__notes{right:clamp(16px,4vw,56px);bottom:clamp(35px,8vw,86px);display:block;width:min(420px,calc(100vw - 32px));max-width:none;padding:14px;border:1px solid #d8a7ff88;border-radius:14px;background:linear-gradient(135deg,#261d42f5,#0c2941f5);box-shadow:0 14px 35px #000b;backdrop-filter:blur(8px)}
+.sky-atlas__notes h3{margin:0 0 10px;color:#f5edff;font:700 .93rem/1.2 system-ui}
+.sky-atlas__notes nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.sky-atlas__note,.sky-atlas__notes .sky-atlas__note{display:block;min-height:48px;padding:8px;border:1px solid #d8a7ff88;border-radius:8px;background:#162949;color:#f5edff;text-align:left;box-shadow:none;font:700 .82rem/1.18 system-ui}
+.sky-atlas__note strong,.sky-atlas__notes .sky-atlas__note strong{display:block;font:inherit;overflow-wrap:anywhere}
+.sky-atlas__note img,.sky-atlas__note span,.sky-atlas__note small{display:none!important}
+.sky-atlas--scaled .sky-atlas__notes{right:8px;bottom:8px;width:min(420px,calc(100vw - 16px));max-height:none;overflow:visible;padding:12px}
+.sky-atlas--scaled .sky-atlas__notes h3{font-size:.9rem}
+.sky-atlas--scaled .sky-atlas__note,.sky-atlas--scaled .sky-atlas__notes .sky-atlas__note{min-height:45px;padding:7px;font-size:.78rem}
+@media(max-width:900px){.sky-atlas__notes{left:12px;right:12px;bottom:18px;width:auto;padding:11px}.sky-atlas__notes h3{font-size:.84rem;margin-bottom:7px}.sky-atlas__notes nav{gap:5px}.sky-atlas__note,.sky-atlas__notes .sky-atlas__note{min-height:42px;padding:6px;font-size:.74rem}.sky-atlas__panel.browse{bottom:16px;width:min(370px,calc(100vw - 32px));padding:10px}.sky-atlas__panel.browse .sky-atlas__sources{display:none}}
+@media(max-height:620px){.sky-atlas__notes{left:auto;right:10px;bottom:10px;width:min(410px,calc(100vw - 20px));max-height:none;overflow:visible;padding:9px}.sky-atlas__notes h3{margin-bottom:6px;font-size:.8rem}.sky-atlas__notes nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.sky-atlas__note,.sky-atlas__notes .sky-atlas__note{min-height:38px;padding:5px;font-size:.82rem;line-height:1.12}.sky-atlas__panel.browse{display:none}}

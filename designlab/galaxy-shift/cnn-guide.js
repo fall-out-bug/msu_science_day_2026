@@ -23,10 +23,13 @@
   }
   function mentor(stage) {
     const copy = {
-      intro:'CNN — свёрточная нейронная сеть. Слои преобразуют данные; архитектура задаёт их типы и порядок. Свёртка применяет фильтры к участкам снимка и выделяет признаки — например границы света. Добавим вторую свёртку: изменятся ли ответы?',
+      bridge:'Мы проверили старые метки и снова получили ответы на тех же трёх снимках. Хочешь посмотреть, как устроена готовая сеть, которая их различает?',
+      intro:'Это CNN — свёрточная нейронная сеть. Слои преобразуют снимок, а архитектура задаёт их типы и порядок. Свёртка ищет признаки, например границы света. Добавим вторую свёртку: изменятся ли ответы?',
       compare:'Вторая свёртка добавлена. Метки и проверочные снимки не менялись; браузер откроет заранее рассчитанный результат с двумя свёртками.',
-      observe:'Сравни ответы на каждом снимке: совпадение со справочной меткой и изменение ответа — разные вещи.',
-      complete:'Теперь меняй схему сам: добавляй слои, переставляй их и сравнивай ответы. «О слое» объяснит, что он делает. Можно завершить смену при любом результате.'
+      observe:'Сравни ответы на каждом снимке: совпадение со справочной меткой и изменение ответа — разные вещи. Хочешь разобраться, какие классы модель путает? Открой «Ошибки и метрики».',
+      independent:'Теперь проведи один собственный опыт. Можно изменить число свёрток, добавить BatchNorm или Dropout либо поменять порядок слоёв. Выбери изменение и проверь сеть на тех же снимках.',
+      'independent-observe':'Сравни ответы твоей схемы с предыдущей проверенной сетью. Улучшение не обязательно: важнее увидеть, что именно изменилось. В «Ошибках и метриках» посмотрим, какие классы модель путает.',
+      complete:'Собственный опыт завершён. Хочешь продолжить — меняй схему и проверяй новые варианты. А можно перейти к итоговым снимкам при любом результате.'
     };
     return `<aside class="cnn-workbench__nika"><img src="assets/art/nika-thinking-v1.png" alt="Ника"><div><span>НИКА</span><p>${copy[stage] || copy.intro}</p></div></aside>`;
   }
@@ -65,25 +68,35 @@
 1 0 1</pre></div><span>→</span><div><b>Отклик</b><p>5</p></div></div><p>1·1 + 0·0 + 1·1 + 0·0 + 1·1 + 0·0 + 1·1 + 0·0 + 1·1 = <b>5</b>.</p><p>Здесь 1 обозначает светлый пиксель, а 0 — тёмный. В обучаемой сети числа фильтра подбираются по примерам. Это учебная иллюстрация, <b>не активация рассчитанной сети</b>.</p>`;
   }
   function editor(state, stage) {
-    const guided = stage !== 'complete';
+    const free = ['independent', 'complete'].includes(stage);
+    const guided = !free;
     const selected = config(state);
     const tail=selected.tail || ['r'];
     const chips=tail.map((layer,index)=>`<li draggable="${guided?'false':'true'}" tabindex="${guided ? -1 : 0}" data-layer-index="${index}" data-layer="${layer}" aria-label="${names[layer]}, слой ${index+1}."><b>${names[layer]}</b><button class="text-button" data-action="layer-info" data-layer="${layer}">О слое</button><div><button class="text-button" data-action="layer-earlier" data-layer-index="${index}" ${guided||!index?'disabled':''}>← Раньше</button><button class="text-button" data-action="layer-later" data-layer-index="${index}" ${guided||index>=tail.length-1?'disabled':''}>Позже →</button>${layer !== 'r'?`<button class="text-button" data-action="layer-remove" data-layer="${layer}" ${guided?'disabled':''}>Удалить</button>`:'<small>Обязательный слой</small>'}</div></li>`).join('');
     const guideAction = stage === 'intro' ? '<button class="primary" data-action="guide-add-convolution">Добавить вторую свёртку →</button>' : '';
-    return `<section class="architecture-editor architecture-editor--${esc(stage)}" aria-label="Схема нейронной сети"><div class="architecture-depth"><span>Свёрточных слоёв</span>${[1,2].map(depth=>`<button data-action="architecture-depth" data-depth="${depth}" class="${selected.depth===depth?'selected':''}" aria-pressed="${selected.depth===depth}" ${guided?'disabled':''}>${depth}</button>`).join('')}</div><div class="architecture-tail">${chain(selected)}<ol data-architecture-tail>${chips}</ol><div class="architecture-fixed architecture-fixed--end">→ Глобальное усреднение → Линейный слой → Softmax → Класс</div></div><div class="architecture-add">${guideAction}<button data-action="layer-add" data-layer="bn" ${guided||tail.includes('bn')?'disabled':''}>Добавить BatchNorm</button><button data-action="layer-add" data-layer="d" ${guided||tail.includes('d')?'disabled':''}>Добавить Dropout</button></div><p class="architecture-current" aria-live="polite">${guided ? (state.current ? `Проверена схема: ${esc(selected.label)}.` : 'Схема изменена. Проверь её на тех же снимках.') : `Выбрана <b>${esc(selected.label || selected.id)}</b>. Метки и проверочные снимки остаются теми же.`}</p></section>`;
+    const bridge = stage === 'bridge' ? '<div class="cnn-workbench__bridge-question"><p>Мы сравнили ответы после проверки меток. Следующий вопрос: как сама сеть рассматривает снимок?</p><button class="primary" data-action="guide-open">Посмотреть готовую сеть →</button></div>' : '';
+    const locked = stage === 'bridge' ? ' aria-hidden="true" inert' : '';
+    return `<section class="architecture-editor architecture-editor--${esc(stage)}" aria-label="Схема нейронной сети">${bridge}<div class="architecture-editor__scheme"${locked}><div class="architecture-depth"><span>Свёрточных слоёв</span>${[1,2].map(depth=>`<button data-action="architecture-depth" data-depth="${depth}" class="${selected.depth===depth?'selected':''}" aria-pressed="${selected.depth===depth}" ${guided?'disabled':''}>${depth}</button>`).join('')}</div><div class="architecture-tail">${chain(selected)}<ol data-architecture-tail>${chips}</ol><div class="architecture-output-step"><strong>Глобальное усреднение</strong><small>Среднее значение каждой карты признаков</small></div><div class="architecture-output-step"><strong>Линейный слой</strong><small>Вычисляет оценки классов</small></div><div class="architecture-output-step"><strong>Softmax</strong><small>Преобразует оценки в числа от 0 до 1 с суммой 1</small></div><div class="architecture-output-step"><strong>Класс</strong><small>Класс с наибольшим значением — ответ модели</small></div></div><div class="architecture-add">${guideAction}<button data-action="layer-add" data-layer="bn" ${guided||tail.includes('bn')?'disabled':''}>Добавить BatchNorm</button><button data-action="layer-add" data-layer="d" ${guided||tail.includes('d')?'disabled':''}>Добавить Dropout</button></div><p class="architecture-current" aria-live="polite">${guided ? (state.current ? `Проверена схема: ${esc(selected.label)}.` : 'Схема изменена. Проверь её на тех же снимках.') : `Выбрана <b>${esc(selected.label || selected.id)}</b>. Метки и проверочные снимки остаются теми же.`}</p></div></section>`;
   }
   function actions(stage, state, selected) {
-    let primary = stage === 'intro' ? ''
+    const independentNeedsChange = stage === 'independent' && (!state.independentBaseline ||
+      state.architecture === state.independentBaseline.architecture || state.current);
+    let primary = stage === 'bridge' ? ''
+      : stage === 'intro' ? ''
       : stage === 'compare' ? '<button class="primary" data-action="run">Проверить на тех же снимках →</button>'
       : stage === 'observe' ? '<button class="primary" data-action="guide-confirm-compare">Я сравнил ответы →</button>'
+      : stage === 'independent' ? `<button class="primary" data-action="architecture-save" data-architecture="${esc(selected.id)}" ${independentNeedsChange ? 'disabled' : ''}>Проверить своё изменение →</button>`
+      : stage === 'independent-observe' ? '<button class="primary" data-action="independent-confirm">Я сравнил ответы →</button>'
       : `<button class="${state.current ? 'secondary' : 'primary'}" data-action="architecture-save" data-architecture="${esc(selected.id)}">${state.current ? 'Повторить проверку' : 'Проверить модель →'}</button>`;
-    const secondary = stage === 'complete' ? '<button class="secondary" data-action="labels">К разметке</button><button class="secondary" data-action="folder">Обучающая выборка</button><button class="secondary" data-action="metrics">Метрики</button>' : '';
+    const metrics = ['observe','independent','independent-observe','complete'].includes(stage) ? '<button class="secondary" data-action="metrics">Ошибки и метрики</button>' : '';
+    const secondary = stage === 'complete' ? `<button class="secondary" data-action="labels">К разметке</button><button class="secondary" data-action="folder">Обучающая выборка</button>${metrics}` : metrics;
     const finish = stage === 'complete' && state.current ? '<button class="primary" data-action="finish">К итоговым снимкам →</button>' : '';
     return `<footer class="cnn-workbench__actions" data-cnn-region="actions">${secondary}${primary}${finish}</footer>`;
   }
   function render(state, options = {}) {
     const stage=state.cnnGuide || 'intro', selected=config(state);
-    const guide = `<div class="cnn-workbench__guide" data-cnn-region="guide">${mentor(stage)}<button class="text-button" data-action="cnn-filter">Как работает свёртка?</button><button class="text-button" data-action="cnn-layers">Что делают остальные слои?</button></div>`;
+    const help = stage === 'bridge' ? '' : '<button class="text-button" data-action="cnn-filter">Как работает свёртка?</button><button class="text-button" data-action="cnn-layers">Что делают остальные слои?</button>';
+    const guide = `<div class="cnn-workbench__guide" data-cnn-region="guide">${mentor(stage)}${help}</div>`;
     return `<section class="cnn-workbench cnn-workbench--${esc(stage)}" data-cnn-stage="${esc(stage)}">${photoRegion(state,options)}<div class="cnn-workbench__centre">${guide}</div>${editor(state,stage)}${resultRegion(state,options)}${actions(stage,state,selected)}</section>`;
   }
   root.GalaxyCNNGuide = Object.freeze({render, filterExample});

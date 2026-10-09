@@ -83,15 +83,15 @@
     const free = journey === "free" || model.state.phase === "final";
     return `<header class="hud"><div class="top-actions"><button class="quiet sound" data-action="sound" aria-pressed="${soundEnabled}" aria-label="${soundEnabled ? "Выключить" : "Включить"} звук">${soundEnabled ? "Звук вкл." : "Звук выкл."}</button>${free ? '<button class="quiet" data-action="sky">Открытия на небе</button>' : ""}<button class="quiet" data-action="about">О проекте</button>${model.state.phase !== "intro" ? '<button class="quiet" data-action="home">↗ Обсерватория</button>' : ""}</div></header>`;
   }
-  function photo(image) {
-    return `<figure class="galaxy-frame"><img src="${esc(image.src)}" alt="${esc(image.name)}"><figcaption><span>HUBBLE · ${esc(image.name)}</span><button class="zoom" data-action="zoom" data-image-id="${esc(image.id)}" aria-label="Открыть снимок ${esc(image.name)}">⤢</button></figcaption></figure>`;
+  function photo(image, zoomControl = true) {
+    return `<figure class="galaxy-frame"><img src="${esc(image.src)}" alt="${esc(image.name)}"><figcaption><span>HUBBLE · ${esc(image.name)}</span>${zoomControl ? `<button class="zoom" data-action="zoom" data-image-id="${esc(image.id)}" aria-label="Открыть снимок ${esc(image.name)}">⤢</button>` : ""}</figcaption></figure>`;
   }
   function progress(phase) {
     const compared = phase === 'review' && model.state.repairCheckedLabelKey === model.state.labelKey;
     const current = compared ? 'compare' : phase;
     const steps = [
       ['tutorial','Пример'],['labels','Разметка'],['review','Проверка'],
-      ['repair','Старые метки'],['compare',(model.state.modelSettings || !["intro","complete"].includes(model.state.cnnGuide)) ? 'Архитектура' : 'Сравнение'],['final','Итог'],
+      ['repair','Старые метки'],['compare',model.state.cnnGuide === "bridge" ? "Сравнение" : ["independent", "independent-observe", "complete"].includes(model.state.cnnGuide) ? "Свой опыт" : "Устройство сети"],['final','Итог'],
     ];
     const active = Math.max(0, steps.findIndex(item => item[0] === current));
     return `<ol class="progress" aria-label="Ход опыта">${steps.map(([id,name],index) => `<li class="${index === active ? 'active' : index < active ? 'done' : ''}" ${index === active ? 'aria-current="step"' : ''}><span>${index < active ? '✓' : index + 1}</span><b>${name}</b></li>`).join('')}</ol>`;
@@ -107,12 +107,11 @@
     const ready = found.size === data.childIds.length,
       astronomy = GalaxyAstronomy.cases[0];
     return `<section class="room route-story">${nav()}<article class="route-story__card">
-      <header><span class="eyebrow">ИИ В АСТРОНОМИИ</span><h1 tabindex="-1">${esc(astronomy.title)}</h1></header>
+      <header><span class="eyebrow">ПЕРВОЕ ЗАДАНИЕ</span><h1 tabindex="-1">Найдём галактики для нашей модели</h1></header>
       <div class="route-story__body">
-        <section class="route-story__example"><p>В проекте Euclid Galaxy Zoo люди отмечают форму галактик на снимках телескопа Euclid. На этих примерах модель ZooBot учится разбирать похожие галактики. Неуверенные ответы проверяют люди.</p><p class="source">${esc(astronomy.sourceLabel)} · <a href="${esc(astronomy.sourceURL)}" target="_blank" rel="noreferrer">Источник ↗</a></p></section>
-        <section class="route-story__terms" aria-label="Понятия для нашего опыта"><p><b>Искусственный интеллект (ИИ)</b> — область создания систем для таких задач, как распознавание изображений.</p><p><b>Машинное обучение</b> — подход к ИИ: модель учится на примерах.</p><p>В <b>Data Science (DS), науке о данных</b>, ставят вопросы, готовят данные и проверяют выводы.</p></section>
+        <section class="route-story__example"><p>Астрономам тоже нужна помощь с разметкой. В проекте Euclid Galaxy Zoo люди отмечают форму галактик, а модель ZooBot учится по этим примерам.</p><p class="source">${esc(astronomy.sourceLabel)} · <a href="${esc(astronomy.sourceURL)}" target="_blank" rel="noreferrer">Источник ↗</a> · <a href="https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-85/" target="_blank" rel="noreferrer">M85: каталог NASA ↗</a></p></section>
       </div>
-      <footer class="route-story__next">${mentor(ready ? "Все четыре снимка собраны. Теперь разметим один пример вместе." : found.size ? `Собрано ${found.size} из ${data.childIds.length} снимков. Вернёмся к карте и закончим.` : "Найдём четыре архивных снимка. Затем ты разметишь их и проверишь ответы модели.", "curious", false, false)}<button class="primary" data-action="${ready ? "complete-collection" : "collect-map"}">${ready ? "К рабочему столу" : "Найти галактики на карте"} <span>→</span></button></footer>
+      <footer class="route-story__next">${mentor(ready ? "Все четыре снимка собраны. Теперь разметим один пример вместе." : found.size ? `Собрано ${found.size} из ${data.childIds.length} снимков. Вернёмся к карте и закончим.` : "Первый снимок — M85, в созвездии Волосы Вероники. Меня тоже зовут Вероника, но можно просто Ника. С волосами у меня и без созвездия хватает хлопот. Найдём четыре галактики и сравним их форму.", "curious", false, false)}<button class="primary" data-action="${ready ? "complete-collection" : "collect-map"}">${ready ? "К рабочему столу" : "Найти галактики на карте"} <span>→</span></button></footer>
     </article></section>`;
   }
   function station(title, kicker, phase, body, footer = "") {
@@ -146,7 +145,7 @@
     const state = model.state,
       canChange =
         state.phase === "review" &&
-        state.repairCheckedLabelKey === state.labelKey && state.cnnGuide === "complete";
+        state.repairCheckedLabelKey === state.labelKey && ["independent", "independent-observe", "complete"].includes(state.cnnGuide);
     const folder = '<button class="program-quiet" data-action="folder">Обучающая выборка: 9 снимков</button>';
     if (state.phase === "labels" || state.phase === "repair") return `<section class="cnn-programs" aria-label="Справочные материалы">${folder}</section>`;
     return `<section class="cnn-programs" aria-label="Навигация опыта"><button data-action="labels">Вернуться к разметке</button>${canChange ? '<button data-action="model-settings">Конструктор сети</button>' : ""}${folder}</section>`;
@@ -155,7 +154,7 @@
     const result = run[scope], classes = data.classes.map(item => item.id);
     const metrics = GalaxyMetrics.calculate(result.predictions, classes);
     const format = value => value === null ? "не определено" : value.toFixed(2).replace(".", ",");
-    return `<details class="metrics" data-metric-scope="${scope}"><summary>Как оценивают классификацию</summary><p><b>${scope === 'final' ? 'Итоговая' : 'Проверочная'} выборка: ${result.total} снимка.</b> Доля правильных ответов (accuracy): ${result.correct}/${result.total} = ${format(metrics.accuracy)}. Это результат на этой выборке; её недостаточно для надёжной оценки качества модели на других галактиках.</p><h3>Матрица ошибок</h3><p>Строка — справочная метка, столбец — предсказание модели. Числа на диагонали показывают совпадения.</p><table class="metric-table"><thead><tr><th scope="col">Справочная метка / предсказание</th>${classes.map(id => `<th scope="col">${esc(classLabel(id))}</th>`).join('')}</tr></thead><tbody>${classes.map((id, row) => `<tr><th scope="row">${esc(classLabel(id))}</th>${metrics.matrix[row].map(value => `<td>${value}</td>`).join('')}</tr>`).join('')}</tbody></table><p>Для каждого класса TP — верные предсказания этого класса, FP — ошибочно отнесённые к нему снимки, FN — его пропущенные снимки.</p><dl><dt>Точность (precision) = TP / (TP + FP)</dt><dd>Какая доля снимков, отнесённых моделью к классу, действительно к нему относится.</dd><dt>Полнота (recall) = TP / (TP + FN)</dt><dd>Какую долю снимков класса модель нашла.</dd><dt>F1 = 2TP / (2TP + FP + FN)</dt><dd>Объединяет точность и полноту в одном показателе.</dd></dl><ul>${metrics.perClass.map(item => `<li><b>${esc(classLabel(item.id))}</b>: TP ${item.tp}, FP ${item.fp}, FN ${item.fn}; precision ${format(item.precision)}, recall ${format(item.recall)}, F1 ${format(item.f1)}.</li>`).join('')}</ul><p><b>Macro-F1: ${format(metrics.macroF1)}</b> — среднее F1 трёх классов с одинаковым весом. При нулевом знаменателе соответствующий показатель не определён. Для Macro-F1 неопределённое F1 учитывается как 0; состав классов остаётся тем же.</p></details>`;
+    return `<details class="metrics" data-metric-scope="${scope}"><summary>Как оценивают классификацию</summary><p><b>${scope === 'final' ? 'Итоговая' : 'Проверочная'} выборка: ${result.total} снимка.</b> Доля правильных ответов (accuracy): ${result.correct}/${result.total} = ${format(metrics.accuracy)}. Это результат на этой выборке; её недостаточно для надёжной оценки качества модели на других галактиках.</p><h3>Матрица ошибок</h3><p>Строка — справочная метка, столбец — предсказание модели. Числа на диагонали показывают совпадения.</p><table class="metric-table"><thead><tr><th scope="col">Справочная метка / предсказание</th>${classes.map(id => `<th scope="col">${esc(classLabel(id))}</th>`).join('')}</tr></thead><tbody>${classes.map((id, row) => `<tr><th scope="row">${esc(classLabel(id))}</th>${metrics.matrix[row].map(value => `<td>${value}</td>`).join('')}</tr>`).join('')}</tbody></table><details class="metrics-advanced"><summary>Точность, полнота и F1: подробный разбор</summary><p>Для каждого класса TP — верные предсказания этого класса, FP — ошибочно отнесённые к нему снимки, FN — его пропущенные снимки.</p><dl><dt>Точность (precision) = TP / (TP + FP)</dt><dd>Какая доля снимков, отнесённых моделью к классу, действительно к нему относится.</dd><dt>Полнота (recall) = TP / (TP + FN)</dt><dd>Какую долю снимков класса модель нашла.</dd><dt>F1 = 2TP / (2TP + FP + FN)</dt><dd>Объединяет точность и полноту в одном показателе.</dd></dl><ul>${metrics.perClass.map(item => `<li><b>${esc(classLabel(item.id))}</b>: TP ${item.tp}, FP ${item.fp}, FN ${item.fn}; precision ${format(item.precision)}, recall ${format(item.recall)}, F1 ${format(item.f1)}.</li>`).join('')}</ul><p><b>Macro-F1: ${format(metrics.macroF1)}</b> — среднее F1 трёх классов с одинаковым весом. При нулевом знаменателе соответствующий показатель не определён. Для Macro-F1 неопределённое F1 учитывается как 0; состав классов остаётся тем же.</p></details></details>`;
   }
   const layerNotes = {
     r: ['ReLU', 'ReLU — функция активации: она заменяет отрицательные значения нулями. Это позволяет сети описывать нелинейные зависимости.'],
@@ -163,7 +162,7 @@
     d: ['Dropout', 'Dropout при обучении случайно обнуляет 20% значений и увеличивает оставшиеся в 1 / 0,8 раза. При проверке Dropout не изменяет значения. Его добавление не гарантирует улучшения результата.'],
   };
   function architectureEditor(state) {
-    return station('Как сеть различает галактики', 'СНИМОК → СЕТЬ → ПРЕДСКАЗАНИЕ', 'review',
+    return station(state.cnnGuide === "bridge" ? "Что изменилось после проверки меток" : "Как сеть различает галактики", state.cnnGuide === "bridge" ? "ТЕ ЖЕ СНИМКИ · ПРОВЕРЕННЫЕ МЕТКИ" : "СНИМОК → СЕТЬ → ПРЕДСКАЗАНИЕ", 'review',
       GalaxyCNNGuide.render(state, {data, byId, activeImageId: cnnImageId}));
   }
   function updateArchitectureView(prepared = null, decodedPhoto = null) {
@@ -181,7 +180,26 @@
     workspace.className = fresh.className;
     for (const [key, value] of Object.entries(fresh.dataset)) workspace.dataset[key] = value;
     editor.className = nextEditor.className;
+    editor.hidden = nextEditor.hidden;
+    editor.inert = nextEditor.inert;
+    if (nextEditor.hasAttribute("aria-hidden")) editor.setAttribute("aria-hidden", nextEditor.getAttribute("aria-hidden")); else editor.removeAttribute("aria-hidden");
+    const heading = root.querySelector(".station-head");
+    if (heading && heading.innerHTML !== nextSurface.querySelector(".station-head").innerHTML) heading.innerHTML = nextSurface.querySelector(".station-head").innerHTML;
+    const progressBar = root.querySelector(".progress");
+    if (progressBar) progressBar.innerHTML = nextSurface.querySelector(".progress").innerHTML;
     for (const [key, value] of Object.entries(nextEditor.dataset)) editor.dataset[key] = value;
+    const scheme = editor.querySelector('.architecture-editor__scheme');
+    const nextScheme = nextEditor.querySelector('.architecture-editor__scheme');
+    if (scheme && nextScheme) {
+      scheme.inert = nextScheme.inert;
+      if (nextScheme.hasAttribute('aria-hidden')) scheme.setAttribute('aria-hidden', nextScheme.getAttribute('aria-hidden'));
+      else scheme.removeAttribute('aria-hidden');
+    }
+    const bridgeQuestion = editor.querySelector('.cnn-workbench__bridge-question');
+    const nextBridgeQuestion = nextEditor.querySelector('.cnn-workbench__bridge-question');
+    if (bridgeQuestion && !nextBridgeQuestion) bridgeQuestion.remove();
+    else if (!bridgeQuestion && nextBridgeQuestion) editor.prepend(nextBridgeQuestion);
+
     // Reuse photographs and portraits when their surrounding explanation changes.
     function syncRegion(current, next) {
       if (!current || !next || current.innerHTML === next.innerHTML) return;
@@ -239,7 +257,9 @@
     }
     syncRegion(editor.querySelector('.architecture-current'), nextEditor.querySelector('.architecture-current'));
     const guideAction = editor.querySelector('[data-action="guide-add-convolution"]');
-    if (guideAction && !nextEditor.querySelector('[data-action="guide-add-convolution"]')) guideAction.remove();
+    const nextGuideAction = nextEditor.querySelector('[data-action="guide-add-convolution"]');
+    if (guideAction && !nextGuideAction) guideAction.remove();
+    else if (!guideAction && nextGuideAction) editor.querySelector('.architecture-add').prepend(nextGuideAction);
     for (const region of workspace.querySelectorAll('[data-cnn-region]:not(.architecture-editor)')) {
       if (region.dataset.cnnRegion === 'photo') {
         const next = fresh.querySelector('[data-cnn-region="photo"]');
@@ -309,7 +329,7 @@
       "Проверим ответы модели",
       "ОБУЧЕНИЕ И ПРОВЕРКА",
       "review",
-      `${programBar()}<div class="score-strip"><span>На проверочной выборке верно классифицировано <b>${run.review.correct}<small> / ${run.review.total}</small></b></span><p>Это результат модели, а не оценка тебе.<br>Архитектура: ${esc(architectureLabel(state.architecture))}.<br>Обучение выполнено заранее для твоих меток.</p></div>${state.notice ? `<p class="callout">${esc(state.notice)}</p>` : ""}${compare}${nextStep}<div class="result-grid">${run.review.predictions.map(prediction => resultCard(prediction, previous?.result.review.predictions.find(item => item.id === prediction.id))).join("")}</div>${metricDetails(run)}<div class="navigation result-nav"><button class="secondary" data-action="labels">← Разметить снимки</button><div><button class="secondary" data-action="repair">Вернуться к старым меткам</button></div></div>`,
+      `${programBar()}${mentor("На обучающих примерах модель подбирала параметры, а эти снимки получила при проверке. Распознавание изображений — одна из задач искусственного интеллекта (ИИ). Сравним предсказания со справочными метками.", "curious")}<div class="score-strip"><span>На проверочной выборке верно классифицировано <b>${run.review.correct}<small> / ${run.review.total}</small></b></span><p>Это результат модели, а не оценка тебе.<br>Архитектура: ${esc(architectureLabel(state.architecture))}.<br>Обучение выполнено заранее для твоих меток.</p></div>${state.notice ? `<p class="callout">${esc(state.notice)}</p>` : ""}${compare}${nextStep}<div class="result-grid">${run.review.predictions.map(prediction => resultCard(prediction, previous?.result.review.predictions.find(item => item.id === prediction.id))).join("")}</div>${metricDetails(run)}<div class="navigation result-nav"><button class="secondary" data-action="labels">← Разметить снимки</button><div><button class="secondary" data-action="repair">Вернуться к старым меткам</button></div></div>`,
     );
   }
   function repair() {
@@ -352,16 +372,12 @@
   function archiveImage(id) {
     const image = byId[id];
     if (!image) return;
-    openModal(
-      `<span class="eyebrow">АРХИВ HUBBLE</span><h2>${esc(image.name)}</h2>${photo(image)}<p>${esc(image.explanation)}</p>${source(image)}<button class="text-button" data-action="talk" data-image-id="${esc(image.id)}">Рассмотреть с Никой →</button><button class="secondary" data-action="return-sky">Вернуться к небу</button>`,
-    );
+    openModal(`<span class="eyebrow">АРХИВ HUBBLE</span><h2>${esc(image.name)}</h2>${photo(image, false)}<p>${esc(image.explanation)}</p>${source(image)}<div class="archive-actions"><button class="secondary" data-action="zoom" data-image-id="${esc(image.id)}">Рассмотреть</button><button class="secondary" data-action="talk" data-image-id="${esc(image.id)}">Поговорить с Никой</button></div><button class="secondary" data-action="return-sky">Вернуться к небу</button>`, false, true);
   }
   function discovery(id) {
     const item = GALAXY_DISCOVERIES.find((i) => i.id === id);
     if (!item) return;
-    openModal(
-      `<span class="eyebrow">${esc(categories[item.category])} · ${esc(item.date || "")}</span><h2>${esc(item.title)}</h2><figure class="discovery-figure"><img src="${esc(item.image)}" alt="${esc(item.alt)}"><figcaption>${esc(item.alt)}</figcaption></figure><p>${esc(item.text)}</p><p>${esc(item.detail)}</p><p class="note">${esc(item.locationNote)}${item.coordinateSource ? ` · <a href="${esc(item.coordinateSource.startsWith("https://") ? item.coordinateSource : "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=" + encodeURIComponent(item.coordinateSource.replace(/^SIMBAD: /, "")))}" target="_blank" rel="noreferrer">Координаты ↗</a>` : ""}</p><p class="source">${esc(item.credit)} · <a href="${esc(item.imageSource)}" target="_blank" rel="noreferrer">Источник изображения ↗</a> · <a href="${esc(item.source)}" target="_blank" rel="noreferrer">Исследование ↗</a></p><div class="photo-companion">${mentor("Можем обсудить содержание карточки, изображение и ограничения выводов.", "curious")}<button class="text-button" data-action="talk" data-story-id="${esc(item.id)}">Поговорить с Никой →</button></div><button class="secondary" data-action="return-sky">Вернуться к небу</button>`,
-    );
+    openModal(`<span class="eyebrow">${esc(categories[item.category])} · ${esc(item.date || "")}</span><h2>${esc(item.title)}</h2><figure class="discovery-figure"><img src="${esc(item.image)}" alt="${esc(item.alt)}"><figcaption>${esc(item.alt)}</figcaption></figure><p>${esc(item.text)}</p><p>${esc(item.detail)}</p>${item.coordinateSource ? `<p class="note">${esc(item.locationNote)} · <a href="${esc(item.coordinateSource.startsWith("https://") ? item.coordinateSource : "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=" + encodeURIComponent(item.coordinateSource.replace(/^SIMBAD: /, "")))}" target="_blank" rel="noreferrer">Координаты ↗</a></p>` : ''}<p class="source">${esc(item.credit)} · <a href="${esc(item.imageSource)}" target="_blank" rel="noreferrer">Источник изображения ↗</a> · <a href="${esc(item.source)}" target="_blank" rel="noreferrer">Исследование ↗</a></p><div class="archive-actions"><button class="secondary" data-action="discovery-zoom" data-story-id="${esc(item.id)}">Рассмотреть</button><button class="secondary" data-action="talk" data-story-id="${esc(item.id)}">Поговорить с Никой</button></div><button class="secondary" data-action="return-sky">Вернуться к небу</button>`, false, true);
   }
   function openSky(target) {
     if (sky) return;
@@ -402,7 +418,7 @@
   function about() {
     return `<span class="eyebrow">О ПРОЕКТЕ</span><h2>Ночь открытий: приключение в обсерватории</h2><p>Игра «Ночь открытий: приключение в обсерватории» создана на <b>факультете искусственного интеллекта МГУ имени М. В. Ломоносова</b>. Факультет объединяет образование, научные исследования и практическое применение искусственного интеллекта. <a href="https://ai.msu.ru/" target="_blank" rel="noreferrer">О факультете ↗</a></p><p><b>Анастасия Колесникова</b> — магистрант факультета ИИ. Научное содержание и проверка фактов: чтобы галактики оставались галактиками.</p><p><b>Андрей Жуков</b> — преподаватель факультета ИИ. Техника и игровые механики: чтобы обсерватория открывалась, а кнопки делали обещанное.</p><p><b>GPT-6 Astra</b> — генеративный ИИ. Код, тексты и сборка. Работает без кофе, но под присмотром.</p><details><summary>Понятия из игры</summary><dl><dt>Искусственный интеллект (ИИ)</dt><dd>Область создания систем для таких задач, как распознавание изображений.</dd><dt>Машинное обучение</dt><dd>Подход к созданию моделей, которые учатся на примерах.</dd><dt>Data Science (DS), наука о данных</dt><dd>Работа с данными: постановка вопроса, сбор и подготовка данных, анализ и проверка выводов.</dd><dt>Класс, метка и разметка</dt><dd>Класс — категория снимков. Метка указывает выбранный для снимка класс; разметка — назначение таких меток.</dd><dt>Выборка</dt><dd>Набор примеров для определённой задачи. На обучающей выборке модель подбирает параметры, на проверочной мы сравниваем её предсказания со справочными метками.</dd><dt>Архитектура и слой</dt><dd>Архитектура задаёт устройство нейронной сети: типы и порядок слоёв. Каждый слой преобразует полученные данные.</dd></dl></details><h3>Что настоящее, а что учебное</h3><p>Галактики на снимках настоящие: архив NASA/ESA Hubble. Обсерватория и Ника — художественные иллюстрации. На карте показаны звёздный атлас NASA и координаты объектов. Мы открываем архивные снимки, а не делаем новые наблюдения.</p><p>В основном опыте девять учебных снимков. Можно менять метки новых снимков (${data.childIds.length}) и старые метки (${data.oldIds.length}). Мы используем свёрточные нейронные сети (CNN). Для каждого сочетания меток и всех 22 архитектур обучение выполнено заранее. Браузер открывает точный результат выбранного опыта; он не обучает модель заново.</p><p>В этом задании мы классифицируем снимки — относим их к трём категориям по видимым признакам. «Гладкая» означает плавное свечение без заметных рукавов. «Видна спираль» — заметны спиральные рукава. «Вид с ребра» — мы смотрим на диск сбоку. Это ракурс, а не отдельный тип галактики.</p><p>Разметка человека, ответ модели и справочная метка — разные вещи. Повторная проверка показывает изменения на знакомых снимках. Итоговые снимки не входят в обучение, но уже изучались авторами: это учебный опыт, не новая независимая оценка качества.</p><p>На сайте сохраняются обезличенные события прохождения: переходы, метки и запуски опытов. Они помогают находить непонятные места. Имена и контакты не собираются; записи удаляются через 30 дней. Автономная версия хранит журнал только в этой вкладке и ничего не отправляет.</p><button class="secondary" data-action="diagnostics">Для стендиста: журнал смены</button><p><a href="DATA-NOTES.md" target="_blank">Данные и метод ↗</a> · <a href="provenance.json" target="_blank">Источники ↗</a> · <a href="assets/art/ART-CREDITS.md" target="_blank">Иллюстрации ↗</a></p>`;
   }
-  function openModal(content, isImage = false) {
+  function openModal(content, isImage = false, skyCard = false) {
     closeModal();
     modalTrigger = document.activeElement;
     modal = document.createElement("div");
@@ -413,7 +429,7 @@
       "aria-label",
       isImage ? "Снимок галактики" : "Записи лаборатории",
     );
-    modal.innerHTML = `<div class="modal-box${isImage ? " image-box" : ""}"><button class="secondary modal-close" data-action="close-modal">Закрыть ×</button>${content}</div>`;
+    modal.innerHTML = `<div class="modal-box${isImage ? " image-box" : ""}">${skyCard ? "" : '<button class="secondary modal-close" data-action="close-modal">Закрыть ×</button>'}${content}</div>`;
     document.body.append(modal);
     root.inert = true;
     const atlas = document.querySelector(".sky-atlas");
@@ -427,7 +443,7 @@
     root.inert = Boolean(sky);
     const atlas = document.querySelector(".sky-atlas");
     if (atlas) atlas.inert = false;
-    if (modalTrigger?.isConnected) modalTrigger.focus();
+    if (modalTrigger?.isConnected) modalTrigger.focus({preventScroll:true});
   }
   function render(prepared = null) {
     if (document.body.dataset.coreResourceFailure) return;
@@ -469,7 +485,7 @@
             ? "Класс — категория снимков с общими признаками. Метка класса указывает, к какому классу мы отнесли снимок. Разметка — назначение таких меток. Попробуем на одном примере: выбери класс по форме галактики."
             : phase === "repair"
               ? "В старой выборке тоже могут быть ошибки. Проверь подпись по снимку, затем повторим опыт."
-              : "Обучающая выборка — снимки с метками, на которых учится модель. При обучении она подбирает параметры по этим примерам. Предсказания — предполагаемые классы других снимков. Проверочная выборка не участвует в обучении. Выбери метку этого снимка.",
+              : "Обучающая выборка — снимки с метками, по которым модель подбирает параметры. Обучение на примерах называется машинным обучением. Результаты для твоих меток уже рассчитаны; мы откроем предсказания — предполагаемые классы других снимков. Проверочная выборка не участвует в обучении. Выбери метку этого снимка.",
         onLabel: (value) => choose(image.id, value),
       });
     }
@@ -516,7 +532,7 @@
       if (type === 'RESET') { GalaxyTelemetry.reset(telemetryMeta); lastScreen = null; restoreWarning = null; }
       if (type === 'RESUME') journey = current.phase === 'final' ? 'free' : 'work';
       if (type === "LABELS" || type === "REPAIR") cardIndex = 0;
-      const sameWorkspace = root.querySelector('.cnn-workbench') && ['SET_ARCHITECTURE','GUIDE_ADD_CONVOLUTION','GUIDE_CONFIRM_COMPARE','MODEL_SETTINGS','RUN'].includes(type);
+      const sameWorkspace = root.querySelector('.cnn-workbench') && ['SET_ARCHITECTURE','GUIDE_OPEN','GUIDE_ADD_CONVOLUTION','GUIDE_CONFIRM_COMPARE','INDEPENDENT_CONFIRM','MODEL_SETTINGS','RUN'].includes(type);
       if (sameWorkspace && type !== 'RUN') updateArchitectureView();
       else if (type === 'RUN' || type === 'FINISH') {
         // Decode the actual next image nodes before swapping surfaces. Recreating
@@ -540,7 +556,9 @@
       root.inert = Boolean(modal || sky);
       chime();
       if (sameWorkspace) {
-        const action = root.querySelector('[data-cnn-region="actions"] .primary:not(:disabled)');
+        const action = root.querySelector('[data-cnn-region="actions"] .primary:not(:disabled)') ||
+          root.querySelector('.architecture-editor .primary:not(:disabled)') ||
+          root.querySelector('.architecture-editor [data-action="architecture-depth"]:not(:disabled)');
         if (!["SET_ARCHITECTURE", "MODEL_SETTINGS"].includes(type)) action?.focus({preventScroll:true});
       } else if (!["SET_LABEL", "SET_ARCHITECTURE"].includes(type)) {
         window.scrollTo({ top: 0, behavior: "instant" });
@@ -610,7 +628,7 @@
     }
   }
   document.addEventListener("keydown", (event) => {
-    if (!modal && model.state.phase === "review" && model.state.cnnGuide === "complete" && event.target.matches?.("[data-layer-index]") && (event.altKey || event.ctrlKey) && ["ArrowLeft", "ArrowRight"].includes(event.key)) {
+    if (!modal && model.state.phase === "review" && ["independent", "complete"].includes(model.state.cnnGuide) && event.target.matches?.("[data-layer-index]") && (event.altKey || event.ctrlKey) && ["ArrowLeft", "ArrowRight"].includes(event.key)) {
       event.preventDefault();
       const current = architectureById(model.state.architecture), index = Number(event.target.dataset.layerIndex), shift = event.key === "ArrowLeft" ? -1 : 1;
       if (current && index + shift >= 0 && index + shift < current.tail.length) {
@@ -718,12 +736,11 @@
       openSky();
       return;
     }
-    if (action === "zoom") {
-      const image = byId[button.dataset.imageId];
-      openModal(
-        `<img class="modal-image" src="${esc(image.src)}" alt="${esc(image.name)}">${source(image)}`,
-        true,
-      );
+    if (action === "zoom" || action === "discovery-zoom") {
+      const item = action === "discovery-zoom" ? GALAXY_DISCOVERIES.find(item => item.id === button.dataset.storyId) : byId[button.dataset.imageId];
+      if (!item) return;
+      const image = action === "discovery-zoom" ? {src:item.image, name:item.title, credit:item.credit, source:item.imageSource} : item;
+      openModal(`<img class="modal-image" src="${esc(image.src)}" alt="${esc(image.name)}">${source(image)}${sky ? '<button class="secondary" data-action="return-sky">Вернуться к небу</button>' : ''}`, true, Boolean(sky));
       return;
     }
     if (action === "about") {
@@ -862,6 +879,8 @@
       return;
     }
     const actions = {
+      "guide-open": "GUIDE_OPEN",
+      "independent-confirm": "INDEPENDENT_CONFIRM",
       "guide-add-convolution": "GUIDE_ADD_CONVOLUTION",
       "guide-confirm-compare": "GUIDE_CONFIRM_COMPARE",
       labels: "LABELS",
@@ -887,7 +906,7 @@
     try {
       if (saved.lesson.protocolVersion !== model.protocol.protocolVersion || saved.lesson.datasetVersion !== model.protocol.datasetVersion ||
           saved.ui.found.some(id => !data.childIds.includes(id)) || new Set(saved.ui.found).size !== saved.ui.found.length) throw new Error('incompatible');
-      const refs = ['current','baseline','correctedReview','architectureBaseline'].map(name => saved.lesson.state?.[name]?.architecture).filter(Boolean);
+      const refs = ['current','baseline','correctedReview','architectureBaseline','independentBaseline'].map(name => saved.lesson.state?.[name]?.architecture).filter(Boolean);
       if (refs.some(id => !GalaxyArchitectures.get(id))) throw new Error('invalid architecture');
       try { await Promise.all([...new Set(refs)].map(id => GalaxyCNNResults.ensure(id))); }
       catch (error) { error.restoreResourceFailure = true; throw error; }

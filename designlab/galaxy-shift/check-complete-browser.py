@@ -166,18 +166,8 @@ def collect(page, item_id):
 
 def complete_cnn_guide(page):
     """N03/N04: one persistent workbench, d1-r -> d2-r, then observation."""
-    assert page.evaluate("galaxyGame.model.state.cnnGuide") == "intro"
+    assert page.evaluate("galaxyGame.model.state.cnnGuide") == "bridge"
     page.wait_for_selector(".cnn-workbench .architecture-editor")
-    intro = page.locator(".cnn-workbench").inner_text().lower()
-    for term in ("слой", "свёртк", "фильтр", "архитектур"):
-        assert term in intro, term
-    click_action(page, "cnn-filter", require_visible_frame=True)
-    page.wait_for_selector(".modal")
-    teaching_example = page.locator(".modal").inner_text().lower()
-    for marker in ("поэлементно", "отклик", "не активация"):
-        assert marker in teaching_example, marker
-    page.keyboard.press("Escape")
-    assert not page.locator(".modal").count()
     # A thumbnail changes only the large selected source; it must retain the
     # source description and never discard the three scientific result cards.
     thumbs = page.locator('[data-action="cnn-image"]')
@@ -199,6 +189,19 @@ def complete_cnn_guide(page):
     assert main.get_attribute('alt') == expected['name'], (main.get_attribute('alt'), expected)
     assert page.locator('.cnn-workbench__results article').count() == cards_before == 3
     assert page.evaluate("id => document.activeElement?.dataset.imageId === id", image_id)
+    # The bridge gives the result a reason before the network appears.
+    click_action(page, "guide-open", require_visible_frame=True)
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'intro'")
+    intro = page.locator(".cnn-workbench").inner_text().lower()
+    for term in ("cnn", "свёрточ", "слой", "архитектур"):
+        assert term in intro, term
+    click_action(page, "cnn-filter", require_visible_frame=True)
+    page.wait_for_selector(".modal")
+    teaching_example = page.locator(".modal").inner_text().lower()
+    for marker in ("поэлементно", "фильтр", "отклик", "не активация"):
+        assert marker in teaching_example, marker
+    page.keyboard.press("Escape")
+    assert not page.locator(".modal").count()
     # The guide contract starts after the independent thumbnail transition.
     page.evaluate("""() => { window.__guideSurface = {
       workbench: document.querySelector('.cnn-workbench'), editor: document.querySelector('.architecture-editor'),
@@ -212,6 +215,11 @@ def complete_cnn_guide(page):
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
     assert "сравн" in page.locator(".cnn-workbench").inner_text().lower()
     click_action(page, "guide-confirm-compare", require_visible_frame=True)
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent'")
+    page.locator('[data-action="architecture-depth"][data-depth="1"]').click()
+    click_action(page, "architecture-save", require_visible_frame=True)
+    page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent-observe'")
+    click_action(page, "independent-confirm", require_visible_frame=True)
     page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
     assert page.evaluate("""() => {
       const before=window.__guideSurface;
@@ -280,9 +288,13 @@ def keyboard_baseline(page, zoom=None):
             enter_action(page, "next")
     enter_action(page, "run")
     page.wait_for_function("galaxyGame.model.state.phase === 'review'")
+    enter_action(page, "guide-open")
     enter_action(page, "guide-add-convolution")
     enter_action(page, "run"); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'observe'")
-    enter_action(page, "guide-confirm-compare"); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
+    enter_action(page, "guide-confirm-compare"); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent'")
+    tab_to(page, '[data-action="architecture-depth"][data-depth="1"]'); page.keyboard.press("Enter")
+    enter_action(page, "architecture-save"); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'independent-observe'")
+    enter_action(page, "independent-confirm"); page.wait_for_function("galaxyGame.model.state.cnnGuide === 'complete'")
     enter_action(page, "finish")
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
 
@@ -494,6 +506,7 @@ def full_route(page, report, viewport, all_architectures=False, zoom=None):
     # A12 — metric disclosure presents matrix, per-class values and Macro-F1.
     click_action(page, "metrics", require_visible_frame=True)
     page.wait_for_selector(".modal details.metrics")
+    page.locator(".modal details.metrics-advanced summary").click()
     metrics = page.locator(".modal details.metrics").inner_text().lower()
     for term in ("precision", "recall", "macro-f1", "нулевом знаменател"):
         assert term in metrics, term
@@ -524,7 +537,7 @@ def full_route(page, report, viewport, all_architectures=False, zoom=None):
     page.wait_for_function("galaxyGame.model.state.phase === 'final'")
     page.locator(".research-board > summary").click()
     final_metrics = page.locator('details[data-metric-scope="final"]')
-    final_metrics.locator("summary").click()
+    final_metrics.locator(":scope > summary").click()
     assert "итоговая выборка" in final_metrics.inner_text().lower()
     page.locator(".research-board > summary").click()
     final_button = page.locator('.final-summary [data-action="sky"]')
@@ -539,7 +552,8 @@ def full_route(page, report, viewport, all_architectures=False, zoom=None):
     camera = page.evaluate("galaxyGame.sky.snapshot().camera")
     page.locator(".sky-atlas__note").first.click()
     assert page.locator(".modal").is_visible()
-    click_action(page, "close-modal")
+    page.keyboard.press("Escape")
+    page.locator(".modal").wait_for(state="detached")
     page.wait_for_selector(".sky-atlas")
     assert page.evaluate("galaxyGame.sky.snapshot().camera") == camera
     page.locator(".sky-atlas__note").first.click()
@@ -627,7 +641,8 @@ def missing_shard(page, report, entry=None):
     page.unroute(shard)
     page.locator('[data-restore-retry]').click()
     page.wait_for_function('window.galaxyGame')
-    click_action(page,'resume')
+    if page.locator('[data-action="resume"]').count():
+        click_action(page,'resume')
     assert page.evaluate('galaxyGame.model.state.current.architecture')=='d1-r-bn'
     report.add('A08/A14 reload resource failure preserves saved shift and retries', 'PASS', 'same persisted lesson before/after failed reload; visible retry/resume')
 
@@ -676,6 +691,9 @@ def main():
         context.close()
         context = browser.new_context(viewport={"width": 853, "height": 480}, reduced_motion="reduce")
         report.check("V06 150% zoom entry accessibility", "853x480 CSS viewport", lambda: zoom_150(context.new_page()))
+        context.close()
+        context = browser.new_context(viewport={"width": 853, "height": 480}, reduced_motion="no-preference")
+        report.check("V06 150% zoom keyboard route with ordinary motion", "853x480 CSS viewport", lambda: zoom_150(context.new_page()))
         context.close()
         if baseline and not ready:
             for viewport in VIEWPORTS:

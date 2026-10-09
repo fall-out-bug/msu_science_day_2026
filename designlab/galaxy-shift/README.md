@@ -2,8 +2,9 @@
 
 Самостоятельный настольный маршрут для ребёнка около 12 лет: собрать
 архивные снимки, разметить обучающую выборку, проверить предсказания CNN,
-разобрать старые метки, пройти объяснённый опыт с готовой сетью и сравнить результаты. Конструктор архитектуры и
-подробные метрики доступны по интересу после обязательного опыта.
+разобрать старые метки, пройти объяснённый опыт с готовой сетью, а затем
+самостоятельно изменить её и сравнить результаты. Подробные метрики
+доступны по приглашению Ники.
 
 Продуктовые решения и условия готовности:
 `docs/design-2026-10-09/night-of-discoveries.md` (согласованные изменения)
@@ -25,17 +26,18 @@
 
 ## Маршрут и данные
 
-После короткой истории об ИИ в астрономии ребёнок находит четыре галактики
+После задания Ники ребёнок находит четыре галактики
 на карте и открывает их архивные снимки. Ника разбирает пример; затем
 ребёнок размечает четыре снимка и проверяет модель на трёх других снимках.
 После явной проверки трёх старых меток ребёнок повторяет проверку. Затем
 игра объясняет слои и свёртку и предлагает добавить второй свёрточный слой
-к готовой сети, сохранив метки. После сравнения предсказаний можно закончить
-смену при любом результате или продолжить в свободном конструкторе.
+к готовой сети, сохранив метки. После сравнения предсказаний ребёнок выбирает своё изменение сети,
+проверяет и сравнивает ответы. Затем можно закончить смену при любом
+результате или продолжить опыты.
 Финал открывает отдельную итоговую выборку и свободное исследование карты,
 24 архивных галактик и 19 научных карточек на едином небе. Материалы без
-подтверждённых координат показаны как заметки; их положения не обозначают
-координаты объектов.
+подтверждённых координат собраны в блок «Открытия по всему небу»;
+его положение не обозначает координаты объектов.
 
 Обучающая выборка содержит девять снимков. Семь меток изменяются: четыре
 новые и три старые. Две другие фиксированы. Проверочная и итоговая выборки
@@ -81,16 +83,16 @@ bun designlab/galaxy-shift/check-metrics.mjs
 bun tools/galaxy-telemetry/check-client.mjs
 python3 tools/galaxy-telemetry/test_server.py
 python3 tools/galaxy-telemetry/test_admin_export.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-telemetry/check-integration.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-result-cases.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-continuity-browser.py
+GALAXY_RECOMPOSE_TELEMETRY_EVIDENCE=docs/design-2026-10-09/evidence/lesson-telemetry-integration.json /home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-telemetry/check-integration.py
+GALAXY_RECOMPOSE_RESULT_CASES_EVIDENCE=docs/design-2026-10-09/evidence/lesson-result-cases.json /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-result-cases.py
+GALAXY_RECOMPOSE_CONTINUITY_EVIDENCE=docs/design-2026-10-09/evidence/lesson-continuity.json /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-continuity-browser.py
 GALAXY_EVIDENCE_DIR=/tmp/science-day-complete-qa /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-complete-browser.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-story-frame.py --evidence docs/design-2026-10-09/evidence/story-frame-after.json
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-no-cnn-flicker.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-result-image-loading.py
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-story-frame.py --evidence docs/design-2026-10-09/evidence/lesson-story-frame.json
+GALAXY_N08_EVIDENCE=/tmp/science-day-lesson-flicker /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-no-cnn-flicker.py
+GALAXY_RECOMPOSE_RESULT_IMAGE_EVIDENCE=docs/design-2026-10-09/evidence/lesson-result-image-loading.json /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-result-image-loading.py
 /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-night-sky-integration.py
 python3 designlab/galaxy-shift/build-galaxy.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-offline-complete.py --evidence docs/design-2026-10-09/evidence/offline.json
+/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-offline-complete.py --evidence docs/design-2026-10-09/evidence/lesson-offline.json
 ```
 
 Сборщик требует все 22 архитектуры, перечисляет ресурсы явно и записывает

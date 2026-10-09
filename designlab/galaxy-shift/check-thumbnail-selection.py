@@ -7,12 +7,13 @@ later, and that a failed decode leaves the current photo and workbench intact.
 """
 import importlib.util
 import json
+import os
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
-OUT = HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "recompose-thumbnail-selection.json"
+OUT = Path(os.environ.get("GALAXY_THUMBNAIL_EVIDENCE", HERE.parent.parent / "docs" / "design-2026-10-09" / "evidence" / "lesson-thumbnail-selection.json"))
 
 def load_visible_editor(page):
     spec = importlib.util.spec_from_file_location("continuity", HERE / "check-continuity-browser.py")

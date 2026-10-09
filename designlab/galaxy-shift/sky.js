@@ -51,7 +51,7 @@
     host.innerHTML = `<canvas class="sky-atlas__canvas" tabindex="0" aria-label="Архивная карта неба. Тяните мышью или пальцем, колесо меняет масштаб. Стрелки перемещают карту."></canvas>
       <header class="sky-atlas__head"><div><span>КАРТА ЗВЁЗДНОГО НЕБА</span><h2>${mode === 'task' ? (guided ? 'Собери архивные снимки' : 'Найди галактику на карте') : 'Исследуй небо'}</h2></div><button type="button" class="sky-atlas__close" aria-label="Закрыть карту">×</button></header>
       <nav class="sky-atlas__controls" aria-label="Масштаб карты"><button type="button" data-scale="in" aria-label="Увеличить карту">+</button><button type="button" data-scale="out" aria-label="Уменьшить карту">−</button><button type="button" data-scale="all">Всё небо</button></nav>
-      <div class="sky-atlas__marker-layer" aria-label="Материалы неба"></div>${mode === 'browse' ? `<aside class="sky-atlas__notes" aria-label="Заметки об исследованиях без одной координаты">${notes.map((item, index) => `<button type="button" class="sky-atlas__note note-${index % 3}" data-note-id="${item.id}"><img src="${item.image}" alt=""><span>Заметка без одной координаты</span><strong>${item.title}</strong><small>${item.kind}</small></button>`).join('')}</aside>` : ''}<aside class="sky-atlas__panel ${mode}">${mode === 'task' ? '<div class="sky-atlas__task-content"></div>' : `<p class="sky-atlas__truth">Нажимай на снимок или историю. Заметки без одной координаты лежат поверх неба.</p><p class="sky-atlas__hint" aria-live="polite">Приблизь карту, если метки собрались вместе.</p>`}<details class="sky-atlas__sources"><summary>Источники карты</summary><a href="sky-provenance.json" target="_blank" rel="noopener">NASA SVS и каталог HYG</a></details></aside>
+      <div class="sky-atlas__marker-layer" aria-label="Материалы неба"></div>${mode === 'browse' ? `<aside class="sky-atlas__notes" aria-label="Открытия по всему небу"><h3>Открытия по всему небу</h3><nav aria-label="Истории об открытиях">${notes.map(item => `<button type="button" class="sky-atlas__note" data-note-id="${item.id}"><strong>${item.title}</strong></button>`).join('')}</nav></aside>` : ''}<aside class="sky-atlas__panel ${mode}">${mode === 'task' ? '<div class="sky-atlas__task-content"></div>' : `<p class="sky-atlas__truth">Нажимай на снимок или историю, чтобы узнать больше.</p><p class="sky-atlas__hint" aria-live="polite">Приблизь карту, если метки собрались вместе.</p>`}<details class="sky-atlas__sources"><summary>Источники карты</summary><a href="sky-provenance.json" target="_blank" rel="noopener">NASA SVS и каталог HYG</a></details></aside>
       <footer class="sky-atlas__foot">NASA SVS Deep Star Maps 2020 · звёзды HYG v4.1 (CC BY-SA 4.0) · ICRS/J2000</footer>`;
     document.body.append(host);
     const canvas = host.querySelector('canvas'), ctx = canvas.getContext('2d');
@@ -192,22 +192,22 @@
       if (!guided) {
         taskHost.innerHTML=`<p class="sky-atlas__truth">Найдём положение галактики на карте и откроем её архивный снимок Hubble.</p><div class="sky-atlas__targets">${ids.map(id => `<button type="button" data-target="${id}">${TARGETS[id].name}<small>RA ${formatRa(TARGETS[id].ra)} · Dec ${formatDec(TARGETS[id].dec)}</small></button>`).join('')}</div><p class="sky-atlas__hint" aria-live="polite">Выбери объект в списке или найди его на карте.</p><button type="button" class="sky-atlas__open" disabled>Открыть архивный снимок</button>`;
         hint=taskHost.querySelector('.sky-atlas__hint'); openButton=taskHost.querySelector('.sky-atlas__open'); completeButton=null; targetButtons=[...taskHost.querySelectorAll('[data-target]')];
-        targetButtons.forEach(button=>button.addEventListener('click',()=>select(button.dataset.target,true)));
+        targetButtons.forEach(button=>button.addEventListener('click',event=>select(button.dataset.target,true,event.detail === 0)));
         openButton.addEventListener('click',()=>{if(!aligned||!active)return;const id=active;close();options.onSelect?.(id);});
         return;
       }
       const remaining=ids.filter(id=>!collected.has(id));
       taskHost.innerHTML=`<p class="sky-atlas__truth">${guided?'Собери отмеченные архивные снимки Hubble для учебного опыта.':'Найдём положение галактики на карте и откроем её архивный снимок Hubble.'}</p><div class="sky-atlas__targets">${ids.map(id=>{const done=collected.has(id),image=imageById[id];return `<button type="button" data-target="${id}" class="${done?'is-collected':''}" ${done?'disabled':''}>${done&&image?`<img src="${image.src}" alt="">`:''}<span>${TARGETS[id].name}<small>${done?'Снимок добавлен ✓':`RA ${formatRa(TARGETS[id].ra)} · Dec ${formatDec(TARGETS[id].dec)}`}</small></span></button>`;}).join('')}</div><p class="sky-atlas__hint" aria-live="polite">${remaining.length?`Собрано ${collected.size} из ${ids.length}. Выбери объект в списке или найди его на карте.`:`Все ${ids.length} ${snapshotWord(ids.length)} готовы к разметке.`}</p>${remaining.length?'<button type="button" class="sky-atlas__open" disabled>Добавить архивный снимок</button>':'<button type="button" class="sky-atlas__complete">К рабочему столу →</button>'}`;
       hint=taskHost.querySelector('.sky-atlas__hint'); openButton=taskHost.querySelector('.sky-atlas__open'); completeButton=taskHost.querySelector('.sky-atlas__complete'); targetButtons=[...taskHost.querySelectorAll('[data-target]')];
-      targetButtons.forEach(button=>button.addEventListener('click',()=>select(button.dataset.target,true)));
+      targetButtons.forEach(button=>button.addEventListener('click',event=>select(button.dataset.target,true,event.detail === 0)));
       openButton?.addEventListener('click',collectActive);
       completeButton?.addEventListener('click',()=>{close();options.onComplete?.();});
     }
-    function select(id, move) {
+    function select(id, move, immediate = false) {
       active = id; const t = TARGETS[id]; if (openButton) openButton.disabled = true;
       targetButtons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
       hint.textContent = `Цель: ${t.name}. Перетащи карту, чтобы галактика попала в прицел.`;
-      if (move) focus(id); updateAlignment(); request();
+      if (move) focus(id, immediate); updateAlignment(); request();
     }
     function collectActive() {
       if (!aligned || !active || collected.has(active)) return;
@@ -217,10 +217,10 @@
       if (next) select(next,true); else { active=null; aligned=false; request(); }
     }
     let cameraAnimation = 0;
-    function focus(id) {
+    function focus(id, immediate = false) {
       const animation = ++cameraAnimation;
       const t = TARGETS[id], start = {...camera}, zoom = Math.max(7.5, Math.min(width / 28, height / 18)), end = {ra: wrap(t.ra - width * .15 / zoom), dec: clamp(t.dec + height * .1 / zoom, -85, 85), zoom};
-      if (reduce()) { camera = end; updateAlignment(); request(); return; }
+      if (immediate || reduce()) { camera = end; updateAlignment(); request(); return; }
       const begun = performance.now(); const tick = now => { if (closed || animation !== cameraAnimation) return; const p = clamp((now - begun) / 600, 0, 1), e = p * p * (3 - 2 * p); camera = {ra: wrap(start.ra + delta(end.ra - start.ra) * e), dec: start.dec + (end.dec - start.dec) * e, zoom: start.zoom + (end.zoom - start.zoom) * e}; updateAlignment(); request(); if (p < 1 && !closed) requestAnimationFrame(tick); }; requestAnimationFrame(tick);
     }
     function markerAt(x, y) { const ordered=markers().filter(marker=>visible(marker)&&!(mode==='task'&&marker.type==='task'&&collected.has(marker.id))).reverse();if(mode==='task')ordered.sort((a,b)=>(a.id===active&&a.type==='task'?-2:a.type==='task'?-1:0)-(b.id===active&&b.type==='task'?-2:b.type==='task'?-1:0));return ordered.find(marker => { const p = project(Number(marker.ra), Number(marker.dec)); return Math.hypot(p[0] - x, p[1] - y) < 22; }); }

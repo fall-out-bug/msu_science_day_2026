@@ -178,6 +178,12 @@ body{background:#08141e}.sr-only{position:absolute;width:1px;height:1px;margin:-
 
 /* The editable tail is visually distinct from the fixed input/output. */
 .architecture-tail{padding:14px 16px;border:1px solid #b8c9bc;border-radius:12px;background:#fffaf0}
+
+/* Archive cards offer two equal ways to continue the same investigation. */
+.archive-actions{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 10px}
+.archive-actions .secondary{min-width:0;min-height:44px;font-size:.87rem}
+.archive-actions+.secondary{margin-top:2px}
+@media(max-width:700px){.archive-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.archive-actions .secondary{padding:10px 8px;font-size:.76rem}}
 .architecture-fixed{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:.85rem;line-height:1.6}
 .architecture-fixed small{color:var(--muted)}
 .architecture-tail li{flex:1;min-width:180px;max-width:310px;flex-direction:column;align-items:flex-start;border:1px solid #a4beb0;cursor:grab}
