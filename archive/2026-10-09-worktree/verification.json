@@ -1,0 +1,166 @@
+{
+  "startedAt": "2026-10-09T19:27:35Z",
+  "checks": {
+    "manifest_vs_original": {
+      "passed": true,
+      "fieldMismatchCount": 0,
+      "examples": []
+    },
+    "source": {
+      "paths": 391,
+      "uniqueObjects": 90,
+      "passed": true,
+      "failures": []
+    },
+    "payload_parts": {
+      "parts": 20,
+      "passed": true,
+      "failures": []
+    },
+    "payload_content": {
+      "expectedUniqueObjects": 6128,
+      "tarMembers": 6128,
+      "passed": true,
+      "failures": []
+    },
+    "git": {
+      "historyCommit": "44c1619d5285c7d78891ce0c5801facdf45b0057",
+      "paths": 462,
+      "uniqueBlobs": 294,
+      "reachableUniqueBlobs": 294,
+      "passed": true,
+      "failures": []
+    },
+    "four_modified_tracked_files": {
+      "passed": true,
+      "files": [
+        {
+          "path": ".gitignore",
+          "storage": {
+            "kind": "file",
+            "path": "source/.gitignore"
+          },
+          "sha256": "7c2ecb0d0b8a69ae5ba4cbe15cab6d24b153fdf65153bfc1fa6244a9cc1baf9c",
+          "size": 451,
+          "expectedSha256": "7c2ecb0d0b8a69ae5ba4cbe15cab6d24b153fdf65153bfc1fa6244a9cc1baf9c",
+          "expectedSize": 451,
+          "passed": true
+        },
+        {
+          "path": "README.md",
+          "storage": {
+            "kind": "file",
+            "path": "source/README.md"
+          },
+          "sha256": "688a25056bb1ff61b0a8e01db49bf59e270ac0fb379ff458612bcf3a81c5afa7",
+          "size": 31717,
+          "expectedSha256": "688a25056bb1ff61b0a8e01db49bf59e270ac0fb379ff458612bcf3a81c5afa7",
+          "expectedSize": 31717,
+          "passed": true
+        },
+        {
+          "path": "assets/real/CREDITS.md",
+          "storage": {
+            "kind": "file",
+            "path": "source/app/real/CREDITS.md"
+          },
+          "sha256": "1eb984b568259844d1a71a77ea536104dd85067a39a28726dc9954a4543f7659",
+          "size": 10618,
+          "expectedSha256": "1eb984b568259844d1a71a77ea536104dd85067a39a28726dc9954a4543f7659",
+          "expectedSize": 10618,
+          "passed": true
+        },
+        {
+          "path": "tools/generate_data.py",
+          "storage": {
+            "kind": "file",
+            "path": "source/tools/generate_data.py"
+          },
+          "sha256": "cc234ecdd62c54c5238e3c69b84aee410018894c177cce0522259356cf51d92a",
+          "size": 19177,
+          "expectedSha256": "cc234ecdd62c54c5238e3c69b84aee410018894c177cce0522259356cf51d92a",
+          "expectedSize": 19177,
+          "passed": true
+        }
+      ]
+    },
+    "privacy_scan": {
+      "passed": true,
+      "scope": [
+        "source/config/document text",
+        "text members and member names of all 38 ZIP archives and one TAR"
+      ],
+      "credentialFindings": 0,
+      "commentDatabases": 0,
+      "horizonsContactFiles": 119,
+      "contactClassification": "Public NASA/JPL Horizons service contacts; no project-user records identified",
+      "limits": [
+        "No image inspection",
+        "FITS/EXR and compressed scientific arrays were not interpreted"
+      ]
+    },
+    "restore_cli_regressions": {
+      "passed": true,
+      "command": "python3 tools/archive/test_restore.py",
+      "testMethods": 4,
+      "cases": [
+        "all three storage kinds",
+        "relative internal symlink",
+        "preserved permissions",
+        "damaged payload part",
+        "path traversal",
+        "existing output preserved",
+        "relative output refused",
+        "payload size/hash mismatch"
+      ]
+    },
+    "archive_verify": {
+      "passed": true,
+      "command": "python3 tools/archive/restore.py --verify"
+    },
+    "clean_clone_roundtrip": {
+      "passed": true,
+      "repositoryCommit": "7f9538942eeabcd9e1ba0fcc3f9d2d827ede44c2",
+      "cloneMode": "--no-local --single-branch; no alternates and no refs/codex",
+      "command": "python3 tools/archive/restore.py --output NEW_ABSOLUTE_DIRECTORY",
+      "independentOriginalInventoryComparison": true,
+      "comparedFields": [
+        "path",
+        "type",
+        "mode",
+        "size",
+        "sha256"
+      ],
+      "restoredFiles": 12162,
+      "restoredBytes": 2197765662
+    },
+    "current_game_sources_unchanged": {
+      "passed": true,
+      "baseCommit": "44c1619d5285c7d78891ce0c5801facdf45b0057",
+      "paths": [
+        "app",
+        "assets",
+        "designlab",
+        "tools/galaxy-release",
+        "tools/galaxy-telemetry",
+        "tools/scenario-review"
+      ]
+    }
+  },
+  "failures": [],
+  "counts": {
+    "oldPaths": 12162,
+    "manifestPaths": 12162,
+    "manifestUniqueByStorage": {
+      "file": 391,
+      "payload": 11309,
+      "git": 462
+    }
+  },
+  "passed": true,
+  "finishedAt": "2026-10-09T19:27:54Z",
+  "seconds": 19.076,
+  "scope": "Complete historical worktree inventory; current game sources and deployment are unchanged.",
+  "manifestSha256": "c2df5c70fa85f3a5ec8d1226353ada56e38227484fdaaad69d1daf600df79879",
+  "verifiedAt": "2026-10-09T19:34:52.589053+00:00"
+}
