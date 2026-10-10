@@ -60,8 +60,8 @@ tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-10
 По умолчанию БД находится в `~/.local/share/science-day/galaxy-telemetry/`,
 вне рабочего дерева Git; путь можно задать через `GALAXY_TELEMETRY_DATA_DIR`.
 Удаление рабочей ветки поэтому не удаляет журнал. Каталог закрыт режимом 0700.
-Локальный upstream — `http://192.168.50.12:8080`, публичный сайт —
-`https://sd2026.beetles.family/`.
+Локальный upstream — `http://192.168.50.12:8080`. Публичный адрес периода
+выпуска, `sd2026.beetles.family`, будет отключён 12 октября 2026 года.
 
 `check-complete-published.py` сверяет SHA-256 всех ресурсов, ZIP и документов,
 сохранность прежней игры и комментариев и выполняет видимый маршрут с
@@ -70,7 +70,6 @@ tools/galaxy-release/deploy.sh sd2026-public:galaxy-20261009-night-10
 
 ```bash
 /home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base http://192.168.50.12:8080 --preservation /tmp/science-day-dialogue-preservation.json --evidence docs/design-2026-10-09/evidence/dialogue-published-upstream.json
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-complete-published.py --base https://sd2026.beetles.family --ssh-host superduper --preservation /tmp/science-day-dialogue-preservation.json --evidence docs/design-2026-10-09/evidence/dialogue-published-https.json
 ```
 
 HTTPS проверяется с обычной проверкой сертификата через временный SSH SOCKS
@@ -130,7 +129,6 @@ tools/galaxy-release/rollback.sh sd2026-public:galaxy-20261009-night-7
 
 ```bash
 /home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-published.py --preservation
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-published.py --base https://sd2026.beetles.family --preservation
 ```
 
 `published.json` записывается только после полного успешного прохода и

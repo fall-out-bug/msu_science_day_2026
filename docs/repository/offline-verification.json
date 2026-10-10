@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "zip": "/home/zhuckoff/projects/msu/science_day/designlab/galaxy-shift/releases/galaxy-shift.zip",
+  "version": "1.0.0",
+  "zipSha256": "e8f9bd67c1eafb48a63c7859403b8ff7c3d3c704a6eb19a6ec2a7c264965a2b0",
+  "files": 131,
+  "configurationsPassed": 22,
+  "fullRoute": "PASS",
+  "networkRequests": 0
+}

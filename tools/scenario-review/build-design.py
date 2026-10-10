@@ -45,7 +45,7 @@ with sync_playwright() as pw:
 with zipfile.ZipFile(PUB/'galaxy-design-offline.zip','w',zipfile.ZIP_DEFLATED) as z:
  for p in sorted(PUB.iterdir()):
   if p.is_file() and p.suffix in ['.html','.md','.css','.js']:
-   if p.suffix=='.html':z.writestr(p.name,p.read_text().replace('href="/"','href="https://sd2026.beetles.family/"'))
+   if p.suffix=='.html':z.writestr(p.name,p.read_text().replace('href="/"','href="https://github.com/fall-out-bug/msu_science_day_2026"'))
    else:z.write(p,p.name)
  for p in sorted((PUB/'gdd-assets').rglob('*')):
   if p.is_file():z.write(p,str(p.relative_to(PUB)))

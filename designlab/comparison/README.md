@@ -1,7 +1,8 @@
 # Мастерская неба: игровая смена
 
-**Текущая игра:** `night.html`, опубликована на https://sd2026.beetles.family/ и
-http://192.168.50.12:8081/. Прежний стенд механик доступен на `/lab.html`.
+**Историческая версия:** [`night.html`](night.html).
+Актуальная игра — [«Ночь открытий»](../galaxy-shift/README.md), её автономный
+ZIP доступен в [GitHub Releases](https://github.com/fall-out-bug/msu_science_day_2026/releases).
 
 Последний проверенный выпуск: `2026.10.05-learning.3`.
 [Учебный маршрут, исправления и проверка публикации](../../docs/redesign-2026-10-05/release-learning.md).
