@@ -96,7 +96,7 @@ with sync_playwright() as pw:
 with zipfile.ZipFile(PUB/'galaxy-design-offline.zip','w',zipfile.ZIP_DEFLATED) as z:
  for name in ['galaxy-game-design.html','galaxy-game-design.md','galaxy-design.css','galaxy-design-demo.js','scenario-comments.css','scenario-comments.js','first-shift-scenario.html','first-shift-scenario.md']:
   if name.endswith('.html'):
-   content=(PUB/name).read_text().replace('href="/"','href="https://sd2026.beetles.family/"').replace('href="galaxy-design-offline.zip"','href="https://sd2026.beetles.family/docs/galaxy-design-offline.zip"')
+   content=(PUB/name).read_text().replace('href="/"','href="https://github.com/fall-out-bug/msu_science_day_2026"').replace('href="galaxy-design-offline.zip"','href="https://github.com/fall-out-bug/msu_science_day_2026/tree/main/docs"')
    z.writestr(name,content)
   else:z.write(PUB/name,arcname=name)
  for p in sorted((PUB/'gdd-assets').rglob('*')):

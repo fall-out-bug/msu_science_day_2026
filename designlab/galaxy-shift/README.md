@@ -66,9 +66,17 @@ CNN получает центральный фрагмент снимка в о�
 
 ## Проверка и сборка
 
-Команды из корня репозитория. Python с NumPy, Pillow и Playwright:
-`/home/zhuckoff/projects/msu/science_day/.venv/bin/python`.
-Эти зависимости нужны для разработки, не для запуска ZIP.
+Команды из корня репозитория. Для разработки нужны Python с NumPy, Pillow
+и Playwright, а для JavaScript-проверок — Bun. Подготовьте окружение:
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install numpy pillow playwright
+python -m playwright install chromium
+```
+
+Эти зависимости нужны для разработки; готовый ZIP запускается в браузере.
 
 ```bash
 python3 designlab/galaxy-shift/prepare-data.py --check
@@ -76,7 +84,7 @@ python3 designlab/galaxy-shift/prepare-archive.py --check
 python3 designlab/galaxy-shift/experiments/check_constructor_math.py
 python3 designlab/galaxy-shift/experiments/cnn-label-correction/check_constructor_table.py --require-full
 python3 designlab/galaxy-shift/experiments/cnn-label-correction/check_reproduction.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-image-dialogue.py --evidence docs/design-2026-10-09/evidence/dialogue-briefings.json
+python tools/galaxy-release/check-image-dialogue.py --evidence docs/design-2026-10-09/evidence/dialogue-briefings.json
 bun designlab/galaxy-shift/check-cnn-session.mjs
 bun designlab/galaxy-shift/check-restoration.mjs
 bun designlab/galaxy-shift/check-results-loader.mjs
@@ -84,16 +92,16 @@ bun designlab/galaxy-shift/check-metrics.mjs
 bun tools/galaxy-telemetry/check-client.mjs
 python3 tools/galaxy-telemetry/test_server.py
 python3 tools/galaxy-telemetry/test_admin_export.py
-GALAXY_RECOMPOSE_TELEMETRY_EVIDENCE=docs/design-2026-10-09/evidence/lesson-telemetry-integration.json /home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-telemetry/check-integration.py
-GALAXY_RECOMPOSE_RESULT_CASES_EVIDENCE=docs/design-2026-10-09/evidence/lesson-result-cases.json /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-result-cases.py
-GALAXY_RECOMPOSE_CONTINUITY_EVIDENCE=docs/design-2026-10-09/evidence/lesson-continuity.json /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-continuity-browser.py
-GALAXY_EVIDENCE_DIR=/tmp/science-day-complete-qa /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-complete-browser.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-story-frame.py --evidence docs/design-2026-10-09/evidence/lesson-story-frame.json
-GALAXY_N08_EVIDENCE=/tmp/science-day-lesson-flicker /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-no-cnn-flicker.py
-GALAXY_RECOMPOSE_RESULT_IMAGE_EVIDENCE=docs/design-2026-10-09/evidence/lesson-result-image-loading.json /home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-result-image-loading.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python designlab/galaxy-shift/check-night-sky-integration.py
+GALAXY_RECOMPOSE_TELEMETRY_EVIDENCE=docs/design-2026-10-09/evidence/lesson-telemetry-integration.json python tools/galaxy-telemetry/check-integration.py
+GALAXY_RECOMPOSE_RESULT_CASES_EVIDENCE=docs/design-2026-10-09/evidence/lesson-result-cases.json python designlab/galaxy-shift/check-result-cases.py
+GALAXY_RECOMPOSE_CONTINUITY_EVIDENCE=docs/design-2026-10-09/evidence/lesson-continuity.json python designlab/galaxy-shift/check-continuity-browser.py
+GALAXY_EVIDENCE_DIR=/tmp/science-day-complete-qa python designlab/galaxy-shift/check-complete-browser.py
+python designlab/galaxy-shift/check-story-frame.py --evidence docs/design-2026-10-09/evidence/lesson-story-frame.json
+GALAXY_N08_EVIDENCE=/tmp/science-day-lesson-flicker python designlab/galaxy-shift/check-no-cnn-flicker.py
+GALAXY_RECOMPOSE_RESULT_IMAGE_EVIDENCE=docs/design-2026-10-09/evidence/lesson-result-image-loading.json python designlab/galaxy-shift/check-result-image-loading.py
+python designlab/galaxy-shift/check-night-sky-integration.py
 python3 designlab/galaxy-shift/build-galaxy.py
-/home/zhuckoff/projects/msu/science_day/.venv/bin/python tools/galaxy-release/check-offline-complete.py --evidence docs/design-2026-10-09/evidence/lesson-offline.json
+python tools/galaxy-release/check-offline-complete.py --evidence docs/design-2026-10-09/evidence/lesson-offline.json
 ```
 
 Сборщик требует все 22 архитектуры, перечисляет ресурсы явно и записывает

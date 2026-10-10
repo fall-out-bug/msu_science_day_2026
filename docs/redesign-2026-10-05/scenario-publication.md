@@ -1,7 +1,7 @@
 # Публикация сценария · 6 октября 2026
 
-- HTML: https://sd2026.beetles.family/docs/first-shift-scenario.html
-- Markdown: https://sd2026.beetles.family/docs/first-shift-scenario.md
+- HTML: `../../designlab/comparison/docs/first-shift-scenario.html`
+- Markdown: [`first-shift-scenario.md`](first-shift-scenario.md)
 - Источник: `first-shift-scenario.md` в этой папке.
 - Файлы поставки: `../../designlab/comparison/docs/first-shift-scenario.html` и `.md`.
 
