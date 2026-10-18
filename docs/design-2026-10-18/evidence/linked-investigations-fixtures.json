@@ -1,0 +1,1049 @@
+{
+  "status": "verified extract of existing precomputed results; no retraining or playtest",
+  "verifiedOn": "2026-10-18",
+  "sourceCommit": "14ec367955e576149382ae104a0179ec5521bec7",
+  "sources": [
+    {
+      "path": "designlab/galaxy-shift/experiments/cnn-label-correction/cnn-experiments.json",
+      "sha256": "6add4c3a34a758526e2edbededba891b7b37a48981ceeb6bd66a406cb31a4118"
+    },
+    {
+      "path": "designlab/galaxy-shift/experiments/cnn-label-correction/protocol.json",
+      "sha256": "e4fbdb69d1af15ab099a9e92d0f23feb8e4b132cc16f512c2ea6c66c5f109ad2"
+    }
+  ],
+  "selection": "experiments[architectureId][labelKey]",
+  "protocol": {
+    "protocolVersion": "2026-10-08-cnn-constructor-v1",
+    "datasetVersion": "2026-10-08-hubble-15-v4",
+    "architectures": [
+      "d1-r",
+      "d1-bn-r",
+      "d1-r-bn",
+      "d1-d-r",
+      "d1-r-d",
+      "d1-bn-d-r",
+      "d1-bn-r-d",
+      "d1-d-bn-r",
+      "d1-d-r-bn",
+      "d1-r-bn-d",
+      "d1-r-d-bn",
+      "d2-r",
+      "d2-bn-r",
+      "d2-r-bn",
+      "d2-d-r",
+      "d2-r-d",
+      "d2-bn-d-r",
+      "d2-bn-r-d",
+      "d2-d-bn-r",
+      "d2-d-r-bn",
+      "d2-r-bn-d",
+      "d2-r-d-bn"
+    ],
+    "editableIds": [
+      "child_m85",
+      "child_ic5332",
+      "child_ngc5023",
+      "fixed_ngc3318",
+      "old_ngc3610",
+      "old_ngc7090",
+      "fixed_ngc691"
+    ],
+    "classes": [
+      "smooth",
+      "spiral",
+      "edge_on"
+    ],
+    "trainingIds": [
+      "tutorial_ic2006",
+      "child_m85",
+      "child_ic5332",
+      "child_ngc5023",
+      "old_ngc3610",
+      "old_ngc7090",
+      "fixed_ngc3318",
+      "fixed_ngc691",
+      "fixed_ic755"
+    ],
+    "reviewIds": [
+      "review_m49",
+      "review_ngc3982",
+      "review_ngc4762"
+    ],
+    "finalIds": [
+      "final_ngc2768",
+      "final_ngc6814",
+      "final_ngc5775"
+    ],
+    "historicallyKnownFinal": true,
+    "seed": 20261008,
+    "epochs": 420,
+    "learningRate": 0.025,
+    "dropoutRate": 0.2,
+    "bnMomentum": 0.1,
+    "bnEpsilon": 1e-05
+  },
+  "scope": "Illustrative authored fixtures, not mandatory player outcomes or estimates of player behavior. Final split is historically known to authors.",
+  "enumeration": {
+    "oldLabelCorrection": {
+      "architecture": "d1-r",
+      "fixedOldBefore": "100",
+      "fixedOldAfter": "021",
+      "childKeysEnumerated": 81,
+      "improved": 51,
+      "sameScore": 29,
+      "worse": 1
+    },
+    "depthComparison": {
+      "architectures": [
+        "d1-r",
+        "d2-r"
+      ],
+      "keysEnumerated": 2187,
+      "sameClassPredictions": 978,
+      "sameScoreDifferentClassPredictions": 394
+    }
+  },
+  "fixtures": [
+    {
+      "purpose": "case1-before",
+      "architectureId": "d1-r",
+      "blocks": 1,
+      "key": "0121100",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "spiral",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "spiral",
+        "old_ngc7090": "smooth",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "smooth",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 55,
+      "loss": {
+        "first": 1.36214457,
+        "last": 0.05532772
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.90435883,
+              "spiral": 0.08647764,
+              "edge_on": 0.00916353
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.73576996,
+              "spiral": 0.20094768,
+              "edge_on": 0.06328236
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "smooth",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.50837809,
+              "spiral": 0.14984401,
+              "edge_on": 0.34177791
+            }
+          }
+        ],
+        "correct": 1,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.92665234,
+              "spiral": 0.02347651,
+              "edge_on": 0.04987115
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.09337426,
+              "spiral": 0.90515676,
+              "edge_on": 0.00146899
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "smooth",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.83379798,
+              "spiral": 3.917e-05,
+              "edge_on": 0.16616285
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      }
+    },
+    {
+      "purpose": "case1-after",
+      "architectureId": "d1-r",
+      "blocks": 1,
+      "key": "0121021",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "spiral",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "smooth",
+        "old_ngc7090": "edge_on",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "spiral",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 55,
+      "loss": {
+        "first": 1.24953295,
+        "last": 0.01556358
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.94119392,
+              "spiral": 0.04708934,
+              "edge_on": 0.01171674
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.92234153,
+              "spiral": 0.05481507,
+              "edge_on": 0.0228434
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.00461879,
+              "spiral": 6.571e-05,
+              "edge_on": 0.9953155
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.95496206,
+              "spiral": 0.00043299,
+              "edge_on": 0.04460496
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.00173563,
+              "spiral": 0.99811276,
+              "edge_on": 0.00015161
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.01238742,
+              "spiral": 1.474e-05,
+              "edge_on": 0.98759784
+            }
+          }
+        ],
+        "correct": 3,
+        "total": 3
+      }
+    },
+    {
+      "purpose": "case2-depth",
+      "architectureId": "d2-r",
+      "blocks": 2,
+      "key": "0121021",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "spiral",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "smooth",
+        "old_ngc7090": "edge_on",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "spiral",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 203,
+      "loss": {
+        "first": 1.7109408,
+        "last": 0.00028848
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.99958298,
+              "spiral": 0.0004034,
+              "edge_on": 1.362e-05
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.99891785,
+              "spiral": 0.00022851,
+              "edge_on": 0.00085364
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.00020505,
+              "spiral": 2.71e-06,
+              "edge_on": 0.99979224
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "edge_on",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.00578671,
+              "spiral": 0.00013972,
+              "edge_on": 0.99407357
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.10725558,
+              "spiral": 0.89274442,
+              "edge_on": 0.0
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.00371617,
+              "spiral": 3.05e-06,
+              "edge_on": 0.99628077
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      }
+    },
+    {
+      "purpose": "case2-batchnorm",
+      "architectureId": "d1-r-bn",
+      "blocks": 1,
+      "key": "0121021",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "spiral",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "smooth",
+        "old_ngc7090": "edge_on",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "spiral",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 63,
+      "loss": {
+        "first": 1.09184441,
+        "last": 0.0011031
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.99316075,
+              "spiral": 0.00557918,
+              "edge_on": 0.00126007
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.96253805,
+              "spiral": 0.0002677,
+              "edge_on": 0.03719425
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.00084521,
+              "spiral": 1.133e-05,
+              "edge_on": 0.99914346
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.92258675,
+              "spiral": 0.00025793,
+              "edge_on": 0.07715532
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 7.057e-05,
+              "spiral": 0.99838826,
+              "edge_on": 0.00154117
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.00019188,
+              "spiral": 1.26e-06,
+              "edge_on": 0.99980686
+            }
+          }
+        ],
+        "correct": 3,
+        "total": 3
+      }
+    },
+    {
+      "purpose": "case1-same-score-before",
+      "architectureId": "d1-r",
+      "blocks": 1,
+      "key": "0010100",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "smooth",
+        "child_ngc5023": "spiral",
+        "old_ngc3610": "spiral",
+        "old_ngc7090": "smooth",
+        "fixed_ngc3318": "smooth",
+        "fixed_ngc691": "smooth",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 55,
+      "loss": {
+        "first": 1.41188643,
+        "last": 0.12811371
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.89771495,
+              "spiral": 0.09528675,
+              "edge_on": 0.0069983
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.40779177,
+              "spiral": 0.58545585,
+              "edge_on": 0.00675238
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "smooth",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.70374851,
+              "spiral": 0.27167935,
+              "edge_on": 0.02457214
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.51240047,
+              "spiral": 0.47260723,
+              "edge_on": 0.0149923
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.82483836,
+              "spiral": 0.17473771,
+              "edge_on": 0.00042393
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.43513979,
+              "spiral": 0.09772522,
+              "edge_on": 0.46713499
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      }
+    },
+    {
+      "purpose": "case1-same-score-after",
+      "architectureId": "d1-r",
+      "blocks": 1,
+      "key": "0010021",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "smooth",
+        "child_ngc5023": "spiral",
+        "old_ngc3610": "smooth",
+        "old_ngc7090": "edge_on",
+        "fixed_ngc3318": "smooth",
+        "fixed_ngc691": "spiral",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 55,
+      "loss": {
+        "first": 1.29927481,
+        "last": 0.03762019
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.9809399,
+              "spiral": 0.00525917,
+              "edge_on": 0.01380093
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.95075446,
+              "spiral": 0.03915815,
+              "edge_on": 0.01008739
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.00823626,
+              "spiral": 1.135e-05,
+              "edge_on": 0.99175239
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.81402176,
+              "spiral": 0.17043949,
+              "edge_on": 0.01553875
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.9078903,
+              "spiral": 0.09197574,
+              "edge_on": 0.00013396
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.04080046,
+              "spiral": 3e-08,
+              "edge_on": 0.9591995
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      }
+    },
+    {
+      "purpose": "case1-worse-before",
+      "architectureId": "d1-r",
+      "blocks": 1,
+      "key": "2221100",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "edge_on",
+        "child_ic5332": "edge_on",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "spiral",
+        "old_ngc7090": "smooth",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "smooth",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 55,
+      "loss": {
+        "first": 1.12575757,
+        "last": 0.05353402
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "edge_on",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.16038624,
+              "spiral": 0.29978345,
+              "edge_on": 0.53983031
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.3143223,
+              "spiral": 0.46105273,
+              "edge_on": 0.22462497
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.03012085,
+              "spiral": 0.00923347,
+              "edge_on": 0.96064567
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.98178369,
+              "spiral": 0.0115899,
+              "edge_on": 0.00662641
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.69851517,
+              "spiral": 0.26431981,
+              "edge_on": 0.03716502
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 1.04e-06,
+              "spiral": 7.71e-06,
+              "edge_on": 0.99999125
+            }
+          }
+        ],
+        "correct": 2,
+        "total": 3
+      }
+    },
+    {
+      "purpose": "case1-worse-after",
+      "architectureId": "d1-r",
+      "blocks": 1,
+      "key": "2221021",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "edge_on",
+        "child_ic5332": "edge_on",
+        "child_ngc5023": "edge_on",
+        "old_ngc3610": "smooth",
+        "old_ngc7090": "edge_on",
+        "fixed_ngc3318": "spiral",
+        "fixed_ngc691": "spiral",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 55,
+      "loss": {
+        "first": 1.01314595,
+        "last": 0.02991781
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "edge_on",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.19674471,
+              "spiral": 0.00901184,
+              "edge_on": 0.79424345
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.67066165,
+              "spiral": 0.00997855,
+              "edge_on": 0.3193598
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 4.672e-05,
+              "spiral": 2.9e-07,
+              "edge_on": 0.99995299
+            }
+          }
+        ],
+        "correct": 1,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.97989788,
+              "spiral": 0.00722028,
+              "edge_on": 0.01288184
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "spiral",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.01949931,
+              "spiral": 0.85503127,
+              "edge_on": 0.12546942
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "edge_on",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.0,
+              "spiral": 0.0,
+              "edge_on": 1.0
+            }
+          }
+        ],
+        "correct": 3,
+        "total": 3
+      }
+    },
+    {
+      "purpose": "case2-same-score-before",
+      "architectureId": "d1-r",
+      "blocks": 1,
+      "key": "0000112",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "smooth",
+        "child_ngc5023": "smooth",
+        "old_ngc3610": "spiral",
+        "old_ngc7090": "spiral",
+        "fixed_ngc3318": "smooth",
+        "fixed_ngc691": "edge_on",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 55,
+      "loss": {
+        "first": 1.32565706,
+        "last": 0.36716535
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.66225002,
+              "spiral": 0.31632284,
+              "edge_on": 0.02142714
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.80743611,
+              "spiral": 0.17925379,
+              "edge_on": 0.0133101
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "smooth",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.57826104,
+              "spiral": 0.42172052,
+              "edge_on": 1.844e-05
+            }
+          }
+        ],
+        "correct": 1,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.52659517,
+              "spiral": 0.08875493,
+              "edge_on": 0.38464991
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.93915598,
+              "spiral": 0.05815485,
+              "edge_on": 0.00268917
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "smooth",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.82246195,
+              "spiral": 0.01288832,
+              "edge_on": 0.16464973
+            }
+          }
+        ],
+        "correct": 1,
+        "total": 3
+      }
+    },
+    {
+      "purpose": "case2-same-score-after",
+      "architectureId": "d2-r",
+      "blocks": 2,
+      "key": "0000112",
+      "trainLabels": {
+        "tutorial_ic2006": "smooth",
+        "child_m85": "smooth",
+        "child_ic5332": "smooth",
+        "child_ngc5023": "smooth",
+        "old_ngc3610": "spiral",
+        "old_ngc7090": "spiral",
+        "fixed_ngc3318": "smooth",
+        "fixed_ngc691": "edge_on",
+        "fixed_ic755": "edge_on"
+      },
+      "parameterCount": 203,
+      "loss": {
+        "first": 1.74488176,
+        "last": 0.07657248
+      },
+      "review": {
+        "predictions": [
+          {
+            "id": "review_m49",
+            "predicted": "smooth",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.99155716,
+              "spiral": 0.00844275,
+              "edge_on": 9e-08
+            }
+          },
+          {
+            "id": "review_ngc3982",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.97990215,
+              "spiral": 0.02009744,
+              "edge_on": 4.1e-07
+            }
+          },
+          {
+            "id": "review_ngc4762",
+            "predicted": "spiral",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.12499064,
+              "spiral": 0.87200875,
+              "edge_on": 0.00300061
+            }
+          }
+        ],
+        "correct": 1,
+        "total": 3
+      },
+      "final": {
+        "predictions": [
+          {
+            "id": "final_ngc2768",
+            "predicted": "edge_on",
+            "expected": "smooth",
+            "probabilities": {
+              "smooth": 0.00070079,
+              "spiral": 0.35234275,
+              "edge_on": 0.64695646
+            }
+          },
+          {
+            "id": "final_ngc6814",
+            "predicted": "smooth",
+            "expected": "spiral",
+            "probabilities": {
+              "smooth": 0.9999877,
+              "spiral": 1.23e-05,
+              "edge_on": 0.0
+            }
+          },
+          {
+            "id": "final_ngc5775",
+            "predicted": "spiral",
+            "expected": "edge_on",
+            "probabilities": {
+              "smooth": 0.07107007,
+              "spiral": 0.89671881,
+              "edge_on": 0.03221112
+            }
+          }
+        ],
+        "correct": 0,
+        "total": 3
+      }
+    }
+  ]
+}
