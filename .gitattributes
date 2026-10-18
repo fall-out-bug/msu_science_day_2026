@@ -4,3 +4,4 @@ designlab/galaxy-shift/experiments/cnn-label-correction/cnn-experiments.json lin
 archive/*/manifest.json linguist-generated=true
 archive/*/source/** linguist-vendored=true
 archive/*/payload/* -delta
+tools/design-site/vendor/** linguist-vendored=true -whitespace
