@@ -3,3 +3,5 @@
 services:
   web:
     image: ${GALAXY_PUBLIC_IMAGE:?Set the exact, locally built release image tag}
+    volumes:
+      - ${SD2026_DESIGN_DIR:-/home/zhuckoff/.local/share/science-day/design-site/published}:/srv/science-day-design:ro

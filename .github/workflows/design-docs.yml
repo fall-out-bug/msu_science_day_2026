@@ -1,0 +1,32 @@
+name: Design documents
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Install the document renderer
+        run: python -m pip install -r tools/design-site/requirements.txt
+      - name: Check builder and atomic publication
+        run: python -m unittest discover -s tools/design-site -p 'test_*.py' -v
+      - name: Build the tracked document snapshot
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/design-source"
+          git archive HEAD docs tools/design-site | tar -x -C "$RUNNER_TEMP/design-source"
+          python tools/design-site/build.py --source "$RUNNER_TEMP/design-source" --output "$RUNNER_TEMP/design-site" --revision "$GITHUB_SHA"
+          python tools/design-site/check.py "$RUNNER_TEMP/design-site"
